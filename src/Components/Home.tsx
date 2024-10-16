@@ -1,4 +1,5 @@
 import TitleFlair from 'Svgs/TitleFlair';
+import Login from 'Utils/Login';
 import 'Styles/Home.css';
 
 const Home: React.FC = () => {
@@ -12,6 +13,9 @@ const Home: React.FC = () => {
             <TitleFlair className='title-flair-right' />
           </div>
         </header>
+        <section>
+          <Login />
+        </section>
       </main>
     </>
   );

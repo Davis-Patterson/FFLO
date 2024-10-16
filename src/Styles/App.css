@@ -5,7 +5,7 @@
 .page-container {
   padding: 0px;
   display: flex;
-  /* justify-content: center; */
+  min-height: calc(100vh - 100px);
   align-items: center;
   flex-direction: column;
   width: 100%;

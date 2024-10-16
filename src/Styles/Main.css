@@ -89,7 +89,6 @@ body {
   min-height: 100vh;
   background-color: var(--clr-background);
   color: var(--clr-dark);
-  transition: background-color 1s ease;
   position: relative;
   z-index: -2;
 }
