@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,400;0,600;0,700;0,800;1,200;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap');
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  /* 'lightMode' */
+  --clr-light: #ffffff;
+  --clr-white: #ffffff;
+  --clr-dark: #292929;
+  --clr-black: #000000;
+  --clr-divider: #acacac;
+  --clr-break: #acacac;
+  --clr-background: #fff5ed;
+  --clr-text-blue: #213472;
+  --clr-text-grey: #414141;
+  --clr-toute-petite: #008080;
+  --clr-petite: #f1a56f;
+  --clr-moyenne: #ba4727;
+}
+
+.darkMode {
+  --clr-light: #080808;
+  --clr-white: #ffffff;
+  --clr-dark: #d0d0d0;
+  --clr-black: #000000;
+  --clr-divider: #3b3b3b;
+  --clr-break: #979797;
+  --clr-background: #fff5ed;
+  --clr-text-blue: #213472;
+  --clr-text-grey: #414141;
+  --clr-toute-petite: #008080;
+  --clr-petite: #f1a56f;
+  --clr-moyenne: #ba4727;
+}
+
+svg {
+  fill: var(--clr-dark);
+  width: 100px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 350px;
+  min-height: 100vh;
+  background-color: var(--clr-background);
+  color: var(--clr-dark);
+  transition: background-color 1s ease;
+  position: relative;
+  z-index: -2;
+}
+/* body.menu-open {
+  position: fixed;
+  width: 100%;
+  overflow-y: scroll;
+} */
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid var(--clr-dark);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--clr-light);
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: var(--clr-accent);
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto var(--clr-accent-dark);
+}
+
+html {
+  scroll-padding-top: 180px;
+}
+
+section {
+  margin: 0px 0px 0px 0px;
+  scroll-snap-stop: normal;
+}
+
+span {
+  width: 100%;
+}
+
+#root {
+  margin: 0 auto;
+  text-align: left;
+  width: 100%;
+  position: relative;
+  z-index: 0;
+  transition: background-color 1s ease;
+}

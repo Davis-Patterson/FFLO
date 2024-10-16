@@ -1,11 +1,12 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, ReactNode, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 interface AppContextType {
   authToken: string | null;
   setAuthToken: (token: string | null) => void;
   clearAuthToken: () => void;
+  showFullscreen: boolean;
+  setShowFullscreen: (value: boolean) => void;
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -22,14 +23,22 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     }
   );
 
-  const navigate = useNavigate();
+  const [showFullscreen, setShowFullscreen] = useState<boolean>(false);
 
   const clearAuthToken = () => {
     setAuthToken(null);
   };
 
   return (
-    <AppContext.Provider value={{ authToken, setAuthToken, clearAuthToken }}>
+    <AppContext.Provider
+      value={{
+        authToken,
+        setAuthToken,
+        clearAuthToken,
+        showFullscreen,
+        setShowFullscreen,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
