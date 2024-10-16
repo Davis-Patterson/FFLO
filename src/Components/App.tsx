@@ -1,18 +1,18 @@
 import { useContext } from 'react';
-import { AppContext } from 'contexts/AppContext';
+import { AppContext } from 'Contexts/AppContext';
 import { Routes, Route } from 'react-router-dom';
-import Menu from 'utils/Menu';
-import Fullscreen from 'utils/Fullscreen';
-import Nav from 'components/Nav';
-import Home from 'components/Home';
-import NotFound from 'utils/NotFound';
-import Footer from 'components/Footer';
-import 'styles/App.css';
+import Menu from 'Utils/Menu';
+import Fullscreen from 'Utils/Fullscreen';
+import Nav from 'Components/Nav';
+import Home from 'Components/Home';
+import NotFound from 'Utils/NotFound';
+import Footer from 'Components/Footer';
+import 'Styles/App.css';
 
 const App: React.FC = () => {
   const context = useContext(AppContext);
   if (!context) {
-    throw new Error('App must be used within an AppProvider');
+    throw new Error('No Context');
   }
   const { showFullscreen } = context;
 

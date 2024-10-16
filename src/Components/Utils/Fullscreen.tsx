@@ -1,4 +1,4 @@
-import 'styles/Utils/Fullscreen.css';
+import 'Styles/Utils/Fullscreen.css';
 
 const Fullscreen: React.FC = () => {
   return <></>;

@@ -1,4 +1,4 @@
-import 'styles/Utils/Menu.css';
+import 'Styles/Utils/Menu.css';
 
 const Menu: React.FC = () => {
   return <></>;

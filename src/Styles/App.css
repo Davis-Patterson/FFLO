@@ -3,8 +3,6 @@
 }
 
 .page-container {
-  min-height: calc(100vh - 125px);
-  margin: 125px 0px 0px 0px;
   padding: 0px;
   display: flex;
   /* justify-content: center; */
@@ -12,6 +10,6 @@
   flex-direction: column;
   width: 100%;
   position: relative;
-  background-color: var(--clr-light);
+  background-color: var(--clr-background);
   transition: background-color 1s ease;
 }

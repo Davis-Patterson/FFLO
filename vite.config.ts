@@ -6,13 +6,13 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      components: path.resolve(__dirname, 'src/Components'),
-      assets: path.resolve(__dirname, 'src/assets'),
-      contexts: path.resolve(__dirname, 'src/Contexts'),
-      shared: path.resolve(__dirname, 'src/shared'),
-      utilities: path.resolve(__dirname, 'src/Utilities'),
-      styles: path.resolve(__dirname, 'src/Styles'),
-      utils: path.resolve(__dirname, 'src/Components/Utils'),
+      Components: path.resolve(__dirname, 'src/Components'),
+      Assets: path.resolve(__dirname, 'src/Assets'),
+      Contexts: path.resolve(__dirname, 'src/Contexts'),
+      Utilities: path.resolve(__dirname, 'src/Utilities'),
+      Styles: path.resolve(__dirname, 'src/Styles'),
+      Utils: path.resolve(__dirname, 'src/Components/Utils'),
+      Svgs: path.resolve(__dirname, 'src/Assets/Svgs'),
     },
   },
   assetsInclude: [

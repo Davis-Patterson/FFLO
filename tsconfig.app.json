@@ -24,13 +24,13 @@
     "types": ["node"],
     "baseUrl": "./",
     "paths": {
-      "components/*": ["src/Components/*"],
-      "assets/*": ["src/assets/*"],
-      "contexts/*": ["src/Contexts/*"],
-      "shared/*": ["src/shared/*"],
-      "utilities/*": ["src/Utilities/*"],
-      "styles/*": ["src/Styles/*"],
-      "utils/*": ["src/Components/Utils/*"]
+      "Components/*": ["src/Components/*"],
+      "Assets/*": ["src/assets/*"],
+      "Contexts/*": ["src/Contexts/*"],
+      "Utilities/*": ["src/Utilities/*"],
+      "Styles/*": ["src/Styles/*"],
+      "Utils/*": ["src/Components/Utils/*"],
+      "Svgs/*": ["src/Assets/Svgs/*"]
     }
   },
   "include": ["src"]
