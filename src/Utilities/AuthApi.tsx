@@ -4,22 +4,76 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const Api = () => {
+const AuthApi = () => {
   const context = useContext(AppContext);
 
   if (!context) {
     throw new Error('No Context');
   }
 
-  const { authToken, setAuthToken, clearAuthToken } = context;
+  const {
+    authToken,
+    setAuthToken,
+    setAuthUser,
+    clearAuthToken,
+    clearAuthUser,
+  } = context;
 
   const axiosInstance = axios.create({
     baseURL: BASE_URL,
     headers: {
-      Authorization: authToken ? `Token ${authToken}` : '',
       'Content-Type': 'application/json',
     },
   });
+
+  axiosInstance.interceptors.request.use(
+    (config) => {
+      if (authToken) {
+        config.headers.Authorization = `Token ${authToken}`;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  const verifyToken = async (): Promise<{
+    success: boolean;
+    tokenValid?: boolean;
+  }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.get(
+        '/auth/token/verify/',
+        {
+          headers: {
+            Authorization: `Token ${authToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setAuthUser(response.data.user_info);
+        console.log('Token is valid. User info:', response.data.user_info);
+        return { success: true, tokenValid: true };
+      } else {
+        return { success: false };
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response && error.response.status === 401) {
+          console.log('Invalid or expired token.');
+          clearAuthToken();
+          clearAuthUser();
+        }
+      } else {
+        console.error('An unexpected error occurred:', error);
+        clearAuthToken();
+        clearAuthUser();
+      }
+      return { success: false, tokenValid: false };
+    }
+  };
 
   const login = async (
     email: string,
@@ -31,11 +85,27 @@ const Api = () => {
 
       if (response.status === 200 && response.data.token) {
         setAuthToken(response.data.token);
+
+        const userResponse: AxiosResponse = await axiosInstance.get(
+          '/auth/users/me/',
+          {
+            headers: {
+              Authorization: `Token ${response.data.token}`,
+            },
+          }
+        );
+
+        if (userResponse.status === 200) {
+          setAuthUser(userResponse.data);
+          console.log('User info retrieved:', userResponse.data);
+        }
+
         return { success: true, token: response.data.token };
       } else {
         return { success: false };
       }
     } catch (error) {
+      console.error('Login failed:', error);
       return { success: false };
     }
   };
@@ -45,6 +115,7 @@ const Api = () => {
       const response = await axiosInstance.post('/auth/logout/');
       if (response.status === 200) {
         clearAuthToken();
+        clearAuthUser();
         console.log(response.data.detail);
       }
     } catch (err) {
@@ -100,12 +171,28 @@ const Api = () => {
     }
   };
 
+  const userInfo = async (): Promise<void> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.get(
+        '/auth/users/me/'
+      );
+      if (response.status === 200) {
+        setAuthUser(response.data);
+        console.log('User info retrieved:', response.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch user info:', error);
+    }
+  };
+
   return {
+    verifyToken,
     login,
     logout,
     register,
     forgot,
+    userInfo,
   };
 };
 
-export default Api;
+export default AuthApi;

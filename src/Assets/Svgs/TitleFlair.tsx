@@ -4,7 +4,7 @@ interface TitleFlairProps extends React.SVGProps<SVGSVGElement> {}
 
 const TitleFlair: React.FC<TitleFlairProps> = (props) => (
   <svg
-    id='Layer_4_Image'
+    id='TitleFlair'
     data-name='Layer 4 Image'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 258.41 396.99'

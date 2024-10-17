@@ -4,7 +4,7 @@ interface XIconProps extends React.SVGProps<SVGSVGElement> {}
 
 const XIcon: React.FC<XIconProps> = (props) => (
   <svg
-    id='Layer_4_Image'
+    id='XIcon'
     data-name='Layer 4 Image'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 109 108.07'

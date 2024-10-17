@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Api from 'Utils/Api';
+import AuthApi from 'Utilities/AuthApi';
 import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import 'Styles/Utils/Auth.css';
 import TitleFlair from 'Svgs/TitleFlair';
 import XIcon from 'Svgs/XIcon';
+import 'Styles/Utils/Auth.css';
 
 const Auth: React.FC = () => {
-  const { login, logout, register, forgot } = Api();
+  const { login, logout, register, forgot } = AuthApi();
+
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');

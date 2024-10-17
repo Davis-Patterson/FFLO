@@ -1,8 +1,10 @@
 import React from 'react';
 import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import 'Styles/Nav.css';
+import { Link } from 'react-router-dom';
 import ffloLogo from 'Assets/Logos/fflo-logo.webp';
+import UserIcon from 'Svgs/UserIcon';
+import 'Styles/Nav.css';
 
 const Nav: React.FC = () => {
   const context = useContext(AppContext);
@@ -10,13 +12,12 @@ const Nav: React.FC = () => {
     throw new Error('No Context');
   }
 
-  const { setShowAuth, language, handleLanguageChange } = context;
+  const { setShowAuth, authUser, language, handleLanguageChange } = context;
 
   const handleLogin = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
     event.preventDefault();
     event.stopPropagation();
-
     setShowAuth(true);
   };
 
@@ -25,6 +26,7 @@ const Nav: React.FC = () => {
   return (
     <nav className='nav-container'>
       <section className='nav-header'>
+        {/* Language Toggle */}
         <div className='nav-language'>
           <div className='language-toggle'>
             <p
@@ -41,13 +43,34 @@ const Nav: React.FC = () => {
             </p>
           </div>
         </div>
+
         <div className='nav-logo'>
-          <img src={ffloLogo} alt='FFLO Logo' className='logo-img' />
+          <Link to='/'>
+            <img src={ffloLogo} alt='FFLO Logo' className='logo-img' />
+          </Link>
         </div>
+
         <div className='nav-profile'>
-          <p className='login-text' onMouseDown={(e) => handleLogin(e)}>
-            {loginText}
-          </p>
+          {!authUser && (
+            <p className='login-text' onMouseDown={(e) => handleLogin(e)}>
+              {loginText}
+            </p>
+          )}
+          {authUser && (
+            <Link to='/profile'>
+              {authUser.image ? (
+                <img
+                  src={authUser.image}
+                  alt='User'
+                  className='nav-user-image'
+                />
+              ) : (
+                <div>
+                  <UserIcon className='nav-user-icon' />
+                </div>
+              )}
+            </Link>
+          )}
         </div>
       </section>
     </nav>

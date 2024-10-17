@@ -23,6 +23,7 @@
   z-index: 1001;
   transition: opacity 0.5s ease-in;
   position: relative;
+  min-width: 300px;
 }
 
 .fade-in {
@@ -42,6 +43,9 @@
 
 .auth-lang-toggle {
   color: var(--clr-break);
+}
+.auth-lang-toggle:hover {
+  color: var(--clr-dark);
 }
 
 .auth-x-icon {
@@ -114,6 +118,7 @@
   justify-content: center;
   margin: 0px 0px 20px 0px;
   width: 100%;
+  min-width: 299px;
 }
 
 .auth-header-text {
