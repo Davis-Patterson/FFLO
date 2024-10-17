@@ -7,6 +7,8 @@ interface AppContextType {
   clearAuthToken: () => void;
   showFullscreen: boolean;
   setShowFullscreen: (value: boolean) => void;
+  showAuth: boolean;
+  setShowAuth: (value: boolean) => void;
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -24,6 +26,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   );
 
   const [showFullscreen, setShowFullscreen] = useState<boolean>(false);
+  const [showAuth, setShowAuth] = useState<boolean>(true);
 
   const clearAuthToken = () => {
     setAuthToken(null);
@@ -37,6 +40,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         clearAuthToken,
         showFullscreen,
         setShowFullscreen,
+        showAuth,
+        setShowAuth,
       }}
     >
       {children}

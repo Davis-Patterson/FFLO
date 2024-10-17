@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
@@ -32,6 +32,7 @@
   --clr-white: #ffffff;
   --clr-dark: #292929;
   --clr-black: #000000;
+  --clr-outline: #ccc;
   --clr-divider: #acacac;
   --clr-break: #acacac;
   --clr-background: #fff5ed;
@@ -41,6 +42,9 @@
   --clr-petite: #f1a56f;
   --clr-moyenne: #ba4727;
   --clr-title-flair: #f3c535;
+  --clr-submit: #007bff;
+  --clr-submit-hover: #0056b3;
+  --clr-error: #ff0000;
 }
 
 .darkMode {
@@ -48,6 +52,7 @@
   --clr-white: #ffffff;
   --clr-dark: #d0d0d0;
   --clr-black: #000000;
+  --clr-outline: #ccc;
   --clr-divider: #3b3b3b;
   --clr-break: #979797;
   --clr-background: #fff5ed;
@@ -56,6 +61,10 @@
   --clr-toute-petite: #008080;
   --clr-petite: #f1a56f;
   --clr-moyenne: #ba4727;
+  --clr-title-flair: #f3c535;
+  --clr-submit: #007bff;
+  --clr-submit-hover: #0056b3;
+  --clr-error: #ff0000;
 }
 
 svg {
@@ -104,13 +113,17 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid var(--clr-dark);
-  padding: 0.6em 1.2em;
+  font-family: 'Lato', sans-serif !important;
+  font-size: 3.5em;
+  line-height: 1;
+  font-weight: 500;
+  border: 1px solid var(--clr-black);
+  color: var(--clr-black);
+  padding: 0.65em 1.4em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--clr-light);
+  background-color: var(--clr-background);
   cursor: pointer;
   transition: border-color 0.25s;
 }

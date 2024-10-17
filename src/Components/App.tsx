@@ -3,6 +3,7 @@ import { AppContext } from 'Contexts/AppContext';
 import { Routes, Route } from 'react-router-dom';
 import Menu from 'Utils/Menu';
 import Fullscreen from 'Utils/Fullscreen';
+import Auth from 'Components/Utils/Auth';
 import Nav from 'Components/Nav';
 import Home from 'Components/Home';
 import NotFound from 'Utils/NotFound';
@@ -20,6 +21,7 @@ const App: React.FC = () => {
     <>
       <Menu />
       {showFullscreen && <Fullscreen />}
+      <Auth />
       <>
         <Nav />
         <Routes>
