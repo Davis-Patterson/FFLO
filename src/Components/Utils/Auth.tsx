@@ -12,7 +12,8 @@ const Auth: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authToken, showAuth, setShowAuth, language } = context;
+  const { authToken, showAuth, setShowAuth, language, handleLanguageChange } =
+    context;
 
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -31,19 +32,38 @@ const Auth: React.FC = () => {
 
   // Translations
   const loginText = language === 'EN' ? 'Login' : 'Se Connecter';
-  const registerText = language === 'EN' ? 'Create Account' : 'Créer un Compte';
+  const registerText = language === 'EN' ? 'Sign Up' : "S'inscrire";
+  const createAccountText =
+    language === 'EN' ? 'Create Account' : 'Nouveau compte';
   const forgotText =
     language === 'EN' ? 'Forgot Password' : 'Mot de Passe Oublié';
   const signInText =
     language === 'EN'
       ? 'Please sign in to continue'
       : 'Veuillez vous connecter pour continuer';
+  const signUpText =
+    language === 'EN'
+      ? 'Create an account to continue'
+      : 'Créez un compte pour continuer';
+  const firstNamePlaceholder = language === 'EN' ? 'First Name*' : 'Prénom*';
+  const lastNamePlaceholder =
+    language === 'EN' ? 'Last Name' : 'Nom de Famille';
   const logoutText = language === 'EN' ? 'Logout' : 'Déconnexion';
   const logoutHeader = language === 'EN' ? 'Goodbye' : 'Au Revoir';
   const emailPlaceholder = language === 'EN' ? 'Email' : 'Courriel';
-  const passwordPlaceholder = language === 'EN' ? 'Password' : 'Mot de passe';
+  const passwordPlaceholder = language === 'EN' ? 'Password' : 'Mot de Passe';
   const confirmPasswordPlaceholder =
-    language === 'EN' ? 'Confirm Password' : 'Confirmer Mot de passe';
+    language === 'EN' ? 'Confirm Password' : 'Confirmer Mot de Passe';
+  const registerButtonText = language === 'EN' ? 'Register' : 'Registre';
+  const forgotDescText =
+    language === 'EN'
+      ? 'Enter your email to reset your password'
+      : 'Entrez votre email pour réinitialiser votre mot de passe';
+  const resetText = language === 'EN' ? 'Reset' : 'Réinitialiser';
+  const loginFailedText =
+    language === 'EN'
+      ? 'Login failed. Please check your credentials.'
+      : "La connexion a échoué. Veuillez vérifier vos informations d'identification.";
   const registrationFailedText =
     language === 'EN'
       ? 'Registration failed. Please try again.'
@@ -84,10 +104,10 @@ const Auth: React.FC = () => {
       if (response && response.success) {
         setShowAuth(false);
       } else {
-        setErrorMessage('Login failed. Please check your credentials.');
+        setErrorMessage(loginFailedText);
       }
     } catch (error) {
-      setErrorMessage('Login failed. Please check your credentials.');
+      setErrorMessage(loginFailedText);
     }
 
     setTimeout(() => setErrorMessage(''), 3000);
@@ -102,7 +122,7 @@ const Auth: React.FC = () => {
       await login(email, password);
       setShowAuth(false);
     } catch (error) {
-      setErrorMessage('Registration failed. Please try again.');
+      setErrorMessage(registrationFailedText);
     }
   };
 
@@ -112,7 +132,7 @@ const Auth: React.FC = () => {
       await forgot(email);
       setShowAuth(false);
     } catch (error) {
-      setErrorMessage('Reset failed. Please try again.');
+      setErrorMessage(resetFailedText);
     }
   };
 
@@ -167,6 +187,9 @@ const Auth: React.FC = () => {
     event.stopPropagation();
 
     setShowAuth(false);
+    setShowLogin(true);
+    setShowRegister(false);
+    setShowForgot(false);
   };
 
   return (
@@ -176,6 +199,24 @@ const Auth: React.FC = () => {
           <section
             className={`auth-container ${showAuth ? 'fade-in' : 'fade-out'}`}
           >
+            <div className='auth-language-toggle'>
+              {language === 'FR' && (
+                <p
+                  className='auth-lang-toggle'
+                  onClick={() => handleLanguageChange('EN')}
+                >
+                  EN
+                </p>
+              )}
+              {language === 'EN' && (
+                <p
+                  className='auth-lang-toggle'
+                  onClick={() => handleLanguageChange('FR')}
+                >
+                  FR
+                </p>
+              )}
+            </div>
             <XIcon
               className='auth-x-icon'
               onMouseDown={(e) => handleClose(e)}
@@ -196,12 +237,10 @@ const Auth: React.FC = () => {
               <>
                 <div className='login-header'>
                   <TitleFlair className='auth-flair-left' />
-                  <p className='auth-header-text'>Login</p>
+                  <p className='auth-header-text'>{loginText}</p>
                   <TitleFlair className='auth-flair-right' />
                 </div>
-                <p className='auth-header-subtext'>
-                  Please sign in to continue
-                </p>
+                <p className='auth-header-subtext'>{signInText}</p>
                 <form onSubmit={handleLogin}>
                   <div>
                     {/* <label>Email:</label> */}
@@ -211,7 +250,7 @@ const Auth: React.FC = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      placeholder='Email'
+                      placeholder={emailPlaceholder}
                       className='auth-input'
                     />
                   </div>
@@ -222,7 +261,7 @@ const Auth: React.FC = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      placeholder='Password'
+                      placeholder={passwordPlaceholder}
                       className='auth-input'
                     />
                   </div>
@@ -236,20 +275,20 @@ const Auth: React.FC = () => {
                     }`}
                     disabled={!loginButtonActive}
                   >
-                    Login
+                    {loginText}
                   </button>
                   <div className='auth-footer'>
                     <p
                       className='auth-footer-text'
                       onMouseDown={(e) => handleShowRegister(e)}
                     >
-                      Create Account
+                      {createAccountText}
                     </p>
                     <p
                       className='auth-footer-text'
                       onMouseDown={(e) => handleShowForgot(e)}
                     >
-                      Forgot Password
+                      {forgotText}
                     </p>
                   </div>
                 </form>
@@ -259,12 +298,10 @@ const Auth: React.FC = () => {
               <>
                 <div className='login-header'>
                   <TitleFlair className='auth-flair-left' />
-                  <p className='auth-header-text'>Sign Up</p>
+                  <p className='auth-header-text'>{registerText}</p>
                   <TitleFlair className='auth-flair-right' />
                 </div>
-                <p className='auth-header-subtext'>
-                  Create an account to continue
-                </p>
+                <p className='auth-header-subtext'>{signUpText}</p>
                 <form onSubmit={handleRegister}>
                   <div className='auth-name-inputs'>
                     <div>
@@ -275,7 +312,7 @@ const Auth: React.FC = () => {
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         required
-                        placeholder='First Name*'
+                        placeholder={firstNamePlaceholder}
                         className='auth-name-input first'
                       />
                     </div>
@@ -286,7 +323,7 @@ const Auth: React.FC = () => {
                         name='lname'
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        placeholder='Last Name'
+                        placeholder={lastNamePlaceholder}
                         className='auth-name-input last'
                       />
                     </div>
@@ -299,7 +336,7 @@ const Auth: React.FC = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      placeholder='Email*'
+                      placeholder={emailPlaceholder + '*'}
                       className='auth-input'
                     />
                   </div>
@@ -311,7 +348,7 @@ const Auth: React.FC = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      placeholder='Password*'
+                      placeholder={passwordPlaceholder + '*'}
                       className='auth-input'
                     />
                   </div>
@@ -323,11 +360,13 @@ const Auth: React.FC = () => {
                       value={password2}
                       onChange={(e) => setPassword2(e.target.value)}
                       required
-                      placeholder='Confirm Password*'
+                      placeholder={confirmPasswordPlaceholder + '*'}
                       className='auth-input'
                     />
                   </div>
-                  <p className='auth-required'>*required</p>
+                  {!registerButtonActive && (
+                    <p className='auth-required'>{requiredText}</p>
+                  )}
                   {errorMessage && (
                     <p className='error-message'>{errorMessage}</p>
                   )}
@@ -338,20 +377,20 @@ const Auth: React.FC = () => {
                     }`}
                     disabled={!registerButtonActive}
                   >
-                    Register
+                    {registerButtonText}
                   </button>
                   <div className='auth-footer'>
                     <p
                       className='auth-footer-text'
                       onMouseDown={(e) => handleShowLogin(e)}
                     >
-                      Login
+                      {loginText}
                     </p>
                     <p
                       className='auth-footer-text'
                       onMouseDown={(e) => handleShowForgot(e)}
                     >
-                      Forgot Password
+                      {forgotText}
                     </p>
                   </div>
                 </form>
@@ -361,12 +400,10 @@ const Auth: React.FC = () => {
               <>
                 <div className='login-header'>
                   <TitleFlair className='auth-flair-left' />
-                  <p className='auth-header-text'>Login</p>
+                  <p className='auth-header-text'>{loginText}</p>
                   <TitleFlair className='auth-flair-right' />
                 </div>
-                <p className='auth-header-subtext'>
-                  Enter your email to reset your password
-                </p>
+                <p className='auth-header-subtext'>{forgotDescText}</p>
                 <form onSubmit={handleForgot}>
                   <div>
                     {/* <label>Email:</label> */}
@@ -376,7 +413,7 @@ const Auth: React.FC = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      placeholder='Email'
+                      placeholder={emailPlaceholder}
                       className='auth-input'
                     />
                   </div>
@@ -390,20 +427,20 @@ const Auth: React.FC = () => {
                     }`}
                     disabled={!forgotButtonActive}
                   >
-                    Reset
+                    {resetText}
                   </button>
                   <div className='auth-footer'>
                     <p
                       className='auth-footer-text'
                       onMouseDown={(e) => handleShowLogin(e)}
                     >
-                      Login
+                      {loginText}
                     </p>
                     <p
                       className='auth-footer-text'
                       onMouseDown={(e) => handleShowRegister(e)}
                     >
-                      Sign Up
+                      {createAccountText}
                     </p>
                   </div>
                 </form>

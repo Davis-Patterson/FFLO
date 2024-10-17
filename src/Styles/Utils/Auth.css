@@ -33,6 +33,17 @@
   opacity: 0;
 }
 
+.auth-language-toggle {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+}
+
+.auth-lang-toggle {
+  color: var(--clr-break);
+}
+
 .auth-x-icon {
   position: absolute;
   top: 15px;
