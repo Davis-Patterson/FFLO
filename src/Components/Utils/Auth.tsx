@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AuthApi from 'Utilities/AuthApi';
 import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
@@ -30,6 +30,8 @@ const Auth: React.FC = () => {
   const [showLogin, setShowLogin] = useState(true);
   const [showRegister, setShowRegister] = useState(false);
   const [showForgot, setShowForgot] = useState(false);
+
+  const authContainerRef = useRef<HTMLDivElement>(null);
 
   // Translations
   const loginText = language === 'EN' ? 'Login' : 'Se Connecter';
@@ -82,6 +84,30 @@ const Auth: React.FC = () => {
       document.body.classList.remove('auth-open');
     }
   }, [showAuth]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        authContainerRef.current &&
+        !authContainerRef.current.contains(event.target as Node)
+      ) {
+        setShowAuth(false);
+        setShowLogin(true);
+        setShowRegister(false);
+        setShowForgot(false);
+      }
+    };
+
+    if (showAuth) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showAuth, setShowAuth]);
 
   useEffect(() => {
     const isLoginFormEmpty = !email.trim() || !password.trim();
@@ -198,6 +224,7 @@ const Auth: React.FC = () => {
       {showAuth && (
         <div className='auth-overlay'>
           <section
+            ref={authContainerRef}
             className={`auth-container ${showAuth ? 'fade-in' : 'fade-out'}`}
           >
             <div className='auth-language-toggle'>
