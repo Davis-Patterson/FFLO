@@ -13,12 +13,6 @@ const Home: React.FC = () => {
   // translations
   const headerText = language === 'EN' ? 'Story Space' : "Espace d'Histoire";
 
-  if (authUser) {
-    console.log('authUser: ', authUser);
-  } else {
-    console.log('User not logged in');
-  }
-
   return (
     <>
       <main className='page-container'>
