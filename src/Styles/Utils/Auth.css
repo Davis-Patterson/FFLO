@@ -22,6 +22,7 @@
   max-width: 400px;
   z-index: 1001;
   transition: opacity 0.5s ease-in;
+  position: relative;
 }
 
 .fade-in {
@@ -30,6 +31,19 @@
 
 .fade-out {
   opacity: 0;
+}
+
+.auth-x-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  fill: var(--clr-break);
+}
+.auth-x-icon:hover {
+  fill: var(--clr-dark);
 }
 
 .auth-input {

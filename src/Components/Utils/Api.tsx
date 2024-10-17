@@ -21,13 +21,22 @@ const Api = () => {
     },
   });
 
-  const login = async (email: string, password: string): Promise<void> => {
+  const login = async (
+    email: string,
+    password: string
+  ): Promise<{ success: boolean; token?: string }> => {
     try {
       const response: AxiosResponse<{ token: string }> =
         await axiosInstance.post('/auth/login/', { email, password });
-      setAuthToken(response.data.token);
+
+      if (response.status === 200 && response.data.token) {
+        setAuthToken(response.data.token);
+        return { success: true, token: response.data.token };
+      } else {
+        return { success: false };
+      }
     } catch (error) {
-      console.error('Login failed:', error);
+      return { success: false };
     }
   };
 

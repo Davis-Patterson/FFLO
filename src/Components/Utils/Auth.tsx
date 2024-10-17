@@ -12,7 +12,7 @@ const Auth: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authToken, showAuth, setShowAuth } = context;
+  const { authToken, showAuth, setShowAuth, language } = context;
 
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -28,6 +28,31 @@ const Auth: React.FC = () => {
   const [showLogin, setShowLogin] = useState(true);
   const [showRegister, setShowRegister] = useState(false);
   const [showForgot, setShowForgot] = useState(false);
+
+  // Translations
+  const loginText = language === 'EN' ? 'Login' : 'Se Connecter';
+  const registerText = language === 'EN' ? 'Create Account' : 'Créer un Compte';
+  const forgotText =
+    language === 'EN' ? 'Forgot Password' : 'Mot de Passe Oublié';
+  const signInText =
+    language === 'EN'
+      ? 'Please sign in to continue'
+      : 'Veuillez vous connecter pour continuer';
+  const logoutText = language === 'EN' ? 'Logout' : 'Déconnexion';
+  const logoutHeader = language === 'EN' ? 'Goodbye' : 'Au Revoir';
+  const emailPlaceholder = language === 'EN' ? 'Email' : 'Courriel';
+  const passwordPlaceholder = language === 'EN' ? 'Password' : 'Mot de passe';
+  const confirmPasswordPlaceholder =
+    language === 'EN' ? 'Confirm Password' : 'Confirmer Mot de passe';
+  const registrationFailedText =
+    language === 'EN'
+      ? 'Registration failed. Please try again.'
+      : "L'enregistrement a échoué. Veuillez réessayer.";
+  const resetFailedText =
+    language === 'EN'
+      ? 'Reset failed. Please try again.'
+      : 'Échec de la réinitialisation. Veuillez réessayer.';
+  const requiredText = language === 'EN' ? '*required' : '*obligatoire';
 
   useEffect(() => {
     if (showAuth) {
@@ -55,18 +80,17 @@ const Auth: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await login(email, password);
-      if (authToken) {
+      const response = await login(email, password);
+      if (response && response.success) {
         setShowAuth(false);
       } else {
         setErrorMessage('Login failed. Please check your credentials.');
-        setTimeout(() => setErrorMessage(''), 3000);
       }
     } catch (error) {
       setErrorMessage('Login failed. Please check your credentials.');
-      setTimeout(() => setErrorMessage(''), 3000);
-      setShowAuth(true);
     }
+
+    setTimeout(() => setErrorMessage(''), 3000);
   };
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -137,9 +161,7 @@ const Auth: React.FC = () => {
     setShowForgot(true);
   };
 
-  const handleClose = (
-    event: React.MouseEvent<HTMLParagraphElement, MouseEvent>
-  ) => {
+  const handleClose = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
     event.preventDefault();
     event.stopPropagation();
@@ -162,13 +184,15 @@ const Auth: React.FC = () => {
               <>
                 <div className='login-header'>
                   <TitleFlair className='auth-flair-left' />
-                  <p className='auth-header-text'>Au Revoir</p>
+                  <p className='auth-header-text'>{logoutHeader}</p>
                   <TitleFlair className='auth-flair-right' />
                 </div>
-                <button onClick={handleLogout}>Logout</button>
+                <button className='submit-button' onClick={handleLogout}>
+                  {logoutText}
+                </button>
               </>
             )}
-            {showLogin && (
+            {!authToken && showLogin && (
               <>
                 <div className='login-header'>
                   <TitleFlair className='auth-flair-left' />
@@ -231,7 +255,7 @@ const Auth: React.FC = () => {
                 </form>
               </>
             )}
-            {showRegister && (
+            {!authToken && showRegister && (
               <>
                 <div className='login-header'>
                   <TitleFlair className='auth-flair-left' />
@@ -333,7 +357,7 @@ const Auth: React.FC = () => {
                 </form>
               </>
             )}
-            {showForgot && (
+            {!authToken && showForgot && (
               <>
                 <div className='login-header'>
                   <TitleFlair className='auth-flair-left' />
