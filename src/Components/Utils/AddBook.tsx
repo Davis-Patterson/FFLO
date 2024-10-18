@@ -32,7 +32,7 @@ const AddBook: React.FC = () => {
   const [buttonActive, setButtonActive] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [categoriesLoading, setCategoriesLoading] = useState(false);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
 
   const addBookContainerRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +58,7 @@ const AddBook: React.FC = () => {
         } else {
           console.error('Failed to load categories');
         }
-        setCategoriesLoading(false);
+        // setCategoriesLoading(false);
       };
 
       fetchCategories();
@@ -224,7 +224,7 @@ const AddBook: React.FC = () => {
                   {categoriesLoading ? (
                     <LinearProgress
                       color='inherit'
-                      style={{ marginTop: '10px' }}
+                      style={{ margin: '-3px 0px 4px 0px' }}
                     />
                   ) : (
                     categories.length > 0 && (
