@@ -39,6 +39,8 @@ interface AppContextType {
   setShowAuth: (value: boolean) => void;
   showEdit: boolean;
   setShowEdit: (value: boolean) => void;
+  showAddBook: boolean;
+  setShowAddBook: (value: boolean) => void;
   language: string;
   setLanguage: (language: string) => void;
   clearAuthToken: () => void;
@@ -66,6 +68,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [showFullscreen, setShowFullscreen] = useState<boolean>(false);
   const [showAuth, setShowAuth] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
+  const [showAddBook, setShowAddBook] = useState<boolean>(false);
   const [language, setLanguage] = useLocalStorageState<string>('EN', {
     defaultValue: 'EN',
   });
@@ -97,6 +100,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setShowAuth,
         showEdit,
         setShowEdit,
+        showAddBook,
+        setShowAddBook,
         language,
         setLanguage,
         clearAuthToken,

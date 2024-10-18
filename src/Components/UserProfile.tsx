@@ -9,7 +9,8 @@ const UserProfile: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authUser, setShowAuth, setShowEdit, language } = context;
+  const { authUser, setShowAuth, setShowEdit, setShowAddBook, language } =
+    context;
 
   // Translations
   const headerText = language === 'EN' ? 'Profile' : 'Profil';
@@ -27,6 +28,10 @@ const UserProfile: React.FC = () => {
 
   const handleUpdate = () => {
     setShowEdit(true);
+  };
+
+  const handleAddBook = () => {
+    setShowAddBook(true);
   };
 
   const handleLogout = () => {
@@ -58,6 +63,7 @@ const UserProfile: React.FC = () => {
       </div>
       <div className='user-info-options'>
         <button onClick={handleUpdate}>Update</button>
+        <button onClick={handleAddBook}>Add Book</button>
         <button onClick={handleLogout}>Logout</button>
       </div>
     </>

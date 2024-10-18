@@ -6,6 +6,7 @@ import Menu from 'Utils/Menu';
 import Fullscreen from 'Utils/Fullscreen';
 import Auth from 'Components/Utils/Auth';
 import EditProfile from 'Utils/EditProfile';
+import AddBook from 'Utils/AddBook';
 import Nav from 'Components/Nav';
 import Home from 'Components/Home';
 import UserProfile from 'Components/UserProfile';
@@ -46,6 +47,7 @@ const App: React.FC = () => {
       {showFullscreen && <Fullscreen />}
       <Auth />
       <EditProfile />
+      <AddBook />
       <>
         <Nav />
         <Routes>

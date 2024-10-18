@@ -1,4 +1,4 @@
-.edit-overlay {
+.book-create-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@
   transition: opacity 0.5s ease-in-out;
 }
 
-.edit-container {
+.book-create-container {
   background-color: var(--clr-background);
   padding: 2rem;
   border-radius: 8px;
@@ -34,21 +34,21 @@
   opacity: 0;
 }
 
-.edit-language-toggle {
+.book-create-language-toggle {
   position: absolute;
   top: 15px;
   left: 15px;
   cursor: pointer;
 }
 
-.edit-lang-toggle {
+.book-create-lang-toggle {
   color: var(--clr-break);
 }
-.edit-lang-toggle:hover {
+.book-create-lang-toggle:hover {
   color: var(--clr-dark);
 }
 
-.edit-x-icon {
+.book-create-x-icon {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -57,31 +57,14 @@
   height: 15px;
   fill: var(--clr-break);
 }
-.edit-x-icon:hover {
+.book-create-x-icon:hover {
   fill: var(--clr-dark);
 }
 
-.user-edit-input {
+.book-create-input {
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 0.5rem;
-  border: 1px solid var(--clr-outline);
-  border-radius: 4px;
-  background-color: var(--clr-light);
-  color: var(--clr-dark);
-}
-
-.user-edit-name-inputs {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
-  width: 100%;
-  margin-bottom: 0.5rem;
-}
-
-.user-edit-name-input {
-  width: 100%;
-  padding: 0.75rem;
   border: 1px solid var(--clr-outline);
   border-radius: 4px;
   background-color: var(--clr-light);
@@ -113,7 +96,7 @@
   cursor: default;
 }
 
-.edit-header {
+.book-create-header {
   display: flex;
   justify-content: center;
   margin: 0px 0px 20px 0px;
@@ -121,7 +104,7 @@
   min-width: 299px;
 }
 
-.edit-header-text {
+.book-create-header-text {
   font-family: 'Sacramento', sans-serif;
   font-size: 2.4em;
   line-height: 1;
@@ -131,7 +114,7 @@
   text-align: center;
 }
 
-.edit-header-subtext {
+.book-create-header-subtext {
   font-family: 'Lato', sans-serif;
   font-size: 0.9em;
   line-height: 1;
@@ -142,16 +125,16 @@
   margin: 0px 0px 5px 0px;
 }
 
-.edit-flair-left,
-.edit-flair-right {
+.book-create-flair-left,
+.book-create-flair-right {
   fill: var(--clr-title-flair);
   width: 35px;
   height: 35px;
 }
-.edit-flair-left {
+.book-create-flair-left {
   margin: 0px 10px 0px 0px;
 }
-.edit-flair-right {
+.book-create-flair-right {
   transform: scaleX(-1);
   margin: 0px 0px 0px 10px;
 }
@@ -167,14 +150,14 @@
   text-align: center;
 }
 
-.edit-footer {
+.book-create-footer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 5px 0px 0px 0px;
 }
 
-.edit-required {
+.book-create-required {
   font-family: 'Lato', sans-serif;
   font-size: 0.8em;
   line-height: 1;
@@ -187,7 +170,7 @@
   margin: -6px 0px 3px 0px;
 }
 
-.edit-footer-text {
+.book-create-footer-text {
   font-family: 'Lato', sans-serif;
   font-size: 0.8em;
   line-height: 1;
