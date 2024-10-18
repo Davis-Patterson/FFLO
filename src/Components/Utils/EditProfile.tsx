@@ -78,8 +78,6 @@ const EditProfile: React.FC = () => {
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Start loading spinner
     setIsLoading(true);
 
     try {

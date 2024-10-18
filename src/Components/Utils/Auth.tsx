@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import TitleFlair from 'Svgs/TitleFlair';
 import XIcon from 'Svgs/XIcon';
+import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Utils/Auth.css';
 
 const Auth: React.FC = () => {
@@ -30,6 +31,7 @@ const Auth: React.FC = () => {
   const [showLogin, setShowLogin] = useState(true);
   const [showRegister, setShowRegister] = useState(false);
   const [showForgot, setShowForgot] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const authContainerRef = useRef<HTMLDivElement>(null);
 
@@ -126,6 +128,7 @@ const Auth: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await login(email, password);
       if (response && response.success) {
@@ -137,11 +140,13 @@ const Auth: React.FC = () => {
       setErrorMessage(loginFailedText);
     }
 
+    setIsLoading(false);
     setTimeout(() => setErrorMessage(''), 3000);
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       await register(firstName, lastName, email, password, password2);
       setShowRegister(false);
@@ -151,25 +156,30 @@ const Auth: React.FC = () => {
     } catch (error) {
       setErrorMessage(registrationFailedText);
     }
+    setIsLoading(false);
   };
 
   const handleForgot = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       await forgot(email);
       setShowAuth(false);
     } catch (error) {
       setErrorMessage(resetFailedText);
     }
+    setIsLoading(false);
   };
 
   const handleLogout = async () => {
+    setIsLoading(true);
     try {
       await logout();
       setShowAuth(false);
     } catch (error) {
       setErrorMessage('Logout failed.');
     }
+    setIsLoading(false);
   };
 
   const handleShowLogin = (
@@ -257,7 +267,14 @@ const Auth: React.FC = () => {
                   <TitleFlair className='auth-flair-right' />
                 </div>
                 <button className='submit-button' onClick={handleLogout}>
-                  {logoutText}
+                  {isLoading ? (
+                    <LinearProgress
+                      style={{ marginTop: '-2px' }}
+                      color='inherit'
+                    />
+                  ) : (
+                    logoutText
+                  )}
                 </button>
               </>
             )}
@@ -271,7 +288,6 @@ const Auth: React.FC = () => {
                 <p className='auth-header-subtext'>{signInText}</p>
                 <form onSubmit={handleLogin}>
                   <div>
-                    {/* <label>Email:</label> */}
                     <input
                       type='text'
                       name='email'
@@ -283,7 +299,6 @@ const Auth: React.FC = () => {
                     />
                   </div>
                   <div>
-                    {/* <label>Password:</label> */}
                     <input
                       type='password'
                       value={password}
@@ -303,7 +318,14 @@ const Auth: React.FC = () => {
                     }`}
                     disabled={!loginButtonActive}
                   >
-                    {loginText}
+                    {isLoading ? (
+                      <LinearProgress
+                        style={{ marginTop: '-2px' }}
+                        color='inherit'
+                      />
+                    ) : (
+                      loginText
+                    )}
                   </button>
                   <div className='auth-footer'>
                     <p
@@ -400,7 +422,14 @@ const Auth: React.FC = () => {
                     }`}
                     disabled={!registerButtonActive}
                   >
-                    {registerButtonText}
+                    {isLoading ? (
+                      <LinearProgress
+                        style={{ marginTop: '-2px' }}
+                        color='inherit'
+                      />
+                    ) : (
+                      registerButtonText
+                    )}
                   </button>
                   <div className='auth-footer'>
                     <p
@@ -429,7 +458,6 @@ const Auth: React.FC = () => {
                 <p className='auth-header-subtext'>{forgotDescText}</p>
                 <form onSubmit={handleForgot}>
                   <div>
-                    {/* <label>Email:</label> */}
                     <input
                       type='text'
                       name='email'
@@ -450,7 +478,14 @@ const Auth: React.FC = () => {
                     }`}
                     disabled={!forgotButtonActive}
                   >
-                    {resetText}
+                    {isLoading ? (
+                      <LinearProgress
+                        style={{ marginTop: '-2px' }}
+                        color='inherit'
+                      />
+                    ) : (
+                      resetText
+                    )}
                   </button>
                   <div className='auth-footer'>
                     <p
