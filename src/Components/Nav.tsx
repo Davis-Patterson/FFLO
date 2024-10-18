@@ -58,12 +58,14 @@ const Nav: React.FC = () => {
           )}
           {authUser && (
             <Link to='/profile'>
-              {authUser.image ? (
-                <img
-                  src={authUser.image}
-                  alt='User'
-                  className='nav-user-image'
-                />
+              {authUser.image && authUser.image.image_url ? (
+                <div className='nav-user-image-container'>
+                  <img
+                    src={authUser.image.image_url}
+                    alt='User'
+                    className='nav-user-image'
+                  />
+                </div>
               ) : (
                 <div>
                   <UserIcon className='nav-user-icon' />

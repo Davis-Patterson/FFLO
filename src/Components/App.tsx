@@ -5,6 +5,7 @@ import AuthApi from 'Utilities/AuthApi';
 import Menu from 'Utils/Menu';
 import Fullscreen from 'Utils/Fullscreen';
 import Auth from 'Components/Utils/Auth';
+import EditProfile from 'Utils/EditProfile';
 import Nav from 'Components/Nav';
 import Home from 'Components/Home';
 import UserProfile from 'Components/UserProfile';
@@ -44,6 +45,7 @@ const App: React.FC = () => {
       <Menu />
       {showFullscreen && <Fullscreen />}
       <Auth />
+      <EditProfile />
       <>
         <Nav />
         <Routes>

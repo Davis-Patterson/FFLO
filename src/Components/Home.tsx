@@ -8,7 +8,7 @@ const Home: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authUser, language } = context;
+  const { language } = context;
 
   // translations
   const headerText = language === 'EN' ? 'Story Space' : "Espace d'Histoire";

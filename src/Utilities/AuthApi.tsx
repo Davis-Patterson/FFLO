@@ -185,6 +185,48 @@ const AuthApi = () => {
     }
   };
 
+  const updateProfile = async (
+    firstName: string,
+    lastName: string,
+    phone: string | null,
+    imageFile: File | null
+  ): Promise<{ success: boolean; data?: any }> => {
+    try {
+      const formData = new FormData();
+      formData.append('first_name', firstName);
+      formData.append('last_name', lastName);
+      if (phone) {
+        formData.append('phone', phone);
+      }
+      if (imageFile) {
+        formData.append('image_file', imageFile);
+      }
+
+      const response: AxiosResponse = await axiosInstance.put(
+        '/auth/users/update-profile/',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('Profile updated successfully:', response.data);
+
+        await userInfo();
+
+        return { success: true, data: response.data };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error('Profile update failed:', error);
+      return { success: false };
+    }
+  };
+
   return {
     verifyToken,
     login,
@@ -192,6 +234,7 @@ const AuthApi = () => {
     register,
     forgot,
     userInfo,
+    updateProfile,
   };
 };
 

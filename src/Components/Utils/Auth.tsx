@@ -333,7 +333,6 @@ const Auth: React.FC = () => {
                 <form onSubmit={handleRegister}>
                   <div className='auth-name-inputs'>
                     <div>
-                      {/* <label>Email:</label> */}
                       <input
                         type='text'
                         name='fname'
@@ -345,7 +344,6 @@ const Auth: React.FC = () => {
                       />
                     </div>
                     <div>
-                      {/* <label>Email:</label> */}
                       <input
                         type='text'
                         name='lname'
@@ -357,7 +355,6 @@ const Auth: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    {/* <label>Email:</label> */}
                     <input
                       type='text'
                       name='email'
@@ -369,7 +366,6 @@ const Auth: React.FC = () => {
                     />
                   </div>
                   <div>
-                    {/* <label>Password:</label> */}
                     <input
                       type='password'
                       name='password'
@@ -381,7 +377,6 @@ const Auth: React.FC = () => {
                     />
                   </div>
                   <div>
-                    {/* <label>Password:</label> */}
                     <input
                       type='password'
                       name='password'

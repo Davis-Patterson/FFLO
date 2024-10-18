@@ -11,13 +11,17 @@ interface Membership {
   recurrence?: string | null;
 }
 
+interface UserImage {
+  image_url: string | null;
+}
+
 interface User {
   id: number;
   email: string;
   first_name: string;
   last_name: string | null;
   phone: string | null;
-  image: string | null;
+  image: UserImage | null;
   is_staff: boolean;
   joined_date: string;
   membership: Membership | null;
@@ -33,6 +37,8 @@ interface AppContextType {
   setShowFullscreen: (value: boolean) => void;
   showAuth: boolean;
   setShowAuth: (value: boolean) => void;
+  showEdit: boolean;
+  setShowEdit: (value: boolean) => void;
   language: string;
   setLanguage: (language: string) => void;
   clearAuthToken: () => void;
@@ -59,6 +65,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
   const [showFullscreen, setShowFullscreen] = useState<boolean>(false);
   const [showAuth, setShowAuth] = useState<boolean>(false);
+  const [showEdit, setShowEdit] = useState<boolean>(false);
   const [language, setLanguage] = useLocalStorageState<string>('EN', {
     defaultValue: 'EN',
   });
@@ -88,6 +95,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setShowFullscreen,
         showAuth,
         setShowAuth,
+        showEdit,
+        setShowEdit,
         language,
         setLanguage,
         clearAuthToken,

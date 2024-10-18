@@ -9,7 +9,7 @@ const UserProfile: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authUser, setShowAuth, language } = context;
+  const { authUser, setShowAuth, setShowEdit, language } = context;
 
   // Translations
   const headerText = language === 'EN' ? 'Profile' : 'Profil';
@@ -25,21 +25,29 @@ const UserProfile: React.FC = () => {
       ? 'No rental history available.'
       : 'Aucun historique de location disponible.';
 
-  const handleLogout = async () => {
+  const handleUpdate = () => {
+    setShowEdit(true);
+  };
+
+  const handleLogout = () => {
     setShowAuth(true);
   };
 
   const renderUserInfo = () => (
     <>
       <div className='user-info'>
-        {/* Profile Image */}
-        {authUser?.image ? (
-          <img src={authUser.image} alt='User' className='user-profile-image' />
+        {authUser?.image?.image_url ? (
+          <div className='user-profile-image-container'>
+            <img
+              src={authUser.image.image_url}
+              alt='User'
+              className='user-profile-image'
+            />
+          </div>
         ) : (
           <UserIcon className='user-profile-icon' />
         )}
 
-        {/* User Info */}
         {authUser?.first_name && (
           <p className='user-name'>
             {authUser.first_name} {authUser.last_name}
@@ -49,7 +57,8 @@ const UserProfile: React.FC = () => {
         {authUser?.phone && <p className='user-phone'>{authUser.phone}</p>}
       </div>
       <div className='user-info-options'>
-        <button onClick={handleLogout}></button>
+        <button onClick={handleUpdate}>Update</button>
+        <button onClick={handleLogout}>Logout</button>
       </div>
     </>
   );
