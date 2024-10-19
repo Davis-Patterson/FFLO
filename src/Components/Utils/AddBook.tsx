@@ -536,7 +536,7 @@ const AddBook: React.FC = () => {
                             {sortedCategories.map((category) => (
                               <div
                                 key={category.id}
-                                className='category-item'
+                                className='category-item-checkbox'
                                 onClick={(e) => {
                                   const target = e.target as HTMLElement;
                                   if (target.tagName !== 'INPUT') {

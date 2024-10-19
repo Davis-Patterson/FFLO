@@ -33,3 +33,53 @@
   font-weight: 200;
   color: var(--clr-text-blue);
 }
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+  justify-items: center;
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid var(--clr-outline);
+  border-radius: 8px;
+  padding: 10px;
+  background-color: var(--clr-light);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.book-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.book-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--clr-dark);
+  margin: 5px 0;
+}
+
+.book-author {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  font-weight: 400;
+  color: var(--clr-dark);
+  margin: 0;
+}

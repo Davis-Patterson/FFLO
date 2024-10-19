@@ -14,8 +14,14 @@ const EditProfile: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authToken, showEdit, setShowEdit, language, handleLanguageChange } =
-    context;
+  const {
+    authUser,
+    authToken,
+    showEdit,
+    setShowEdit,
+    language,
+    handleLanguageChange,
+  } = context;
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -40,6 +46,20 @@ const EditProfile: React.FC = () => {
     language === 'EN' ? 'Last Name' : 'Nom de Famille';
   const phonePlaceholder = language === 'EN' ? 'Phone' : 'Téléphone';
   const updateText = language === 'EN' ? 'Update' : 'Mise à jour';
+
+  useEffect(() => {
+    if (authUser) {
+      if (authUser.first_name) {
+        setFirstName(authUser.first_name);
+      }
+      if (authUser.last_name) {
+        setLastName(authUser.last_name);
+      }
+      if (authUser.phone) {
+        setPhone(authUser.phone);
+      }
+    }
+  }, [authUser]);
 
   useEffect(() => {
     if (showEdit) {

@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
+import type { Book } from 'Contexts/AppContext';
 import axios, { AxiosResponse } from 'axios';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -176,12 +177,28 @@ const ServerApi = () => {
     }
   };
 
+  const getBooks = async (): Promise<{ success: boolean; data?: Book[] }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.get('/api/books/');
+      if (response.status === 200) {
+        console.log('Books retrieved successfully:', response.data);
+        return { success: true, data: response.data };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error('Failed to retrieve books:', error);
+      return { success: false };
+    }
+  };
+
   return {
     getCategories,
     createCategory,
     deleteCategory,
     updateCategory,
     createBook,
+    getBooks,
   };
 };
 

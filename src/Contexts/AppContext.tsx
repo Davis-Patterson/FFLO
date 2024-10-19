@@ -1,6 +1,24 @@
 import { createContext, ReactNode, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
+export interface BookImage {
+  image_url: string;
+}
+
+export interface Book {
+  id: number;
+  title: string;
+  author: string;
+  images: BookImage[];
+  inventory: number;
+  available: number;
+  created_date: string;
+  flair: string | null;
+  categories: number[];
+  archived: boolean;
+  on_hold: boolean;
+}
+
 interface Membership {
   active_membership: boolean;
   monthly_books: number;
@@ -45,6 +63,8 @@ interface AppContextType {
   setLanguage: (language: string) => void;
   categories: any[];
   setCategories: (categories: any[]) => void;
+  allBooks: Book[];
+  setAllBooks: (books: Book[]) => void;
   clearAuthToken: () => void;
   clearAuthUser: () => void;
   handleLanguageChange: (newLanguage: string | null) => void;
@@ -74,7 +94,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [language, setLanguage] = useLocalStorageState<string>('EN', {
     defaultValue: 'EN',
   });
+
   const [categories, setCategories] = useState<any[]>([]);
+  const [allBooks, setAllBooks] = useState<Book[]>([]);
 
   const clearAuthToken = () => {
     setAuthToken(null);
@@ -109,6 +131,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setLanguage,
         categories,
         setCategories,
+        allBooks,
+        setAllBooks,
         clearAuthToken,
         clearAuthUser,
         handleLanguageChange,

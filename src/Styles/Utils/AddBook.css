@@ -143,7 +143,8 @@
   padding: 0px 8px 0px 0px;
 }
 
-.category-item {
+.category-item,
+.category-item-checkbox {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -152,9 +153,11 @@
   padding: 5px 10px;
   margin-bottom: 5px;
   background-color: var(--clr-light);
+}
+.category-item-checkbox {
   cursor: pointer;
 }
-.category-item:hover {
+.category-item-checkbox:hover {
   border: 1px solid var(--clr-submit);
 }
 
