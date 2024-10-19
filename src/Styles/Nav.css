@@ -86,14 +86,11 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  border: 1px solid var(--clr-text-blue);
+  /* border: 1px solid var(--clr-transparent); */
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.nav-user-image-container:hover {
-  border: 1px solid var(--clr-break);
 }
 
 .nav-user-image {

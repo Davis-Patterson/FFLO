@@ -48,6 +48,7 @@
   --clr-submit-hover: #0056b3;
   --clr-error: #ff0000;
   --clr-success: #00ff00;
+  --clr-transparent: #ffffff00;
 }
 
 .darkMode {
@@ -71,6 +72,7 @@
   --clr-submit-hover: #0056b3;
   --clr-error: #ff0000;
   --clr-success: #00ff00;
+  --clr-transparent: #ffffff00;
 }
 
 svg {

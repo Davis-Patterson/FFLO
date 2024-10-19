@@ -2,7 +2,8 @@ import { createContext, ReactNode, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 export interface BookImage {
-  image_url: string;
+  image_url: string | null;
+  image_small: string | null;
 }
 
 export interface Book {
@@ -31,6 +32,7 @@ interface Membership {
 
 interface UserImage {
   image_url: string | null;
+  image_small: string | null;
 }
 
 interface User {

@@ -215,7 +215,7 @@ const AuthApi = () => {
       if (response.status === 200) {
         console.log('Profile updated successfully:', response.data);
 
-        await userInfo();
+        setAuthUser(response.data);
 
         return { success: true, data: response.data };
       } else {

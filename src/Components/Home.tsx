@@ -17,16 +17,18 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const result = await getBooks();
-      if (result.success) {
-        setAllBooks(result.data ?? []);
-      } else {
-        console.error('Failed to load books');
+      if (allBooks.length === 0) {
+        const result = await getBooks();
+        if (result.success) {
+          setAllBooks(result.data ?? []);
+        } else {
+          console.error('Failed to load books');
+        }
       }
     };
 
     fetchBooks();
-  }, [getBooks, setAllBooks]);
+  }, [getBooks, allBooks, setAllBooks]);
 
   return (
     <>
