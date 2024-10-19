@@ -50,6 +50,84 @@ const ServerApi = () => {
     }
   };
 
+  const createCategory = async (
+    name: string,
+    description?: string
+  ): Promise<{ success: boolean; data?: any }> => {
+    try {
+      const categoryData = {
+        name: name,
+        description: description || '',
+      };
+
+      const response: AxiosResponse = await axiosInstance.post(
+        '/api/categories/',
+        categoryData // Send as JSON
+      );
+
+      if (response.status === 201) {
+        console.log('Category created successfully:', response.data);
+        return { success: true, data: response.data };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error('Failed to create category:', error);
+      return { success: false };
+    }
+  };
+
+  const deleteCategory = async (
+    categoryId: number
+  ): Promise<{ success: boolean }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.delete(
+        `/api/categories/${categoryId}/`
+      );
+
+      if (response.status === 204) {
+        console.log(`Category with ID ${categoryId} deleted successfully.`);
+        return { success: true };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error(`Failed to delete category with ID ${categoryId}:`, error);
+      return { success: false };
+    }
+  };
+
+  const updateCategory = async (
+    categoryId: number,
+    name: string,
+    description: string
+  ): Promise<{ success: boolean; data?: any }> => {
+    try {
+      const categoryData = {
+        name: name,
+        description: description,
+      };
+
+      const response: AxiosResponse = await axiosInstance.put(
+        `/api/categories/${categoryId}/`,
+        categoryData // Send as JSON
+      );
+
+      if (response.status === 200) {
+        console.log(
+          `Category ${categoryId} updated successfully:`,
+          response.data
+        );
+        return { success: true, data: response.data };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error(`Failed to update category with ID ${categoryId}:`, error);
+      return { success: false };
+    }
+  };
+
   const createBook = async (
     title: string,
     author: string,
@@ -100,6 +178,9 @@ const ServerApi = () => {
 
   return {
     getCategories,
+    createCategory,
+    deleteCategory,
+    updateCategory,
     createBook,
   };
 };

@@ -9,7 +9,7 @@ const UserProfile: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authUser, setShowAuth, setShowEdit, setShowAddBook, language } =
+  const { authUser, setShowAuth, setShowEdit, setShowAddBookWindow, language } =
     context;
 
   // Translations
@@ -31,7 +31,7 @@ const UserProfile: React.FC = () => {
   };
 
   const handleAddBook = () => {
-    setShowAddBook(true);
+    setShowAddBookWindow(true);
   };
 
   const handleLogout = () => {

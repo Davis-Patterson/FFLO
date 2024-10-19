@@ -36,6 +36,7 @@
   --clr-divider: #acacac;
   --clr-break: #acacac;
   --clr-background: #fff5ed;
+  --clr-icon: #808080;
   --clr-text-blue: #213472;
   --clr-text-blue-hover: #3c59b9;
   --clr-text-grey: #414141;
@@ -46,6 +47,7 @@
   --clr-submit: #007bff;
   --clr-submit-hover: #0056b3;
   --clr-error: #ff0000;
+  --clr-success: #00ff00;
 }
 
 .darkMode {
@@ -57,6 +59,7 @@
   --clr-divider: #3b3b3b;
   --clr-break: #979797;
   --clr-background: #fff5ed;
+  --clr-icon: #808080;
   --clr-text-blue: #213472;
   --clr-text-blue-hover: #29408b;
   --clr-text-grey: #414141;
@@ -67,6 +70,7 @@
   --clr-submit: #007bff;
   --clr-submit-hover: #0056b3;
   --clr-error: #ff0000;
+  --clr-success: #00ff00;
 }
 
 svg {

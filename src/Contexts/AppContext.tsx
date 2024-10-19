@@ -39,10 +39,12 @@ interface AppContextType {
   setShowAuth: (value: boolean) => void;
   showEdit: boolean;
   setShowEdit: (value: boolean) => void;
-  showAddBook: boolean;
-  setShowAddBook: (value: boolean) => void;
+  showAddBookWindow: boolean;
+  setShowAddBookWindow: (value: boolean) => void;
   language: string;
   setLanguage: (language: string) => void;
+  categories: any[];
+  setCategories: (categories: any[]) => void;
   clearAuthToken: () => void;
   clearAuthUser: () => void;
   handleLanguageChange: (newLanguage: string | null) => void;
@@ -68,10 +70,11 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [showFullscreen, setShowFullscreen] = useState<boolean>(false);
   const [showAuth, setShowAuth] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
-  const [showAddBook, setShowAddBook] = useState<boolean>(false);
+  const [showAddBookWindow, setShowAddBookWindow] = useState<boolean>(false);
   const [language, setLanguage] = useLocalStorageState<string>('EN', {
     defaultValue: 'EN',
   });
+  const [categories, setCategories] = useState<any[]>([]);
 
   const clearAuthToken = () => {
     setAuthToken(null);
@@ -100,10 +103,12 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setShowAuth,
         showEdit,
         setShowEdit,
-        showAddBook,
-        setShowAddBook,
+        showAddBookWindow,
+        setShowAddBookWindow,
         language,
         setLanguage,
+        categories,
+        setCategories,
         clearAuthToken,
         clearAuthUser,
         handleLanguageChange,
