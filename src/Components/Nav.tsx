@@ -26,7 +26,6 @@ const Nav: React.FC = () => {
   return (
     <nav className='nav-container'>
       <section className='nav-header'>
-        {/* Language Toggle */}
         <div className='nav-language'>
           <div className='language-toggle'>
             <p

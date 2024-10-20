@@ -19,6 +19,7 @@ const AddBook: React.FC = () => {
     createCategory,
     deleteCategory,
     updateCategory,
+    getBooks,
   } = ServerApi();
 
   const context = useContext(AppContext);
@@ -33,6 +34,7 @@ const AddBook: React.FC = () => {
     handleLanguageChange,
     categories,
     setCategories,
+    setAllBooks,
   } = context;
 
   const [showAddBook, setShowAddBook] = useState(true);
@@ -41,6 +43,7 @@ const AddBook: React.FC = () => {
 
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const [description, setDescription] = useState('');
   const [flair, setFlair] = useState('');
   const [quantity, setQuantity] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -76,6 +79,7 @@ const AddBook: React.FC = () => {
       : 'Téléchargez un nouveau livre dans la collection';
   const bookTitlePlaceholder = language === 'EN' ? 'Title*' : 'Titre*';
   const bookAuthorPlaceholder = language === 'EN' ? 'Author*' : 'Auteur*';
+  const descPlaceholder = language === 'EN' ? 'Description' : 'Description';
   const bookFlairPlaceholder = language === 'EN' ? 'Flair' : 'Flair';
   const bookQuantityPlaceholder = language === 'EN' ? 'Quantity' : 'Quantité';
   const bookCreateSubmitText = language === 'EN' ? 'Submit' : 'Soumettre';
@@ -185,6 +189,7 @@ const AddBook: React.FC = () => {
     const result = await createBook(
       title,
       author,
+      description,
       selectedQuantity,
       imageFile ? [imageFile] : [],
       selectedCategories,
@@ -199,9 +204,21 @@ const AddBook: React.FC = () => {
       setErrorMessage('Failed to create book');
     }
 
+    const fetchBooks = async () => {
+      const result = await getBooks();
+      if (result.success) {
+        setAllBooks(result.data ?? []);
+      } else {
+        console.error('Failed to load books');
+      }
+    };
+
+    fetchBooks();
+
     setIsLoading(false);
     setTitle('');
     setAuthor('');
+    setDescription('');
     setQuantity('');
     setImageFile(null);
     setSelectedCategories([]);
@@ -473,6 +490,15 @@ const AddBook: React.FC = () => {
                       onChange={(e) => setAuthor(e.target.value)}
                       placeholder={bookAuthorPlaceholder}
                       className='book-create-input'
+                    />
+                  </div>
+                  <div>
+                    <textarea
+                      name='description'
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      placeholder={descPlaceholder}
+                      className='category-desc-input'
                     />
                   </div>
                   <div>

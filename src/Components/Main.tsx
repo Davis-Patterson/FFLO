@@ -5,6 +5,22 @@ import { AppProvider } from 'Contexts/AppContext.jsx';
 import App from 'Components/App.tsx';
 import 'Styles/Main.css';
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').then(
+      (registration) => {
+        console.log(
+          'ServiceWorker registered with scope: ',
+          registration.scope
+        );
+      },
+      (error) => {
+        console.log('ServiceWorker registration failed: ', error);
+      }
+    );
+  });
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>

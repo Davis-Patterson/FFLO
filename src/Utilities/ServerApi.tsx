@@ -132,6 +132,7 @@ const ServerApi = () => {
   const createBook = async (
     title: string,
     author: string,
+    description: string,
     inventory: number = 1,
     images: File[],
     categories: number[],
@@ -141,6 +142,7 @@ const ServerApi = () => {
       const formData = new FormData();
       formData.append('title', title);
       formData.append('author', author);
+      formData.append('description', description);
       formData.append('inventory', inventory.toString());
 
       if (flair) {

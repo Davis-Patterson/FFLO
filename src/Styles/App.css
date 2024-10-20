@@ -12,3 +12,28 @@
   background-color: var(--clr-background);
   transition: background-color 1s ease;
 }
+
+.blur-load,
+.loading {
+  position: relative;
+  background-size: cover;
+  filter: blur(2px);
+  transition: filter 0.5s ease-in-out;
+  overflow: hidden;
+}
+
+.blur-load img,
+.loading img {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.blur-load.loaded,
+.loading.loaded {
+  filter: blur(0);
+}
+
+.blur-load.loaded img,
+.loading.loaded img {
+  opacity: 1;
+}

@@ -1,7 +1,8 @@
 import { useContext, useEffect } from 'react';
-import { AppContext, Book } from 'Contexts/AppContext';
+import { AppContext } from 'Contexts/AppContext';
 import ServerApi from 'Utilities/ServerApi';
 import TitleFlair from 'Svgs/TitleFlair';
+import BookList from 'Components/BookList';
 import 'Styles/Home.css';
 
 const Home: React.FC = () => {
@@ -30,6 +31,8 @@ const Home: React.FC = () => {
     fetchBooks();
   }, [getBooks, allBooks, setAllBooks]);
 
+  const availableBooks = allBooks.filter((book) => book.available > 0);
+
   return (
     <>
       <main className='page-container'>
@@ -40,23 +43,7 @@ const Home: React.FC = () => {
             <TitleFlair className='title-flair-right' />
           </div>
         </header>
-        <section className='book-list'>
-          <div className='book-grid'>
-            {allBooks.map((book: Book) => (
-              <div key={book.id} className='book-card'>
-                <img
-                  src={book.images[0]?.image_url || '/placeholder-image.jpg'}
-                  alt={book.title}
-                  className='book-image'
-                />
-                <div className='book-info'>
-                  <h3 className='book-title'>{book.title}</h3>
-                  <p className='book-author'>{book.author}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        <BookList bookList={availableBooks} />
       </main>
     </>
   );
