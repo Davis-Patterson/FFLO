@@ -22,7 +22,7 @@ export interface Book {
 }
 
 interface Membership {
-  active_membership: boolean;
+  active: boolean;
   monthly_books: number;
   next_payment_date: string | null;
   start_date?: string;
@@ -64,12 +64,16 @@ interface AppContextType {
   setShowEdit: (value: boolean) => void;
   showAddBookWindow: boolean;
   setShowAddBookWindow: (value: boolean) => void;
+  showBookEditWindow: boolean;
+  setShowBookEditWindow: (value: boolean) => void;
   language: string;
   setLanguage: (language: string) => void;
   categories: any[];
   setCategories: (categories: any[]) => void;
   allBooks: Book[];
   setAllBooks: (books: Book[]) => void;
+  selectedBook: Book | null;
+  setSelectedBook: (book: Book | null) => void;
   fetchError: boolean;
   setFetchError: (value: boolean) => void;
   isFetched: boolean;
@@ -99,12 +103,15 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [showAuth, setShowAuth] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [showAddBookWindow, setShowAddBookWindow] = useState<boolean>(false);
+  const [showBookEditWindow, setShowBookEditWindow] = useState<boolean>(false);
+
   const [language, setLanguage] = useLocalStorageState<string>('EN', {
     defaultValue: 'EN',
   });
 
   const [categories, setCategories] = useState<any[]>([]);
   const [allBooks, setAllBooks] = useState<Book[]>([]);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
   const [fetchError, setFetchError] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
@@ -145,12 +152,16 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setShowEdit,
         showAddBookWindow,
         setShowAddBookWindow,
+        showBookEditWindow,
+        setShowBookEditWindow,
         language,
         setLanguage,
         categories,
         setCategories,
         allBooks,
         setAllBooks,
+        selectedBook,
+        setSelectedBook,
         fetchError,
         setFetchError,
         isFetched,

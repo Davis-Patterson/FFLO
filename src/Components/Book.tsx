@@ -1,20 +1,29 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { useParams } from 'react-router-dom';
 import TitleFlair from 'Svgs/TitleFlair';
 import BookList from 'Components/BookList';
 import BookCoverIcon from 'Svgs/BookCoverIcon';
+import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Book.css';
 
 const Book: React.FC = () => {
   const { title } = useParams<{ title: string }>();
   const context = useContext(AppContext);
-
   if (!context) {
     throw new Error('No Context');
   }
-
-  const { allBooks, formatTitleForURL, language } = context;
+  const {
+    authToken,
+    authUser,
+    setShowAuth,
+    setShowBookEditWindow,
+    allBooks,
+    setSelectedBook,
+    formatTitleForURL,
+    language,
+  } = context;
+  const [isLoading, setIsLoading] = useState(false);
 
   const book = allBooks.find((book) => formatTitleForURL(book.title) === title);
 
@@ -24,10 +33,51 @@ const Book: React.FC = () => {
     language === 'EN' ? 'Book Information' : 'Informations sur le Livre';
   const availableCopiesText =
     language === 'EN' ? 'Available copies' : 'Exemplaires disponibles';
+  const reserveBookText =
+    language === 'EN' ? 'Reserve book' : 'Réserver un livre';
+  const holdBookText = language === 'EN' ? 'Hold book' : 'Tenir le livre';
+  const editBookText = language === 'EN' ? 'Edit book' : 'Modifier le livre';
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [book]);
+
+  const handleButtonClick = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setIsLoading(true);
+    if (!authToken) {
+      setShowAuth(true);
+      console.log('handle login');
+      setIsLoading(false);
+    } else if (authUser && authUser.membership && !authUser.membership.active) {
+      setTimeout(() => {
+        console.log('handle membership');
+        setIsLoading(false);
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        console.log('Book reserved');
+        setIsLoading(false);
+      }, 1000);
+    }
+  };
+
+  const handleShowBookEditWindow = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (book) {
+      setSelectedBook(book);
+    } else {
+      setSelectedBook(null);
+    }
+
+    setShowBookEditWindow(true);
+  };
 
   if (!book) {
     return (
@@ -85,7 +135,7 @@ const Book: React.FC = () => {
                 />
               </div>
             ) : (
-              <BookCoverIcon />
+              <BookCoverIcon className='book-detail-cover-icon' />
             )}
           </div>
           <div className='book-detail-info-container'>
@@ -97,7 +147,38 @@ const Book: React.FC = () => {
               <p className='book-detail-quantity'>
                 {availableCopiesText}: {book.available}
               </p>
-              <button className='submit-button'>Reserve Book</button>
+              {!authUser?.is_staff && (
+                <button
+                  className='submit-button'
+                  onMouseDown={(e) => handleButtonClick(e)}
+                >
+                  {isLoading ? (
+                    <LinearProgress color='inherit' />
+                  ) : (
+                    reserveBookText
+                  )}
+                </button>
+              )}
+              {authUser?.is_staff && (
+                <div className='staff-book-buttons'>
+                  <button
+                    className='submit-half-button'
+                    onMouseDown={(e) => handleButtonClick(e)}
+                  >
+                    {isLoading ? (
+                      <LinearProgress color='inherit' />
+                    ) : (
+                      holdBookText
+                    )}
+                  </button>
+                  <button
+                    className='edit-button'
+                    onMouseDown={(e) => handleShowBookEditWindow(e)}
+                  >
+                    {editBookText}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

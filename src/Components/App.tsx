@@ -8,15 +8,16 @@ import Fullscreen from 'Utils/Fullscreen';
 import Auth from 'Components/Utils/Auth';
 import EditProfile from 'Utils/EditProfile';
 import AddBook from 'Utils/AddBook';
+import EditBook from 'Utils/EditBook';
 import Nav from 'Components/Nav';
 import Home from 'Components/Home';
+import Books from 'Components/Books';
 import Book from 'Components/Book';
 import UserProfile from 'Components/UserProfile';
 import NotFound from 'Utils/NotFound';
 import Footer from 'Components/Footer';
 import ProtectedRoute from 'Utils/ProtectedRoute';
 import 'Styles/App.css';
-import Books from './Books';
 
 const App: React.FC = () => {
   const { verifyToken, logout } = AuthApi();
@@ -85,6 +86,7 @@ const App: React.FC = () => {
       <Auth />
       <EditProfile />
       <AddBook />
+      <EditBook />
       <>
         <Nav />
         <Routes>

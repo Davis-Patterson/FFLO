@@ -10,12 +10,12 @@ import BookIcon from 'Svgs/BookIcon';
 import TrashIcon from 'Svgs/TrashIcon';
 import CheckIcon from 'Svgs/CheckIcon';
 import LinearProgress from '@mui/material/LinearProgress';
-import 'Styles/Utils/AddBook.css';
+import 'Styles/Utils/EditBook.css';
 
-const AddBook: React.FC = () => {
+const EditBook: React.FC = () => {
   const {
     getCategories,
-    createBook,
+    updateBook,
     createCategory,
     deleteCategory,
     updateCategory,
@@ -28,13 +28,15 @@ const AddBook: React.FC = () => {
   }
   const {
     authToken,
-    showAddBookWindow,
-    setShowAddBookWindow,
+    showBookEditWindow,
+    setShowBookEditWindow,
     language,
     handleLanguageChange,
     categories,
     setCategories,
     setAllBooks,
+    selectedBook,
+    setSelectedBook,
   } = context;
 
   const [showAddBook, setShowAddBook] = useState(true);
@@ -47,12 +49,12 @@ const AddBook: React.FC = () => {
   const [flair, setFlair] = useState('');
   const [quantity, setQuantity] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagesToRemove, setImagesToRemove] = useState<number[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [categoryName, setCategoryName] = useState('');
   const [categoryDescription, setCategoryDescription] = useState('');
 
-  const [showAddBookWindowButtonActive, setShowAddBookWindowButtonActive] =
-    useState(false);
+  const [bookEditButtonActive, setBookEditButtonActive] = useState(false);
   const [showAddCategoryButtonActive, setShowAddCategoryButtonActive] =
     useState(false);
   const [showEditCategoryButtonActive, setShowEditCategoryButtonActive] =
@@ -68,17 +70,17 @@ const AddBook: React.FC = () => {
   const [editCategoryName, setEditCategoryName] = useState('');
   const [editCategoryDesc, setEditCategoryDesc] = useState('');
 
-  const showAddBookWindowContainerRef = useRef<HTMLDivElement>(null);
+  const showBookEditWindowContainerRef = useRef<HTMLDivElement>(null);
 
   // Translations
-  const bookCreateHeaderText =
-    language === 'EN' ? 'Add Book' : 'Ajouter un Livre';
+  const bookEditHeaderText =
+    language === 'EN' ? 'Modify Book' : 'Modifier le livre';
   const bookCreateSubtext =
     language === 'EN'
       ? 'Upload a new book to the collection'
       : 'Téléchargez un nouveau livre dans la collection';
-  const bookTitlePlaceholder = language === 'EN' ? 'Title*' : 'Titre*';
-  const bookAuthorPlaceholder = language === 'EN' ? 'Author*' : 'Auteur*';
+  const bookTitlePlaceholder = language === 'EN' ? 'Title' : 'Titre';
+  const bookAuthorPlaceholder = language === 'EN' ? 'Author' : 'Auteur';
   const descPlaceholder = language === 'EN' ? 'Description' : 'Description';
   const bookFlairPlaceholder = language === 'EN' ? 'Flair' : 'Flair';
   const bookQuantityPlaceholder = language === 'EN' ? 'Quantity' : 'Quantité';
@@ -101,19 +103,19 @@ const AddBook: React.FC = () => {
   const categoryEditHeaderText =
     language === 'EN' ? 'Edit Category' : 'Modifier la Catégorie';
 
-  const categoryHeaderStyle = {
-    margin: showAddBookWindowButtonActive
-      ? '-2px 0px 0px 0px'
-      : '-12px 0px 0px 0px',
-  };
-  const categoryGearStyle = {
-    margin: showAddBookWindowButtonActive
-      ? '1px 0px 0px 5px'
-      : '3px 0px 0px 5px',
-  };
+  useEffect(() => {
+    if (selectedBook) {
+      setTitle(selectedBook.title || '');
+      setAuthor(selectedBook.author || '');
+      setDescription(selectedBook.description || '');
+      setFlair(selectedBook.flair || '');
+      setQuantity(selectedBook.inventory.toString() || '');
+      setSelectedCategories(selectedBook.categories || []);
+    }
+  }, [selectedBook]);
 
   useEffect(() => {
-    if (showAddBookWindow) {
+    if (showBookEditWindow) {
       setCategoriesLoading(true);
       const fetchCategories = async () => {
         const result = await getCategories();
@@ -130,37 +132,32 @@ const AddBook: React.FC = () => {
     } else {
       document.body.classList.remove('book-open');
     }
-  }, [showAddBookWindow]);
+  }, [showBookEditWindow]);
 
   useEffect(() => {
-    if (showAddBookWindow) {
+    if (showBookEditWindow) {
       document.body.classList.add('book-open');
     } else {
       document.body.classList.remove('book-open');
     }
-  }, [showAddBookWindow]);
+  }, [showBookEditWindow]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        showAddBookWindowContainerRef.current &&
-        !showAddBookWindowContainerRef.current.contains(event.target as Node)
+        showBookEditWindowContainerRef.current &&
+        !showBookEditWindowContainerRef.current.contains(event.target as Node)
       ) {
-        setShowAddBookWindow(false);
+        setShowBookEditWindow(false);
         setShowAddBook(true);
         setShowAddCategories(false);
         setShowDeletes(false);
         setShowEditCategory(false);
-        setTitle('');
-        setAuthor('');
-        setQuantity('');
-        setImageFile(null);
-        setSelectedCategories([]);
-        setFlair('');
+        setSelectedBook(null);
       }
     };
 
-    if (showAddBookWindow) {
+    if (showBookEditWindow) {
       document.addEventListener('mousedown', handleClickOutside);
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -169,39 +166,54 @@ const AddBook: React.FC = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [showAddBookWindow, setShowAddBookWindow]);
+  }, [showBookEditWindow, setShowBookEditWindow]);
 
   useEffect(() => {
-    const isFormEmpty = !title.trim() || !author.trim();
-    setShowAddBookWindowButtonActive(!isFormEmpty);
+    const isFormEmpty =
+      !title.trim() &&
+      !author.trim() &&
+      !description.trim() &&
+      !flair.trim() &&
+      !imageFile &&
+      !quantity &&
+      !selectedCategories;
+    setBookEditButtonActive(!isFormEmpty);
     const isCategoryFormEmpty = !categoryName.trim();
     setShowAddCategoryButtonActive(!isCategoryFormEmpty);
     const isCategoryEditFormEmpty = !editCategoryName.trim();
     setShowEditCategoryButtonActive(!isCategoryEditFormEmpty);
   }, [title, author, categoryName, editCategoryName]);
 
-  const handleBookCreate = async (e: React.FormEvent) => {
+  const handleBookEdit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
+    if (!selectedBook) {
+      setErrorMessage('No book selected');
+      setIsLoading(false);
+      return;
+    }
+
     const selectedQuantity = parseInt(quantity) || 1;
 
-    const result = await createBook(
+    const result = await updateBook(
+      selectedBook.id,
       title,
       author,
       description,
       selectedQuantity,
       imageFile ? [imageFile] : [],
+      imagesToRemove,
       selectedCategories,
       flair
     );
 
     if (result.success) {
-      console.log('Book created successfully');
-      setShowAddBookWindow(false);
+      console.log('Book updated successfully');
+      setShowBookEditWindow(false);
       setShowDeletes(false);
     } else {
-      setErrorMessage('Failed to create book');
+      setErrorMessage('Failed to update book');
     }
 
     const fetchBooks = async () => {
@@ -329,10 +341,11 @@ const AddBook: React.FC = () => {
     e.preventDefault();
     e.stopPropagation();
 
-    setShowAddBookWindow(false);
+    setShowBookEditWindow(false);
     setShowEditCategory(false);
     setShowDeletes(false);
     setShowAddBook(true);
+    setSelectedBook(null);
 
     setTitle('');
     setAuthor('');
@@ -413,12 +426,12 @@ const AddBook: React.FC = () => {
 
   return (
     <>
-      {showAddBookWindow && authToken && (
+      {showBookEditWindow && authToken && (
         <div className='book-create-overlay'>
           <section
-            ref={showAddBookWindowContainerRef}
+            ref={showBookEditWindowContainerRef}
             className={`book-create-container ${
-              showAddBookWindow ? 'fade-in' : 'fade-out'
+              showBookEditWindow ? 'fade-in' : 'fade-out'
             }`}
           >
             <div className='book-create-language-toggle'>
@@ -462,14 +475,14 @@ const AddBook: React.FC = () => {
                 <div className='book-create-header'>
                   <TitleFlair className='book-create-flair-left' />
                   <p className='book-create-header-text'>
-                    {bookCreateHeaderText}
+                    {bookEditHeaderText}
                   </p>
                   <TitleFlair className='book-create-flair-right' />
                 </div>
                 <p className='book-create-header-subtext'>
                   {bookCreateSubtext}
                 </p>
-                <form onSubmit={handleBookCreate}>
+                <form onSubmit={handleBookEdit}>
                   <div>
                     <input
                       type='text'
@@ -539,19 +552,16 @@ const AddBook: React.FC = () => {
                       />
                     </div>
                   </div>
-                  {!showAddBookWindowButtonActive && (
-                    <p className='auth-required'>{requiredText}</p>
-                  )}
                   <div className='category-container'>
                     <div
                       className='category-header-container'
-                      style={categoryHeaderStyle}
+                      style={{ margin: '-2px 0px 0px 0px' }}
                     >
                       <p className='category-title'>{categoriesText}</p>
                       <GearIcon
                         className='gear-icon'
                         onMouseDown={(e) => handleShowCategories(e)}
-                        style={categoryGearStyle}
+                        style={{ margin: '1px 0px 0px 5px' }}
                       />
                     </div>
                     {categoriesLoading ? (
@@ -638,11 +648,9 @@ const AddBook: React.FC = () => {
                   <button
                     type='submit'
                     className={`${
-                      showAddBookWindowButtonActive
-                        ? 'submit-button'
-                        : 'inactive-button'
+                      bookEditButtonActive ? 'submit-button' : 'inactive-button'
                     }`}
-                    disabled={!showAddBookWindowButtonActive || isLoading}
+                    disabled={!bookEditButtonActive || isLoading}
                   >
                     {isLoading ? (
                       <LinearProgress color='inherit' />
@@ -857,4 +865,4 @@ const AddBook: React.FC = () => {
   );
 };
 
-export default AddBook;
+export default EditBook;

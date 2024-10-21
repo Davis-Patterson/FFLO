@@ -41,16 +41,17 @@
   flex-direction: column;
   justify-content: center;
   padding: 40px;
-  border: 1px solid var(--clr-break);
-  border-radius: 15px;
   background-color: var(--clr-light);
-  max-width: 600px;
+  max-width: 700px;
 }
 
 .book-details-header {
   display: flex;
   flex-direction: row;
   justify-content: left;
+  border-bottom: 1px solid var(--clr-break);
+  padding: 0px 0px 30px 0px;
+  margin: 0px 0px 20px 0px;
 }
 
 .book-detail-image-container {
@@ -126,6 +127,13 @@
   opacity: 1;
 }
 
+.book-detail-cover-icon {
+  height: 100%;
+  width: 100%;
+  fill: var(--clr-icon);
+  transform: scaleX(108%);
+}
+
 .book-detail-info-container {
   margin: 0px 0px 0px 20px;
   width: 300px;
@@ -171,20 +179,27 @@
   margin: 0px 0px 10px 0px;
 }
 
+.staff-book-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
 .book-details-description-container {
   display: flex;
   flex-direction: column;
   margin: 20px 0px 0px 0px;
-  max-width: 600px;
-  margin: 20px auto 0px;
+  max-width: 700px;
+  margin: 0px auto 0px;
 }
 
 .book-details-description-text {
-  font-family: 'Lato', sans-serif;
-  font-size: 1.1em;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05em;
   font-weight: 400;
-  line-height: 1.5;
-  transform: scaleY(100%);
+  line-height: 1.2;
+  transform: scaleY(90%);
 }
 
 .more-books-container {

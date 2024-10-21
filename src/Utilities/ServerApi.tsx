@@ -179,6 +179,62 @@ const ServerApi = () => {
     }
   };
 
+  const updateBook = async (
+    bookId: number,
+    title: string,
+    author: string,
+    description: string,
+    inventory: number = 1,
+    images: File[],
+    imagesToRemove: number[],
+    categories: number[],
+    flair?: string
+  ): Promise<{ success: boolean; data?: any }> => {
+    try {
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('author', author);
+      formData.append('description', description);
+      formData.append('inventory', inventory.toString());
+
+      if (flair) {
+        formData.append('flair', flair);
+      }
+
+      images.forEach((image) => {
+        formData.append('images', image);
+      });
+
+      categories.forEach((categoryId) => {
+        formData.append('categories', categoryId.toString());
+      });
+
+      imagesToRemove.forEach((imageId) => {
+        formData.append('images_to_remove', imageId.toString());
+      });
+
+      const response: AxiosResponse = await axiosInstance.put(
+        `/api/books/${bookId}/update/`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('Book updated successfully:', response.data);
+        return { success: true, data: response.data };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error(`Failed to update book with ID ${bookId}:`, error);
+      return { success: false };
+    }
+  };
+
   const getBooks = async (): Promise<{ success: boolean; data?: Book[] }> => {
     try {
       const response: AxiosResponse = await axiosInstance.get('/api/books/');
@@ -200,6 +256,7 @@ const ServerApi = () => {
     deleteCategory,
     updateCategory,
     createBook,
+    updateBook,
     getBooks,
   };
 };

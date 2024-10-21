@@ -267,14 +267,7 @@ const Auth: React.FC = () => {
                   <TitleFlair className='auth-flair-right' />
                 </div>
                 <button className='submit-button' onClick={handleLogout}>
-                  {isLoading ? (
-                    <LinearProgress
-                      style={{ marginTop: '-2px' }}
-                      color='inherit'
-                    />
-                  ) : (
-                    logoutText
-                  )}
+                  {isLoading ? <LinearProgress color='inherit' /> : logoutText}
                 </button>
               </>
             )}
@@ -318,14 +311,7 @@ const Auth: React.FC = () => {
                     }`}
                     disabled={!loginButtonActive}
                   >
-                    {isLoading ? (
-                      <LinearProgress
-                        style={{ marginTop: '-2px' }}
-                        color='inherit'
-                      />
-                    ) : (
-                      loginText
-                    )}
+                    {isLoading ? <LinearProgress color='inherit' /> : loginText}
                   </button>
                   <div className='auth-footer'>
                     <p
@@ -423,10 +409,7 @@ const Auth: React.FC = () => {
                     disabled={!registerButtonActive}
                   >
                     {isLoading ? (
-                      <LinearProgress
-                        style={{ marginTop: '-2px' }}
-                        color='inherit'
-                      />
+                      <LinearProgress color='inherit' />
                     ) : (
                       registerButtonText
                     )}
@@ -478,14 +461,7 @@ const Auth: React.FC = () => {
                     }`}
                     disabled={!forgotButtonActive}
                   >
-                    {isLoading ? (
-                      <LinearProgress
-                        style={{ marginTop: '-2px' }}
-                        color='inherit'
-                      />
-                    ) : (
-                      resetText
-                    )}
+                    {isLoading ? <LinearProgress color='inherit' /> : resetText}
                   </button>
                   <div className='auth-footer'>
                     <p

@@ -220,10 +220,7 @@ const EditProfile: React.FC = () => {
                     disabled={!buttonActive || isLoading}
                   >
                     {isLoading ? (
-                      <LinearProgress
-                        style={{ marginTop: '-2px' }}
-                        color='inherit'
-                      />
+                      <LinearProgress color='inherit' />
                     ) : (
                       updateText
                     )}
