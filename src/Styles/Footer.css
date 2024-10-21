@@ -1,0 +1,29 @@
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0px;
+  background-color: var(--clr-background);
+  height: 240px;
+  width: 100%;
+  margin: 0px 0px 20px 0px;
+}
+
+.footer-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 40px 0px 20px 0px;
+}
+
+.footer-logo {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  width: 70%;
+}
+
+.logo-img {
+  width: 120px;
+  height: auto;
+}
