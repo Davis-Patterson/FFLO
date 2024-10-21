@@ -476,6 +476,7 @@ const AddBook: React.FC = () => {
                       name='title'
                       value={title}
                       required
+                      maxLength={255}
                       onChange={(e) => setTitle(e.target.value)}
                       placeholder={bookTitlePlaceholder}
                       className='book-create-input'
@@ -487,6 +488,7 @@ const AddBook: React.FC = () => {
                       name='author'
                       value={author}
                       required
+                      maxLength={255}
                       onChange={(e) => setAuthor(e.target.value)}
                       placeholder={bookAuthorPlaceholder}
                       className='book-create-input'
@@ -496,6 +498,7 @@ const AddBook: React.FC = () => {
                     <textarea
                       name='description'
                       value={description}
+                      maxLength={1200}
                       onChange={(e) => setDescription(e.target.value)}
                       placeholder={descPlaceholder}
                       className='category-desc-input'
@@ -519,6 +522,7 @@ const AddBook: React.FC = () => {
                         type='text'
                         name='flair'
                         value={flair}
+                        maxLength={10}
                         onChange={(e) => setFlair(e.target.value)}
                         placeholder={bookFlairPlaceholder}
                         className='book-create-flair-input'
@@ -751,6 +755,7 @@ const AddBook: React.FC = () => {
                       name='name'
                       value={categoryName}
                       required
+                      maxLength={255}
                       onChange={(e) => setCategoryName(e.target.value)}
                       placeholder={categoryNamePlaceholder}
                       className='book-create-input'
@@ -760,6 +765,7 @@ const AddBook: React.FC = () => {
                     <textarea
                       name='description'
                       value={categoryDescription}
+                      maxLength={255}
                       onChange={(e) => setCategoryDescription(e.target.value)}
                       placeholder={categoryDescPlaceholder}
                       className='category-desc-input'

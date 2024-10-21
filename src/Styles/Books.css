@@ -1,0 +1,37 @@
+.books-header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+.books-header-title {
+  display: flex;
+  flex-direction: row;
+}
+
+.title-flair-left,
+.title-flair-right {
+  fill: var(--clr-title-flair);
+  width: 50px;
+  height: 50px;
+}
+.title-flair-left {
+  margin: 0px 20px 0px 0px;
+}
+.title-flair-right {
+  transform: scaleX(-1);
+  margin: 0px 0px 0px 20px;
+}
+
+.books-title-text {
+  font-family: 'Sacramento', sans-serif;
+  font-size: 3.5em;
+  line-height: 1;
+  font-weight: 200;
+  color: var(--clr-text-blue);
+  width: auto;
+  text-align: center;
+}

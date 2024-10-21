@@ -21,7 +21,11 @@ const Nav: React.FC = () => {
     setShowAuth(true);
   };
 
+  // translations
   const loginText = language === 'EN' ? 'Login' : 'Se Connecter';
+  const homeText = language === 'EN' ? 'Home' : 'Maison';
+  const booksText = language === 'EN' ? 'Books' : 'Livres';
+  const aboutText = language === 'EN' ? 'About' : 'À propos';
 
   return (
     <nav className='nav-container'>
@@ -73,6 +77,11 @@ const Nav: React.FC = () => {
             </Link>
           )}
         </div>
+      </section>
+      <section className='nav-links'>
+        <div className='nav-link'>{homeText}</div>
+        <div className='nav-link'>{booksText}</div>
+        <div className='nav-link'>{aboutText}</div>
       </section>
     </nav>
   );

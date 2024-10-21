@@ -1,35 +1,20 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import ServerApi from 'Utilities/ServerApi';
 import TitleFlair from 'Svgs/TitleFlair';
 import BookList from 'Components/BookList';
 import 'Styles/Home.css';
 
 const Home: React.FC = () => {
-  const { getBooks } = ServerApi();
   const context = useContext(AppContext);
+
   if (!context) {
     throw new Error('No Context');
   }
-  const { language, allBooks, setAllBooks } = context;
+
+  const { language, allBooks, fetchError, isFetched } = context;
 
   // translations
   const headerText = language === 'EN' ? 'Story Space' : "Espace d'Histoire";
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      if (allBooks.length === 0) {
-        const result = await getBooks();
-        if (result.success) {
-          setAllBooks(result.data ?? []);
-        } else {
-          console.error('Failed to load books');
-        }
-      }
-    };
-
-    fetchBooks();
-  }, [getBooks, allBooks, setAllBooks]);
 
   const availableBooks = allBooks.filter((book) => book.available > 0);
 
@@ -43,7 +28,14 @@ const Home: React.FC = () => {
             <TitleFlair className='title-flair-right' />
           </div>
         </header>
-        <BookList bookList={availableBooks} />
+
+        {fetchError ? (
+          <p>Error fetching books. Please try again later.</p>
+        ) : isFetched && allBooks.length === 0 ? (
+          <p>No books available.</p>
+        ) : (
+          <BookList bookList={availableBooks} />
+        )}
       </main>
     </>
   );

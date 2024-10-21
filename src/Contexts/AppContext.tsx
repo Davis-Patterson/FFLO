@@ -10,6 +10,7 @@ export interface Book {
   id: number;
   title: string;
   author: string;
+  description: string;
   images: BookImage[];
   inventory: number;
   available: number;
@@ -53,6 +54,8 @@ interface User {
 interface AppContextType {
   authToken: string | null;
   setAuthToken: (token: string | null) => void;
+  authUser: User | null;
+  setAuthUser: (user: User | null) => void;
   showFullscreen: boolean;
   setShowFullscreen: (value: boolean) => void;
   showAuth: boolean;
@@ -67,11 +70,14 @@ interface AppContextType {
   setCategories: (categories: any[]) => void;
   allBooks: Book[];
   setAllBooks: (books: Book[]) => void;
+  fetchError: boolean;
+  setFetchError: (value: boolean) => void;
+  isFetched: boolean;
+  setIsFetched: (value: boolean) => void;
   clearAuthToken: () => void;
   clearAuthUser: () => void;
   handleLanguageChange: (newLanguage: string | null) => void;
-  authUser: User | null;
-  setAuthUser: (user: User | null) => void;
+  formatTitleForURL: (inputString: string) => string;
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -100,6 +106,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [categories, setCategories] = useState<any[]>([]);
   const [allBooks, setAllBooks] = useState<Book[]>([]);
 
+  const [fetchError, setFetchError] = useState(false);
+  const [isFetched, setIsFetched] = useState(false);
+
   const clearAuthToken = () => {
     setAuthToken(null);
   };
@@ -112,6 +121,13 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     if (newLanguage) {
       setLanguage(newLanguage);
     }
+  };
+
+  const formatTitleForURL = (inputString: string): string => {
+    return inputString
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/-+$/, '');
   };
 
   return (
@@ -135,9 +151,14 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setCategories,
         allBooks,
         setAllBooks,
+        fetchError,
+        setFetchError,
+        isFetched,
+        setIsFetched,
         clearAuthToken,
         clearAuthUser,
         handleLanguageChange,
+        formatTitleForURL,
       }}
     >
       {children}

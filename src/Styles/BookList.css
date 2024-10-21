@@ -3,10 +3,58 @@
   position: relative;
 }
 
-.view-setting-toggle {
-  width: 100%;
+.page-toggles-container {
   display: flex;
   justify-content: right;
+  width: 100%;
+}
+
+.view-setting-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggle-text {
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.toggle-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--clr-icon);
+  transition: fill 0.3s;
+}
+
+.toggle-icon:hover {
+  fill: var(--clr-dark);
+}
+
+.filter-setting {
+  display: flex;
+  align-items: center;
+}
+
+.filter-dropdown {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1em;
+  font-weight: 400;
+  line-height: 1;
+  transform: scaleY(85%);
+  padding: 5px;
+  font-size: 1rem;
+  border: 1px solid var(--clr-break);
+  border-radius: 4px;
+  background-color: var(--clr-background);
+  color: var(--clr-dark);
+  transition: border-color 0.3s;
+  cursor: pointer;
 }
 
 .toggle-container {
@@ -46,7 +94,7 @@
 .book-grid-view {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
+  gap: 30px;
   width: 100%;
   padding: 20px;
   justify-items: center;
@@ -75,8 +123,8 @@
 }
 
 .book-card:hover {
-  background-color: var(--clr-light);
   border: 1px solid var(--clr-break);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .book-image-container {
@@ -137,7 +185,7 @@
   opacity: 1;
 }
 
-.book-cover-icon {
+.book-list-cover-icon {
   height: 200px;
   width: 100%;
   fill: var(--clr-icon);
