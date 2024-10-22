@@ -501,7 +501,7 @@ const AddBook: React.FC = () => {
                       maxLength={1200}
                       onChange={(e) => setDescription(e.target.value)}
                       placeholder={descPlaceholder}
-                      className='category-desc-input'
+                      className='book-add-desc-input'
                     />
                   </div>
                   <div>

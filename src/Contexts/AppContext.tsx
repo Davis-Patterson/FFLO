@@ -2,6 +2,7 @@ import { createContext, ReactNode, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 export interface BookImage {
+  id: number;
   image_url: string | null;
   image_small: string | null;
 }
