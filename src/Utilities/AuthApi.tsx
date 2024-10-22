@@ -80,25 +80,14 @@ const AuthApi = () => {
     password: string
   ): Promise<{ success: boolean; token?: string }> => {
     try {
-      const response: AxiosResponse<{ token: string }> =
+      const response: AxiosResponse<{ token: string; user: any }> =
         await axiosInstance.post('/auth/login/', { email, password });
 
       if (response.status === 200 && response.data.token) {
         setAuthToken(response.data.token);
+        setAuthUser(response.data.user);
 
-        const userResponse: AxiosResponse = await axiosInstance.get(
-          '/auth/users/me/',
-          {
-            headers: {
-              Authorization: `Token ${response.data.token}`,
-            },
-          }
-        );
-
-        if (userResponse.status === 200) {
-          setAuthUser(userResponse.data);
-          console.log('User info retrieved:', userResponse.data);
-        }
+        console.log('User info retrieved:', response.data.user);
 
         return { success: true, token: response.data.token };
       } else {

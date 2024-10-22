@@ -12,17 +12,13 @@
 .view-setting-toggle {
   display: flex;
   align-items: center;
+  margin: 0px 0px 0px 5px;
 }
 
 .toggle-container {
   display: flex;
   align-items: center;
   cursor: pointer;
-}
-
-.toggle-text {
-  font-size: 1rem;
-  margin-right: 10px;
 }
 
 .toggle-icon {
@@ -61,18 +57,18 @@
   display: flex;
   justify-content: right;
   align-items: center;
-  gap: 5px;
 }
 
 .toggle-text {
   font-family: 'Lato', sans-serif;
-  font-size: 1.1em;
   font-weight: 300;
   line-height: 1;
   transform: scaleY(90%);
   color: var(--clr-icon);
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  font-size: 1rem;
+  margin-right: 4px;
 }
 
 .toggle-icon {

@@ -16,10 +16,14 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { language, formatTitleForURL } = context;
-
-  const [viewSetting, setViewSetting] = useState<string>('grid');
-  const [filterSetting, setFilterSetting] = useState<string>('title-asc');
+  const {
+    language,
+    formatTitleForURL,
+    viewSetting,
+    setViewSetting,
+    filterSetting,
+    setFilterSetting,
+  } = context;
 
   // translations
   const gridViewText = language === 'EN' ? 'Grid' : 'Grille';
@@ -73,8 +77,8 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
         <div className='view-setting-toggle'>
           {viewSetting === 'grid' && (
             <div className='toggle-container'>
-              <p className='toggle-text'>{gridViewText}</p>
-              <GridIcon
+              <p className='toggle-text'>{listViewText}</p>
+              <ListIcon
                 className='toggle-icon'
                 onMouseDown={(e) => handleToggleViewSetting(e)}
               />
@@ -82,8 +86,8 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
           )}
           {viewSetting === 'list' && (
             <div className='toggle-container'>
-              <p className='toggle-text'>{listViewText}</p>
-              <ListIcon
+              <p className='toggle-text'>{gridViewText}</p>
+              <GridIcon
                 className='toggle-icon'
                 onMouseDown={(e) => handleToggleViewSetting(e)}
               />

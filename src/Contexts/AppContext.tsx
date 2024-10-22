@@ -75,6 +75,10 @@ interface AppContextType {
   setAllBooks: (books: Book[]) => void;
   selectedBook: Book | null;
   setSelectedBook: (book: Book | null) => void;
+  viewSetting: string;
+  setViewSetting: (viewSetting: string) => void;
+  filterSetting: string;
+  setFilterSetting: (filterSetting: string) => void;
   fetchError: boolean;
   setFetchError: (value: boolean) => void;
   isFetched: boolean;
@@ -113,6 +117,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [categories, setCategories] = useState<any[]>([]);
   const [allBooks, setAllBooks] = useState<Book[]>([]);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+
+  const [viewSetting, setViewSetting] = useState<string>('grid');
+  const [filterSetting, setFilterSetting] = useState<string>('title-asc');
 
   const [fetchError, setFetchError] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
@@ -163,6 +170,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setAllBooks,
         selectedBook,
         setSelectedBook,
+        viewSetting,
+        setViewSetting,
+        filterSetting,
+        setFilterSetting,
         fetchError,
         setFetchError,
         isFetched,

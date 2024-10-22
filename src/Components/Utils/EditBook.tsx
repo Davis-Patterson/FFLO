@@ -904,7 +904,13 @@ const EditBook: React.FC = () => {
                                     isSelected ? 'selected' : ''
                                   }`}
                                 />
-                                <div className='book-edit-image-trash-container'>
+                                <div
+                                  className={
+                                    isSelected
+                                      ? 'book-edit-image-x-container'
+                                      : 'book-edit-image-trash-container'
+                                  }
+                                >
                                   {isSelected ? (
                                     <BackArrow
                                       className='book-edit-trash-x'

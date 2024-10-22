@@ -457,6 +457,7 @@
   border: 1px solid var(--clr-error);
 }
 
+.book-edit-image-x-container,
 .book-edit-image-trash-container {
   position: absolute;
   top: 0;
@@ -465,6 +466,15 @@
   background-color: var(--clr-light);
   border: 1px solid var(--clr-break);
   z-index: 5;
+}
+.book-edit-image-x-container {
+  opacity: 1;
+}
+.book-edit-image-trash-container {
+  opacity: 0;
+}
+.image-thumbnail:hover .book-edit-image-trash-container {
+  opacity: 1;
 }
 
 .book-edit-trash-icon,
