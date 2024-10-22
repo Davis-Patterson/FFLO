@@ -250,6 +250,52 @@ const ServerApi = () => {
     }
   };
 
+  const archiveBook = async (
+    bookId: number
+  ): Promise<{ success: boolean; data?: any }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.post(
+        `/api/books/${bookId}/archive/`
+      );
+
+      if (response.status === 200) {
+        console.log(
+          `Book with ID ${bookId} archived/unarchived successfully:`,
+          response.data
+        );
+        return { success: true, data: response.data };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error(`Failed to archive book with ID ${bookId}:`, error);
+      return { success: false };
+    }
+  };
+
+  const deleteBook = async (
+    bookId: number
+  ): Promise<{ success: boolean; data?: any }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.delete(
+        `/api/books/${bookId}/delete/`
+      );
+
+      if (response.status === 200) {
+        console.log(
+          `Book with ID ${bookId} deleted successfully:`,
+          response.data
+        );
+        return { success: true, data: response.data };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error(`Failed to delete book with ID ${bookId}:`, error);
+      return { success: false };
+    }
+  };
+
   return {
     getCategories,
     createCategory,
@@ -258,6 +304,8 @@ const ServerApi = () => {
     createBook,
     updateBook,
     getBooks,
+    archiveBook,
+    deleteBook,
   };
 };
 

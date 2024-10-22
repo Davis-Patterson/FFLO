@@ -35,17 +35,33 @@
   background-color: var(--clr-submit-hover);
 }
 
+.archive-button,
+.delete-button,
 .edit-button {
-  width: 49%;
   height: 40px;
   padding: 0.75rem;
-  background-color: var(--clr-break);
   color: var(--clr-light);
   border: none;
   border-radius: 4px;
   cursor: pointer;
   max-width: 360px;
 }
+.edit-button {
+  background-color: var(--clr-break);
+  width: 49%;
+}
+.archive-button {
+  background-color: var(--clr-break);
+  width: 100%;
+}
+.delete-button {
+  background-color: var(--clr-error);
+  width: 100%;
+}
+.delete-button:hover {
+  background-color: var(--clr-error-dark);
+}
+.archive-button:hover,
 .edit-button:hover {
   background-color: var(--clr-icon);
 }

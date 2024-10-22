@@ -20,6 +20,8 @@ const EditBook: React.FC = () => {
     deleteCategory,
     updateCategory,
     getBooks,
+    archiveBook,
+    deleteBook,
   } = ServerApi();
 
   const context = useContext(AppContext);
@@ -52,6 +54,8 @@ const EditBook: React.FC = () => {
   const [showEditBook, setShowEditBook] = useState(true);
   const [showAddCategories, setShowAddCategories] = useState(false);
   const [showEditCategory, setShowEditCategory] = useState(false);
+  const [showArchiveOrDeleteBook, setShowArchiveOrDeleteBook] = useState(false);
+  const [showArchiveBook, setShowArchiveBook] = useState(false);
   const [showDeleteBook, setShowDeleteBook] = useState(false);
 
   const [title, setTitle] = useState('');
@@ -75,6 +79,8 @@ const EditBook: React.FC = () => {
   const [categoriesLoading, setCategoriesLoading] = useState(false);
   const [categoryAddLoading, setCategoryAddLoading] = useState(false);
   const [categoryEditLoading, setCategoryEditLoading] = useState(false);
+  const [archiveLoading, setArchiveLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [showDeletes, setShowDeletes] = useState(false);
 
   const [editCategoryId, setEditCategoryId] = useState('');
@@ -117,6 +123,25 @@ const EditBook: React.FC = () => {
     language === 'EN' ? 'Upload new images' : 'Télécharger de nouvelles images';
   const bookArchiveOrDeleteText =
     language === 'EN' ? 'Archive or Delete' : 'Archiver ou Supprimer';
+  const archiveSubtext =
+    language === 'EN' ? 'Archive the current book' : 'Archiver le livre actuel';
+  const bookArchiveText = language === 'EN' ? 'Archive' : 'Archiver';
+  const deleteSubtext =
+    language === 'EN' ? 'Delete the current book' : 'Supprimer le livre actuel';
+  const bookDeleteText = language === 'EN' ? 'Delete' : 'Supprimer';
+  const confirmArchiveText =
+    language === 'EN' ? 'Confirm Archive' : 'Confirmer la Archiver';
+  const confirmDeleteText =
+    language === 'EN' ? 'Confirm Delete' : 'Confirmer la Supprimer';
+
+  useEffect(() => {
+    if (errorMessage) {
+      setTimeout(() => {
+        console.log('Clearing Error Message.');
+        setErrorMessage('');
+      }, 3000);
+    }
+  }, [errorMessage]);
 
   useEffect(() => {
     if (selectedBook) {
@@ -177,7 +202,9 @@ const EditBook: React.FC = () => {
         setShowAddCategories(false);
         setShowDeletes(false);
         setShowEditCategory(false);
+        setShowArchiveOrDeleteBook(false);
         setShowDeleteBook(false);
+        setShowArchiveBook(false);
         setShowEditBook(true);
         setSelectedBook(null);
       }
@@ -289,6 +316,84 @@ const EditBook: React.FC = () => {
     setImagesToRemove([]);
   };
 
+  const handleBookArchive = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setArchiveLoading(true);
+
+    if (!selectedBook) {
+      setErrorMessage('No book selected');
+      setArchiveLoading(false);
+      return;
+    }
+
+    const result = await archiveBook(selectedBook.id);
+
+    if (result.success) {
+      console.log(
+        `Book with ID ${selectedBook.id} archived/unarchived successfully.`
+      );
+      setShowBookEditWindow(false);
+    } else {
+      setErrorMessage('Failed to archive/unarchive the book');
+    }
+
+    const fetchBooks = async () => {
+      const result = await getBooks();
+      if (result.success) {
+        setAllBooks(result.data ?? []);
+      } else {
+        console.error('Failed to load books');
+      }
+    };
+
+    fetchBooks();
+
+    setArchiveLoading(false);
+    setSelectedBook(null);
+    setShowArchiveOrDeleteBook(false);
+    setShowArchiveBook(false);
+    setShowBookEditWindow(false);
+    setShowEditBook(true);
+  };
+
+  const handleBookDelete = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setDeleteLoading(true);
+
+    if (!selectedBook) {
+      setErrorMessage('No book selected');
+      setDeleteLoading(false);
+      return;
+    }
+
+    const result = await deleteBook(selectedBook.id);
+
+    if (result.success) {
+      console.log(`Book with ID ${selectedBook.id} deleted successfully.`);
+      setShowBookEditWindow(false);
+    } else {
+      setErrorMessage('Failed to delete the book');
+    }
+
+    const fetchBooks = async () => {
+      const result = await getBooks();
+      if (result.success) {
+        setAllBooks(result.data ?? []);
+      } else {
+        console.error('Failed to load books');
+      }
+    };
+
+    fetchBooks();
+
+    setDeleteLoading(false);
+    setSelectedBook(null);
+    setShowArchiveOrDeleteBook(false);
+    setShowDeleteBook(false);
+    setShowBookEditWindow(false);
+    setShowEditBook(true);
+  };
+
   const handleCategoryCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     setCategoryAddLoading(true);
@@ -396,7 +501,7 @@ const EditBook: React.FC = () => {
     setShowBookEditWindow(false);
     setShowEditCategory(false);
     setShowDeletes(false);
-    setShowDeleteBook(false);
+    setShowArchiveOrDeleteBook(false);
     setShowEditBook(true);
     setSelectedBook(null);
 
@@ -445,7 +550,7 @@ const EditBook: React.FC = () => {
 
     setShowEditBook(false);
     setShowAddCategories(false);
-    setShowDeleteBook(false);
+    setShowArchiveOrDeleteBook(false);
     setShowEditCategory(true);
   };
 
@@ -459,7 +564,50 @@ const EditBook: React.FC = () => {
     setShowEditBook(false);
     setShowAddCategories(false);
     setShowEditCategory(false);
+    setShowArchiveOrDeleteBook(true);
+  };
+
+  const handleShowDelete = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    setShowArchiveOrDeleteBook(false);
+    setShowEditBook(false);
+    setShowAddCategories(false);
+    setShowEditCategory(false);
     setShowDeleteBook(true);
+  };
+
+  const handleShowArchive = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    setShowArchiveOrDeleteBook(false);
+    setShowEditBook(false);
+    setShowAddCategories(false);
+    setShowEditCategory(false);
+    setShowArchiveBook(true);
+  };
+
+  const handleBackToEditBook = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    setShowArchiveOrDeleteBook(false);
+    setShowArchiveBook(false);
+    setShowDeleteBook(false);
+    setShowAddCategories(false);
+    setShowEditCategory(false);
+    setShowEditBook(true);
   };
 
   const handleBackToCategories = (
@@ -553,6 +701,24 @@ const EditBook: React.FC = () => {
               <BackArrow
                 className='book-edit-x-icon'
                 onMouseDown={(e) => handleBackToCategories(e)}
+              />
+            )}
+            {showArchiveOrDeleteBook && (
+              <BackArrow
+                className='book-edit-x-icon'
+                onMouseDown={(e) => handleBackToEditBook(e)}
+              />
+            )}
+            {showArchiveBook && (
+              <BackArrow
+                className='book-edit-x-icon'
+                onMouseDown={(e) => handleBackToEditBook(e)}
+              />
+            )}
+            {showDeleteBook && (
+              <BackArrow
+                className='book-edit-x-icon'
+                onMouseDown={(e) => handleBackToEditBook(e)}
               />
             )}
             {showEditBook && (
@@ -828,7 +994,7 @@ const EditBook: React.FC = () => {
                     <button
                       onMouseDown={(e) => handleShowArchiveOrDelete(e)}
                       className='edit-button'
-                      disabled={!bookEditButtonActive || isLoading}
+                      disabled={isLoading}
                     >
                       <p className='archive-or-delete-text'>
                         {bookArchiveOrDeleteText}
@@ -1033,6 +1199,123 @@ const EditBook: React.FC = () => {
                     )}
                   </button>
                 </form>
+              </>
+            )}
+            {showArchiveOrDeleteBook && (
+              <>
+                <div className='book-edit-header'>
+                  <TitleFlair className='book-edit-flair-left' />
+                  <p className='book-edit-header-text'>
+                    {bookArchiveOrDeleteText}
+                  </p>
+                  <TitleFlair className='book-edit-flair-right' />
+                </div>
+                <p
+                  className='book-edit-header-subtext'
+                  style={{ padding: '8px 0px 0px 0px' }}
+                >
+                  {archiveSubtext}
+                </p>
+                {errorMessage && (
+                  <p className='error-message'>{errorMessage}</p>
+                )}
+                <button
+                  onMouseDown={(e) => handleShowArchive(e)}
+                  className={
+                    deleteLoading ? 'inactive-button' : 'archive-button'
+                  }
+                  disabled={deleteLoading || archiveLoading}
+                >
+                  {archiveLoading ? (
+                    <LinearProgress color='inherit' />
+                  ) : (
+                    bookArchiveText
+                  )}
+                </button>
+                <p
+                  className='book-edit-header-subtext'
+                  style={{ padding: '8px 0px 0px 0px' }}
+                >
+                  {deleteSubtext}
+                </p>
+                {errorMessage && (
+                  <p className='error-message'>{errorMessage}</p>
+                )}
+                <button
+                  onMouseDown={(e) => handleShowDelete(e)}
+                  className={
+                    archiveLoading ? 'inactive-button' : 'delete-button'
+                  }
+                  disabled={archiveLoading || deleteLoading}
+                >
+                  {deleteLoading ? (
+                    <LinearProgress color='inherit' />
+                  ) : (
+                    bookDeleteText
+                  )}
+                </button>
+              </>
+            )}
+            {showArchiveBook && (
+              <>
+                <div className='book-edit-header'>
+                  <TitleFlair className='book-edit-flair-left' />
+                  <p className='book-edit-header-text'>{confirmArchiveText}</p>
+                  <TitleFlair className='book-edit-flair-right' />
+                </div>
+                <p
+                  className='book-edit-header-subtext'
+                  style={{ padding: '8px 0px 0px 0px' }}
+                >
+                  {archiveSubtext}
+                </p>
+                {errorMessage && (
+                  <p className='error-message'>{errorMessage}</p>
+                )}
+                <button
+                  onMouseDown={(e) => handleBookArchive(e)}
+                  className={
+                    archiveLoading ? 'inactive-button' : 'delete-button'
+                  }
+                  disabled={archiveLoading || deleteLoading}
+                >
+                  {deleteLoading ? (
+                    <LinearProgress color='inherit' />
+                  ) : (
+                    bookArchiveText
+                  )}
+                </button>
+              </>
+            )}
+            {showDeleteBook && (
+              <>
+                <div className='book-edit-header'>
+                  <TitleFlair className='book-edit-flair-left' />
+                  <p className='book-edit-header-text'>{confirmDeleteText}</p>
+                  <TitleFlair className='book-edit-flair-right' />
+                </div>
+                <p
+                  className='book-edit-header-subtext'
+                  style={{ padding: '8px 0px 0px 0px' }}
+                >
+                  {deleteSubtext}
+                </p>
+                {errorMessage && (
+                  <p className='error-message'>{errorMessage}</p>
+                )}
+                <button
+                  onMouseDown={(e) => handleBookDelete(e)}
+                  className={
+                    deleteLoading ? 'inactive-button' : 'delete-button'
+                  }
+                  disabled={archiveLoading || deleteLoading}
+                >
+                  {deleteLoading ? (
+                    <LinearProgress color='inherit' />
+                  ) : (
+                    bookDeleteText
+                  )}
+                </button>
               </>
             )}
           </section>

@@ -48,6 +48,7 @@
   --clr-submit: #007bff;
   --clr-submit-hover: #0056b3;
   --clr-error: #ff0000;
+  --clr-error-dark: #ad0000;
   --clr-success: #00ff00;
   --clr-transparent: #ffffff00;
 }
@@ -72,6 +73,7 @@
   --clr-submit: #007bff;
   --clr-submit-hover: #0056b3;
   --clr-error: #ff0000;
+  --clr-error-dark: #ad0000;
   --clr-success: #00ff00;
   --clr-transparent: #ffffff00;
 }

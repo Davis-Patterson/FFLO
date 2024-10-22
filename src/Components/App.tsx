@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Routes, Route } from 'react-router-dom';
 import AuthApi from 'Utilities/AuthApi';
