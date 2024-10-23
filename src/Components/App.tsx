@@ -7,6 +7,7 @@ import Menu from 'Utils/Menu';
 import Fullscreen from 'Utils/Fullscreen';
 import Auth from 'Components/Utils/Auth';
 import EditProfile from 'Utils/EditProfile';
+import PolicyPanel from 'Utils/PolicyPanel';
 import AddBook from 'Utils/AddBook';
 import EditBook from 'Utils/EditBook';
 import Nav from 'Components/Nav';
@@ -87,6 +88,7 @@ const App: React.FC = () => {
       <EditProfile />
       <AddBook />
       <EditBook />
+      <PolicyPanel />
       <>
         <Nav />
         <Routes>

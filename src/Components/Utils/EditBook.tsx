@@ -11,6 +11,7 @@ import TrashIcon from 'Svgs/TrashIcon';
 import CheckIcon from 'Svgs/CheckIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Utils/EditBook.css';
+import BookCoverIcon from 'Svgs/BookCoverIcon';
 
 const EditBook: React.FC = () => {
   const {
@@ -133,6 +134,10 @@ const EditBook: React.FC = () => {
     language === 'EN' ? 'Confirm Archive' : 'Confirmer la Archiver';
   const confirmDeleteText =
     language === 'EN' ? 'Confirm Delete' : 'Confirmer la Supprimer';
+  const noImagesForThisBookText =
+    language === 'EN'
+      ? 'No images available for this book'
+      : 'Aucune image disponible pour ce livre';
 
   useEffect(() => {
     if (errorMessage) {
@@ -885,82 +890,88 @@ const EditBook: React.FC = () => {
                       </div>
                     </div>
                     <div className='book-edit-images-container'>
-                      {selectedBook && selectedBook.images.length > 0 ? (
-                        <div className='book-edit-image-thumbnails'>
-                          {selectedBook.images.map((image, index) => {
-                            const hasImage = !!image.image_url;
-                            const isSelected = imagesToRemove.includes(
-                              image.id
-                            );
-                            return (
-                              <div
-                                key={image.id}
-                                className={`image-thumbnail ${
-                                  isSelected ? 'selected' : ''
-                                }`}
-                              >
+                      <div className='book-edit-old-images'>
+                        {selectedBook && selectedBook.images.length > 0 ? (
+                          <div className='book-edit-image-thumbnails'>
+                            {selectedBook.images.map((image, index) => {
+                              const hasImage = !!image.image_url;
+                              const isSelected = imagesToRemove.includes(
+                                image.id
+                              );
+                              return (
                                 <div
-                                  className={`image-thumbnail-overlay ${
+                                  key={image.id}
+                                  className={`image-thumbnail ${
                                     isSelected ? 'selected' : ''
                                   }`}
-                                />
-                                <div
-                                  className={
-                                    isSelected
-                                      ? 'book-edit-image-x-container'
-                                      : 'book-edit-image-trash-container'
-                                  }
                                 >
-                                  {isSelected ? (
-                                    <BackArrow
-                                      className='book-edit-trash-x'
-                                      onMouseDown={(e) =>
-                                        handleDeleteBookImage(e, image.id)
-                                      }
-                                    />
-                                  ) : (
-                                    <TrashIcon
-                                      className='book-edit-trash-icon'
-                                      onMouseDown={(e) =>
-                                        handleDeleteBookImage(e, image.id)
-                                      }
-                                    />
-                                  )}
-                                </div>
-                                <div
-                                  className={`book-detail-image-wrapper ${
-                                    hasImage ? 'blur-load' : ''
-                                  }`}
-                                  style={{
-                                    backgroundImage: `url(${image.image_small})`,
-                                  }}
-                                >
-                                  {hasImage ? (
-                                    <>
-                                      <img
-                                        src={image.image_url || ''}
-                                        alt={`Thumbnail ${index + 1}`}
-                                        className='book-detail-image'
-                                        onLoad={(e) => {
-                                          const imgElement =
-                                            e.target as HTMLImageElement;
-                                          imgElement.parentElement?.classList.add(
-                                            'loaded'
-                                          );
-                                        }}
+                                  <div
+                                    className={`image-thumbnail-overlay ${
+                                      isSelected ? 'selected' : ''
+                                    }`}
+                                  />
+                                  <div
+                                    className={
+                                      isSelected
+                                        ? 'book-edit-image-x-container'
+                                        : 'book-edit-image-trash-container'
+                                    }
+                                  >
+                                    {isSelected ? (
+                                      <BackArrow
+                                        className='book-edit-trash-x'
+                                        onMouseDown={(e) =>
+                                          handleDeleteBookImage(e, image.id)
+                                        }
                                       />
-                                    </>
-                                  ) : (
-                                    <p>No image available</p>
-                                  )}
+                                    ) : (
+                                      <TrashIcon
+                                        className='book-edit-trash-icon'
+                                        onMouseDown={(e) =>
+                                          handleDeleteBookImage(e, image.id)
+                                        }
+                                      />
+                                    )}
+                                  </div>
+                                  <div
+                                    className={`book-detail-image-wrapper ${
+                                      hasImage ? 'blur-load' : ''
+                                    }`}
+                                    style={{
+                                      backgroundImage: `url(${image.image_small})`,
+                                    }}
+                                  >
+                                    {hasImage ? (
+                                      <>
+                                        <img
+                                          src={image.image_url || ''}
+                                          alt={`Thumbnail ${index + 1}`}
+                                          className='book-detail-image'
+                                          onLoad={(e) => {
+                                            const imgElement =
+                                              e.target as HTMLImageElement;
+                                            imgElement.parentElement?.classList.add(
+                                              'loaded'
+                                            );
+                                          }}
+                                        />
+                                      </>
+                                    ) : (
+                                      <BookCoverIcon className='book-icon-thumbnail' />
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <p>No images available for this book</p>
-                      )}
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <div className='no-images-text-container'>
+                            <p className='edit-book-no-images-text'>
+                              {noImagesForThisBookText}
+                            </p>
+                          </div>
+                        )}
+                      </div>
                       <div className='book-edit-new-image-container'>
                         <p className='book-edit-new-image-text'>
                           {newImagesUploadText}

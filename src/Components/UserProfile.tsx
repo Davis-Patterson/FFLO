@@ -26,15 +26,27 @@ const UserProfile: React.FC = () => {
       ? 'No rental history available.'
       : 'Aucun historique de location disponible.';
 
-  const handleUpdate = () => {
+  const handleUpdate = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
     setShowEdit(true);
   };
 
-  const handleAddBook = () => {
+  const handleAddBook = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
     setShowAddBookWindow(true);
   };
 
-  const handleLogout = () => {
+  const handleLogout = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
     setShowAuth(true);
   };
 
@@ -62,9 +74,9 @@ const UserProfile: React.FC = () => {
         {authUser?.phone && <p className='user-phone'>{authUser.phone}</p>}
       </div>
       <div className='user-info-options'>
-        <button onClick={handleUpdate}>Update</button>
-        <button onClick={handleAddBook}>Add Book</button>
-        <button onClick={handleLogout}>Logout</button>
+        <button onMouseDown={(e) => handleUpdate(e)}>Update</button>
+        <button onMouseDown={(e) => handleAddBook(e)}>Add Book</button>
+        <button onMouseDown={(e) => handleLogout(e)}>Logout</button>
       </div>
     </>
   );

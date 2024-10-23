@@ -70,11 +70,14 @@
   background-color: var(--clr-light);
   border: 1px solid var(--clr-break);
   border-top-right-radius: 4px;
-  padding: 6px 8px;
+  padding: 14px 14px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 100px;
   max-height: 30px;
   z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .book-detail-flair {
@@ -83,7 +86,7 @@
   font-weight: 600;
   line-height: 1;
   font-style: italic;
-  transform: scaleY(90%);
+  transform: scale(125%);
   color: var(--clr-dark);
   font-size: 0.8em;
   font-weight: bold;

@@ -1,0 +1,147 @@
+.policy-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 20;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.policy-container {
+  background-color: var(--clr-background);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  z-index: 1001;
+  transition: opacity 0.5s ease-in;
+  position: relative;
+  min-width: 300px;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.policy-language-toggle {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+}
+
+.policy-lang-toggle {
+  color: var(--clr-break);
+}
+.policy-lang-toggle:hover {
+  color: var(--clr-dark);
+}
+
+.policy-x-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  fill: var(--clr-break);
+}
+.policy-x-icon:hover {
+  fill: var(--clr-dark);
+}
+
+.policy-header {
+  display: flex;
+  justify-content: center;
+  margin: 0px 0px 20px 0px;
+  width: 100%;
+  min-width: 299px;
+}
+
+.policy-header-text {
+  font-family: 'Sacramento', sans-serif;
+  font-size: 2.4em;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--clr-text-blue);
+  width: auto;
+  text-align: center;
+}
+
+.policy-header-subtext {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--clr-dark);
+  width: 100%;
+  text-align: center;
+  margin: 0px 0px 5px 0px;
+}
+
+.policy-flair-left,
+.policy-flair-right {
+  fill: var(--clr-title-flair);
+  width: 35px;
+  height: 35px;
+}
+.policy-flair-left {
+  margin: 0px 10px 0px 0px;
+}
+.policy-flair-right {
+  transform: scaleX(-1);
+  margin: 0px 0px 0px 10px;
+}
+
+.policy-main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.policy-main-text {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--clr-text-blue);
+  margin: 5px 0px 0px 0px;
+}
+
+.policy-list-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  gap: 10px;
+  margin: 15px 0px 0px 0px;
+}
+
+.policy-secondary-text {
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--clr-text-grey);
+}
+
+.policy-secondary-subtext {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  line-height: 0.9;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--clr-text-grey);
+}

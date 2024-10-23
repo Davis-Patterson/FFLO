@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import Flowers1 from 'Svgs/Flowers1';
-import BirdIcon from 'Svgs/BirdIcon';
+import ChickenIcon from 'Svgs/ChickenIcon';
 import Flowers2 from 'Svgs/Flowers2';
 import FlowerDots from 'Svgs/FlowerDots';
 import IgIcon from 'Svgs/IgIcon';
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
         </div>
         <div className='footer-center-header'>
           <div className='bird-logo'>
-            <BirdIcon className='bird-icon' />
+            <ChickenIcon className='bird-icon' />
           </div>
           <div className='footer-header-text'>
             <p className='FFLO-footer-text'>{FFLOFooterText}</p>

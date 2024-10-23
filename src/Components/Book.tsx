@@ -18,6 +18,7 @@ const Book: React.FC = () => {
     authUser,
     setShowAuth,
     setShowBookEditWindow,
+    setShowPolicyWindow,
     allBooks,
     setSelectedBook,
     formatTitleForURL,
@@ -37,6 +38,8 @@ const Book: React.FC = () => {
     language === 'EN' ? 'Reserve book' : 'Réserver un livre';
   const holdBookText = language === 'EN' ? 'Hold book' : 'Tenir le livre';
   const editBookText = language === 'EN' ? 'Edit book' : 'Modifier le livre';
+  const bookPolicyButtonText =
+    language === 'EN' ? 'Book Policies' : 'Politiques du livre';
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -79,6 +82,14 @@ const Book: React.FC = () => {
     setShowBookEditWindow(true);
   };
 
+  const handleShowPolicyWindow = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setShowPolicyWindow(true);
+  };
+
   if (!book) {
     return (
       <main className='page-container'>
@@ -106,7 +117,6 @@ const Book: React.FC = () => {
           <TitleFlair className='title-flair-right' />
         </div>
       </header>
-
       <section className='book-details'>
         <div className='book-details-header'>
           <div className='book-detail-image-container'>
@@ -184,6 +194,14 @@ const Book: React.FC = () => {
         </div>
         <div className='book-details-description-container'>
           <p className='book-details-description-text'>{book.description}</p>
+        </div>
+        <div className='book-details-policy-button'>
+          <button
+            className='policy-button'
+            onMouseDown={(e) => handleShowPolicyWindow(e)}
+          >
+            {bookPolicyButtonText}
+          </button>
         </div>
       </section>
 

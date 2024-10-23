@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface BirdIconProps extends React.SVGProps<SVGSVGElement> {}
+interface ChickenIconProps extends React.SVGProps<SVGSVGElement> {}
 
-const BirdIcon: React.FC<BirdIconProps> = (props) => (
+const ChickenIcon: React.FC<ChickenIconProps> = (props) => (
   <svg
-    id='BirdIcon'
+    id='ChickenIcon'
     data-name='Layer 4 Image'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 88.9 98.31'
@@ -85,4 +85,4 @@ const BirdIcon: React.FC<BirdIconProps> = (props) => (
   </svg>
 );
 
-export default BirdIcon;
+export default ChickenIcon;

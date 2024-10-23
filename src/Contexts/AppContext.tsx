@@ -67,6 +67,8 @@ interface AppContextType {
   setShowAddBookWindow: (value: boolean) => void;
   showBookEditWindow: boolean;
   setShowBookEditWindow: (value: boolean) => void;
+  showPolicyWindow: boolean;
+  setShowPolicyWindow: (value: boolean) => void;
   language: string;
   setLanguage: (language: string) => void;
   categories: any[];
@@ -109,6 +111,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [showAddBookWindow, setShowAddBookWindow] = useState<boolean>(false);
   const [showBookEditWindow, setShowBookEditWindow] = useState<boolean>(false);
+  const [showPolicyWindow, setShowPolicyWindow] = useState<boolean>(false);
 
   const [language, setLanguage] = useLocalStorageState<string>('EN', {
     defaultValue: 'EN',
@@ -162,6 +165,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setShowAddBookWindow,
         showBookEditWindow,
         setShowBookEditWindow,
+        showPolicyWindow,
+        setShowPolicyWindow,
         language,
         setLanguage,
         categories,
