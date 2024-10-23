@@ -30,14 +30,15 @@ const Home: React.FC = () => {
             <TitleFlair className='title-flair-right' />
           </div>
         </header>
-
-        {fetchError ? (
-          <p>Error fetching books. Please try again later.</p>
-        ) : isFetched && allBooks.length === 0 ? (
-          <p>No books available.</p>
-        ) : (
-          <BookList bookList={availableBooks} />
-        )}
+        <div className='home-books-container'>
+          {fetchError ? (
+            <p>Error fetching books. Please try again later.</p>
+          ) : isFetched && allBooks.length === 0 ? (
+            <p>No books available.</p>
+          ) : (
+            <BookList bookList={availableBooks} />
+          )}
+        </div>
       </main>
     </>
   );

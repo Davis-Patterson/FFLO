@@ -40,6 +40,8 @@ const Book: React.FC = () => {
   const editBookText = language === 'EN' ? 'Edit book' : 'Modifier le livre';
   const bookPolicyButtonText =
     language === 'EN' ? 'Book Policies' : 'Politiques du livre';
+  const bookDescriptionHeader =
+    language === 'EN' ? 'Book Description:' : 'Description du livre :';
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -193,6 +195,9 @@ const Book: React.FC = () => {
           </div>
         </div>
         <div className='book-details-description-container'>
+          <p className='book-details-description-header'>
+            {bookDescriptionHeader}
+          </p>
           <p className='book-details-description-text'>{book.description}</p>
         </div>
         <div className='book-details-policy-button'>
@@ -204,7 +209,6 @@ const Book: React.FC = () => {
           </button>
         </div>
       </section>
-
       <section className='more-books-container'>
         <h3>More Books</h3>
         <BookList bookList={allBooks.filter((b) => b.id !== book.id)} />

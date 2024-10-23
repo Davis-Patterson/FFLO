@@ -46,13 +46,11 @@ const Nav: React.FC = () => {
             </p>
           </div>
         </div>
-
         <div className='nav-logo'>
           <Link to='/'>
             <img src={ffloLogo} alt='FFLO Logo' className='logo-img' />
           </Link>
         </div>
-
         <div className='nav-profile'>
           {!authUser && (
             <p className='login-text' onMouseDown={(e) => handleLogin(e)}>
@@ -79,9 +77,15 @@ const Nav: React.FC = () => {
         </div>
       </section>
       <section className='nav-links'>
-        <div className='nav-link'>{homeText}</div>
-        <div className='nav-link'>{booksText}</div>
-        <div className='nav-link'>{aboutText}</div>
+        <Link to='/'>
+          <div className='nav-link'>{homeText}</div>
+        </Link>
+        <Link to='/categories'>
+          <div className='nav-link'>{booksText}</div>
+        </Link>
+        <Link to='/about'>
+          <div className='nav-link'>{aboutText}</div>
+        </Link>
       </section>
     </nav>
   );

@@ -1,4 +1,4 @@
-.home-header {
+.about-header {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -7,7 +7,7 @@
   margin: 20px 0px 40px 0px;
 }
 
-.home-header-title {
+.about-header-title {
   display: flex;
   flex-direction: row;
 }
@@ -26,7 +26,7 @@
   margin: 0px 0px 0px 20px;
 }
 
-.home-title-text {
+.about-title-text {
   font-family: 'Sacramento', sans-serif;
   font-size: 3.5em;
   line-height: 1;
@@ -36,10 +36,10 @@
   text-align: center;
 }
 
-.home-letter-container {
+.about-letter-container {
   width: 100%;
 }
 
-.home-books-container {
+.about-books-container {
   width: 100%;
 }

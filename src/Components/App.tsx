@@ -12,6 +12,8 @@ import AddBook from 'Utils/AddBook';
 import EditBook from 'Utils/EditBook';
 import Nav from 'Components/Nav';
 import Home from 'Components/Home';
+import Categories from 'Components/Categories';
+import About from 'Components/About';
 import Books from 'Components/Books';
 import Book from 'Components/Book';
 import UserProfile from 'Components/UserProfile';
@@ -95,6 +97,8 @@ const App: React.FC = () => {
           <Route path='/' element={<Home />} />
           <Route path='/books' element={<Books />} />
           <Route path='/books/:title' element={<Book />} />
+          <Route path='/categories' element={<Categories />} />
+          <Route path='/about' element={<About />} />
           <Route
             path='/profile'
             element={

@@ -64,7 +64,6 @@ const UserProfile: React.FC = () => {
         ) : (
           <UserIcon className='user-profile-icon' />
         )}
-
         {authUser?.first_name && (
           <p className='user-name'>
             {authUser.first_name} {authUser.last_name}
@@ -72,6 +71,19 @@ const UserProfile: React.FC = () => {
         )}
         {authUser?.email && <p className='user-email'>{authUser.email}</p>}
         {authUser?.phone && <p className='user-phone'>{authUser.phone}</p>}
+        {authUser?.membership?.active ? (
+          <div className='membership-status'>
+            <p>Active Membership</p>
+            {authUser.membership.recurrence ? (
+              <p>Recurrence Date: {authUser.membership.recurrence}</p>
+            ) : authUser.membership.end_date ? (
+              <p>End Date: {authUser.membership.end_date}</p>
+            ) : null}
+            <p>Books Used This Month: {authUser.membership.monthly_books}</p>
+          </div>
+        ) : (
+          <p>No active membership</p>
+        )}
       </div>
       <div className='user-info-options'>
         <button onMouseDown={(e) => handleUpdate(e)}>Update</button>
