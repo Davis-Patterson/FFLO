@@ -18,6 +18,7 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
   }
   const {
     language,
+    categoryFilter,
     formatTitleForURL,
     viewSetting,
     setViewSetting,
@@ -42,7 +43,11 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     }
   };
 
-  const sortedBookList = [...bookList].sort((a, b) => {
+  const filteredBookList = categoryFilter
+    ? bookList.filter((book) => book.categories.includes(categoryFilter))
+    : bookList;
+
+  const sortedBookList = [...filteredBookList].sort((a, b) => {
     if (filterSetting === 'title-asc') {
       return a.title.localeCompare(b.title);
     } else if (filterSetting === 'title-desc') {

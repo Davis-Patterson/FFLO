@@ -71,6 +71,8 @@ interface AppContextType {
   setShowPolicyWindow: (value: boolean) => void;
   language: string;
   setLanguage: (language: string) => void;
+  categoryFilter: number | null;
+  setCategoryFilter: (categoryFilter: number | null) => void;
   categories: any[];
   setCategories: (categories: any[]) => void;
   allBooks: Book[];
@@ -116,6 +118,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [language, setLanguage] = useLocalStorageState<string>('EN', {
     defaultValue: 'EN',
   });
+  const [categoryFilter, setCategoryFilter] = useState<number | null>(null);
 
   const [categories, setCategories] = useState<any[]>([]);
   const [allBooks, setAllBooks] = useState<Book[]>([]);
@@ -169,6 +172,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setShowPolicyWindow,
         language,
         setLanguage,
+        categoryFilter,
+        setCategoryFilter,
         categories,
         setCategories,
         allBooks,

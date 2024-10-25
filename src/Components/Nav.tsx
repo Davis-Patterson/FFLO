@@ -80,7 +80,7 @@ const Nav: React.FC = () => {
         <Link to='/'>
           <div className='nav-link'>{homeText}</div>
         </Link>
-        <Link to='/categories'>
+        <Link to='/books'>
           <div className='nav-link'>{booksText}</div>
         </Link>
         <Link to='/about'>
