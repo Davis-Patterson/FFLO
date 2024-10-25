@@ -73,6 +73,10 @@
 }
 .category-inactive {
   opacity: 0.3;
+  transition: opacity 0.15s ease-in-out;
+}
+.category-inactive:hover {
+  opacity: 1;
 }
 
 .category-card-header {

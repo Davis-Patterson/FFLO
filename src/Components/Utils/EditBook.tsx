@@ -1035,7 +1035,7 @@ const EditBook: React.FC = () => {
                     </button>
                     <button
                       onMouseDown={(e) => handleShowArchiveOrDelete(e)}
-                      className='edit-button'
+                      className='archive-delete-button'
                       disabled={isLoading}
                     >
                       <p className='archive-or-delete-text'>
