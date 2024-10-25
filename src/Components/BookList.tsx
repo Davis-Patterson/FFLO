@@ -105,7 +105,6 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
           {sortedBookList.map((book: Book) => {
             const hasImage = !!book.images[0]?.image_url;
             const bookUrl = `/books/${formatTitleForURL(book.title)}`;
-
             return (
               <Link key={book.id} to={bookUrl} className='book-card-link'>
                 <div className='book-card'>
@@ -153,7 +152,6 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
           {sortedBookList.map((book: Book) => {
             const hasImage = !!book.images[0]?.image_url;
             const bookUrl = `/books/${formatTitleForURL(book.title)}`;
-
             return (
               <Link key={book.id} to={bookUrl} className='book-card-link'>
                 <div className='book-card'>
