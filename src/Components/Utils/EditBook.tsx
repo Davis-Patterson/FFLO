@@ -67,6 +67,7 @@ const EditBook: React.FC = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagesToRemove, setImagesToRemove] = useState<number[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [categoriesToRemove, setCategoriesToRemove] = useState<number[]>([]);
   const [categoryName, setCategoryName] = useState('');
   const [categoryDescription, setCategoryDescription] = useState('');
 
@@ -288,6 +289,7 @@ const EditBook: React.FC = () => {
       imageFile ? [imageFile] : [],
       imagesToRemove,
       selectedCategories,
+      categoriesToRemove,
       flair
     );
 
@@ -319,6 +321,7 @@ const EditBook: React.FC = () => {
     setSelectedCategories([]);
     setFlair('');
     setImagesToRemove([]);
+    setCategoriesToRemove([]);
   };
 
   const handleBookArchive = async (e: React.FormEvent) => {
@@ -832,11 +835,22 @@ const EditBook: React.FC = () => {
                                               (id) => id !== categoryId
                                             )
                                           );
-                                        } else {
-                                          setSelectedCategories([
-                                            ...selectedCategories,
+                                          setCategoriesToRemove([
+                                            ...categoriesToRemove,
                                             categoryId,
                                           ]);
+                                        } else {
+                                          setSelectedCategories(
+                                            (prevSelectedCategories) => [
+                                              ...prevSelectedCategories,
+                                              categoryId,
+                                            ]
+                                          );
+                                          setCategoriesToRemove(
+                                            categoriesToRemove.filter(
+                                              (id) => id !== categoryId
+                                            )
+                                          );
                                         }
                                       }
                                     }}
@@ -854,16 +868,27 @@ const EditBook: React.FC = () => {
                                             e.target.value
                                           );
                                           if (e.target.checked) {
-                                            setSelectedCategories([
-                                              ...selectedCategories,
-                                              categoryId,
-                                            ]);
+                                            setSelectedCategories(
+                                              (prevSelectedCategories) => [
+                                                ...prevSelectedCategories,
+                                                categoryId,
+                                              ]
+                                            );
+                                            setCategoriesToRemove(
+                                              categoriesToRemove.filter(
+                                                (id) => id !== categoryId
+                                              )
+                                            );
                                           } else {
                                             setSelectedCategories(
                                               selectedCategories.filter(
                                                 (id) => id !== categoryId
                                               )
                                             );
+                                            setCategoriesToRemove([
+                                              ...categoriesToRemove,
+                                              categoryId,
+                                            ]);
                                           }
                                         }}
                                       />

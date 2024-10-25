@@ -166,6 +166,8 @@ const Auth: React.FC = () => {
     try {
       await forgot(email);
       setShowAuth(false);
+      setShowForgot(false);
+      setShowLogin(true);
     } catch (error) {
       setErrorMessage(resetFailedText);
     }

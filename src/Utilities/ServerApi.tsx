@@ -188,6 +188,7 @@ const ServerApi = () => {
     images: File[],
     imagesToRemove: number[],
     categories: number[],
+    categoriesToRemove: number[],
     flair?: string
   ): Promise<{ success: boolean; data?: any }> => {
     try {
@@ -205,9 +206,13 @@ const ServerApi = () => {
         formData.append('images', image);
       });
 
-      categories.forEach((categoryId) => {
-        formData.append('categories', categoryId.toString());
-      });
+      if (categories.length > 0) {
+        formData.append('categories', categories.join(','));
+      }
+
+      if (categoriesToRemove.length > 0) {
+        formData.append('categories_to_remove', categoriesToRemove.join(','));
+      }
 
       imagesToRemove.forEach((imageId) => {
         formData.append('images_to_remove', imageId.toString());

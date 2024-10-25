@@ -39,44 +39,46 @@ const Letter: React.FC = () => {
 
   return (
     <main className='page-container'>
-      <section className='letter-details'>
-        <header className='letter-header'>
-          <div className='letter-header-title'>
-            <LeafIcon className='letter-title-flair left' />
-            <p className='letter-title-text'>{letterHeaderText}</p>
-            <LeafIcon className='letter-title-flair right' />
+      <div>
+        <section className='letter-details'>
+          <header className='letter-header'>
+            <div className='letter-header-title'>
+              <LeafIcon className='letter-title-flair left' />
+              <p className='letter-title-text'>{letterHeaderText}</p>
+              <LeafIcon className='letter-title-flair right' />
+            </div>
+            <div className='plane-container'>
+              <PaperPlaneIcon className='plane-icon' />
+            </div>
+          </header>
+          <div className='letter-content-container'>
+            <div className='letter-content-margin left'>
+              <Crayon1 className='crayon-icon' />
+              <Crayon2 className='crayon-icon' />
+              <Crayon1 className='crayon-icon' />
+              <Crayon2 className='crayon-icon' />
+            </div>
+            <div className='letter-content-main'>
+              <p className='letter-content-text'>{letterContent1}</p>
+              <p className='letter-content-text'>{letterContent2}</p>
+              <p className='letter-content-text'>{letterContent3}</p>
+            </div>
+            <div className='letter-content-margin right'>
+              <Crayon2 className='crayon-icon' />
+              <Crayon1 className='crayon-icon' />
+              <Crayon2 className='crayon-icon' />
+              <Crayon1 className='crayon-icon' />
+            </div>
           </div>
-          <div className='plane-container'>
-            <PaperPlaneIcon className='plane-icon' />
+          <div className='letter-footer-container'>
+            <BeanstalkIcon className='beanstalk-icon' />
+            <GrassIcon className='grass-icon left' />
+            <PlantIcon className='plant-icon' />
+            <GrassIcon className='grass-icon right' />
+            <ButterflyIcon className='butterfly-icon' />
           </div>
-        </header>
-        <div className='letter-content-container'>
-          <div className='letter-content-margin left'>
-            <Crayon1 className='crayon-icon' />
-            <Crayon2 className='crayon-icon' />
-            <Crayon1 className='crayon-icon' />
-            <Crayon2 className='crayon-icon' />
-          </div>
-          <div className='letter-content-main'>
-            <p className='letter-content-text'>{letterContent1}</p>
-            <p className='letter-content-text'>{letterContent2}</p>
-            <p className='letter-content-text'>{letterContent3}</p>
-          </div>
-          <div className='letter-content-margin right'>
-            <Crayon2 className='crayon-icon' />
-            <Crayon1 className='crayon-icon' />
-            <Crayon2 className='crayon-icon' />
-            <Crayon1 className='crayon-icon' />
-          </div>
-        </div>
-        <div className='letter-footer-container'>
-          <BeanstalkIcon className='beanstalk-icon' />
-          <GrassIcon className='grass-icon left' />
-          <PlantIcon className='plant-icon' />
-          <GrassIcon className='grass-icon right' />
-          <ButterflyIcon className='butterfly-icon' />
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
   );
 };
