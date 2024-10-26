@@ -139,3 +139,9 @@
 .loading.loaded img {
   opacity: 1;
 }
+
+.animal-icon {
+  width: 36px;
+  height: 36px;
+  margin: 5px;
+}

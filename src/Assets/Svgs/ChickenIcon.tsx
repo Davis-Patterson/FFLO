@@ -8,6 +8,7 @@ const ChickenIcon: React.FC<ChickenIconProps> = (props) => (
     data-name='Layer 4 Image'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 88.9 98.31'
+    className='animal-icon'
     {...props}
   >
     <path

@@ -8,6 +8,7 @@ const HedgehogIcon: React.FC<HedgehogIconProps> = (props) => (
     data-name='Layer 4 Image'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 98.24 81.04'
+    className='animal-icon'
     {...props}
   >
     <path

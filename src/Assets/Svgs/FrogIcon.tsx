@@ -8,6 +8,7 @@ const FrogIcon: React.FC<FrogIconProps> = (props) => (
     data-name='Layer 4 Image'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 98.41 77.79'
+    className='animal-icon'
     {...props}
   >
     <path

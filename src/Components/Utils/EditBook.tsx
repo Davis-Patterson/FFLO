@@ -40,6 +40,8 @@ const EditBook: React.FC = () => {
     setAllBooks,
     selectedBook,
     setSelectedBook,
+    categoryIconOptions,
+    categoryColorOptions,
   } = context;
 
   const [initialBookData, setInitialBookData] = useState({
@@ -50,6 +52,18 @@ const EditBook: React.FC = () => {
     quantity: '',
     selectedCategories: [] as number[],
     images: [] as any[],
+  });
+
+  const [initialCategoryData, setInitialCategoryData] = useState<{
+    initialCategoryName: string;
+    initialCategoryDesc: string;
+    initialCategoryIcon: number | null;
+    initialCategoryColor: number | null;
+  }>({
+    initialCategoryName: '',
+    initialCategoryDesc: '',
+    initialCategoryIcon: null,
+    initialCategoryColor: null,
   });
 
   const [showEditBook, setShowEditBook] = useState(true);
@@ -70,6 +84,8 @@ const EditBook: React.FC = () => {
   const [categoriesToRemove, setCategoriesToRemove] = useState<number[]>([]);
   const [categoryName, setCategoryName] = useState('');
   const [categoryDescription, setCategoryDescription] = useState('');
+  const [categoryIcon, setCategoryIcon] = useState<number | null>(null);
+  const [categoryColor, setCategoryColor] = useState<number | null>(null);
 
   const [bookEditButtonActive, setBookEditButtonActive] = useState(false);
   const [showAddCategoryButtonActive, setShowAddCategoryButtonActive] =
@@ -88,6 +104,10 @@ const EditBook: React.FC = () => {
   const [editCategoryId, setEditCategoryId] = useState('');
   const [editCategoryName, setEditCategoryName] = useState('');
   const [editCategoryDesc, setEditCategoryDesc] = useState('');
+  const [editCategoryIcon, setEditCategoryIcon] = useState<number | null>(null);
+  const [editCategoryColor, setEditCategoryColor] = useState<number | null>(
+    null
+  );
 
   const showBookEditWindowContainerRef = useRef<HTMLDivElement>(null);
 
@@ -118,7 +138,13 @@ const EditBook: React.FC = () => {
   const categoryNamePlaceholder =
     language === 'EN' ? 'Category Name*' : 'Nom de la Catégorie*';
   const categoryDescPlaceholder =
-    language === 'EN' ? 'Category description' : 'Description de la catégorie';
+    language === 'EN'
+      ? 'Category description*'
+      : 'Description de la catégorie*';
+  const categoryIconPlaceholder =
+    language === 'EN' ? 'Category Icon' : 'Icône de catégorie';
+  const categoryColorPlaceholder =
+    language === 'EN' ? 'Category Color' : 'Catégorie couleur';
   const categoryEditHeaderText =
     language === 'EN' ? 'Edit Category' : 'Modifier la Catégorie';
   const newImagesUploadText =
@@ -213,6 +239,10 @@ const EditBook: React.FC = () => {
         setShowArchiveBook(false);
         setShowEditBook(true);
         setSelectedBook(null);
+        setCategoryIcon(null);
+        setEditCategoryIcon(null);
+        setCategoryColor(null);
+        setEditCategoryColor(null);
       }
     };
 
@@ -228,11 +258,35 @@ const EditBook: React.FC = () => {
   }, [showBookEditWindow, setShowBookEditWindow]);
 
   useEffect(() => {
-    const isCategoryFormEmpty = !categoryName.trim();
+    const isCategoryFormEmpty =
+      !categoryName.trim() ||
+      !categoryDescription.trim() ||
+      categoryIcon === null ||
+      categoryColor === null;
     setShowAddCategoryButtonActive(!isCategoryFormEmpty);
-    const isCategoryEditFormEmpty = !editCategoryName.trim();
-    setShowEditCategoryButtonActive(!isCategoryEditFormEmpty);
-  }, [title, author, categoryName, editCategoryName]);
+
+    const hasCategoryFormChanged =
+      (editCategoryName.trim() !== initialCategoryData.initialCategoryName &&
+        editCategoryName.trim() !== '') ||
+      (editCategoryDesc.trim() !== initialCategoryData.initialCategoryDesc &&
+        editCategoryDesc.trim() !== '') ||
+      (editCategoryIcon !== initialCategoryData.initialCategoryIcon &&
+        editCategoryIcon !== null) ||
+      (editCategoryColor !== initialCategoryData.initialCategoryColor &&
+        editCategoryColor !== null);
+
+    setShowEditCategoryButtonActive(hasCategoryFormChanged);
+  }, [
+    categoryName,
+    editCategoryName,
+    categoryDescription,
+    editCategoryDesc,
+    categoryIcon,
+    editCategoryIcon,
+    categoryColor,
+    editCategoryColor,
+    initialCategoryData,
+  ]);
 
   useEffect(() => {
     const hasChanges = (): boolean => {
@@ -406,7 +460,23 @@ const EditBook: React.FC = () => {
     e.preventDefault();
     setCategoryAddLoading(true);
 
-    const result = await createCategory(categoryName, categoryDescription);
+    if (
+      !categoryName.trim() ||
+      !categoryDescription.trim() ||
+      categoryIcon === null ||
+      categoryColor === null
+    ) {
+      setErrorMessage('Please ensure all fields are filled.');
+      setCategoryAddLoading(false);
+      return;
+    }
+
+    const result = await createCategory(
+      categoryName,
+      categoryDescription,
+      categoryIcon,
+      categoryColor
+    );
 
     if (result.success) {
       console.log('Category created successfully:', result.data);
@@ -415,6 +485,8 @@ const EditBook: React.FC = () => {
 
       setCategoryName('');
       setCategoryDescription('');
+      setCategoryIcon(null);
+      setCategoryColor(null);
     } else {
       setErrorMessage('Failed to create category');
     }
@@ -453,7 +525,9 @@ const EditBook: React.FC = () => {
       const result = await updateCategory(
         Number(editCategoryId),
         editCategoryName,
-        editCategoryDesc
+        editCategoryDesc,
+        editCategoryIcon ?? 1,
+        editCategoryColor ?? 1
       );
 
       if (result.success) {
@@ -464,6 +538,8 @@ const EditBook: React.FC = () => {
         setEditCategoryId('');
         setEditCategoryName('');
         setEditCategoryDesc('');
+        setEditCategoryIcon(null);
+        setEditCategoryColor(null);
         setShowEditCategory(false);
         setShowAddCategories(true);
       } else {
@@ -542,11 +618,65 @@ const EditBook: React.FC = () => {
     setShowDeletes(false);
   };
 
+  const handleCategoryIconSelect = (
+    e: React.MouseEvent,
+    iconNumber: number
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    setCategoryIcon((prevIcon) =>
+      prevIcon === iconNumber ? null : iconNumber
+    );
+  };
+
+  const handleEditCategoryIconSelect = (
+    e: React.MouseEvent,
+    iconNumber: number
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    setEditCategoryIcon((prevIcon) =>
+      prevIcon === iconNumber ? null : iconNumber
+    );
+  };
+
+  const handleCategoryColorSelect = (
+    e: React.MouseEvent,
+    colorNumber: number
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    setCategoryColor((prevColor) =>
+      prevColor === colorNumber ? null : colorNumber
+    );
+  };
+
+  const handleEditCategoryColorSelect = (
+    e: React.MouseEvent,
+    colorNumber: number
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    setEditCategoryColor((prevColor) =>
+      prevColor === colorNumber ? null : colorNumber
+    );
+  };
+
   const handleShowEditCategory = (
     e: React.MouseEvent<SVGSVGElement, MouseEvent>,
     categoryId: number,
     categoryName: string,
-    categoryDesc: string
+    categoryDesc: string,
+    categoryIcon: number,
+    categoryColor: number
   ) => {
     if (e.button !== 0) return;
     e.preventDefault();
@@ -555,6 +685,14 @@ const EditBook: React.FC = () => {
     setEditCategoryId(categoryId.toString());
     setEditCategoryName(categoryName);
     setEditCategoryDesc(categoryDesc);
+    setEditCategoryIcon(categoryIcon);
+    setEditCategoryColor(categoryColor);
+    setInitialCategoryData({
+      initialCategoryName: categoryName,
+      initialCategoryDesc: categoryDesc,
+      initialCategoryIcon: categoryIcon,
+      initialCategoryColor: categoryColor,
+    });
 
     setShowEditBook(false);
     setShowAddCategories(false);
@@ -628,6 +766,8 @@ const EditBook: React.FC = () => {
     setEditCategoryId('');
     setEditCategoryName('');
     setEditCategoryDesc('');
+    setEditCategoryIcon(null);
+    setEditCategoryColor(null);
 
     setShowEditBook(false);
     setShowEditCategory(false);
@@ -1108,7 +1248,9 @@ const EditBook: React.FC = () => {
                                           e,
                                           category.id,
                                           category.name,
-                                          category.description
+                                          category.description,
+                                          category.icon,
+                                          category.color
                                         )
                                       }
                                     />
@@ -1139,7 +1281,7 @@ const EditBook: React.FC = () => {
                       name='name'
                       value={categoryName}
                       required
-                      maxLength={255}
+                      maxLength={15}
                       onChange={(e) => setCategoryName(e.target.value)}
                       placeholder={categoryNamePlaceholder}
                       className='book-edit-input'
@@ -1149,11 +1291,71 @@ const EditBook: React.FC = () => {
                     <textarea
                       name='description'
                       value={categoryDescription}
-                      maxLength={255}
+                      required
+                      maxLength={50}
                       onChange={(e) => setCategoryDescription(e.target.value)}
                       placeholder={categoryDescPlaceholder}
                       className='category-desc-input'
                     />
+                  </div>
+                  <p className='category-label-text'>
+                    {categoryIconPlaceholder}
+                    {!showAddCategoryButtonActive ? '*' : null}
+                  </p>
+                  <div className='category-icon-container'>
+                    {Object.entries(categoryIconOptions).map(
+                      ([iconNumber, IconComponent]) => {
+                        const iconNum = parseInt(iconNumber);
+                        const isSelected = categoryIcon === iconNum;
+                        const className = `category-icon ${
+                          categoryIcon === null
+                            ? ''
+                            : isSelected
+                            ? 'icon-selected'
+                            : 'icon-inactive'
+                        }`;
+                        return (
+                          <div
+                            key={iconNum}
+                            className={className}
+                            onMouseDown={(e) =>
+                              handleCategoryIconSelect(e, iconNum)
+                            }
+                          >
+                            <IconComponent />
+                          </div>
+                        ) as React.ReactElement;
+                      }
+                    )}
+                  </div>
+                  <p className='category-label-text'>
+                    {categoryColorPlaceholder}
+                    {!showAddCategoryButtonActive ? '*' : null}
+                  </p>
+                  <div className='category-color-container'>
+                    {Object.entries(categoryColorOptions).map(
+                      ([colorNumber, colorValue]) => {
+                        const colorNum = parseInt(colorNumber);
+                        const isSelected = categoryColor === colorNum;
+                        const className = `category-color-option ${
+                          categoryColor === null
+                            ? ''
+                            : isSelected
+                            ? 'color-selected'
+                            : 'color-inactive'
+                        }`;
+                        return (
+                          <div
+                            key={colorNum}
+                            className={className}
+                            style={{ backgroundColor: colorValue }}
+                            onMouseDown={(e) =>
+                              handleCategoryColorSelect(e, colorNum)
+                            }
+                          />
+                        ) as React.ReactElement;
+                      }
+                    )}
                   </div>
                   {!showAddCategoryButtonActive && (
                     <p className='auth-required'>{requiredText}</p>
@@ -1216,6 +1418,65 @@ const EditBook: React.FC = () => {
                       placeholder={categoryDescPlaceholder}
                       className='category-desc-input'
                     />
+                  </div>
+                  <p className='category-label-text'>
+                    {categoryIconPlaceholder}
+                    {!showEditCategoryButtonActive ? '*' : null}
+                  </p>
+                  <div className='category-icon-container'>
+                    {Object.entries(categoryIconOptions).map(
+                      ([iconNumber, IconComponent]) => {
+                        const iconNum = parseInt(iconNumber);
+                        const isSelected = editCategoryIcon === iconNum;
+                        const className = `category-icon ${
+                          editCategoryIcon === null
+                            ? ''
+                            : isSelected
+                            ? 'icon-selected'
+                            : 'icon-inactive'
+                        }`;
+                        return (
+                          <div
+                            key={iconNum}
+                            className={className}
+                            onMouseDown={(e) =>
+                              handleEditCategoryIconSelect(e, iconNum)
+                            }
+                          >
+                            <IconComponent />
+                          </div>
+                        ) as React.ReactElement;
+                      }
+                    )}
+                  </div>
+                  <p className='category-label-text'>
+                    {categoryColorPlaceholder}
+                    {!showEditCategoryButtonActive ? '*' : null}
+                  </p>
+                  <div className='category-color-container'>
+                    {Object.entries(categoryColorOptions).map(
+                      ([colorNumber, colorValue]) => {
+                        const colorNum = parseInt(colorNumber);
+                        const isSelected = editCategoryColor === colorNum;
+                        const className = `category-color-option ${
+                          editCategoryColor === null
+                            ? ''
+                            : isSelected
+                            ? 'color-selected'
+                            : 'color-inactive'
+                        }`;
+                        return (
+                          <div
+                            key={colorNum}
+                            className={className}
+                            style={{ backgroundColor: colorValue }}
+                            onMouseDown={(e) =>
+                              handleEditCategoryColorSelect(e, colorNum)
+                            }
+                          />
+                        ) as React.ReactElement;
+                      }
+                    )}
                   </div>
                   {!showEditCategoryButtonActive && (
                     <p className='auth-required'>{requiredText}</p>

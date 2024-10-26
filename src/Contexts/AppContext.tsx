@@ -1,5 +1,17 @@
 import { createContext, ReactNode, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
+import BunnyIcon from 'Svgs/BunnyIcon';
+import ChickenIcon from 'Svgs/ChickenIcon';
+import FrogIcon from 'Svgs/FrogIcon';
+import HedgehogIcon from 'Svgs/HedgehogIcon';
+import FoxIcon from 'Svgs/FoxIcon';
+import RaccoonIcon from 'Svgs/RaccoonIcon';
+import OwlIcon from 'Svgs/OwlIcon';
+import Bird1Icon from 'Svgs/Bird1Icon';
+import BearIcon from 'Svgs/BearIcon';
+import SquirrelIcon from 'Svgs/SquirrelIcon';
+import Bird2Icon from 'Svgs/Bird2Icon';
+import DeerIcon from 'Svgs/DeerIcon';
 
 export interface BookImage {
   id: number;
@@ -52,6 +64,11 @@ interface User {
   book_history: any[];
 }
 
+interface IconProps {
+  className?: string;
+  onMouseDown?: React.MouseEventHandler<SVGSVGElement>;
+}
+
 interface AppContextType {
   authToken: string | null;
   setAuthToken: (token: string | null) => void;
@@ -91,6 +108,8 @@ interface AppContextType {
   clearAuthUser: () => void;
   handleLanguageChange: (newLanguage: string | null) => void;
   formatTitleForURL: (inputString: string) => string;
+  categoryIconOptions: { [key: number]: React.FC };
+  categoryColorOptions: { [key: number]: string };
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -151,6 +170,30 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       .replace(/-+$/, '');
   };
 
+  const categoryIconOptions: { [key: number]: React.FC<IconProps> } = {
+    1: FoxIcon,
+    2: RaccoonIcon,
+    3: ChickenIcon,
+    4: OwlIcon,
+    5: Bird1Icon,
+    6: BearIcon,
+    7: SquirrelIcon,
+    8: FrogIcon,
+    9: Bird2Icon,
+    10: DeerIcon,
+    11: HedgehogIcon,
+    12: BunnyIcon,
+  };
+
+  const categoryColorOptions: { [key: number]: string } = {
+    1: 'var(--clr-toute)',
+    2: 'var(--clr-petite)',
+    3: 'var(--clr-moyenne)',
+    4: 'var(--clr-goldenrod)',
+    5: 'var(--clr-celadon)',
+    6: 'var(--clr-lavender)',
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -192,6 +235,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         clearAuthUser,
         handleLanguageChange,
         formatTitleForURL,
+        categoryIconOptions,
+        categoryColorOptions,
       }}
     >
       {children}

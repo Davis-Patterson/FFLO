@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
         </div>
         <div className='footer-center-header'>
           <div className='bird-logo'>
-            <ChickenIcon className='bird-icon' />
+            <ChickenIcon style={{ width: '75px', height: '75px' }} />
           </div>
           <div className='footer-header-text'>
             <p className='FFLO-footer-text'>{FFLOFooterText}</p>

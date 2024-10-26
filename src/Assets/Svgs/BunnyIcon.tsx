@@ -8,6 +8,7 @@ const BunnyIcon: React.FC<BunnyIconProps> = (props) => (
     data-name='Layer 4 Image'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 52.34 98.29'
+    className='animal-icon'
     {...props}
   >
     <path

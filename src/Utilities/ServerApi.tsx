@@ -53,17 +53,23 @@ const ServerApi = () => {
 
   const createCategory = async (
     name: string,
-    description?: string
+    description: string,
+    icon: number,
+    color: number
   ): Promise<{ success: boolean; data?: any }> => {
     try {
       const categoryData = {
         name: name,
-        description: description || '',
+        description: description,
+        icon: icon,
+        color: color,
       };
+
+      console.log(`categoryData: ${{ categoryData }}`);
 
       const response: AxiosResponse = await axiosInstance.post(
         '/api/categories/',
-        categoryData // Send as JSON
+        categoryData
       );
 
       if (response.status === 201) {
@@ -101,17 +107,21 @@ const ServerApi = () => {
   const updateCategory = async (
     categoryId: number,
     name: string,
-    description: string
+    description: string,
+    icon: number,
+    color: number
   ): Promise<{ success: boolean; data?: any }> => {
     try {
       const categoryData = {
         name: name,
         description: description,
+        icon: icon,
+        color: color,
       };
 
       const response: AxiosResponse = await axiosInstance.put(
         `/api/categories/${categoryId}/`,
-        categoryData // Send as JSON
+        categoryData
       );
 
       if (response.status === 200) {
