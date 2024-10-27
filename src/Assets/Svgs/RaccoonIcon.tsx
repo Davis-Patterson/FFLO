@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface RaccoonIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const RaccoonIcon: React.FC<RaccoonIconProps> = (props) => (
+const RaccoonIcon: React.FC<IconProps> = (props) => (
   <svg
     id='RaccoonIcon'
     data-name='Layer 4 Image'

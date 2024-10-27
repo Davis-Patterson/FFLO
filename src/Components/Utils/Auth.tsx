@@ -80,14 +80,6 @@ const Auth: React.FC = () => {
   const requiredText = language === 'EN' ? '*required' : '*obligatoire';
 
   useEffect(() => {
-    if (showAuth) {
-      document.body.classList.add('auth-open');
-    } else {
-      document.body.classList.remove('auth-open');
-    }
-  }, [showAuth]);
-
-  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         authContainerRef.current &&
@@ -99,12 +91,6 @@ const Auth: React.FC = () => {
         setShowForgot(false);
       }
     };
-
-    if (showAuth) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);

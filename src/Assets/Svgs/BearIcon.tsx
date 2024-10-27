@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface BearIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const BearIcon: React.FC<BearIconProps> = (props) => (
+const BearIcon: React.FC<IconProps> = (props) => (
   <svg
     id='BearIcon'
     data-name='Layer 4 Image'

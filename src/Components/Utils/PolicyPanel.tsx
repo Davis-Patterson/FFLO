@@ -55,14 +55,6 @@ const PolicyPanel: React.FC = () => {
       : 'Nous encourageons une communication ouverte. Si un parent éprouve des difficultés à retourner un livre ou si un livre a été accidentellement perdu, nous lui demandons de nous contacter dans les plus brefs délais pour discuter de la situation.';
 
   useEffect(() => {
-    if (showPolicyWindow) {
-      document.body.classList.add('policy-open');
-    } else {
-      document.body.classList.remove('policy-open');
-    }
-  }, [showPolicyWindow]);
-
-  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         policyContainerRef.current &&
@@ -71,12 +63,6 @@ const PolicyPanel: React.FC = () => {
         setShowPolicyWindow(false);
       }
     };
-
-    if (showPolicyWindow) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);

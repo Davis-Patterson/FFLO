@@ -7,9 +7,10 @@ import Menu from 'Utils/Menu';
 import Fullscreen from 'Utils/Fullscreen';
 import Auth from 'Components/Utils/Auth';
 import EditProfile from 'Utils/EditProfile';
-import PolicyPanel from 'Utils/PolicyPanel';
 import AddBook from 'Utils/AddBook';
 import EditBook from 'Utils/EditBook';
+import EditCategories from 'Utils/EditCategories';
+import PolicyPanel from 'Utils/PolicyPanel';
 import Nav from 'Components/Nav';
 import Home from 'Components/Home';
 import About from 'Components/About';
@@ -46,7 +47,6 @@ const App: React.FC = () => {
       if (authToken && !authUser) {
         const result = await verifyToken();
         if (result.success && result.tokenValid) {
-          console.log('Token is valid.');
         } else {
           console.log('Token is invalid or expired.');
           await logout();
@@ -89,6 +89,7 @@ const App: React.FC = () => {
       <EditProfile />
       <AddBook />
       <EditBook />
+      <EditCategories />
       <PolicyPanel />
       <>
         <Nav />

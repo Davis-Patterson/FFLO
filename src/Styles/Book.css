@@ -215,4 +215,59 @@
 
 .more-books-container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 80px 0px 0px 0px;
+}
+
+.more-books-header-title {
+  display: flex;
+  flex-direction: row;
+}
+
+.more-books-title-flair-left,
+.more-books-title-flair-right {
+  fill: var(--clr-title-flair);
+  width: 35px;
+  height: 35px;
+}
+.more-books-title-flair-left {
+  margin: 0px 20px 0px 0px;
+}
+.more-books-title-flair-right {
+  transform: scaleX(-1);
+  margin: 0px 0px 0px 20px;
+}
+
+.more-books-title-text {
+  font-family: 'Sacramento', sans-serif;
+  font-size: 2.5em;
+  line-height: 1;
+  font-weight: 200;
+  color: var(--clr-text-blue);
+  width: auto;
+  text-align: center;
+}
+
+.sidebar-toggle-container {
+  margin: 0px 20px 0px 0px;
+}
+
+.close-sidebar-icon,
+.open-sidebar-icon {
+  fill: var(--clr-icon);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.close-sidebar-icon {
+  margin: 5px 0px 0px 0px;
+}
+.open-sidebar-icon {
+  margin: 5px 0px 0px 0px;
+}
+.close-sidebar-icon:hover,
+.open-sidebar-icon:hover {
+  fill: var(--clr-dark);
 }

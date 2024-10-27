@@ -62,14 +62,6 @@ const EditProfile: React.FC = () => {
   }, [authUser]);
 
   useEffect(() => {
-    if (showEdit) {
-      document.body.classList.add('edit-open');
-    } else {
-      document.body.classList.remove('edit-open');
-    }
-  }, [showEdit]);
-
-  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         editContainerRef.current &&
@@ -78,12 +70,6 @@ const EditProfile: React.FC = () => {
         setShowEdit(false);
       }
     };
-
-    if (showEdit) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);

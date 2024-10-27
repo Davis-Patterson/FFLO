@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface FoxIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const FoxIcon: React.FC<FoxIconProps> = (props) => (
+const FoxIcon: React.FC<IconProps> = (props) => (
   <svg
     id='FoxIcon'
     data-name='Layer 4 Image'

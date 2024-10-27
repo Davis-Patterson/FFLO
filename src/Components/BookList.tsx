@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppContext } from 'Contexts/AppContext';
 import { Book } from 'Contexts/AppContext';
@@ -6,6 +6,8 @@ import BookCoverIcon from 'Svgs/BookCoverIcon';
 import GridIcon from 'Svgs/GridIcon';
 import ListIcon from 'Svgs/ListIcon';
 import 'Styles/BookList.css';
+import OpenSidebarIcon from 'Svgs/OpenSidebarIcon';
+import BackArrow from 'Svgs/BackArrow';
 
 interface BookListProps {
   bookList: Book[];
@@ -26,9 +28,13 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     setFilterSetting,
   } = context;
 
+  const [showSidebar, setShowSidebar] = useState(false);
+
   // translations
   const gridViewText = language === 'EN' ? 'Grid' : 'Grille';
   const listViewText = language === 'EN' ? 'List' : 'Liste';
+  const titleText = language === 'EN' ? 'Title' : 'Titre';
+  const authorText = language === 'EN' ? 'Author' : 'Auteur';
 
   const handleToggleViewSetting = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
@@ -60,6 +66,14 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     return 0;
   });
 
+  const handleShowSidebar = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setShowSidebar(!showSidebar);
+  };
+
   const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterSetting(event.target.value);
   };
@@ -67,16 +81,32 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
   return (
     <section className='book-list-container'>
       <div className='page-toggles-container'>
+        <div className='sidebar-toggle-container'>
+          {showSidebar ? (
+            <BackArrow
+              className='close-sidebar-icon'
+              onMouseDown={(e) => handleShowSidebar(e)}
+            />
+          ) : (
+            <OpenSidebarIcon
+              className='open-sidebar-icon'
+              onMouseDown={(e) => handleShowSidebar(e)}
+            />
+          )}
+        </div>
+        <svg className='line-divider'>
+          <line x1='0' y1='50%' x2='100%' y2='50%' />
+        </svg>
         <div className='filter-setting'>
           <select
             value={filterSetting}
             onChange={handleFilterChange}
             className='filter-dropdown'
           >
-            <option value='title-asc'>Title (A-Z)</option>
-            <option value='title-desc'>Title (Z-A)</option>
-            <option value='auth-asc'>Author (A-Z)</option>
-            <option value='auth-desc'>Author (Z-A)</option>
+            <option value='title-asc'>{titleText} (A-Z)</option>
+            <option value='title-desc'>{titleText} (Z-A)</option>
+            <option value='auth-asc'>{authorText} (A-Z)</option>
+            <option value='auth-desc'>{authorText} (Z-A)</option>
           </select>
         </div>
         <div className='view-setting-toggle'>
@@ -106,41 +136,39 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
             const hasImage = !!book.images[0]?.image_url;
             const bookUrl = `/books/${formatTitleForURL(book.title)}`;
             return (
-              <Link key={book.id} to={bookUrl} className='book-card-link'>
-                <div className='book-card'>
-                  <div className='book-image-container'>
-                    {book.flair && (
-                      <div className='book-flair-container'>
-                        <p className='book-flair'>{book.flair}</p>
-                      </div>
-                    )}
-                    <div
-                      className={`book-image-wrapper ${
-                        hasImage ? 'blur-load' : ''
-                      }`}
-                      style={{
-                        backgroundImage: `url(${book.images[0]?.image_small})`,
-                      }}
-                    >
-                      {hasImage ? (
-                        <img
-                          src={book.images[0]?.image_url ?? undefined}
-                          alt={book.title}
-                          className='book-image'
-                          onLoad={(e) => {
-                            const imgElement = e.target as HTMLImageElement;
-                            imgElement.parentElement?.classList.add('loaded');
-                          }}
-                        />
-                      ) : (
-                        <BookCoverIcon className='book-list-cover-icon' />
-                      )}
+              <Link key={book.id} to={bookUrl} className='book-card'>
+                <div className='book-image-container'>
+                  {book.flair && (
+                    <div className='book-flair-container'>
+                      <p className='book-flair'>{book.flair}</p>
                     </div>
+                  )}
+                  <div
+                    className={`book-image-wrapper ${
+                      hasImage ? 'blur-load' : ''
+                    }`}
+                    style={{
+                      backgroundImage: `url(${book.images[0]?.image_small})`,
+                    }}
+                  >
+                    {hasImage ? (
+                      <img
+                        src={book.images[0]?.image_url ?? undefined}
+                        alt={book.title}
+                        className='book-image'
+                        onLoad={(e) => {
+                          const imgElement = e.target as HTMLImageElement;
+                          imgElement.parentElement?.classList.add('loaded');
+                        }}
+                      />
+                    ) : (
+                      <BookCoverIcon className='book-list-cover-icon' />
+                    )}
                   </div>
-                  <div className='book-info'>
-                    <h3 className='book-title'>{book.title}</h3>
-                    <p className='book-author'>{book.author}</p>
-                  </div>
+                </div>
+                <div className='book-info'>
+                  <h3 className='book-title'>{book.title}</h3>
+                  <p className='book-author'>{book.author}</p>
                 </div>
               </Link>
             );
@@ -153,40 +181,43 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
             const hasImage = !!book.images[0]?.image_url;
             const bookUrl = `/books/${formatTitleForURL(book.title)}`;
             return (
-              <Link key={book.id} to={bookUrl} className='book-card-link'>
-                <div className='book-card'>
-                  <div className='book-image-container'>
-                    {book.flair && (
-                      <div className='book-flair-container'>
-                        <p className='book-flair'>{book.flair}</p>
-                      </div>
-                    )}
-                    <div
-                      className={`book-image-wrapper ${
-                        hasImage ? 'blur-load' : ''
-                      }`}
-                      style={{
-                        backgroundImage: `url(${book.images[0]?.image_small})`,
-                      }}
-                    >
-                      {hasImage ? (
-                        <img
-                          src={book.images[0]?.image_url ?? undefined}
-                          alt={book.title}
-                          className='book-image'
-                          onLoad={(e) => {
-                            const imgElement = e.target as HTMLImageElement;
-                            imgElement.parentElement?.classList.add('loaded');
-                          }}
-                        />
-                      ) : (
-                        <BookCoverIcon className='book-cover-icon' />
-                      )}
+              <Link key={book.id} to={bookUrl} className='book-card-list'>
+                <div className='book-image-list-container'>
+                  {book.flair && (
+                    <div className='book-flair-container'>
+                      <p className='book-flair'>{book.flair}</p>
                     </div>
+                  )}
+                  <div
+                    className={`book-image-wrapper ${
+                      hasImage ? 'blur-load' : ''
+                    }`}
+                    style={{
+                      backgroundImage: `url(${book.images[0]?.image_small})`,
+                    }}
+                  >
+                    {hasImage ? (
+                      <img
+                        src={book.images[0]?.image_url ?? undefined}
+                        alt={book.title}
+                        className='book-image'
+                        onLoad={(e) => {
+                          const imgElement = e.target as HTMLImageElement;
+                          imgElement.parentElement?.classList.add('loaded');
+                        }}
+                      />
+                    ) : (
+                      <BookCoverIcon className='book-cover-icon' />
+                    )}
                   </div>
-                  <div className='book-info'>
-                    <h3 className='book-title'>{book.title}</h3>
-                    <p className='book-author'>{book.author}</p>
+                </div>
+                <div className='book-list-info'>
+                  <div className='book-list-title-author'>
+                    <h3 className='book-list-title'>{book.title}</h3>
+                    <p className='book-list-author'>{book.author}</p>
+                  </div>
+                  <div className='book-list-desc'>
+                    <p className='book-list-desc-text'>{book.description}</p>
                   </div>
                 </div>
               </Link>

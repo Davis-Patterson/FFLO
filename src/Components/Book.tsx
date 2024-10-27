@@ -32,6 +32,7 @@ const Book: React.FC = () => {
   const noBookText = language === 'EN' ? 'No Book Found' : 'Aucun Livre Trouvé';
   const headerText =
     language === 'EN' ? 'Book Information' : 'Informations sur le Livre';
+  const moreBooksText = language === 'EN' ? 'More Books' : 'Plus de Livres';
   const availableCopiesText =
     language === 'EN' ? 'Available copies' : 'Exemplaires disponibles';
   const reserveBookText =
@@ -210,7 +211,11 @@ const Book: React.FC = () => {
         </div>
       </section>
       <section className='more-books-container'>
-        <h3>More Books</h3>
+        <div className='more-books-header-title'>
+          <TitleFlair className='more-books-title-flair-left' />
+          <p className='more-books-title-text'>{moreBooksText}</p>
+          <TitleFlair className='more-books-title-flair-right' />
+        </div>
         <BookList bookList={allBooks.filter((b) => b.id !== book.id)} />
       </section>
     </main>

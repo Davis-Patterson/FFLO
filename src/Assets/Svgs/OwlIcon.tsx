@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface OwlIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const OwlIcon: React.FC<OwlIconProps> = (props) => (
+const OwlIcon: React.FC<IconProps> = (props) => (
   <svg
     id='OwlIcon'
     data-name='Layer 4 Image'

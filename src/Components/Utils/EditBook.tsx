@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import ServerApi from 'Utilities/ServerApi';
 import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
+import ServerApi from 'Utilities/ServerApi';
 import TitleFlair from 'Svgs/TitleFlair';
 import XIcon from 'Svgs/XIcon';
 import GearIcon from 'Svgs/GearIcon';
@@ -210,17 +210,6 @@ const EditBook: React.FC = () => {
       };
 
       fetchCategories();
-      document.body.classList.add('book-open');
-    } else {
-      document.body.classList.remove('book-open');
-    }
-  }, [showBookEditWindow]);
-
-  useEffect(() => {
-    if (showBookEditWindow) {
-      document.body.classList.add('book-open');
-    } else {
-      document.body.classList.remove('book-open');
     }
   }, [showBookEditWindow]);
 

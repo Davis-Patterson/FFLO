@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface SquirrelIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const SquirrelIcon: React.FC<SquirrelIconProps> = (props) => (
+const SquirrelIcon: React.FC<IconProps> = (props) => (
   <svg
     id='SquirrelIcon'
     data-name='Layer 4 Image'
