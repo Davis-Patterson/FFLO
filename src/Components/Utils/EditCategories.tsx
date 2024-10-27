@@ -44,7 +44,7 @@ const EditCategories: React.FC = () => {
     initialCategoryColor: null,
   });
 
-  const [showAddCategories, setShowAddCategories] = useState(false);
+  const [showAddCategories, setShowAddCategories] = useState(true);
   const [showEditCategory, setShowEditCategory] = useState(false);
 
   const [categoryName, setCategoryName] = useState('');
@@ -112,7 +112,6 @@ const EditCategories: React.FC = () => {
       };
 
       fetchCategories();
-      document.body.classList.add('book-open');
     }
   }, [showCategoryEditWindow]);
 
@@ -416,17 +415,17 @@ const EditCategories: React.FC = () => {
   return (
     <>
       {showCategoryEditWindow && authToken && (
-        <div className='book-create-overlay'>
+        <div className='categories-create-overlay'>
           <section
             ref={showCategoryEditWindowContainerRef}
-            className={`book-create-container ${
+            className={`categories-create-container ${
               showCategoryEditWindow ? 'fade-in' : 'fade-out'
             }`}
           >
-            <div className='book-create-language-toggle'>
+            <div className='categories-create-language-toggle'>
               {language === 'FR' && (
                 <p
-                  className='book-create-lang-toggle'
+                  className='categories-create-lang-toggle'
                   onClick={() => handleLanguageChange('EN')}
                 >
                   EN
@@ -434,7 +433,7 @@ const EditCategories: React.FC = () => {
               )}
               {language === 'EN' && (
                 <p
-                  className='book-create-lang-toggle'
+                  className='categories-create-lang-toggle'
                   onClick={() => handleLanguageChange('FR')}
                 >
                   FR
@@ -443,24 +442,24 @@ const EditCategories: React.FC = () => {
             </div>
             {showAddCategories && (
               <XIcon
-                className='book-create-x-icon'
+                className='categories-create-x-icon'
                 onMouseDown={(e) => handleClose(e)}
               />
             )}
             {showEditCategory && (
               <BackArrow
-                className='book-create-x-icon'
+                className='categories-create-x-icon'
                 onMouseDown={(e) => handleBackToCategories(e)}
               />
             )}
             {showAddCategories && (
               <>
-                <div className='book-create-header'>
-                  <TitleFlair className='book-create-flair-left' />
-                  <p className='book-create-header-text'>
+                <div className='categories-create-header'>
+                  <TitleFlair className='categories-create-flair-left' />
+                  <p className='categories-create-header-text'>
                     {categoryAddHeaderText}
                   </p>
-                  <TitleFlair className='book-create-flair-right' />
+                  <TitleFlair className='categories-create-flair-right' />
                 </div>
                 <div className='category-container'>
                   <div className='category-header-container'>
@@ -528,7 +527,7 @@ const EditCategories: React.FC = () => {
                           ))}
                         </>
                       ) : (
-                        <p className='book-create-no-categories'>
+                        <p className='categories-create-no-categories'>
                           {noCategoriesText}
                         </p>
                       )}
@@ -537,7 +536,7 @@ const EditCategories: React.FC = () => {
                 </div>
                 <form onSubmit={handleCategoryCreate}>
                   <p
-                    className='book-create-header-subtext'
+                    className='categories-create-header-subtext'
                     style={{ padding: '8px 0px 0px 0px' }}
                   >
                     {categoryAddSubtext}
@@ -551,7 +550,7 @@ const EditCategories: React.FC = () => {
                       maxLength={15}
                       onChange={(e) => setCategoryName(e.target.value)}
                       placeholder={categoryNamePlaceholder}
-                      className='book-create-input'
+                      className='categories-create-input'
                     />
                   </div>
                   <div>
@@ -652,16 +651,16 @@ const EditCategories: React.FC = () => {
             )}
             {showEditCategory && (
               <>
-                <div className='book-create-header'>
-                  <TitleFlair className='book-create-flair-left' />
-                  <p className='book-create-header-text'>
+                <div className='categories-create-header'>
+                  <TitleFlair className='categories-create-flair-left' />
+                  <p className='categories-create-header-text'>
                     {categoryEditHeaderText}
                   </p>
-                  <TitleFlair className='book-create-flair-right' />
+                  <TitleFlair className='categories-create-flair-right' />
                 </div>
                 <form onSubmit={handleCategoryUpdate}>
                   <p
-                    className='book-create-header-subtext'
+                    className='categories-create-header-subtext'
                     style={{ padding: '8px 0px 0px 0px' }}
                   >
                     {categoryEditSubtext}
@@ -674,7 +673,7 @@ const EditCategories: React.FC = () => {
                       required
                       onChange={(e) => setEditCategoryName(e.target.value)}
                       placeholder={categoryNamePlaceholder}
-                      className='book-create-input'
+                      className='categories-create-input'
                     />
                   </div>
                   <div>
