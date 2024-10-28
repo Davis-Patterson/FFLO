@@ -55,17 +55,26 @@ const ServerApi = () => {
     name: string,
     description: string,
     icon: number,
-    color: number
+    color: number,
+    flair?: string
   ): Promise<{ success: boolean; data?: any }> => {
     try {
-      const categoryData = {
+      const categoryData: {
+        name: string;
+        description: string;
+        icon: number;
+        color: number;
+        flair?: string;
+      } = {
         name: name,
         description: description,
         icon: icon,
         color: color,
       };
 
-      console.log(`categoryData: ${{ categoryData }}`);
+      if (flair) {
+        categoryData.flair = flair;
+      }
 
       const response: AxiosResponse = await axiosInstance.post(
         '/api/categories/',
@@ -80,6 +89,50 @@ const ServerApi = () => {
       }
     } catch (error) {
       console.error('Failed to create category:', error);
+      return { success: false };
+    }
+  };
+
+  const updateCategory = async (
+    categoryId: number,
+    name: string,
+    description: string,
+    icon: number,
+    color: number,
+    flair: string = ''
+  ): Promise<{ success: boolean; data?: any }> => {
+    try {
+      const categoryData: {
+        name: string;
+        description: string;
+        icon: number;
+        color: number;
+        flair: string;
+      } = {
+        name: name,
+        description: description,
+        icon: icon,
+        color: color,
+        flair: flair,
+      };
+
+      const response: AxiosResponse = await axiosInstance.put(
+        `/api/categories/${categoryId}/`,
+        categoryData
+      );
+      console.log('category data, ', categoryData);
+
+      if (response.status === 200) {
+        console.log(
+          `Category ${categoryId} updated successfully:`,
+          response.data
+        );
+        return { success: true, data: response.data };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error(`Failed to update category with ID ${categoryId}:`, error);
       return { success: false };
     }
   };
@@ -100,41 +153,6 @@ const ServerApi = () => {
       }
     } catch (error) {
       console.error(`Failed to delete category with ID ${categoryId}:`, error);
-      return { success: false };
-    }
-  };
-
-  const updateCategory = async (
-    categoryId: number,
-    name: string,
-    description: string,
-    icon: number,
-    color: number
-  ): Promise<{ success: boolean; data?: any }> => {
-    try {
-      const categoryData = {
-        name: name,
-        description: description,
-        icon: icon,
-        color: color,
-      };
-
-      const response: AxiosResponse = await axiosInstance.put(
-        `/api/categories/${categoryId}/`,
-        categoryData
-      );
-
-      if (response.status === 200) {
-        console.log(
-          `Category ${categoryId} updated successfully:`,
-          response.data
-        );
-        return { success: true, data: response.data };
-      } else {
-        return { success: false };
-      }
-    } catch (error) {
-      console.error(`Failed to update category with ID ${categoryId}:`, error);
       return { success: false };
     }
   };

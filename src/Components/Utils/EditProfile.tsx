@@ -48,6 +48,15 @@ const EditProfile: React.FC = () => {
   const updateText = language === 'EN' ? 'Update' : 'Mise à jour';
 
   useEffect(() => {
+    if (errorMessage) {
+      setTimeout(() => {
+        console.log('Clearing Error Message.');
+        setErrorMessage('');
+      }, 3000);
+    }
+  }, [errorMessage]);
+
+  useEffect(() => {
     if (authUser) {
       if (authUser.first_name) {
         setFirstName(authUser.first_name);
@@ -100,8 +109,6 @@ const EditProfile: React.FC = () => {
     }
 
     setIsLoading(false);
-
-    setTimeout(() => setErrorMessage(''), 3000);
   };
 
   const handleClose = (event: React.MouseEvent) => {

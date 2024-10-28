@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppContext } from 'Contexts/AppContext';
 import { Book } from 'Contexts/AppContext';
+import ServerApi from 'Utilities/ServerApi';
 import BookCoverIcon from 'Svgs/BookCoverIcon';
 import GridIcon from 'Svgs/GridIcon';
 import ListIcon from 'Svgs/ListIcon';
@@ -14,13 +15,17 @@ interface BookListProps {
 }
 
 const BookList: React.FC<BookListProps> = ({ bookList }) => {
+  const { getCategories } = ServerApi();
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
   }
   const {
     language,
+    categories,
+    setCategories,
     categoryFilter,
+    setCategoryFilter,
     formatTitleForURL,
     viewSetting,
     setViewSetting,
@@ -29,6 +34,7 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
   } = context;
 
   const [showSidebar, setShowSidebar] = useState(false);
+  const [fetchedCategories, setFetchedCategories] = useState(false);
 
   // translations
   const gridViewText = language === 'EN' ? 'Grid' : 'Grille';
@@ -71,6 +77,18 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     if (event.button !== 0) return;
     event.preventDefault();
     event.stopPropagation();
+
+    if (!fetchedCategories) {
+      getCategories().then((result) => {
+        if (result.success) {
+          setCategories(result.data);
+          setFetchedCategories(true);
+        } else {
+          console.error('Failed to fetch categories');
+          setFetchedCategories(true);
+        }
+      });
+    }
 
     setShowSidebar(!showSidebar);
   };
@@ -151,9 +169,17 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
             >
               <p className='sidebar-content-header-text'>{sidebarHeaderText}</p>
               <div className='sidebar-content-categories'>
-                <p className='sidebar-content-category'>Moyenne</p>
-                <p className='sidebar-content-category'>Petite</p>
-                <p className='sidebar-content-category'>Toute Petite</p>
+                {categories.map((category) => {
+                  const isSelected = categoryFilter === category.id;
+                  const className = `${
+                    categoryFilter === null
+                      ? 'sidebar-content-category'
+                      : isSelected
+                      ? 'selected'
+                      : ''
+                  }`;
+                  return <p className={className}>{category.name}</p>;
+                })}
               </div>
             </div>
           </div>

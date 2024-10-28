@@ -80,6 +80,15 @@ const Auth: React.FC = () => {
   const requiredText = language === 'EN' ? '*required' : '*obligatoire';
 
   useEffect(() => {
+    if (errorMessage) {
+      setTimeout(() => {
+        console.log('Clearing Error Message.');
+        setErrorMessage('');
+      }, 3000);
+    }
+  }, [errorMessage]);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         authContainerRef.current &&
@@ -127,7 +136,6 @@ const Auth: React.FC = () => {
     }
 
     setIsLoading(false);
-    setTimeout(() => setErrorMessage(''), 3000);
   };
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -143,7 +151,6 @@ const Auth: React.FC = () => {
       setErrorMessage(registrationFailedText);
     }
     setIsLoading(false);
-    setTimeout(() => setErrorMessage(''), 3000);
   };
 
   const handleForgot = async (e: React.FormEvent) => {
@@ -158,7 +165,6 @@ const Auth: React.FC = () => {
       setErrorMessage(resetFailedText);
     }
     setIsLoading(false);
-    setTimeout(() => setErrorMessage(''), 3000);
   };
 
   const handleLogout = async () => {
@@ -170,7 +176,6 @@ const Auth: React.FC = () => {
       setErrorMessage('Logout failed.');
     }
     setIsLoading(false);
-    setTimeout(() => setErrorMessage(''), 3000);
   };
 
   const handleShowLogin = (

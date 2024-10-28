@@ -59,11 +59,13 @@ const EditBook: React.FC = () => {
     initialCategoryDesc: string;
     initialCategoryIcon: number | null;
     initialCategoryColor: number | null;
+    initialCategoryFlair: string | null;
   }>({
     initialCategoryName: '',
     initialCategoryDesc: '',
     initialCategoryIcon: null,
     initialCategoryColor: null,
+    initialCategoryFlair: '',
   });
 
   const [showEditBook, setShowEditBook] = useState(true);
@@ -84,6 +86,7 @@ const EditBook: React.FC = () => {
   const [categoriesToRemove, setCategoriesToRemove] = useState<number[]>([]);
   const [categoryName, setCategoryName] = useState('');
   const [categoryDescription, setCategoryDescription] = useState('');
+  const [categoryFlair, setCategoryFlair] = useState('');
   const [categoryIcon, setCategoryIcon] = useState<number | null>(null);
   const [categoryColor, setCategoryColor] = useState<number | null>(null);
 
@@ -104,6 +107,7 @@ const EditBook: React.FC = () => {
   const [editCategoryId, setEditCategoryId] = useState('');
   const [editCategoryName, setEditCategoryName] = useState('');
   const [editCategoryDesc, setEditCategoryDesc] = useState('');
+  const [editCategoryFlair, setEditCategoryFlair] = useState('');
   const [editCategoryIcon, setEditCategoryIcon] = useState<number | null>(null);
   const [editCategoryColor, setEditCategoryColor] = useState<number | null>(
     null
@@ -247,37 +251,6 @@ const EditBook: React.FC = () => {
   }, [showBookEditWindow, setShowBookEditWindow]);
 
   useEffect(() => {
-    const isCategoryFormEmpty =
-      !categoryName.trim() ||
-      !categoryDescription.trim() ||
-      categoryIcon === null ||
-      categoryColor === null;
-    setShowAddCategoryButtonActive(!isCategoryFormEmpty);
-
-    const hasCategoryFormChanged =
-      (editCategoryName.trim() !== initialCategoryData.initialCategoryName &&
-        editCategoryName.trim() !== '') ||
-      (editCategoryDesc.trim() !== initialCategoryData.initialCategoryDesc &&
-        editCategoryDesc.trim() !== '') ||
-      (editCategoryIcon !== initialCategoryData.initialCategoryIcon &&
-        editCategoryIcon !== null) ||
-      (editCategoryColor !== initialCategoryData.initialCategoryColor &&
-        editCategoryColor !== null);
-
-    setShowEditCategoryButtonActive(hasCategoryFormChanged);
-  }, [
-    categoryName,
-    editCategoryName,
-    categoryDescription,
-    editCategoryDesc,
-    categoryIcon,
-    editCategoryIcon,
-    categoryColor,
-    editCategoryColor,
-    initialCategoryData,
-  ]);
-
-  useEffect(() => {
     const hasChanges = (): boolean => {
       const fieldsChanged =
         title !== initialBookData.title ||
@@ -300,6 +273,29 @@ const EditBook: React.FC = () => {
     };
 
     setBookEditButtonActive(hasChanges());
+
+    const isCategoryFormEmpty =
+      !categoryName.trim() ||
+      !categoryDescription.trim() ||
+      categoryIcon === null ||
+      categoryColor === null;
+    setShowAddCategoryButtonActive(!isCategoryFormEmpty);
+
+    const hasCategoryFormChanged =
+      (editCategoryName.trim() !== initialCategoryData.initialCategoryName &&
+        editCategoryName.trim() !== '') ||
+      (editCategoryDesc.trim() !== initialCategoryData.initialCategoryDesc &&
+        editCategoryDesc.trim() !== '') ||
+      (editCategoryIcon !== initialCategoryData.initialCategoryIcon &&
+        editCategoryIcon !== null) ||
+      (editCategoryColor !== initialCategoryData.initialCategoryColor &&
+        editCategoryColor !== null) ||
+      (initialCategoryData.initialCategoryFlair
+        ? editCategoryFlair.toLowerCase() !==
+          initialCategoryData.initialCategoryFlair.toLowerCase()
+        : editCategoryFlair.trim() !== '');
+
+    setShowEditCategoryButtonActive(hasCategoryFormChanged);
   }, [
     title,
     author,
@@ -309,6 +305,17 @@ const EditBook: React.FC = () => {
     selectedCategories,
     imagesToRemove,
     imageFile,
+    categoryName,
+    editCategoryName,
+    categoryDescription,
+    categoryFlair,
+    editCategoryDesc,
+    editCategoryFlair,
+    categoryIcon,
+    editCategoryIcon,
+    categoryColor,
+    editCategoryColor,
+    initialCategoryData,
   ]);
 
   const handleBookEdit = async (e: React.FormEvent) => {
@@ -464,7 +471,8 @@ const EditBook: React.FC = () => {
       categoryName,
       categoryDescription,
       categoryIcon,
-      categoryColor
+      categoryColor,
+      categoryFlair.trim() || undefined
     );
 
     if (result.success) {
@@ -476,11 +484,50 @@ const EditBook: React.FC = () => {
       setCategoryDescription('');
       setCategoryIcon(null);
       setCategoryColor(null);
+      setCategoryFlair('');
     } else {
       setErrorMessage('Failed to create category');
     }
 
     setCategoryAddLoading(false);
+  };
+
+  const handleCategoryUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCategoryEditLoading(true);
+
+    try {
+      const result = await updateCategory(
+        Number(editCategoryId),
+        editCategoryName,
+        editCategoryDesc,
+        editCategoryIcon ?? 1,
+        editCategoryColor ?? 1,
+        editCategoryFlair.trim() || undefined
+      );
+
+      if (result.success) {
+        console.log(`Category ${editCategoryId} updated successfully`);
+
+        setCategories(result.data.categories);
+
+        setEditCategoryId('');
+        setEditCategoryName('');
+        setEditCategoryDesc('');
+        setEditCategoryFlair('');
+        setEditCategoryIcon(null);
+        setEditCategoryColor(null);
+        setShowEditCategory(false);
+        setShowAddCategories(true);
+      } else {
+        setErrorMessage('Failed to update category');
+      }
+    } catch (error) {
+      console.error('Error updating category:', error);
+      setErrorMessage('Error occurred while updating category');
+    } finally {
+      setCategoryEditLoading(false);
+    }
   };
 
   const handleDeleteCategory = async (
@@ -503,42 +550,6 @@ const EditBook: React.FC = () => {
       }
     } catch (error) {
       console.error('Error deleting category:', error);
-    }
-  };
-
-  const handleCategoryUpdate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setCategoryEditLoading(true);
-
-    try {
-      const result = await updateCategory(
-        Number(editCategoryId),
-        editCategoryName,
-        editCategoryDesc,
-        editCategoryIcon ?? 1,
-        editCategoryColor ?? 1
-      );
-
-      if (result.success) {
-        console.log(`Category ${editCategoryId} updated successfully`);
-
-        setCategories(result.data.categories);
-
-        setEditCategoryId('');
-        setEditCategoryName('');
-        setEditCategoryDesc('');
-        setEditCategoryIcon(null);
-        setEditCategoryColor(null);
-        setShowEditCategory(false);
-        setShowAddCategories(true);
-      } else {
-        setErrorMessage('Failed to update category');
-      }
-    } catch (error) {
-      console.error('Error updating category:', error);
-      setErrorMessage('Error occurred while updating category');
-    } finally {
-      setCategoryEditLoading(false);
     }
   };
 
@@ -665,7 +676,8 @@ const EditBook: React.FC = () => {
     categoryName: string,
     categoryDesc: string,
     categoryIcon: number,
-    categoryColor: number
+    categoryColor: number,
+    categoryFlair: string | null
   ) => {
     if (e.button !== 0) return;
     e.preventDefault();
@@ -676,11 +688,13 @@ const EditBook: React.FC = () => {
     setEditCategoryDesc(categoryDesc);
     setEditCategoryIcon(categoryIcon);
     setEditCategoryColor(categoryColor);
+    setEditCategoryFlair(categoryFlair || '');
     setInitialCategoryData({
       initialCategoryName: categoryName,
       initialCategoryDesc: categoryDesc,
       initialCategoryIcon: categoryIcon,
       initialCategoryColor: categoryColor,
+      initialCategoryFlair: categoryFlair,
     });
 
     setShowEditBook(false);
@@ -755,6 +769,7 @@ const EditBook: React.FC = () => {
     setEditCategoryId('');
     setEditCategoryName('');
     setEditCategoryDesc('');
+    setEditCategoryFlair('');
     setEditCategoryIcon(null);
     setEditCategoryColor(null);
 
@@ -780,19 +795,9 @@ const EditBook: React.FC = () => {
     });
   };
 
-  const sortedCategories = categories.sort((a, b) => {
-    const isANumber = /^\d/.test(a.name);
-    const isBNumber = /^\d/.test(b.name);
-
-    if (isANumber && !isBNumber) {
-      return -1;
-    }
-    if (!isANumber && isBNumber) {
-      return 1;
-    }
-
-    return a.name.localeCompare(b.name);
-  });
+  const sortedCategories = categories.sort(
+    (a, b) => a.sort_order - b.sort_order
+  );
 
   return (
     <>
@@ -1239,7 +1244,8 @@ const EditBook: React.FC = () => {
                                           category.name,
                                           category.description,
                                           category.icon,
-                                          category.color
+                                          category.color,
+                                          category.flair
                                         )
                                       }
                                     />
@@ -1285,6 +1291,17 @@ const EditBook: React.FC = () => {
                       onChange={(e) => setCategoryDescription(e.target.value)}
                       placeholder={categoryDescPlaceholder}
                       className='category-desc-input'
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type='text'
+                      name='flair'
+                      value={categoryFlair}
+                      maxLength={10}
+                      onChange={(e) => setCategoryFlair(e.target.value)}
+                      placeholder={bookFlairPlaceholder}
+                      className='book-edit-input'
                     />
                   </div>
                   <p className='category-label-text'>
@@ -1406,6 +1423,17 @@ const EditBook: React.FC = () => {
                       onChange={(e) => setEditCategoryDesc(e.target.value)}
                       placeholder={categoryDescPlaceholder}
                       className='category-desc-input'
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type='text'
+                      name='flair'
+                      value={editCategoryFlair}
+                      maxLength={10}
+                      onChange={(e) => setEditCategoryFlair(e.target.value)}
+                      placeholder={bookFlairPlaceholder}
+                      className='book-create-input'
                     />
                   </div>
                   <p className='category-label-text'>
