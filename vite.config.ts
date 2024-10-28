@@ -12,6 +12,7 @@ export default defineConfig({
       Utilities: path.resolve(__dirname, 'src/Utilities'),
       Styles: path.resolve(__dirname, 'src/Styles'),
       Utils: path.resolve(__dirname, 'src/Components/Utils'),
+      Tools: path.resolve(__dirname, 'src/Components/Tools'),
       Svgs: path.resolve(__dirname, 'src/Assets/Svgs'),
     },
   },

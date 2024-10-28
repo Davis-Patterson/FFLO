@@ -137,6 +137,29 @@ const ServerApi = () => {
     }
   };
 
+  const updateCategorySortOrder = async (
+    order: number[]
+  ): Promise<{ success: boolean; data?: any }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.post(
+        '/api/categories/reorder/',
+        {
+          order,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('Categories reordered successfully:', response.data);
+        return { success: true, data: response.data };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error('Failed to reorder categories:', error);
+      return { success: false };
+    }
+  };
+
   const deleteCategory = async (
     categoryId: number
   ): Promise<{ success: boolean }> => {
@@ -332,8 +355,9 @@ const ServerApi = () => {
   return {
     getCategories,
     createCategory,
-    deleteCategory,
     updateCategory,
+    updateCategorySortOrder,
+    deleteCategory,
     createBook,
     updateBook,
     getBooks,

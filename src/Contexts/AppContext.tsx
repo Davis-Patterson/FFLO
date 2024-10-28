@@ -34,6 +34,17 @@ export interface Book {
   on_hold: boolean;
 }
 
+export interface Category {
+  id: number;
+  name: string;
+  description: string;
+  flair: string | null;
+  icon: number;
+  color: number;
+  sort_order: number;
+  quantity: number;
+}
+
 interface Membership {
   active: boolean;
   monthly_books: number;
@@ -92,8 +103,8 @@ interface AppContextType {
   setLanguage: (language: string) => void;
   categoryFilter: number | null;
   setCategoryFilter: (categoryFilter: number | null) => void;
-  categories: any[];
-  setCategories: (categories: any[]) => void;
+  categories: Category[];
+  setCategories: (categories: Category[]) => void;
   allBooks: Book[];
   setAllBooks: (books: Book[]) => void;
   selectedBook: Book | null;

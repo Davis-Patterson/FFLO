@@ -30,6 +30,7 @@
       "Utilities/*": ["src/Utilities/*"],
       "Styles/*": ["src/Styles/*"],
       "Utils/*": ["src/Components/Utils/*"],
+      "Tools/*": ["src/Components/Tools/*"],
       "Svgs/*": ["src/Assets/Svgs/*"]
     }
   },

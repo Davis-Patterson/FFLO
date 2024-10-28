@@ -1,4 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { DndContext, closestCenter } from '@dnd-kit/core';
+import {
+  SortableContext,
+  useSortable,
+  arrayMove,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import ServerApi from 'Utilities/ServerApi';
 import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
@@ -8,13 +16,19 @@ import GearIcon from 'Svgs/GearIcon';
 import BackArrow from 'Svgs/BackArrow';
 import BookIcon from 'Svgs/BookIcon';
 import TrashIcon from 'Svgs/TrashIcon';
+import DragIcon from 'Svgs/DragIcon';
 import CheckIcon from 'Svgs/CheckIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Utils/EditCategories.css';
 
 const EditCategories: React.FC = () => {
-  const { getCategories, createCategory, deleteCategory, updateCategory } =
-    ServerApi();
+  const {
+    getCategories,
+    createCategory,
+    deleteCategory,
+    updateCategory,
+    updateCategorySortOrder,
+  } = ServerApi();
 
   const context = useContext(AppContext);
   if (!context) {
@@ -73,6 +87,8 @@ const EditCategories: React.FC = () => {
   const [editCategoryColor, setEditCategoryColor] = useState<number | null>(
     null
   );
+
+  const [categoryOrder, setCategoryOrder] = useState<number[]>([]);
 
   const showCategoryEditWindowContainerRef = useRef<HTMLDivElement>(null);
 
@@ -437,9 +453,95 @@ const EditCategories: React.FC = () => {
     setShowAddCategories(true);
   };
 
-  const sortedCategories = categories.sort(
-    (a, b) => a.sort_order - b.sort_order
-  );
+  useEffect(() => {
+    setCategoryOrder(
+      categories
+        .map((category) => category.id)
+        .sort((a: number, b: number) => {
+          const categoryA = categories.find((cat) => cat.id === a);
+          const categoryB = categories.find((cat) => cat.id === b);
+          return (categoryA?.sort_order || 0) - (categoryB?.sort_order || 0);
+        })
+    );
+  }, [categories]);
+
+  const handleDragEnd = async (event: any) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = categoryOrder.indexOf(active.id);
+      const newIndex = categoryOrder.indexOf(over.id);
+
+      const newOrder = arrayMove(categoryOrder, oldIndex, newIndex);
+      setCategoryOrder(newOrder);
+
+      const orderedCategoryIds = newOrder;
+
+      const result = await updateCategorySortOrder(orderedCategoryIds);
+      if (result.success) {
+        setCategories(result.data.categories);
+      } else {
+        console.error('Failed to persist category reordering on the server.');
+      }
+    }
+  };
+
+  const SortableCategoryItem = ({ category }: { category: any }) => {
+    const { attributes, listeners, setNodeRef, transform, transition } =
+      useSortable({ id: category.id });
+
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+    };
+
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        className='category-item'
+        {...attributes}
+        {...listeners}
+      >
+        <div className='category-list-container'>
+          <div className='category-list' />
+          <p className='category-text'>{category.name}</p>
+          <div className='category-quantity-container'>
+            <BookIcon className='book-icon' />
+            <div className='category-quantity'>{category.quantity}</div>
+          </div>
+        </div>
+        <div className='category-controls-container'>
+          <div className='category-drag-container'>
+            <DragIcon className='drag-icon' />
+          </div>
+          <div className='category-garbage-gear-container'>
+            {showDeletes ? (
+              <TrashIcon
+                className='trash-icon'
+                onMouseDown={(e) => handleDeleteCategory(e, category.id)}
+              />
+            ) : (
+              <GearIcon
+                className='gear-icon'
+                onMouseDown={(e) =>
+                  handleShowEditCategory(
+                    e,
+                    category.id,
+                    category.name,
+                    category.description,
+                    category.icon,
+                    category.color,
+                    category.flair
+                  )
+                }
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -513,49 +615,27 @@ const EditCategories: React.FC = () => {
                   ) : (
                     <>
                       {categories.length > 0 ? (
-                        <>
-                          {sortedCategories.map((category) => (
-                            <div key={category.id} className='category-item'>
-                              <div className='category-list-container'>
-                                <div className='category-list' />
-                                <p className='category-text'>{`${category.name}`}</p>
-                                <div className='category-quantity-container'>
-                                  <BookIcon className='book-icon' />
-                                  <div className='category-quantity'>
-                                    {category.quantity}
-                                  </div>
-                                </div>
-                              </div>
-                              <div className='category-controls-container'>
-                                <div className='category-garbage-container'>
-                                  {showDeletes ? (
-                                    <TrashIcon
-                                      className='trash-icon'
-                                      onMouseDown={(e) =>
-                                        handleDeleteCategory(e, category.id)
-                                      }
-                                    />
-                                  ) : (
-                                    <GearIcon
-                                      className='gear-icon'
-                                      onMouseDown={(e) =>
-                                        handleShowEditCategory(
-                                          e,
-                                          category.id,
-                                          category.name,
-                                          category.description,
-                                          category.icon,
-                                          category.color,
-                                          category.flair
-                                        )
-                                      }
-                                    />
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </>
+                        <DndContext
+                          collisionDetection={closestCenter}
+                          onDragEnd={handleDragEnd}
+                        >
+                          <SortableContext
+                            items={categoryOrder}
+                            strategy={verticalListSortingStrategy}
+                          >
+                            {categoryOrder.map((categoryId) => {
+                              const category = categories.find(
+                                (cat) => cat.id === categoryId
+                              );
+                              return category ? (
+                                <SortableCategoryItem
+                                  key={category.id}
+                                  category={category}
+                                />
+                              ) : null;
+                            })}
+                          </SortableContext>
+                        </DndContext>
                       ) : (
                         <p className='categories-create-no-categories'>
                           {noCategoriesText}

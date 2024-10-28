@@ -3,7 +3,6 @@ import { AppContext } from 'Contexts/AppContext';
 import { Routes, Route } from 'react-router-dom';
 import AuthApi from 'Utilities/AuthApi';
 import ServerApi from 'Utilities/ServerApi';
-import Menu from 'Utils/Menu';
 import Fullscreen from 'Utils/Fullscreen';
 import Auth from 'Components/Utils/Auth';
 import EditProfile from 'Utils/EditProfile';
@@ -19,7 +18,7 @@ import Book from 'Components/Book';
 import UserProfile from 'Components/UserProfile';
 import NotFound from 'Utils/NotFound';
 import Footer from 'Components/Footer';
-import ProtectedRoute from 'Utils/ProtectedRoute';
+import ProtectedRoute from 'Tools/ProtectedRoute';
 import 'Styles/App.css';
 
 const App: React.FC = () => {
@@ -83,7 +82,6 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Menu />
       {showFullscreen && <Fullscreen />}
       <Auth />
       <EditProfile />
