@@ -80,6 +80,14 @@ interface IconProps {
   onMouseDown?: React.MouseEventHandler<SVGSVGElement>;
 }
 
+interface FullscreenData {
+  src: string;
+  alt: string;
+  title: string;
+  author: string;
+  desc: string;
+}
+
 interface AppContextType {
   authToken: string | null;
   setAuthToken: (token: string | null) => void;
@@ -87,6 +95,8 @@ interface AppContextType {
   setAuthUser: (user: User | null) => void;
   showFullscreen: boolean;
   setShowFullscreen: (value: boolean) => void;
+  fullscreenData: FullscreenData;
+  setFullscreenData: (data: FullscreenData) => void;
   showAuth: boolean;
   setShowAuth: (value: boolean) => void;
   showEdit: boolean;
@@ -121,6 +131,14 @@ interface AppContextType {
   clearAuthUser: () => void;
   handleLanguageChange: (newLanguage: string | null) => void;
   formatTitleForURL: (inputString: string) => string;
+  fullscreenOpen: (
+    src: string,
+    alt: string,
+    title?: string,
+    author?: string,
+    desc?: string
+  ) => void;
+  fullscreenClose: (event: React.MouseEvent) => void;
   categoryIconOptions: { [key: number]: React.FC };
   categoryColorOptions: { [key: number]: string };
 }
@@ -141,6 +159,14 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [authUser, setAuthUser] = useState<User | null>(null);
 
   const [showFullscreen, setShowFullscreen] = useState<boolean>(false);
+  const [fullscreenData, setFullscreenData] = useState({
+    src: '',
+    alt: '',
+    title: '',
+    author: '',
+    desc: '',
+  });
+
   const [showAuth, setShowAuth] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [showAddBookWindow, setShowAddBookWindow] = useState<boolean>(false);
@@ -185,6 +211,34 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       .replace(/-+$/, '');
   };
 
+  const fullscreenOpen = (
+    src: string,
+    alt: string,
+    title: string = '',
+    author: string = '',
+    desc: string = ''
+  ) => {
+    setFullscreenData({
+      src,
+      alt,
+      title,
+      author,
+      desc,
+    });
+    setShowFullscreen(true);
+  };
+
+  const fullscreenClose = () => {
+    setShowFullscreen(false);
+    setFullscreenData({
+      src: '',
+      alt: '',
+      title: '',
+      author: '',
+      desc: '',
+    });
+  };
+
   const categoryIconOptions: { [key: number]: React.FC<IconProps> } = {
     1: FoxIcon,
     2: RaccoonIcon,
@@ -218,6 +272,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setAuthUser,
         showFullscreen,
         setShowFullscreen,
+        fullscreenData,
+        setFullscreenData,
         showAuth,
         setShowAuth,
         showEdit,
@@ -252,6 +308,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         clearAuthUser,
         handleLanguageChange,
         formatTitleForURL,
+        fullscreenOpen,
+        fullscreenClose,
         categoryIconOptions,
         categoryColorOptions,
       }}

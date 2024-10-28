@@ -23,6 +23,7 @@ const Book: React.FC = () => {
     setSelectedBook,
     formatTitleForURL,
     language,
+    fullscreenOpen,
   } = context;
   const [isLoading, setIsLoading] = useState(false);
 
@@ -93,6 +94,21 @@ const Book: React.FC = () => {
     setShowPolicyWindow(true);
   };
 
+  const handleShowFullscreen = (
+    event: React.MouseEvent,
+    imageSrc: string,
+    imageAlt: string,
+    title: string,
+    author: string,
+    desc: string
+  ) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    fullscreenOpen(imageSrc, imageAlt, title, author, desc);
+  };
+
   if (!book) {
     return (
       <main className='page-container'>
@@ -145,6 +161,16 @@ const Book: React.FC = () => {
                     const imgElement = e.target as HTMLImageElement;
                     imgElement.parentElement?.classList.add('loaded');
                   }}
+                  onClick={(e) =>
+                    handleShowFullscreen(
+                      e,
+                      book.images[0].image_url || '',
+                      book.title,
+                      book.title,
+                      book.author,
+                      book.description
+                    )
+                  }
                 />
               </div>
             ) : (
