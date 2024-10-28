@@ -16,7 +16,7 @@ import About from 'Components/About';
 import Books from 'Components/Books';
 import Book from 'Components/Book';
 import UserProfile from 'Components/UserProfile';
-import NotFound from 'Utils/NotFound';
+import NotFound from 'Tools/NotFound';
 import Footer from 'Components/Footer';
 import ProtectedRoute from 'Tools/ProtectedRoute';
 import 'Styles/App.css';

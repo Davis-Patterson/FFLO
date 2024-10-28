@@ -222,7 +222,7 @@
   border-radius: 4px;
   background-color: var(--clr-light);
   color: var(--clr-dark);
-  min-height: 50px;
+  min-height: 42px;
   max-height: 300px;
   resize: vertical;
 }
@@ -230,7 +230,19 @@
   height: 100px;
 }
 .category-desc-input {
-  height: 50px;
+  height: 42px;
+}
+
+.drag-icon {
+  width: 15px;
+  height: 15px;
+  fill: var(--clr-icon);
+}
+.drag-icon:hover {
+  fill: var(--clr-dark);
+}
+.drag-icon:active {
+  cursor: grabbing;
 }
 
 .gear-icon {
