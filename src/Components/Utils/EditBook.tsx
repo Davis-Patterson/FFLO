@@ -1132,8 +1132,8 @@ const EditBook: React.FC = () => {
                                                   category.id
                                                 );
                                               if (isSelected) {
-                                                setSelectedCategories(
-                                                  selectedCategories.filter(
+                                                setSelectedCategories((prev) =>
+                                                  prev.filter(
                                                     (id) => id !== category.id
                                                   )
                                                 );
@@ -1143,10 +1143,11 @@ const EditBook: React.FC = () => {
                                                     : [...prev, category.id]
                                                 );
                                               } else {
-                                                setSelectedCategories([
-                                                  ...selectedCategories,
-                                                  category.id,
-                                                ]);
+                                                setSelectedCategories((prev) =>
+                                                  prev.includes(category.id)
+                                                    ? prev
+                                                    : [...prev, category.id]
+                                                );
                                                 setCategoriesToRemove((prev) =>
                                                   prev.filter(
                                                     (id) => id !== category.id

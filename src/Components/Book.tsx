@@ -119,8 +119,9 @@ const Book: React.FC = () => {
             <TitleFlair className='title-flair-right' />
           </div>
         </header>
-
-        <section className='book-details'></section>
+        <section className='no-book-content'>
+          <p className='book-description'>description</p>
+        </section>
       </main>
     );
   }

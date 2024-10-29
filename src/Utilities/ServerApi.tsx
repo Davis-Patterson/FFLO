@@ -188,7 +188,7 @@ const ServerApi = () => {
     images: File[],
     categories: number[],
     flair?: string
-  ): Promise<{ success: boolean; data?: any }> => {
+  ): Promise<{ success: boolean; data?: any; error?: string }> => {
     try {
       const formData = new FormData();
       formData.append('title', title);
@@ -222,11 +222,17 @@ const ServerApi = () => {
         console.log('Book created successfully:', response.data);
         return { success: true, data: response.data };
       } else {
-        return { success: false };
+        return { success: false, error: 'Unexpected response status' };
       }
     } catch (error) {
+      let errorMessage = 'Book creation failed';
+
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data?.title?.[0] || errorMessage;
+      }
+
       console.error('Book creation failed:', error);
-      return { success: false };
+      return { success: false, error: errorMessage };
     }
   };
 

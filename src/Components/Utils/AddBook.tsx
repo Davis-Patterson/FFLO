@@ -291,29 +291,26 @@ const AddBook: React.FC = () => {
       console.log('Book created successfully');
       setShowAddBookWindow(false);
       setShowDeletes(false);
-    } else {
-      setErrorMessage('Failed to create book');
-    }
+      setTitle('');
+      setAuthor('');
+      setDescription('');
+      setQuantity('');
+      setImageFile(null);
+      setSelectedCategories([]);
+      setFlair('');
 
-    const fetchBooks = async () => {
-      const result = await getBooks();
-      if (result.success) {
-        setAllBooks(result.data ?? []);
+      // Fetch books to update the list
+      const booksResult = await getBooks();
+      if (booksResult.success) {
+        setAllBooks(booksResult.data ?? []);
       } else {
         console.error('Failed to load books');
       }
-    };
-
-    fetchBooks();
+    } else {
+      setErrorMessage(result.error || 'Failed to create book');
+    }
 
     setIsLoading(false);
-    setTitle('');
-    setAuthor('');
-    setDescription('');
-    setQuantity('');
-    setImageFile(null);
-    setSelectedCategories([]);
-    setFlair('');
   };
 
   const handleCategoryCreate = async (e: React.FormEvent) => {
