@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import ffloLogo from 'Assets/Logos/fflo-logo.webp';
 import UserIcon from 'Svgs/UserIcon';
 import 'Styles/Nav.css';
-import UKFlag from 'Svgs/UKFlag';
-import FrenchFlag from 'Svgs/FrenchFlag';
 
 const Nav: React.FC = () => {
   const context = useContext(AppContext);

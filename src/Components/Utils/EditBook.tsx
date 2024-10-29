@@ -1137,11 +1137,21 @@ const EditBook: React.FC = () => {
                                                     (id) => id !== category.id
                                                   )
                                                 );
+                                                setCategoriesToRemove((prev) =>
+                                                  prev.includes(category.id)
+                                                    ? prev
+                                                    : [...prev, category.id]
+                                                );
                                               } else {
                                                 setSelectedCategories([
                                                   ...selectedCategories,
                                                   category.id,
                                                 ]);
+                                                setCategoriesToRemove((prev) =>
+                                                  prev.filter(
+                                                    (id) => id !== category.id
+                                                  )
+                                                );
                                               }
                                             }
                                           }}

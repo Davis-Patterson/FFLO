@@ -22,7 +22,6 @@ const Fullscreen: React.FC = () => {
         <div className='fullscreen-details'>
           <h2>{fullscreenData.title}</h2>
           <p>{fullscreenData.author}</p>
-          <p>{fullscreenData.desc}</p>
         </div>
       </div>
     </div>
