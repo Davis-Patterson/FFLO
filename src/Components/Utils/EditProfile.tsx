@@ -4,6 +4,8 @@ import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import TitleFlair from 'Svgs/TitleFlair';
 import XIcon from 'Svgs/XIcon';
+import UKFlag from 'Svgs/UKFlag';
+import FrenchFlag from 'Svgs/FrenchFlag';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Utils/EditProfile.css';
 
@@ -129,28 +131,28 @@ const EditProfile: React.FC = () => {
               showEdit ? 'fade-in' : 'fade-out'
             }`}
           >
-            <div className='edit-language-toggle'>
-              {language === 'FR' && (
-                <p
-                  className='edit-lang-toggle'
-                  onClick={() => handleLanguageChange('EN')}
-                >
-                  EN
-                </p>
-              )}
-              {language === 'EN' && (
-                <p
-                  className='edit-lang-toggle'
-                  onClick={() => handleLanguageChange('FR')}
-                >
-                  FR
-                </p>
-              )}
+            <div className='portal-top-toggles'>
+              <div className='edit-language-toggle'>
+                {language === 'FR' && (
+                  <UKFlag
+                    className='flag-icon'
+                    onMouseDown={(e) => handleLanguageChange(e, 'EN')}
+                  />
+                )}
+                {language === 'EN' && (
+                  <>
+                    <FrenchFlag
+                      className='flag-icon'
+                      onMouseDown={(e) => handleLanguageChange(e, 'FR')}
+                    />
+                  </>
+                )}
+              </div>
+              <XIcon
+                className='edit-x-icon'
+                onMouseDown={(e) => handleClose(e)}
+              />
             </div>
-            <XIcon
-              className='edit-x-icon'
-              onMouseDown={(e) => handleClose(e)}
-            />
             {authToken && (
               <>
                 <div className='edit-header'>

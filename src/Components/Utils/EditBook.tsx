@@ -20,6 +20,8 @@ import TrashIcon from 'Svgs/TrashIcon';
 import CheckIcon from 'Svgs/CheckIcon';
 import BookCoverIcon from 'Svgs/BookCoverIcon';
 import DragIcon from 'Svgs/DragIcon';
+import UKFlag from 'Svgs/UKFlag';
+import FrenchFlag from 'Svgs/FrenchFlag';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Utils/EditBook.css';
 
@@ -934,66 +936,66 @@ const EditBook: React.FC = () => {
               showEditBook ? 'book-edit-container' : 'edit-container'
             } ${showBookEditWindow ? 'fade-in' : 'fade-out'}`}
           >
-            <div className='book-edit-language-toggle'>
-              {language === 'FR' && (
-                <p
-                  className='book-edit-lang-toggle'
-                  onClick={() => handleLanguageChange('EN')}
-                >
-                  EN
-                </p>
+            <div className='portal-top-toggles'>
+              <div className='book-edit-language-toggle'>
+                {language === 'FR' && (
+                  <UKFlag
+                    className='flag-icon'
+                    onMouseDown={(e) => handleLanguageChange(e, 'EN')}
+                  />
+                )}
+                {language === 'EN' && (
+                  <>
+                    <FrenchFlag
+                      className='flag-icon'
+                      onMouseDown={(e) => handleLanguageChange(e, 'FR')}
+                    />
+                  </>
+                )}
+              </div>
+              {showEditBook && (
+                <XIcon
+                  className='book-edit-x-icon'
+                  onMouseDown={(e) => handleClose(e)}
+                />
               )}
-              {language === 'EN' && (
-                <p
-                  className='book-edit-lang-toggle'
-                  onClick={() => handleLanguageChange('FR')}
-                >
-                  FR
-                </p>
+              {showListCategories && (
+                <BackArrow
+                  className='book-edit-x-icon'
+                  onMouseDown={(e) => handleCloseCategories(e)}
+                />
+              )}
+              {showAddCategory && (
+                <BackArrow
+                  className='book-edit-x-icon'
+                  onMouseDown={(e) => handleBackToCategories(e)}
+                />
+              )}
+              {showEditCategory && (
+                <BackArrow
+                  className='book-edit-x-icon'
+                  onMouseDown={(e) => handleBackToCategories(e)}
+                />
+              )}
+              {showArchiveOrDeleteBook && (
+                <BackArrow
+                  className='book-edit-x-icon'
+                  onMouseDown={(e) => handleBackToEditBook(e)}
+                />
+              )}
+              {showArchiveBook && (
+                <BackArrow
+                  className='book-edit-x-icon'
+                  onMouseDown={(e) => handleBackToEditBook(e)}
+                />
+              )}
+              {showDeleteBook && (
+                <BackArrow
+                  className='book-edit-x-icon'
+                  onMouseDown={(e) => handleBackToEditBook(e)}
+                />
               )}
             </div>
-            {showEditBook && (
-              <XIcon
-                className='book-edit-x-icon'
-                onMouseDown={(e) => handleClose(e)}
-              />
-            )}
-            {showListCategories && (
-              <BackArrow
-                className='book-edit-x-icon'
-                onMouseDown={(e) => handleCloseCategories(e)}
-              />
-            )}
-            {showAddCategory && (
-              <BackArrow
-                className='book-edit-x-icon'
-                onMouseDown={(e) => handleBackToCategories(e)}
-              />
-            )}
-            {showEditCategory && (
-              <BackArrow
-                className='book-edit-x-icon'
-                onMouseDown={(e) => handleBackToCategories(e)}
-              />
-            )}
-            {showArchiveOrDeleteBook && (
-              <BackArrow
-                className='book-edit-x-icon'
-                onMouseDown={(e) => handleBackToEditBook(e)}
-              />
-            )}
-            {showArchiveBook && (
-              <BackArrow
-                className='book-edit-x-icon'
-                onMouseDown={(e) => handleBackToEditBook(e)}
-              />
-            )}
-            {showDeleteBook && (
-              <BackArrow
-                className='book-edit-x-icon'
-                onMouseDown={(e) => handleBackToEditBook(e)}
-              />
-            )}
             {showEditBook && (
               <>
                 <div className='book-edit-header'>

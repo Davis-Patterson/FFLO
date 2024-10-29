@@ -34,6 +34,12 @@
   opacity: 0;
 }
 
+.portal-top-toggles {
+  width: 100%;
+  justify-content: space-between;
+  margin: 0px 0px 10px 0px;
+}
+
 .auth-language-toggle {
   position: absolute;
   top: 15px;

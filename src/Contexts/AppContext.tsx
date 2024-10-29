@@ -129,7 +129,10 @@ interface AppContextType {
   setIsFetched: (value: boolean) => void;
   clearAuthToken: () => void;
   clearAuthUser: () => void;
-  handleLanguageChange: (newLanguage: string | null) => void;
+  handleLanguageChange: (
+    event: React.MouseEvent,
+    newLanguage: string | null
+  ) => void;
   formatTitleForURL: (inputString: string) => string;
   fullscreenOpen: (
     src: string,
@@ -198,7 +201,14 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     setAuthUser(null);
   };
 
-  const handleLanguageChange = (newLanguage: string | null) => {
+  const handleLanguageChange = (
+    event: React.MouseEvent,
+    newLanguage: string | null
+  ) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
     if (newLanguage) {
       setLanguage(newLanguage);
     }

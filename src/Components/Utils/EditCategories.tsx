@@ -19,6 +19,8 @@ import BookIcon from 'Svgs/BookIcon';
 import TrashIcon from 'Svgs/TrashIcon';
 import DragIcon from 'Svgs/DragIcon';
 import CheckIcon from 'Svgs/CheckIcon';
+import UKFlag from 'Svgs/UKFlag';
+import FrenchFlag from 'Svgs/FrenchFlag';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Utils/EditCategories.css';
 
@@ -576,42 +578,42 @@ const EditCategories: React.FC = () => {
               showCategoryEditWindow ? 'fade-in' : 'fade-out'
             }`}
           >
-            <div className='categories-create-language-toggle'>
-              {language === 'FR' && (
-                <p
-                  className='categories-create-lang-toggle'
-                  onClick={() => handleLanguageChange('EN')}
-                >
-                  EN
-                </p>
+            <div className='portal-top-toggles'>
+              <div className='categories-create-language-toggle'>
+                {language === 'FR' && (
+                  <UKFlag
+                    className='flag-icon'
+                    onMouseDown={(e) => handleLanguageChange(e, 'EN')}
+                  />
+                )}
+                {language === 'EN' && (
+                  <>
+                    <FrenchFlag
+                      className='flag-icon'
+                      onMouseDown={(e) => handleLanguageChange(e, 'FR')}
+                    />
+                  </>
+                )}
+              </div>
+              {showListCategories && (
+                <XIcon
+                  className='categories-create-x-icon'
+                  onMouseDown={(e) => handleClose(e)}
+                />
               )}
-              {language === 'EN' && (
-                <p
-                  className='categories-create-lang-toggle'
-                  onClick={() => handleLanguageChange('FR')}
-                >
-                  FR
-                </p>
+              {showAddCategory && (
+                <BackArrow
+                  className='categories-create-x-icon'
+                  onMouseDown={(e) => handleBackToCategories(e)}
+                />
+              )}
+              {showEditCategory && (
+                <BackArrow
+                  className='categories-create-x-icon'
+                  onMouseDown={(e) => handleBackToCategories(e)}
+                />
               )}
             </div>
-            {showListCategories && (
-              <XIcon
-                className='categories-create-x-icon'
-                onMouseDown={(e) => handleClose(e)}
-              />
-            )}
-            {showAddCategory && (
-              <BackArrow
-                className='categories-create-x-icon'
-                onMouseDown={(e) => handleBackToCategories(e)}
-              />
-            )}
-            {showEditCategory && (
-              <BackArrow
-                className='categories-create-x-icon'
-                onMouseDown={(e) => handleBackToCategories(e)}
-              />
-            )}
             {showListCategories && (
               <div className='categories-create-header'>
                 <TitleFlair className='categories-create-flair-left' />

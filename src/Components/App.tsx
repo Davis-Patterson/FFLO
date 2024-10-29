@@ -120,6 +120,16 @@ const App: React.FC = () => {
             }
           />
           <Route
+            path='/membership'
+            element={
+              <ProtectedRoute>
+                <Suspense fallback={<Fallback />}>
+                  <About />
+                </Suspense>
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path='/profile'
             element={
               <ProtectedRoute>
@@ -130,6 +140,7 @@ const App: React.FC = () => {
             }
           />
           <Route path='*' element={<NotFound />} />
+          <Route path='/fallback' element={<Fallback />} />
         </Routes>
         <Footer />
       </>

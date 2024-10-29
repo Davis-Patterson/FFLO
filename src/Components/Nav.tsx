@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import ffloLogo from 'Assets/Logos/fflo-logo.webp';
 import UserIcon from 'Svgs/UserIcon';
 import 'Styles/Nav.css';
+import UKFlag from 'Svgs/UKFlag';
+import FrenchFlag from 'Svgs/FrenchFlag';
 
 const Nav: React.FC = () => {
   const context = useContext(AppContext);
@@ -26,6 +28,7 @@ const Nav: React.FC = () => {
   const homeText = language === 'EN' ? 'Home' : 'Maison';
   const booksText = language === 'EN' ? 'Books' : 'Livres';
   const aboutText = language === 'EN' ? 'About' : 'À propos';
+  const membershipText = language === 'EN' ? 'Member' : 'À propos';
 
   return (
     <nav className='nav-container'>
@@ -34,13 +37,13 @@ const Nav: React.FC = () => {
           <div className='language-toggle'>
             <p
               className={`en-toggle ${language === 'EN' ? 'active' : ''}`}
-              onClick={() => handleLanguageChange('EN')}
+              onMouseDown={(e) => handleLanguageChange(e, 'EN')}
             >
               EN
             </p>
             <p
               className={`fr-toggle ${language === 'FR' ? 'active' : ''}`}
-              onClick={() => handleLanguageChange('FR')}
+              onMouseDown={(e) => handleLanguageChange(e, 'FR')}
             >
               FR
             </p>
@@ -85,6 +88,9 @@ const Nav: React.FC = () => {
         </Link>
         <Link to='/about'>
           <div className='nav-link'>{aboutText}</div>
+        </Link>
+        <Link to='/membership'>
+          <div className='nav-link'>{membershipText}</div>
         </Link>
       </section>
     </nav>

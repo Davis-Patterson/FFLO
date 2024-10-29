@@ -6,10 +6,10 @@ import ServerApi from 'Utilities/ServerApi';
 import BookCoverIcon from 'Svgs/BookCoverIcon';
 import GridIcon from 'Svgs/GridIcon';
 import ListIcon from 'Svgs/ListIcon';
-import BackArrow from 'Svgs/BackArrow';
+import SidebarOpen from 'Svgs/SidebarOpen';
+import SidebarClose from 'Svgs/SidebarClose';
 import GearIcon from 'Svgs/GearIcon';
 import 'Styles/BookList.css';
-import OpenSidebarIcon from 'Svgs/OpenSidebarIcon';
 
 interface BookListProps {
   bookList: Book[];
@@ -46,7 +46,7 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
   const authorText = language === 'EN' ? 'Author' : 'Auteur';
   const sidebarHeaderText = language === 'EN' ? 'Categories' : 'Catégories';
   const editCategoriesToggleText =
-    language === 'EN' ? 'Edit Categories' : 'Modifier les catégories';
+    language === 'EN' ? 'Categories' : 'Catégories';
   const allBooksText = language === 'EN' ? 'All Books' : 'Tous les livres';
 
   const handleToggleViewSetting = (event: React.MouseEvent) => {
@@ -139,12 +139,12 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
       <div className='page-toggles-container'>
         <div className='sidebar-toggle-container'>
           {showSidebar ? (
-            <BackArrow
+            <SidebarClose
               className='close-sidebar-icon'
               onMouseDown={(e) => handleShowSidebar(e)}
             />
           ) : (
-            <OpenSidebarIcon
+            <SidebarOpen
               className='open-sidebar-icon'
               onMouseDown={(e) => handleShowSidebar(e)}
             />

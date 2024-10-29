@@ -19,6 +19,8 @@ import BookIcon from 'Svgs/BookIcon';
 import TrashIcon from 'Svgs/TrashIcon';
 import CheckIcon from 'Svgs/CheckIcon';
 import DragIcon from 'Svgs/DragIcon';
+import UKFlag from 'Svgs/UKFlag';
+import FrenchFlag from 'Svgs/FrenchFlag';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Utils/AddBook.css';
 
@@ -698,48 +700,48 @@ const AddBook: React.FC = () => {
               showAddBookWindow ? 'fade-in' : 'fade-out'
             }`}
           >
-            <div className='book-create-language-toggle'>
-              {language === 'FR' && (
-                <p
-                  className='book-create-lang-toggle'
-                  onClick={() => handleLanguageChange('EN')}
-                >
-                  EN
-                </p>
+            <div className='portal-top-toggles'>
+              <div className='book-create-language-toggle'>
+                {language === 'FR' && (
+                  <UKFlag
+                    className='flag-icon'
+                    onMouseDown={(e) => handleLanguageChange(e, 'EN')}
+                  />
+                )}
+                {language === 'EN' && (
+                  <>
+                    <FrenchFlag
+                      className='flag-icon'
+                      onMouseDown={(e) => handleLanguageChange(e, 'FR')}
+                    />
+                  </>
+                )}
+              </div>
+              {showAddBook && (
+                <XIcon
+                  className='book-create-x-icon'
+                  onMouseDown={(e) => handleClose(e)}
+                />
               )}
-              {language === 'EN' && (
-                <p
-                  className='book-create-lang-toggle'
-                  onClick={() => handleLanguageChange('FR')}
-                >
-                  FR
-                </p>
+              {showListCategories && (
+                <BackArrow
+                  className='book-create-x-icon'
+                  onMouseDown={(e) => handleCloseCategories(e)}
+                />
+              )}
+              {showAddCategory && (
+                <BackArrow
+                  className='book-create-x-icon'
+                  onMouseDown={(e) => handleBackToCategories(e)}
+                />
+              )}
+              {showEditCategory && (
+                <BackArrow
+                  className='book-create-x-icon'
+                  onMouseDown={(e) => handleBackToCategories(e)}
+                />
               )}
             </div>
-            {showAddBook && (
-              <XIcon
-                className='book-create-x-icon'
-                onMouseDown={(e) => handleClose(e)}
-              />
-            )}
-            {showListCategories && (
-              <BackArrow
-                className='book-create-x-icon'
-                onMouseDown={(e) => handleCloseCategories(e)}
-              />
-            )}
-            {showAddCategory && (
-              <BackArrow
-                className='book-create-x-icon'
-                onMouseDown={(e) => handleBackToCategories(e)}
-              />
-            )}
-            {showEditCategory && (
-              <BackArrow
-                className='book-create-x-icon'
-                onMouseDown={(e) => handleBackToCategories(e)}
-              />
-            )}
             {showAddBook && (
               <>
                 <div className='book-create-header'>
