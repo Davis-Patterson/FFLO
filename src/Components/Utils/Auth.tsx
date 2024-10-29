@@ -97,11 +97,17 @@ const Auth: React.FC = () => {
         !authContainerRef.current.contains(event.target as Node)
       ) {
         setShowAuth(false);
-        setShowLogin(true);
         setShowRegister(false);
         setShowForgot(false);
+        setShowLogin(true);
       }
     };
+
+    if (showLogin) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);

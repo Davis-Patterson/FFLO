@@ -66,6 +66,12 @@ const PolicyPanel: React.FC = () => {
       }
     };
 
+    if (showPolicyWindow) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
