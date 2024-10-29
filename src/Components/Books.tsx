@@ -30,6 +30,20 @@ const Books: React.FC = () => {
   } = context;
 
   const [fetchedCategories, setFetchedCategories] = useState(false);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [visibleCategories, setVisibleCategories] = useState(4);
+  const [translateValue, setTranslateValue] = useState(0);
+
+  const cardWidth = 190;
+  const maxSlideIndex = Math.max(0, categories.length - visibleCategories);
+
+  const availableBooks = allBooks.filter((book) => book.available > 0);
+
+  const calculateTranslateValue = (index: number) => {
+    return index === maxSlideIndex
+      ? (index - 1) * cardWidth + 150
+      : index * cardWidth;
+  };
 
   // translations
   const headerText = language === 'EN' ? 'Categories' : 'Catégories';
@@ -38,8 +52,6 @@ const Books: React.FC = () => {
   const categoryButtonText =
     language === 'EN' ? 'View Books' : 'Voir les Livres';
   const allBooksText = language === 'EN' ? 'All Books' : 'Tous les Livres';
-
-  const availableBooks = allBooks.filter((book) => book.available > 0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -58,7 +70,15 @@ const Books: React.FC = () => {
       });
     }
   }, [categories, getCategories, context]);
-  console.log('categories:', categories);
+
+  useEffect(() => {
+    if (slideIndex > maxSlideIndex) {
+      setSlideIndex(maxSlideIndex);
+      setTranslateValue(calculateTranslateValue(maxSlideIndex));
+    } else {
+      setTranslateValue(calculateTranslateValue(slideIndex));
+    }
+  }, [categories.length, slideIndex, maxSlideIndex]);
 
   const handleCategoryFilter = (
     event: React.MouseEvent,
@@ -81,6 +101,26 @@ const Books: React.FC = () => {
     event.stopPropagation();
 
     setShowCategoryEditWindow(true);
+  };
+
+  const handleNextSlide = () => {
+    if (slideIndex < maxSlideIndex) {
+      const newTranslateValue =
+        slideIndex === maxSlideIndex - 1
+          ? translateValue + 150
+          : translateValue + 190;
+      setTranslateValue(newTranslateValue);
+      setSlideIndex((prev) => prev + 1);
+    }
+  };
+
+  const handlePrevSlide = () => {
+    if (slideIndex > 0) {
+      const newTranslateValue =
+        slideIndex === 1 ? translateValue - 150 : translateValue - 190;
+      setTranslateValue(newTranslateValue);
+      setSlideIndex((prev) => prev - 1);
+    }
   };
 
   return (
@@ -108,46 +148,65 @@ const Books: React.FC = () => {
               />
             </div>
           )}
-          <div className='categories-map-container'>
-            {categories.map((category) => {
-              const IconComponent: React.ComponentType<IconProps> =
-                categoryIconOptions[category.icon];
-              const backgroundColor = categoryColorOptions[category.color];
-              const isSelected = categoryFilter === category.id;
-              const className = `${
-                categoryFilter === null
-                  ? 'category-card'
-                  : isSelected
-                  ? 'category-card'
-                  : 'category-card category-inactive'
-              }`;
-              return (
-                <div
-                  key={category.id}
-                  className={className}
-                  style={{ backgroundColor }}
-                >
-                  <div className='category-card-header'>
-                    {IconComponent && (
-                      <IconComponent className='category-card-icon' />
-                    )}
-                    <p className='category-card-header-text'>{category.name}</p>
-                  </div>
-                  <div className='category-card-subtext-container'>
-                    <p className='category-card-subtext'>
-                      {category.description}
-                    </p>
-                  </div>
-                  <button
-                    className='category-button'
-                    onMouseDown={(e) => handleCategoryFilter(e, category.id)}
+          <div className='categories-navigation'>
+            {slideIndex > 0 && (
+              <div className='prev-slide' onClick={handlePrevSlide}>
+                &lt;
+              </div>
+            )}
+            <div
+              className='categories-map-container'
+              style={{
+                transform: `translateX(-${translateValue}px)`,
+              }}
+            >
+              {categories.map((category) => {
+                const IconComponent: React.ComponentType<IconProps> =
+                  categoryIconOptions[category.icon];
+                const backgroundColor = categoryColorOptions[category.color];
+                const isSelected = categoryFilter === category.id;
+                const className = `${
+                  categoryFilter === null
+                    ? 'category-card'
+                    : isSelected
+                    ? 'category-card'
+                    : 'category-card category-inactive'
+                }`;
+                return (
+                  <div
+                    key={category.id}
+                    className={className}
                     style={{ backgroundColor }}
                   >
-                    {isSelected ? allBooksText : categoryButtonText}
-                  </button>
-                </div>
-              );
-            })}
+                    <div className='category-card-header'>
+                      {IconComponent && (
+                        <IconComponent className='category-card-icon' />
+                      )}
+                      <p className='category-card-header-text'>
+                        {category.name}
+                      </p>
+                    </div>
+                    <div className='category-card-subtext-container'>
+                      <p className='category-card-subtext'>
+                        {category.description}
+                      </p>
+                    </div>
+                    <button
+                      className='category-button'
+                      onMouseDown={(e) => handleCategoryFilter(e, category.id)}
+                      style={{ backgroundColor }}
+                    >
+                      {isSelected ? allBooksText : categoryButtonText}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+            {slideIndex < maxSlideIndex && (
+              <div className='next-slide' onClick={handleNextSlide}>
+                &gt;
+              </div>
+            )}
           </div>
         </div>
         <div className='categories-books-container'>

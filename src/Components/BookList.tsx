@@ -6,9 +6,10 @@ import ServerApi from 'Utilities/ServerApi';
 import BookCoverIcon from 'Svgs/BookCoverIcon';
 import GridIcon from 'Svgs/GridIcon';
 import ListIcon from 'Svgs/ListIcon';
+import BackArrow from 'Svgs/BackArrow';
+import GearIcon from 'Svgs/GearIcon';
 import 'Styles/BookList.css';
 import OpenSidebarIcon from 'Svgs/OpenSidebarIcon';
-import BackArrow from 'Svgs/BackArrow';
 
 interface BookListProps {
   bookList: Book[];
@@ -21,6 +22,8 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     throw new Error('No Context');
   }
   const {
+    authUser,
+    setShowCategoryEditWindow,
     language,
     categories,
     setCategories,
@@ -42,6 +45,9 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
   const titleText = language === 'EN' ? 'Title' : 'Titre';
   const authorText = language === 'EN' ? 'Author' : 'Auteur';
   const sidebarHeaderText = language === 'EN' ? 'Categories' : 'Catégories';
+  const editCategoriesToggleText =
+    language === 'EN' ? 'Edit Categories' : 'Modifier les catégories';
+  const allBooksText = language === 'EN' ? 'All Books' : 'Tous les livres';
 
   const handleToggleViewSetting = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
@@ -95,6 +101,37 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
 
   const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterSetting(event.target.value);
+  };
+
+  const handleCategoryFilter = (
+    event: React.MouseEvent,
+    categoryId: number
+  ) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (categoryId === categoryFilter) {
+      setCategoryFilter(null);
+    } else {
+      setCategoryFilter(categoryId);
+    }
+  };
+
+  const handleShowEditCategories = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setShowCategoryEditWindow(true);
+  };
+
+  const handleShowAllBooks = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setCategoryFilter(null);
   };
 
   return (
@@ -169,17 +206,48 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
             >
               <p className='sidebar-content-header-text'>{sidebarHeaderText}</p>
               <div className='sidebar-content-categories'>
+                <p
+                  className={`${
+                    categoryFilter === null
+                      ? 'sidebar-content-category-selected'
+                      : 'sidebar-content-category-deselected'
+                  }`}
+                  onMouseDown={(e) => handleShowAllBooks(e)}
+                >
+                  {allBooksText}
+                </p>
                 {categories.map((category) => {
                   const isSelected = categoryFilter === category.id;
                   const className = `${
                     categoryFilter === null
                       ? 'sidebar-content-category'
                       : isSelected
-                      ? 'selected'
-                      : ''
+                      ? 'sidebar-content-category-selected'
+                      : 'sidebar-content-category-deselected'
                   }`;
-                  return <p className={className}>{category.name}</p>;
+                  return (
+                    <p
+                      className={className}
+                      onMouseDown={(e) => handleCategoryFilter(e, category.id)}
+                    >
+                      {category.name}
+                    </p>
+                  );
                 })}
+                {authUser?.is_staff && (
+                  <div className='edit-categories-sidebar-toggle-container'>
+                    <p
+                      className='edit-categories-sidebar-toggle-text'
+                      onMouseDown={(e) => handleShowEditCategories(e)}
+                    >
+                      {editCategoriesToggleText}
+                    </p>
+                    <GearIcon
+                      className='gear-icon-sidebar'
+                      onMouseDown={(e) => handleShowEditCategories(e)}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

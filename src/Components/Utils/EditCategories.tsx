@@ -584,324 +584,330 @@ const EditCategories: React.FC = () => {
               />
             )}
             {showAddCategories && (
-              <>
-                <div className='categories-create-header'>
-                  <TitleFlair className='categories-create-flair-left' />
-                  <p className='categories-create-header-text'>
-                    {categoryAddHeaderText}
-                  </p>
-                  <TitleFlair className='categories-create-flair-right' />
-                </div>
-                <div className='category-container'>
-                  <div className='category-header-container'>
-                    <div className='category-title-garbage-container'>
-                      <p className='category-title'>{categoriesText}</p>
-                      {!showDeletes && categories.length > 0 && (
-                        <TrashIcon
-                          className='trash-icon'
-                          onMouseDown={(e) => handleShowDeletes(e)}
-                        />
-                      )}
-                      {showDeletes && categories.length > 0 && (
-                        <CheckIcon
-                          className='check-icon'
-                          onMouseDown={(e) => handleHideDeletes(e)}
-                        />
-                      )}
-                    </div>
-                  </div>
-                  {categoriesLoading ? (
-                    <LinearProgress color='inherit' />
-                  ) : (
-                    <>
-                      {categories.length > 0 ? (
-                        <DndContext
-                          collisionDetection={closestCenter}
-                          onDragEnd={handleDragEnd}
-                        >
-                          <SortableContext
-                            items={categoryOrder}
-                            strategy={verticalListSortingStrategy}
-                          >
-                            {categoryOrder.map((categoryId) => {
-                              const category = categories.find(
-                                (cat) => cat.id === categoryId
-                              );
-                              return category ? (
-                                <SortableCategoryItem
-                                  key={category.id}
-                                  category={category}
-                                />
-                              ) : null;
-                            })}
-                          </SortableContext>
-                        </DndContext>
-                      ) : (
-                        <p className='categories-create-no-categories'>
-                          {noCategoriesText}
-                        </p>
-                      )}
-                    </>
-                  )}
-                </div>
-                <form onSubmit={handleCategoryCreate}>
-                  <p
-                    className='categories-create-header-subtext'
-                    style={{ padding: '8px 0px 0px 0px' }}
-                  >
-                    {categoryAddSubtext}
-                  </p>
-                  <div>
-                    <input
-                      type='text'
-                      name='name'
-                      value={categoryName}
-                      required
-                      maxLength={15}
-                      onChange={(e) => setCategoryName(e.target.value)}
-                      placeholder={categoryNamePlaceholder}
-                      className='categories-create-input'
-                    />
-                  </div>
-                  <div>
-                    <textarea
-                      name='description'
-                      value={categoryDescription}
-                      required
-                      maxLength={50}
-                      onChange={(e) => setCategoryDescription(e.target.value)}
-                      placeholder={categoryDescPlaceholder}
-                      className='category-desc-input'
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type='text'
-                      name='flair'
-                      value={categoryFlair}
-                      maxLength={10}
-                      onChange={(e) => setCategoryFlair(e.target.value)}
-                      placeholder={bookFlairPlaceholder}
-                      className='book-create-input'
-                    />
-                  </div>
-                  <p className='category-label-text'>
-                    {categoryIconPlaceholder}
-                    {!showAddCategoryButtonActive ? '*' : null}
-                  </p>
-                  <div className='category-icon-container'>
-                    {Object.entries(categoryIconOptions).map(
-                      ([iconNumber, IconComponent]) => {
-                        const iconNum = parseInt(iconNumber);
-                        const isSelected = categoryIcon === iconNum;
-                        const className = `category-icon ${
-                          categoryIcon === null
-                            ? ''
-                            : isSelected
-                            ? 'icon-selected'
-                            : 'icon-inactive'
-                        }`;
-                        return (
-                          <div
-                            key={iconNum}
-                            className={className}
-                            onMouseDown={(e) =>
-                              handleCategoryIconSelect(e, iconNum)
-                            }
-                          >
-                            <IconComponent />
-                          </div>
-                        ) as React.ReactElement;
-                      }
-                    )}
-                  </div>
-                  <p className='category-label-text'>
-                    {categoryColorPlaceholder}
-                    {!showAddCategoryButtonActive ? '*' : null}
-                  </p>
-                  <div className='category-color-container'>
-                    {Object.entries(categoryColorOptions).map(
-                      ([colorNumber, colorValue]) => {
-                        const colorNum = parseInt(colorNumber);
-                        const isSelected = categoryColor === colorNum;
-                        const className = `category-color-option ${
-                          categoryColor === null
-                            ? ''
-                            : isSelected
-                            ? 'color-selected'
-                            : 'color-inactive'
-                        }`;
-                        return (
-                          <div
-                            key={colorNum}
-                            className={className}
-                            style={{ backgroundColor: colorValue }}
-                            onMouseDown={(e) =>
-                              handleCategoryColorSelect(e, colorNum)
-                            }
-                          />
-                        ) as React.ReactElement;
-                      }
-                    )}
-                  </div>
-                  {!showAddCategoryButtonActive && (
-                    <p className='auth-required'>{requiredText}</p>
-                  )}
-                  {errorMessage && (
-                    <p className='error-message'>{errorMessage}</p>
-                  )}
-                  <button
-                    type='submit'
-                    className={`${
-                      showAddCategoryButtonActive
-                        ? 'submit-button'
-                        : 'inactive-button'
-                    }`}
-                    disabled={
-                      !showAddCategoryButtonActive || categoryAddLoading
-                    }
-                  >
-                    {categoryAddLoading ? (
-                      <LinearProgress color='inherit' />
-                    ) : (
-                      bookCreateSubmitText
-                    )}
-                  </button>
-                </form>
-              </>
+              <div className='categories-create-header'>
+                <TitleFlair className='categories-create-flair-left' />
+                <p className='categories-create-header-text'>
+                  {categoryAddHeaderText}
+                </p>
+                <TitleFlair className='categories-create-flair-right' />
+              </div>
             )}
             {showEditCategory && (
-              <>
-                <div className='categories-create-header'>
-                  <TitleFlair className='categories-create-flair-left' />
-                  <p className='categories-create-header-text'>
-                    {categoryEditHeaderText}
-                  </p>
-                  <TitleFlair className='categories-create-flair-right' />
-                </div>
-                <form onSubmit={handleCategoryUpdate}>
-                  <p
-                    className='categories-create-header-subtext'
-                    style={{ padding: '8px 0px 0px 0px' }}
-                  >
-                    {categoryEditSubtext}
-                  </p>
-                  <div>
-                    <input
-                      type='text'
-                      name='name'
-                      value={editCategoryName}
-                      required
-                      onChange={(e) => setEditCategoryName(e.target.value)}
-                      placeholder={categoryNamePlaceholder}
-                      className='categories-create-input'
-                    />
-                  </div>
-                  <div>
-                    <textarea
-                      name='description'
-                      value={editCategoryDesc}
-                      onChange={(e) => setEditCategoryDesc(e.target.value)}
-                      placeholder={categoryDescPlaceholder}
-                      className='category-desc-input'
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type='text'
-                      name='flair'
-                      value={editCategoryFlair}
-                      maxLength={10}
-                      onChange={(e) => setEditCategoryFlair(e.target.value)}
-                      placeholder={bookFlairPlaceholder}
-                      className='book-create-input'
-                    />
-                  </div>
-                  <p className='category-label-text'>
-                    {categoryIconPlaceholder}
-                    {!showEditCategoryButtonActive ? '*' : null}
-                  </p>
-                  <div className='category-icon-container'>
-                    {Object.entries(categoryIconOptions).map(
-                      ([iconNumber, IconComponent]) => {
-                        const iconNum = parseInt(iconNumber);
-                        const isSelected = editCategoryIcon === iconNum;
-                        const className = `category-icon ${
-                          editCategoryIcon === null
-                            ? ''
-                            : isSelected
-                            ? 'icon-selected'
-                            : 'icon-inactive'
-                        }`;
-                        return (
-                          <div
-                            key={iconNum}
-                            className={className}
-                            onMouseDown={(e) =>
-                              handleEditCategoryIconSelect(e, iconNum)
-                            }
-                          >
-                            <IconComponent />
-                          </div>
-                        ) as React.ReactElement;
-                      }
-                    )}
-                  </div>
-                  <p className='category-label-text'>
-                    {categoryColorPlaceholder}
-                    {!showEditCategoryButtonActive ? '*' : null}
-                  </p>
-                  <div className='category-color-container'>
-                    {Object.entries(categoryColorOptions).map(
-                      ([colorNumber, colorValue]) => {
-                        const colorNum = parseInt(colorNumber);
-                        const isSelected = editCategoryColor === colorNum;
-                        const className = `category-color-option ${
-                          editCategoryColor === null
-                            ? ''
-                            : isSelected
-                            ? 'color-selected'
-                            : 'color-inactive'
-                        }`;
-                        return (
-                          <div
-                            key={colorNum}
-                            className={className}
-                            style={{ backgroundColor: colorValue }}
-                            onMouseDown={(e) =>
-                              handleEditCategoryColorSelect(e, colorNum)
-                            }
+              <div className='categories-create-header'>
+                <TitleFlair className='categories-create-flair-left' />
+                <p className='categories-create-header-text'>
+                  {categoryEditHeaderText}
+                </p>
+                <TitleFlair className='categories-create-flair-right' />
+              </div>
+            )}
+            <div className='scrollable-container'>
+              {showAddCategories && (
+                <>
+                  <div className='category-container'>
+                    <div className='category-header-container'>
+                      <div className='category-title-garbage-container'>
+                        <p className='category-title'>{categoriesText}</p>
+                        {!showDeletes && categories.length > 0 && (
+                          <TrashIcon
+                            className='trash-icon'
+                            onMouseDown={(e) => handleShowDeletes(e)}
                           />
-                        ) as React.ReactElement;
-                      }
-                    )}
-                  </div>
-                  {!showEditCategoryButtonActive && (
-                    <p className='auth-required'>{requiredText}</p>
-                  )}
-                  {errorMessage && (
-                    <p className='error-message'>{errorMessage}</p>
-                  )}
-                  <button
-                    type='submit'
-                    className={`${
-                      showEditCategoryButtonActive
-                        ? 'submit-button'
-                        : 'inactive-button'
-                    }`}
-                    disabled={
-                      !showEditCategoryButtonActive || categoryEditLoading
-                    }
-                  >
-                    {categoryEditLoading ? (
+                        )}
+                        {showDeletes && categories.length > 0 && (
+                          <CheckIcon
+                            className='check-icon'
+                            onMouseDown={(e) => handleHideDeletes(e)}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    {categoriesLoading ? (
                       <LinearProgress color='inherit' />
                     ) : (
-                      bookCreateSubmitText
+                      <>
+                        {categories.length > 0 ? (
+                          <DndContext
+                            collisionDetection={closestCenter}
+                            onDragEnd={handleDragEnd}
+                          >
+                            <SortableContext
+                              items={categoryOrder}
+                              strategy={verticalListSortingStrategy}
+                            >
+                              {categoryOrder.map((categoryId) => {
+                                const category = categories.find(
+                                  (cat) => cat.id === categoryId
+                                );
+                                return category ? (
+                                  <SortableCategoryItem
+                                    key={category.id}
+                                    category={category}
+                                  />
+                                ) : null;
+                              })}
+                            </SortableContext>
+                          </DndContext>
+                        ) : (
+                          <p className='categories-create-no-categories'>
+                            {noCategoriesText}
+                          </p>
+                        )}
+                      </>
                     )}
-                  </button>
-                </form>
-              </>
-            )}
+                  </div>
+                  <form onSubmit={handleCategoryCreate}>
+                    <p
+                      className='categories-create-header-subtext'
+                      style={{ padding: '8px 0px 0px 0px' }}
+                    >
+                      {categoryAddSubtext}
+                    </p>
+                    <div>
+                      <input
+                        type='text'
+                        name='name'
+                        value={categoryName}
+                        required
+                        maxLength={15}
+                        onChange={(e) => setCategoryName(e.target.value)}
+                        placeholder={categoryNamePlaceholder}
+                        className='categories-create-input'
+                      />
+                    </div>
+                    <div>
+                      <textarea
+                        name='description'
+                        value={categoryDescription}
+                        required
+                        maxLength={50}
+                        onChange={(e) => setCategoryDescription(e.target.value)}
+                        placeholder={categoryDescPlaceholder}
+                        className='category-desc-input'
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type='text'
+                        name='flair'
+                        value={categoryFlair}
+                        maxLength={10}
+                        onChange={(e) => setCategoryFlair(e.target.value)}
+                        placeholder={bookFlairPlaceholder}
+                        className='book-create-input'
+                      />
+                    </div>
+                    <p className='category-label-text'>
+                      {categoryIconPlaceholder}
+                      {!showAddCategoryButtonActive ? '*' : null}
+                    </p>
+                    <div className='category-icon-container'>
+                      {Object.entries(categoryIconOptions).map(
+                        ([iconNumber, IconComponent]) => {
+                          const iconNum = parseInt(iconNumber);
+                          const isSelected = categoryIcon === iconNum;
+                          const className = `category-icon ${
+                            categoryIcon === null
+                              ? ''
+                              : isSelected
+                              ? 'icon-selected'
+                              : 'icon-inactive'
+                          }`;
+                          return (
+                            <div
+                              key={iconNum}
+                              className={className}
+                              onMouseDown={(e) =>
+                                handleCategoryIconSelect(e, iconNum)
+                              }
+                            >
+                              <IconComponent />
+                            </div>
+                          ) as React.ReactElement;
+                        }
+                      )}
+                    </div>
+                    <p className='category-label-text'>
+                      {categoryColorPlaceholder}
+                      {!showAddCategoryButtonActive ? '*' : null}
+                    </p>
+                    <div className='category-color-container'>
+                      {Object.entries(categoryColorOptions).map(
+                        ([colorNumber, colorValue]) => {
+                          const colorNum = parseInt(colorNumber);
+                          const isSelected = categoryColor === colorNum;
+                          const className = `category-color-option ${
+                            categoryColor === null
+                              ? ''
+                              : isSelected
+                              ? 'color-selected'
+                              : 'color-inactive'
+                          }`;
+                          return (
+                            <div
+                              key={colorNum}
+                              className={className}
+                              style={{ backgroundColor: colorValue }}
+                              onMouseDown={(e) =>
+                                handleCategoryColorSelect(e, colorNum)
+                              }
+                            />
+                          ) as React.ReactElement;
+                        }
+                      )}
+                    </div>
+                    {!showAddCategoryButtonActive && (
+                      <p className='auth-required'>{requiredText}</p>
+                    )}
+                    {errorMessage && (
+                      <p className='error-message'>{errorMessage}</p>
+                    )}
+                    <button
+                      type='submit'
+                      className={`${
+                        showAddCategoryButtonActive
+                          ? 'submit-button'
+                          : 'inactive-button'
+                      }`}
+                      disabled={
+                        !showAddCategoryButtonActive || categoryAddLoading
+                      }
+                    >
+                      {categoryAddLoading ? (
+                        <LinearProgress color='inherit' />
+                      ) : (
+                        bookCreateSubmitText
+                      )}
+                    </button>
+                  </form>
+                </>
+              )}
+              {showEditCategory && (
+                <>
+                  <form onSubmit={handleCategoryUpdate}>
+                    <p
+                      className='categories-create-header-subtext'
+                      style={{ padding: '8px 0px 0px 0px' }}
+                    >
+                      {categoryEditSubtext}
+                    </p>
+                    <div>
+                      <input
+                        type='text'
+                        name='name'
+                        value={editCategoryName}
+                        required
+                        onChange={(e) => setEditCategoryName(e.target.value)}
+                        placeholder={categoryNamePlaceholder}
+                        className='categories-create-input'
+                      />
+                    </div>
+                    <div>
+                      <textarea
+                        name='description'
+                        value={editCategoryDesc}
+                        onChange={(e) => setEditCategoryDesc(e.target.value)}
+                        placeholder={categoryDescPlaceholder}
+                        className='category-desc-input'
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type='text'
+                        name='flair'
+                        value={editCategoryFlair}
+                        maxLength={10}
+                        onChange={(e) => setEditCategoryFlair(e.target.value)}
+                        placeholder={bookFlairPlaceholder}
+                        className='book-create-input'
+                      />
+                    </div>
+                    <p className='category-label-text'>
+                      {categoryIconPlaceholder}
+                      {!showEditCategoryButtonActive ? '*' : null}
+                    </p>
+                    <div className='category-icon-container'>
+                      {Object.entries(categoryIconOptions).map(
+                        ([iconNumber, IconComponent]) => {
+                          const iconNum = parseInt(iconNumber);
+                          const isSelected = editCategoryIcon === iconNum;
+                          const className = `category-icon ${
+                            editCategoryIcon === null
+                              ? ''
+                              : isSelected
+                              ? 'icon-selected'
+                              : 'icon-inactive'
+                          }`;
+                          return (
+                            <div
+                              key={iconNum}
+                              className={className}
+                              onMouseDown={(e) =>
+                                handleEditCategoryIconSelect(e, iconNum)
+                              }
+                            >
+                              <IconComponent />
+                            </div>
+                          ) as React.ReactElement;
+                        }
+                      )}
+                    </div>
+                    <p className='category-label-text'>
+                      {categoryColorPlaceholder}
+                      {!showEditCategoryButtonActive ? '*' : null}
+                    </p>
+                    <div className='category-color-container'>
+                      {Object.entries(categoryColorOptions).map(
+                        ([colorNumber, colorValue]) => {
+                          const colorNum = parseInt(colorNumber);
+                          const isSelected = editCategoryColor === colorNum;
+                          const className = `category-color-option ${
+                            editCategoryColor === null
+                              ? ''
+                              : isSelected
+                              ? 'color-selected'
+                              : 'color-inactive'
+                          }`;
+                          return (
+                            <div
+                              key={colorNum}
+                              className={className}
+                              style={{ backgroundColor: colorValue }}
+                              onMouseDown={(e) =>
+                                handleEditCategoryColorSelect(e, colorNum)
+                              }
+                            />
+                          ) as React.ReactElement;
+                        }
+                      )}
+                    </div>
+                    {!showEditCategoryButtonActive && (
+                      <p className='auth-required'>{requiredText}</p>
+                    )}
+                    {errorMessage && (
+                      <p className='error-message'>{errorMessage}</p>
+                    )}
+                    <button
+                      type='submit'
+                      className={`${
+                        showEditCategoryButtonActive
+                          ? 'submit-button'
+                          : 'inactive-button'
+                      }`}
+                      disabled={
+                        !showEditCategoryButtonActive || categoryEditLoading
+                      }
+                    >
+                      {categoryEditLoading ? (
+                        <LinearProgress color='inherit' />
+                      ) : (
+                        bookCreateSubmitText
+                      )}
+                    </button>
+                  </form>
+                </>
+              )}
+            </div>
           </section>
         </div>
       )}

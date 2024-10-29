@@ -1048,29 +1048,79 @@ const EditBook: React.FC = () => {
                         ) : (
                           <>
                             {categories.length > 0 ? (
-                              <DndContext
-                                collisionDetection={closestCenter}
-                                onDragEnd={handleDragEnd}
-                              >
-                                <SortableContext
-                                  items={categoryOrder}
-                                  strategy={verticalListSortingStrategy}
-                                >
-                                  {categoryOrder.map((categoryId) => {
-                                    const category = categories.find(
-                                      (cat) => cat.id === categoryId
-                                    );
-                                    return category ? (
-                                      <SortableCategoryItem
-                                        key={category.id}
-                                        category={category}
-                                      />
-                                    ) : null;
-                                  })}
-                                </SortableContext>
-                              </DndContext>
+                              <>
+                                {categoryOrder.map((categoryId) => {
+                                  const category = categories.find(
+                                    (cat) => cat.id === categoryId
+                                  );
+                                  return category ? (
+                                    <div
+                                      key={category.id}
+                                      className='category-item-checkbox'
+                                      onClick={(e) => {
+                                        const target = e.target as HTMLElement;
+                                        if (target.tagName !== 'INPUT') {
+                                          const isSelected =
+                                            selectedCategories.includes(
+                                              category.id
+                                            );
+                                          if (isSelected) {
+                                            setSelectedCategories(
+                                              selectedCategories.filter(
+                                                (id) => id !== category.id
+                                              )
+                                            );
+                                          } else {
+                                            setSelectedCategories([
+                                              ...selectedCategories,
+                                              category.id,
+                                            ]);
+                                          }
+                                        }
+                                      }}
+                                    >
+                                      <label className='category-label'>
+                                        <input
+                                          type='checkbox'
+                                          value={category.id}
+                                          checked={selectedCategories.includes(
+                                            category.id
+                                          )}
+                                          className='category-checkbox'
+                                          onChange={(e) => {
+                                            const categoryId = parseInt(
+                                              e.target.value
+                                            );
+                                            if (e.target.checked) {
+                                              setSelectedCategories([
+                                                ...selectedCategories,
+                                                categoryId,
+                                              ]);
+                                            } else {
+                                              setSelectedCategories(
+                                                selectedCategories.filter(
+                                                  (id) => id !== categoryId
+                                                )
+                                              );
+                                            }
+                                          }}
+                                        />
+                                        <span className='category-text'>
+                                          {category.name}
+                                        </span>
+                                        <div className='category-quantity-container'>
+                                          <BookIcon className='book-icon' />
+                                          <div className='category-quantity'>
+                                            {category.quantity}
+                                          </div>
+                                        </div>
+                                      </label>
+                                    </div>
+                                  ) : null;
+                                })}
+                              </>
                             ) : (
-                              <p className='categories-create-no-categories'>
+                              <p className='book-create-no-categories'>
                                 {noCategoriesText}
                               </p>
                             )}

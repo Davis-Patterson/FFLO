@@ -118,12 +118,12 @@
   z-index: 1;
 }
 
-.book-detail-image-wrapper.loaded {
-  filter: none;
-}
-
 .book-detail-image-wrapper.blur-load {
   filter: blur(10px);
+}
+
+.book-detail-image-wrapper.loaded {
+  filter: none;
 }
 
 .book-detail-image-wrapper.loaded .book-detail-image {
@@ -248,26 +248,4 @@
   color: var(--clr-text-blue);
   width: auto;
   text-align: center;
-}
-
-.sidebar-toggle-container {
-  margin: 0px 20px 0px 0px;
-}
-
-.close-sidebar-icon,
-.open-sidebar-icon {
-  fill: var(--clr-icon);
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-.close-sidebar-icon {
-  margin: 5px 0px 0px 0px;
-}
-.open-sidebar-icon {
-  margin: 5px 0px 0px 0px;
-}
-.close-sidebar-icon:hover,
-.open-sidebar-icon:hover {
-  fill: var(--clr-dark);
 }

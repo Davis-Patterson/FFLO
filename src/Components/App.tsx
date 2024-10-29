@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, lazy, Suspense } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Routes, Route } from 'react-router-dom';
 import AuthApi from 'Utilities/AuthApi';
@@ -12,14 +12,16 @@ import EditCategories from 'Utils/EditCategories';
 import PolicyPanel from 'Utils/PolicyPanel';
 import Nav from 'Components/Nav';
 import Home from 'Components/Home';
-import About from 'Components/About';
-import Books from 'Components/Books';
-import Book from 'Components/Book';
-import UserProfile from 'Components/UserProfile';
 import NotFound from 'Tools/NotFound';
 import Footer from 'Components/Footer';
 import ProtectedRoute from 'Tools/ProtectedRoute';
+import Fallback from 'Tools/Fallback';
 import 'Styles/App.css';
+
+const Book = lazy(() => import('Components/Book'));
+const Books = lazy(() => import('Components/Books'));
+const About = lazy(() => import('Components/About'));
+const UserProfile = lazy(() => import('Components/UserProfile'));
 
 const App: React.FC = () => {
   const { verifyToken, logout } = AuthApi();
@@ -93,14 +95,37 @@ const App: React.FC = () => {
         <Nav />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/books/:title' element={<Book />} />
-          <Route path='/books' element={<Books />} />
-          <Route path='/about' element={<About />} />
+          <Route
+            path='/books/:title'
+            element={
+              <Suspense fallback={<Fallback />}>
+                <Book />
+              </Suspense>
+            }
+          />
+          <Route
+            path='/books'
+            element={
+              <Suspense fallback={<Fallback />}>
+                <Books />
+              </Suspense>
+            }
+          />
+          <Route
+            path='/about'
+            element={
+              <Suspense fallback={<Fallback />}>
+                <About />
+              </Suspense>
+            }
+          />
           <Route
             path='/profile'
             element={
               <ProtectedRoute>
-                <UserProfile />
+                <Suspense fallback={<Fallback />}>
+                  <UserProfile />
+                </Suspense>
               </ProtectedRoute>
             }
           />

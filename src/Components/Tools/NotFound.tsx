@@ -1,4 +1,5 @@
-import 'Styles/Utils/NotFound.css';
+import React from 'react';
+import 'Styles/Tools/NotFound.css';
 
 const NotFound: React.FC = () => {
   return (
