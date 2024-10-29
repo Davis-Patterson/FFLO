@@ -6,6 +6,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { CSS } from '@dnd-kit/utilities';
 import ServerApi from 'Utilities/ServerApi';
 import { useContext } from 'react';
@@ -60,7 +61,8 @@ const EditCategories: React.FC = () => {
     initialCategoryFlair: '',
   });
 
-  const [showAddCategories, setShowAddCategories] = useState(true);
+  const [showListCategories, setShowListCategories] = useState(true);
+  const [showAddCategory, setShowAddCategory] = useState(false);
   const [showEditCategory, setShowEditCategory] = useState(false);
 
   const [categoryName, setCategoryName] = useState('');
@@ -95,12 +97,15 @@ const EditCategories: React.FC = () => {
   // Translations
   const bookCreateSubmitText = language === 'EN' ? 'Submit' : 'Soumettre';
   const requiredText = language === 'EN' ? '*required' : '*obligatoire';
-  const categoriesText = language === 'EN' ? 'Categories:' : 'Catégories:';
+  const categoriesText =
+    language === 'EN' ? 'All categories:' : 'Toutes les catégories:';
+  const newCategoryText =
+    language === 'EN' ? 'New Category' : 'Nouvelle catégorie';
+  const addCategoryButtonText =
+    language === 'EN' ? 'Add a new category' : 'Ajouter une nouvelle catégorie';
   const noCategoriesText =
     language === 'EN' ? 'No categories.' : 'Aucune catégorie.';
   const categoryAddHeaderText = language === 'EN' ? 'Categories' : 'Catégories';
-  const categoryAddSubtext =
-    language === 'EN' ? 'Add a new category' : 'Ajouter une nouvelle catégorie';
   const categoryEditSubtext =
     language === 'EN'
       ? 'Make category modifications'
@@ -154,7 +159,8 @@ const EditCategories: React.FC = () => {
         )
       ) {
         setShowCategoryEditWindow(false);
-        setShowAddCategories(true);
+        setShowAddCategory(false);
+        setShowListCategories(true);
         setShowDeletes(false);
         setShowEditCategory(false);
         setCategoryName('');
@@ -247,6 +253,8 @@ const EditCategories: React.FC = () => {
       setCategoryIcon(null);
       setCategoryColor(null);
       setCategoryFlair('');
+      setShowAddCategory(false);
+      setShowListCategories(true);
     } else {
       setErrorMessage('Failed to create category');
     }
@@ -280,7 +288,7 @@ const EditCategories: React.FC = () => {
         setEditCategoryIcon(null);
         setEditCategoryColor(null);
         setShowEditCategory(false);
-        setShowAddCategories(true);
+        setShowListCategories(true);
       } else {
         setErrorMessage('Failed to update category');
       }
@@ -379,9 +387,10 @@ const EditCategories: React.FC = () => {
     setCategoryColor(null);
 
     setShowCategoryEditWindow(false);
+    setShowAddCategory(false);
     setShowEditCategory(false);
     setShowDeletes(false);
-    setShowAddCategories(true);
+    setShowListCategories(true);
   };
 
   const handleShowDeletes = (
@@ -431,8 +440,21 @@ const EditCategories: React.FC = () => {
       initialCategoryFlair: categoryFlair,
     });
 
-    setShowAddCategories(false);
+    setShowListCategories(false);
+    setShowAddCategory(false);
     setShowEditCategory(true);
+  };
+
+  const handleShowAddCategory = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    setShowListCategories(false);
+    setShowEditCategory(false);
+    setShowAddCategory(true);
   };
 
   const handleBackToCategories = (
@@ -450,7 +472,8 @@ const EditCategories: React.FC = () => {
     setEditCategoryColor(null);
 
     setShowEditCategory(false);
-    setShowAddCategories(true);
+    setShowAddCategory(false);
+    setShowListCategories(true);
   };
 
   useEffect(() => {
@@ -571,10 +594,16 @@ const EditCategories: React.FC = () => {
                 </p>
               )}
             </div>
-            {showAddCategories && (
+            {showListCategories && (
               <XIcon
                 className='categories-create-x-icon'
                 onMouseDown={(e) => handleClose(e)}
+              />
+            )}
+            {showAddCategory && (
+              <BackArrow
+                className='categories-create-x-icon'
+                onMouseDown={(e) => handleBackToCategories(e)}
               />
             )}
             {showEditCategory && (
@@ -583,11 +612,20 @@ const EditCategories: React.FC = () => {
                 onMouseDown={(e) => handleBackToCategories(e)}
               />
             )}
-            {showAddCategories && (
+            {showListCategories && (
               <div className='categories-create-header'>
                 <TitleFlair className='categories-create-flair-left' />
                 <p className='categories-create-header-text'>
                   {categoryAddHeaderText}
+                </p>
+                <TitleFlair className='categories-create-flair-right' />
+              </div>
+            )}
+            {showAddCategory && (
+              <div className='categories-create-header'>
+                <TitleFlair className='categories-create-flair-left' />
+                <p className='categories-create-header-text'>
+                  {newCategoryText}
                 </p>
                 <TitleFlair className='categories-create-flair-right' />
               </div>
@@ -602,7 +640,7 @@ const EditCategories: React.FC = () => {
               </div>
             )}
             <div className='scrollable-container'>
-              {showAddCategories && (
+              {showListCategories && (
                 <>
                   <div className='category-container'>
                     <div className='category-header-container'>
@@ -630,6 +668,8 @@ const EditCategories: React.FC = () => {
                           <DndContext
                             collisionDetection={closestCenter}
                             onDragEnd={handleDragEnd}
+                            autoScroll={false}
+                            modifiers={[restrictToVerticalAxis]}
                           >
                             <SortableContext
                               items={categoryOrder}
@@ -656,13 +696,19 @@ const EditCategories: React.FC = () => {
                       </>
                     )}
                   </div>
+                  <button
+                    type='submit'
+                    className='submit-button'
+                    onMouseDown={(e) => handleShowAddCategory(e)}
+                    style={{ margin: '25px 0px 0px 0px' }}
+                  >
+                    {addCategoryButtonText}
+                  </button>
+                </>
+              )}
+              {showAddCategory && (
+                <>
                   <form onSubmit={handleCategoryCreate}>
-                    <p
-                      className='categories-create-header-subtext'
-                      style={{ padding: '8px 0px 0px 0px' }}
-                    >
-                      {categoryAddSubtext}
-                    </p>
                     <div>
                       <input
                         type='text'

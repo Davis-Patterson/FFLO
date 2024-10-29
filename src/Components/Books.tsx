@@ -31,9 +31,9 @@ const Books: React.FC = () => {
 
   const [fetchedCategories, setFetchedCategories] = useState(false);
   const [slideIndex, setSlideIndex] = useState(0);
-  const [visibleCategories, setVisibleCategories] = useState(4);
   const [translateValue, setTranslateValue] = useState(0);
 
+  const visibleCategories = 4;
   const cardWidth = 190;
   const maxSlideIndex = Math.max(0, categories.length - visibleCategories);
 

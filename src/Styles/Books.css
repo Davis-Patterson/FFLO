@@ -78,7 +78,7 @@
 
 .categories-container {
   width: 100%;
-  max-width: 800px;
+  width: 800px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -90,6 +90,8 @@
 .categories-navigation {
   position: relative;
   top: 0;
+  display: flex;
+  width: 800px;
 }
 
 .prev-slide,
@@ -202,7 +204,7 @@
   line-height: 1;
   font-weight: 300;
   color: var(--clr-light);
-  width: 180px;
+  width: 170px;
   text-align: center;
   display: -webkit-box;
   -webkit-line-clamp: 2;

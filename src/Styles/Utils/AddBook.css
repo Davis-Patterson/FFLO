@@ -15,7 +15,7 @@
 
 .book-create-container {
   background-color: var(--clr-background);
-  padding: 2rem;
+  padding: 2rem 2rem 0rem 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -143,6 +143,34 @@
   padding: 0px 8px 0px 0px;
 }
 
+.category-book-add-scoll {
+  height: 100px;
+  overflow: hidden;
+  overflow-y: auto;
+  margin: 0px 0px 10px 0px;
+  padding: 0px 5px 0px 0px;
+}
+
+.category-book-add-scoll::-webkit-scrollbar {
+  width: 6px;
+  margin: 0px 0px 0px 5px;
+}
+
+.category-book-add-scoll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.category-book-add-scoll::-webkit-scrollbar-thumb {
+  background-color: var(--clr-icon);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.category-book-add-scoll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--clr-dark);
+}
+
 .category-item,
 .category-item-checkbox {
   display: flex;
@@ -233,6 +261,30 @@
   height: 42px;
 }
 
+.book-add-desc-input::-webkit-scrollbar,
+.category-desc-input::-webkit-scrollbar {
+  width: 6px;
+  margin: 0px 0px 0px 5px;
+}
+
+.book-add-desc-input::-webkit-scrollbar-track,
+.category-desc-input::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.book-add-desc-input::-webkit-scrollbar-thumb,
+.category-desc-input::-webkit-scrollbar-thumb {
+  background-color: var(--clr-icon);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.book-add-desc-input::-webkit-scrollbar-thumb:hover,
+.category-desc-input::-webkit-scrollbar-thumb:hover {
+  background-color: var(--clr-dark);
+}
+
 .drag-icon {
   width: 15px;
   height: 15px;
@@ -315,6 +367,31 @@
   font-weight: 300;
   width: 100%;
   text-align: center;
+}
+
+.scrollable-container {
+  overflow-y: auto;
+  max-height: calc(100vh - 8rem);
+  padding-bottom: 2rem;
+}
+
+.scrollable-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: var(--clr-icon);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--clr-dark);
 }
 
 .book-create-footer {
