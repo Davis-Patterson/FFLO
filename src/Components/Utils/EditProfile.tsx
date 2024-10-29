@@ -125,7 +125,9 @@ const EditProfile: React.FC = () => {
         <div className='edit-overlay'>
           <section
             ref={editContainerRef}
-            className={`edit-container ${showEdit ? 'fade-in' : 'fade-out'}`}
+            className={`edit-profile-container ${
+              showEdit ? 'fade-in' : 'fade-out'
+            }`}
           >
             <div className='edit-language-toggle'>
               {language === 'FR' && (
