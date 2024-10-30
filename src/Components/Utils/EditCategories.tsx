@@ -207,8 +207,9 @@ const EditCategories: React.FC = () => {
       (editCategoryColor !== initialCategoryData.initialCategoryColor &&
         editCategoryColor !== null) ||
       (initialCategoryData.initialCategoryFlair
-        ? editCategoryFlair !== initialCategoryData.initialCategoryFlair
-        : editCategoryFlair.trim() !== '');
+        ? editCategoryFlair.trim().toLocaleLowerCase() !==
+          initialCategoryData.initialCategoryFlair.trim().toLocaleLowerCase()
+        : editCategoryFlair.trim().trim() !== '');
 
     setShowEditCategoryButtonActive(hasCategoryFormChanged);
   }, [

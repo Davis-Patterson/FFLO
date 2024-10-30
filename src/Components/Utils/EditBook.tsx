@@ -312,8 +312,8 @@ const EditBook: React.FC = () => {
       (editCategoryColor !== initialCategoryData.initialCategoryColor &&
         editCategoryColor !== null) ||
       (initialCategoryData.initialCategoryFlair
-        ? editCategoryFlair.toLowerCase() !==
-          initialCategoryData.initialCategoryFlair.toLowerCase()
+        ? editCategoryFlair.trim().toLowerCase() !==
+          initialCategoryData.initialCategoryFlair.trim().toLowerCase()
         : editCategoryFlair.trim() !== '');
 
     setShowEditCategoryButtonActive(hasCategoryFormChanged);

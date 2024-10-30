@@ -251,8 +251,8 @@ const AddBook: React.FC = () => {
       (editCategoryColor !== initialCategoryData.initialCategoryColor &&
         editCategoryColor !== null) ||
       (initialCategoryData.initialCategoryFlair
-        ? editCategoryFlair.toLowerCase() !==
-          initialCategoryData.initialCategoryFlair.toLowerCase()
+        ? editCategoryFlair.trim().toLowerCase() !==
+          initialCategoryData.initialCategoryFlair.trim().toLowerCase()
         : editCategoryFlair.trim() !== '');
 
     setShowEditCategoryButtonActive(hasCategoryFormChanged);
@@ -299,7 +299,6 @@ const AddBook: React.FC = () => {
       setSelectedCategories([]);
       setFlair('');
 
-      // Fetch books to update the list
       const booksResult = await getBooks();
       if (booksResult.success) {
         setAllBooks(booksResult.data ?? []);

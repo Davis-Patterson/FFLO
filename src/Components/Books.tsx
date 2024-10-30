@@ -178,6 +178,11 @@ const Books: React.FC = () => {
                     className={className}
                     style={{ backgroundColor }}
                   >
+                    {category.flair && (
+                      <div className='category-card-flair-container'>
+                        <p className='category-card-flair'>{category.flair}</p>
+                      </div>
+                    )}
                     <div className='category-card-header'>
                       {IconComponent && (
                         <IconComponent className='category-card-icon' />

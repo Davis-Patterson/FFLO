@@ -26,7 +26,7 @@ const Nav: React.FC = () => {
   const homeText = language === 'EN' ? 'Home' : 'Maison';
   const booksText = language === 'EN' ? 'Books' : 'Livres';
   const aboutText = language === 'EN' ? 'About' : 'À propos';
-  const membershipText = language === 'EN' ? 'Member' : 'À propos';
+  const membershipText = language === 'EN' ? 'Member' : 'Membre';
 
   return (
     <nav className='nav-container'>

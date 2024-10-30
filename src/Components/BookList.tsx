@@ -30,24 +30,32 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     categoryFilter,
     setCategoryFilter,
     formatTitleForURL,
-    viewSetting,
-    setViewSetting,
-    filterSetting,
-    setFilterSetting,
   } = context;
 
   const [showSidebar, setShowSidebar] = useState(false);
   const [fetchedCategories, setFetchedCategories] = useState(false);
 
+  const [viewSetting, setViewSetting] = useState<string>('grid');
+  const [filterSetting, setFilterSetting] = useState<string>('title-asc');
+  const [visibleBooks, setVisibleBooks] = useState(10);
+
   // translations
   const gridViewText = language === 'EN' ? 'Grid' : 'Grille';
+  const gridViewTextView = language === 'EN' ? 'Grid View' : 'Vue Grille';
   const listViewText = language === 'EN' ? 'List' : 'Liste';
+  const listViewTextView = language === 'EN' ? 'List View' : 'Vue en liste';
   const titleText = language === 'EN' ? 'Title' : 'Titre';
   const authorText = language === 'EN' ? 'Author' : 'Auteur';
   const sidebarHeaderText = language === 'EN' ? 'Categories' : 'Catégories';
   const editCategoriesToggleText =
     language === 'EN' ? 'Categories' : 'Catégories';
   const allBooksText = language === 'EN' ? 'All Books' : 'Tous les livres';
+  const sortByText = language === 'EN' ? 'Sort By' : 'Trier Par';
+  const viewModeText = language === 'EN' ? 'View Mode' : "Mode d'Affichage";
+
+  const handleViewMore = () => {
+    setVisibleBooks((prev) => prev + 10);
+  };
 
   const handleToggleViewSetting = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
@@ -78,6 +86,8 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     }
     return 0;
   });
+
+  const displayedBooks = sortedBookList.slice(0, visibleBooks);
 
   const handleShowSidebar = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
@@ -197,43 +207,51 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
               transform: showSidebar ? 'translateX(0%)' : 'translateX(-100%)',
             }}
           >
-            <div
-              className='sidebar-content'
-              style={{
-                opacity: showSidebar ? 1 : 0,
-                visibility: showSidebar ? 'visible' : 'hidden',
-              }}
-            >
+            <div className='sidebar-content'>
               <p className='sidebar-content-header-text'>{sidebarHeaderText}</p>
               <div className='sidebar-content-categories'>
-                <p
-                  className={`${
-                    categoryFilter === null
-                      ? 'sidebar-content-category-selected'
-                      : 'sidebar-content-category-deselected'
-                  }`}
-                  onMouseDown={(e) => handleShowAllBooks(e)}
-                >
-                  {allBooksText}
-                </p>
-                {categories.map((category) => {
-                  const isSelected = categoryFilter === category.id;
-                  const className = `${
-                    categoryFilter === null
-                      ? 'sidebar-content-category'
-                      : isSelected
-                      ? 'sidebar-content-category-selected'
-                      : 'sidebar-content-category-deselected'
-                  }`;
-                  return (
-                    <p
-                      className={className}
-                      onMouseDown={(e) => handleCategoryFilter(e, category.id)}
-                    >
-                      {category.name}
-                    </p>
-                  );
-                })}
+                <div className='sidebar-categories-container'>
+                  <p
+                    className={`${
+                      categoryFilter === null
+                        ? 'sidebar-content-item-selected'
+                        : 'sidebar-content-item-deselected'
+                    }`}
+                    onMouseDown={(e) => handleShowAllBooks(e)}
+                  >
+                    {allBooksText}
+                  </p>
+                  {categories.map((category) => {
+                    const isSelected = categoryFilter === category.id;
+                    const className = `${
+                      categoryFilter === null
+                        ? 'sidebar-content-item'
+                        : isSelected
+                        ? 'sidebar-content-item-selected'
+                        : 'sidebar-content-item-deselected'
+                    }`;
+                    return (
+                      <div
+                        key={category.id}
+                        className='sidebar-content-item-container'
+                      >
+                        <p
+                          className={className}
+                          onMouseDown={(e) =>
+                            handleCategoryFilter(e, category.id)
+                          }
+                        >
+                          {category.name}
+                        </p>
+                        {category.flair && (
+                          <p className='sidebar-category-flair'>
+                            {category.flair}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
                 {authUser?.is_staff && (
                   <div className='edit-categories-sidebar-toggle-container'>
                     <p
@@ -248,13 +266,85 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
                     />
                   </div>
                 )}
+                <div className='sidebar-sorting-container'>
+                  <p className='sidebar-content-header-text'>{sortByText}</p>
+                  <div className='sidebar-sorting-options'>
+                    <p
+                      className={`${
+                        filterSetting === 'title-asc'
+                          ? 'sidebar-content-item-selected'
+                          : 'sidebar-content-item-deselected'
+                      }`}
+                      onMouseDown={() => setFilterSetting('title-asc')}
+                    >
+                      {titleText} (A-Z)
+                    </p>
+                    <p
+                      className={`${
+                        filterSetting === 'title-desc'
+                          ? 'sidebar-content-item-selected'
+                          : 'sidebar-content-item-deselected'
+                      }`}
+                      onMouseDown={() => setFilterSetting('title-desc')}
+                    >
+                      {titleText} (Z-A)
+                    </p>
+                    <p
+                      className={`${
+                        filterSetting === 'auth-asc'
+                          ? 'sidebar-content-item-selected'
+                          : 'sidebar-content-item-deselected'
+                      }`}
+                      onMouseDown={() => setFilterSetting('auth-asc')}
+                    >
+                      {authorText} (A-Z)
+                    </p>
+                    <p
+                      className={`${
+                        filterSetting === 'auth-desc'
+                          ? 'sidebar-content-item-selected'
+                          : 'sidebar-content-item-deselected'
+                      }`}
+                      onMouseDown={() => setFilterSetting('auth-desc')}
+                    >
+                      {authorText} (Z-A)
+                    </p>
+                  </div>
+                </div>
+                <div className='sidebar-view-setting'>
+                  <p className='sidebar-content-header-text-view-mode'>
+                    {viewModeText}
+                  </p>
+                  <div className='sidebar-view-options'>
+                    <p
+                      className={`${
+                        viewSetting === 'grid'
+                          ? 'sidebar-content-item-selected'
+                          : 'sidebar-content-item-deselected'
+                      }`}
+                      onMouseDown={() => setViewSetting('grid')}
+                    >
+                      {gridViewTextView}
+                    </p>
+                    <p
+                      className={`${
+                        viewSetting === 'list'
+                          ? 'sidebar-content-item-selected'
+                          : 'sidebar-content-item-deselected'
+                      }`}
+                      onMouseDown={() => setViewSetting('list')}
+                    >
+                      {listViewTextView}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         {viewSetting === 'grid' && (
           <div className='book-grid-view'>
-            {sortedBookList.map((book: Book) => {
+            {displayedBooks.map((book: Book) => {
               const hasImage = !!book.images[0]?.image_url;
               const bookUrl = `/books/${formatTitleForURL(book.title)}`;
               return (
@@ -299,7 +389,7 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
         )}
         {viewSetting === 'list' && (
           <div className='book-list-view'>
-            {sortedBookList.map((book: Book) => {
+            {displayedBooks.map((book: Book) => {
               const hasImage = !!book.images[0]?.image_url;
               const bookUrl = `/books/${formatTitleForURL(book.title)}`;
               return (
@@ -348,6 +438,13 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
           </div>
         )}
       </div>
+      {visibleBooks < sortedBookList.length && (
+        <div className='view-more-button-container'>
+          <button onClick={handleViewMore} className='view-more-button'>
+            View More
+          </button>
+        </div>
+      )}
     </section>
   );
 };
