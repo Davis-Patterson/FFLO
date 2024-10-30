@@ -38,6 +38,7 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
   const [viewSetting, setViewSetting] = useState<string>('grid');
   const [filterSetting, setFilterSetting] = useState<string>('title-asc');
   const [visibleBooks, setVisibleBooks] = useState(10);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // translations
   const gridViewText = language === 'EN' ? 'Grid' : 'Grille';
@@ -53,10 +54,6 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
   const sortByText = language === 'EN' ? 'Sort By' : 'Trier Par';
   const viewModeText = language === 'EN' ? 'View Mode' : "Mode d'Affichage";
 
-  const handleViewMore = () => {
-    setVisibleBooks((prev) => prev + 10);
-  };
-
   const handleToggleViewSetting = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
     event.preventDefault();
@@ -70,24 +67,36 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     }
   };
 
-  const filteredBookList = categoryFilter
-    ? bookList.filter((book) => book.categories.includes(categoryFilter))
-    : bookList;
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+    setVisibleBooks(10);
+  };
 
-  const sortedBookList = [...filteredBookList].sort((a, b) => {
-    if (filterSetting === 'title-asc') {
-      return a.title.localeCompare(b.title);
-    } else if (filterSetting === 'title-desc') {
-      return b.title.localeCompare(a.title);
-    } else if (filterSetting === 'auth-asc') {
-      return a.author.localeCompare(b.author);
-    } else if (filterSetting === 'auth-desc') {
-      return b.author.localeCompare(a.author);
-    }
-    return 0;
-  });
+  const filteredBookList = bookList
+    .filter((book) => {
+      const matchesCategory = categoryFilter
+        ? book.categories.includes(categoryFilter)
+        : true;
+      const matchesSearch = searchQuery
+        ? book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          book.author.toLowerCase().includes(searchQuery.toLowerCase())
+        : true;
+      return matchesCategory && matchesSearch;
+    })
+    .sort((a, b) => {
+      if (filterSetting === 'title-asc') return a.title.localeCompare(b.title);
+      if (filterSetting === 'title-desc') return b.title.localeCompare(a.title);
+      if (filterSetting === 'auth-asc') return a.author.localeCompare(b.author);
+      if (filterSetting === 'auth-desc')
+        return b.author.localeCompare(a.author);
+      return 0;
+    });
 
-  const displayedBooks = sortedBookList.slice(0, visibleBooks);
+  const displayedBooks = filteredBookList.slice(0, visibleBooks);
+
+  const handleViewMore = () => {
+    setVisibleBooks((prev) => prev + 10);
+  };
 
   const handleShowSidebar = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
@@ -163,17 +172,26 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
         <svg className='line-divider'>
           <line x1='0' y1='50%' x2='100%' y2='50%' />
         </svg>
-        <div className='filter-setting'>
-          <select
-            value={filterSetting}
-            onChange={handleFilterChange}
-            className='filter-dropdown'
-          >
-            <option value='title-asc'>{titleText} (A-Z)</option>
-            <option value='title-desc'>{titleText} (Z-A)</option>
-            <option value='auth-asc'>{authorText} (A-Z)</option>
-            <option value='auth-desc'>{authorText} (Z-A)</option>
-          </select>
+        <div className='search-container'>
+          <input
+            type='text'
+            className='search-input'
+            placeholder='Search'
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+          <div className='filter-setting'>
+            <select
+              value={filterSetting}
+              onChange={handleFilterChange}
+              className='filter-dropdown'
+            >
+              <option value='title-asc'>{titleText} (A-Z)</option>
+              <option value='title-desc'>{titleText} (Z-A)</option>
+              <option value='auth-asc'>{authorText} (A-Z)</option>
+              <option value='auth-desc'>{authorText} (Z-A)</option>
+            </select>
+          </div>
         </div>
         <div className='view-setting-toggle'>
           {viewSetting === 'grid' && (
@@ -438,7 +456,7 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
           </div>
         )}
       </div>
-      {visibleBooks < sortedBookList.length && (
+      {visibleBooks < filteredBookList.length && (
         <div className='view-more-button-container'>
           <button onClick={handleViewMore} className='view-more-button'>
             View More
