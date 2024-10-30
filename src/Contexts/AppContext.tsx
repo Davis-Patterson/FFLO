@@ -117,6 +117,8 @@ interface AppContextType {
   setCategories: (categories: Category[]) => void;
   allBooks: Book[];
   setAllBooks: (books: Book[]) => void;
+  bookmarkedBooks: Book[];
+  setBookmarkedBooks: (books: Book[]) => void;
   selectedBook: Book | null;
   setSelectedBook: (book: Book | null) => void;
   fetchError: boolean;
@@ -181,6 +183,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
   const [categories, setCategories] = useState<any[]>([]);
   const [allBooks, setAllBooks] = useState<Book[]>([]);
+  const [bookmarkedBooks, setBookmarkedBooks] = useState<Book[]>([]);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
   const [fetchError, setFetchError] = useState(false);
@@ -297,6 +300,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setCategories,
         allBooks,
         setAllBooks,
+        bookmarkedBooks,
+        setBookmarkedBooks,
         selectedBook,
         setSelectedBook,
         fetchError,

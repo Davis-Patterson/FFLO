@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface TitleFlairProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const TitleFlair: React.FC<TitleFlairProps> = (props) => (
+const TitleFlair: React.FC<IconProps> = (props) => (
   <svg
     id='TitleFlair'
     data-name='Layer 4 Image'

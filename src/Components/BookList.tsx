@@ -53,6 +53,14 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
   const allBooksText = language === 'EN' ? 'All Books' : 'Tous les livres';
   const sortByText = language === 'EN' ? 'Sort By' : 'Trier Par';
   const viewModeText = language === 'EN' ? 'View Mode' : "Mode d'Affichage";
+  const noBooksFoundText =
+    language === 'EN'
+      ? 'No books match your search.'
+      : 'Aucun livre ne correspond à votre recherche.';
+  const noBooksFoundSubtext =
+    language === 'EN'
+      ? 'Your search did not match the title or author of any book. Please try again.'
+      : "Votre recherche ne correspond au titre ou à l'auteur d'aucun livre. Veuillez réessayer.";
 
   const handleToggleViewSetting = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
@@ -360,100 +368,124 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
             </div>
           </div>
         </div>
-        {viewSetting === 'grid' && (
+        {filteredBookList.length === 0 ? (
           <div className='book-grid-view'>
-            {displayedBooks.map((book: Book) => {
-              const hasImage = !!book.images[0]?.image_url;
-              const bookUrl = `/books/${formatTitleForURL(book.title)}`;
-              return (
-                <Link key={book.id} to={bookUrl} className='book-card'>
-                  <div className='book-image-container'>
-                    {book.flair && (
-                      <div className='book-flair-container'>
-                        <p className='book-flair'>{book.flair}</p>
-                      </div>
-                    )}
-                    <div
-                      className={`book-image-wrapper ${
-                        hasImage ? 'blur-load' : ''
-                      }`}
-                      style={{
-                        backgroundImage: `url(${book.images[0]?.image_small})`,
-                      }}
-                    >
-                      {hasImage ? (
-                        <img
-                          src={book.images[0]?.image_url ?? undefined}
-                          alt={book.title}
-                          className='book-image'
-                          onLoad={(e) => {
-                            const imgElement = e.target as HTMLImageElement;
-                            imgElement.parentElement?.classList.add('loaded');
-                          }}
-                        />
-                      ) : (
-                        <BookCoverIcon className='book-list-cover-icon' />
-                      )}
-                    </div>
-                  </div>
-                  <div className='book-info'>
-                    <h3 className='book-title'>{book.title}</h3>
-                    <p className='book-author'>{book.author}</p>
-                  </div>
-                </Link>
-              );
-            })}
+            <div className='no-books-message'>
+              <div className='book-image-list-container'>
+                <div className='book-image-wrapper'>
+                  <BookCoverIcon className='book-list-cover-icon' />
+                </div>
+              </div>
+              <div className='no-book-info'>
+                <p className='no-book-info-text-header'>{noBooksFoundText}</p>
+                <p className='no-book-info-subtext'>{noBooksFoundSubtext}</p>
+              </div>
+            </div>
           </div>
-        )}
-        {viewSetting === 'list' && (
-          <div className='book-list-view'>
-            {displayedBooks.map((book: Book) => {
-              const hasImage = !!book.images[0]?.image_url;
-              const bookUrl = `/books/${formatTitleForURL(book.title)}`;
-              return (
-                <Link key={book.id} to={bookUrl} className='book-card-list'>
-                  <div className='book-image-list-container'>
-                    {book.flair && (
-                      <div className='book-flair-container'>
-                        <p className='book-flair'>{book.flair}</p>
-                      </div>
-                    )}
-                    <div
-                      className={`book-image-wrapper ${
-                        hasImage ? 'blur-load' : ''
-                      }`}
-                      style={{
-                        backgroundImage: `url(${book.images[0]?.image_small})`,
-                      }}
-                    >
-                      {hasImage ? (
-                        <img
-                          src={book.images[0]?.image_url ?? undefined}
-                          alt={book.title}
-                          className='book-image'
-                          onLoad={(e) => {
-                            const imgElement = e.target as HTMLImageElement;
-                            imgElement.parentElement?.classList.add('loaded');
+        ) : (
+          <>
+            {viewSetting === 'grid' && (
+              <div className='book-grid-view'>
+                {displayedBooks.map((book: Book) => {
+                  const hasImage = !!book.images[0]?.image_url;
+                  const bookUrl = `/books/${formatTitleForURL(book.title)}`;
+                  return (
+                    <Link key={book.id} to={bookUrl} className='book-card'>
+                      <div className='book-image-container'>
+                        {book.flair && (
+                          <div className='book-flair-container'>
+                            <p className='book-flair'>{book.flair}</p>
+                          </div>
+                        )}
+                        <div
+                          className={`book-image-wrapper ${
+                            hasImage ? 'blur-load' : ''
+                          }`}
+                          style={{
+                            backgroundImage: `url(${book.images[0]?.image_small})`,
                           }}
-                        />
-                      ) : (
-                        <BookCoverIcon className='book-cover-icon' />
-                      )}
-                    </div>
-                  </div>
-                  <div className='book-list-info'>
-                    <div className='book-list-title-author'>
-                      <h3 className='book-list-title'>{book.title}</h3>
-                      <p className='book-list-author'>{book.author}</p>
-                    </div>
-                    <div className='book-list-desc'>
-                      <p className='book-list-desc-text'>{book.description}</p>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+                        >
+                          {hasImage ? (
+                            <img
+                              src={book.images[0]?.image_url ?? undefined}
+                              alt={book.title}
+                              className='book-image'
+                              onLoad={(e) => {
+                                const imgElement = e.target as HTMLImageElement;
+                                imgElement.parentElement?.classList.add(
+                                  'loaded'
+                                );
+                              }}
+                            />
+                          ) : (
+                            <BookCoverIcon className='book-list-cover-icon' />
+                          )}
+                        </div>
+                      </div>
+                      <div className='book-info'>
+                        <h3 className='book-title'>{book.title}</h3>
+                        <p className='book-author'>{book.author}</p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+            {viewSetting === 'list' && (
+              <div className='book-list-view'>
+                {displayedBooks.map((book: Book) => {
+                  const hasImage = !!book.images[0]?.image_url;
+                  const bookUrl = `/books/${formatTitleForURL(book.title)}`;
+                  return (
+                    <Link key={book.id} to={bookUrl} className='book-card-list'>
+                      <div className='book-image-list-container'>
+                        {book.flair && (
+                          <div className='book-flair-container'>
+                            <p className='book-flair'>{book.flair}</p>
+                          </div>
+                        )}
+                        <div
+                          className={`book-image-wrapper ${
+                            hasImage ? 'blur-load' : ''
+                          }`}
+                          style={{
+                            backgroundImage: `url(${book.images[0]?.image_small})`,
+                          }}
+                        >
+                          {hasImage ? (
+                            <img
+                              src={book.images[0]?.image_url ?? undefined}
+                              alt={book.title}
+                              className='book-image'
+                              onLoad={(e) => {
+                                const imgElement = e.target as HTMLImageElement;
+                                imgElement.parentElement?.classList.add(
+                                  'loaded'
+                                );
+                              }}
+                            />
+                          ) : (
+                            <BookCoverIcon className='book-list-cover-icon' />
+                          )}
+                        </div>
+                      </div>
+                      <div className='book-list-info'>
+                        <div className='book-list-title-author'>
+                          <h3 className='book-list-title'>{book.title}</h3>
+                          <p className='book-list-author'>{book.author}</p>
+                        </div>
+                        <div className='book-list-desc'>
+                          <p className='book-list-desc-text'>
+                            {book.description}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </>
         )}
       </div>
       {visibleBooks < filteredBookList.length && (

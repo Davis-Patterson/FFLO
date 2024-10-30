@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface BookStackIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const BookStackIcon: React.FC<BookStackIconProps> = (props) => (
+const BookStackIcon: React.FC<IconProps> = (props) => (
   <svg
     id='BookStackIcon'
     data-name='Layer 4 Image'

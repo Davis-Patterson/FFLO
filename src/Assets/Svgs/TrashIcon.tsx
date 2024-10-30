@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface TrashIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const TrashIcon: React.FC<TrashIconProps> = (props) => (
+const TrashIcon: React.FC<IconProps> = (props) => (
   <svg
     id='TrashIcon'
     data-name='Layer 4 Image'

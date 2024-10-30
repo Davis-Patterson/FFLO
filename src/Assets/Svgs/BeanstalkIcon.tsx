@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface BeanstalkIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const BeanstalkIcon: React.FC<BeanstalkIconProps> = (props) => (
+const BeanstalkIcon: React.FC<IconProps> = (props) => (
   <svg
     id='BeanstalkIcon'
     data-name='Layer 4 Image'

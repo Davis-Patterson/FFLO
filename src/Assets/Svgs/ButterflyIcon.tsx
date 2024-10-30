@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface ButterflyIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const ButterflyIcon: React.FC<ButterflyIconProps> = (props) => (
+const ButterflyIcon: React.FC<IconProps> = (props) => (
   <svg
     id='ButterflyIcon'
     data-name='Layer 4 Image'

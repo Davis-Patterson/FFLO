@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface XIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const XIcon: React.FC<XIconProps> = (props) => (
+const XIcon: React.FC<IconProps> = (props) => (
   <svg
     id='XIcon'
     data-name='Layer 4 Image'

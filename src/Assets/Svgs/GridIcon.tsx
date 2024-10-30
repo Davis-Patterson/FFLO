@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface GridIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const GridIcon: React.FC<GridIconProps> = (props) => (
+const GridIcon: React.FC<IconProps> = (props) => (
   <svg
     id='GridIcon'
     data-name='Layer 4 Image'

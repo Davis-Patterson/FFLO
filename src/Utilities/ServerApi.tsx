@@ -180,6 +180,61 @@ const ServerApi = () => {
     }
   };
 
+  const createBookmark = async (
+    bookId: number
+  ): Promise<{ success: boolean; data?: any; error?: string }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.post(
+        '/api/bookmarks/',
+        {
+          book_id: bookId,
+        }
+      );
+
+      if (response.status === 201) {
+        console.log('Bookmark created successfully:', response.data);
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: 'Unexpected response status' };
+      }
+    } catch (error) {
+      let errorMessage = 'Failed to create bookmark';
+
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data?.detail || errorMessage;
+      }
+
+      console.error('Failed to create bookmark:', error);
+      return { success: false, error: errorMessage };
+    }
+  };
+
+  const deleteBookmark = async (
+    bookmarkId: number
+  ): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.delete(
+        `/api/bookmarks/${bookmarkId}/remove/`
+      );
+
+      if (response.status === 200) {
+        console.log('Bookmark deleted successfully');
+        return { success: true };
+      } else {
+        return { success: false, error: 'Unexpected response status' };
+      }
+    } catch (error) {
+      let errorMessage = 'Failed to delete bookmark';
+
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data?.detail || errorMessage;
+      }
+
+      console.error('Failed to delete bookmark:', error);
+      return { success: false, error: errorMessage };
+    }
+  };
+
   const createBook = async (
     title: string,
     author: string,
@@ -364,6 +419,8 @@ const ServerApi = () => {
     updateCategory,
     updateCategorySortOrder,
     deleteCategory,
+    createBookmark,
+    deleteBookmark,
     createBook,
     updateBook,
     getBooks,

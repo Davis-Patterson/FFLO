@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface BackArrowProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const BackArrow: React.FC<BackArrowProps> = (props) => (
+const BackArrow: React.FC<IconProps> = (props) => (
   <svg
     id='BackArrow'
     data-name='Layer 4 Image'

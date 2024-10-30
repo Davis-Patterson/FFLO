@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface FbookIconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const FbookIcon: React.FC<FbookIconProps> = (props) => (
+const FbookIcon: React.FC<IconProps> = (props) => (
   <svg
     id='FbookIcon'
     data-name='Layer 4 Image'

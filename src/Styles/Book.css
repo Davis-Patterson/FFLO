@@ -48,7 +48,7 @@
 .book-details-header {
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: space-evenly;
   border-bottom: 1px solid var(--clr-break);
   padding: 0px 0px 30px 0px;
   margin: 0px 0px 20px 0px;
@@ -158,7 +158,7 @@
   line-height: 1.2;
   transform: scaleY(90%);
   color: var(--clr-dark);
-  margin: 10px 0px 2px 0px;
+  margin: 0px 0px 2px 0px;
 }
 
 .book-detail-author-text {
@@ -214,6 +214,23 @@
   color: var(--clr-text-grey);
 }
 
+.book-bookmark-toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.bookmark-icon {
+  width: 30px;
+  height: 35px;
+  fill: var(--clr-divider);
+  cursor: pointer;
+  margin: 0px 0px 0px 5px;
+}
+.bookmark-icon:hover {
+  fill: var(--clr-icon);
+}
+
 .more-books-container {
   width: 100%;
   display: flex;
@@ -225,6 +242,7 @@
 .more-books-header-title {
   display: flex;
   flex-direction: row;
+  margin: 0px 0px 25px 0px;
 }
 
 .more-books-title-flair-left,

@@ -6,6 +6,7 @@ import BookList from 'Components/BookList';
 import BookCoverIcon from 'Svgs/BookCoverIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Book.css';
+import BookmarkOutline from 'Svgs/BookmarkOutline';
 
 const Book: React.FC = () => {
   const { title } = useParams<{ title: string }>();
@@ -220,6 +221,9 @@ const Book: React.FC = () => {
                 </div>
               )}
             </div>
+          </div>
+          <div className='book-bookmark-toggle-container'>
+            <BookmarkOutline className='bookmark-icon' />
           </div>
         </div>
         <div className='book-details-description-container'>
