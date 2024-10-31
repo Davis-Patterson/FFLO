@@ -220,7 +220,7 @@ const Books: React.FC = () => {
           ) : isFetched && allBooks.length === 0 ? (
             <p>No books available.</p>
           ) : (
-            <BookList bookList={availableBooks} />
+            <BookList />
           )}
         </div>
       </main>

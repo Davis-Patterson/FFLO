@@ -306,7 +306,7 @@ const Book: React.FC = () => {
           <p className='more-books-title-text'>{moreBooksText}</p>
           <TitleFlair className='more-books-title-flair-right' />
         </div>
-        <BookList bookList={allBooks.filter((b) => b.id !== book.id)} />
+        <BookList />
       </section>
     </main>
   );

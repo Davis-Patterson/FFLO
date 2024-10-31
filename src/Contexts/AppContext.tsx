@@ -113,10 +113,10 @@ interface AppContextType {
   setLanguage: (language: string) => void;
   categoryFilter: number | null;
   setCategoryFilter: (categoryFilter: number | null) => void;
-  categories: Category[];
-  setCategories: (categories: Category[]) => void;
   allBooks: Book[];
   setAllBooks: (books: Book[]) => void;
+  categories: Category[];
+  setCategories: (categories: Category[]) => void;
   bookmarkedBooks: Book[];
   setBookmarkedBooks: (books: Book[]) => void;
   selectedBook: Book | null;
@@ -181,8 +181,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   });
   const [categoryFilter, setCategoryFilter] = useState<number | null>(null);
 
-  const [categories, setCategories] = useState<any[]>([]);
   const [allBooks, setAllBooks] = useState<Book[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [bookmarkedBooks, setBookmarkedBooks] = useState<Book[]>([]);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
@@ -296,10 +296,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setLanguage,
         categoryFilter,
         setCategoryFilter,
-        categories,
-        setCategories,
         allBooks,
         setAllBooks,
+        categories,
+        setCategories,
         bookmarkedBooks,
         setBookmarkedBooks,
         selectedBook,

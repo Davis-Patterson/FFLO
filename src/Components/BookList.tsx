@@ -12,11 +12,7 @@ import GearIcon from 'Svgs/GearIcon';
 import BookmarkSolid from 'Svgs/BookmarkSolid';
 import 'Styles/BookList.css';
 
-interface BookListProps {
-  bookList: Book[];
-}
-
-const BookList: React.FC<BookListProps> = ({ bookList }) => {
+const BookList: React.FC = () => {
   const { getCategories, createBookmark, deleteBookmark } = ServerApi();
   const context = useContext(AppContext);
   if (!context) {
@@ -26,8 +22,10 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     authUser,
     setShowCategoryEditWindow,
     language,
+    allBooks,
     categories,
     setCategories,
+    selectedBook,
     categoryFilter,
     setCategoryFilter,
     bookmarkedBooks,
@@ -42,6 +40,8 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
   const [filterSetting, setFilterSetting] = useState<string>('title-asc');
   const [visibleBooks, setVisibleBooks] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showBookmarks, setShowBookmarks] = useState(false);
+  const [showUnavailable, setShowUnavailable] = useState(false);
 
   // translations
   const gridViewText = language === 'EN' ? 'Grid' : 'Grille';
@@ -54,6 +54,7 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
   const editCategoriesToggleText =
     language === 'EN' ? 'Categories' : 'Catégories';
   const allBooksText = language === 'EN' ? 'All Books' : 'Tous les livres';
+  const bookmarksText = language === 'EN' ? 'Bookmarks' : 'Signets';
   const sortByText = language === 'EN' ? 'Sort By' : 'Trier Par';
   const viewModeText = language === 'EN' ? 'View Mode' : "Mode d'Affichage";
   const noBooksFoundText =
@@ -83,7 +84,12 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     setVisibleBooks(10);
   };
 
-  const filteredBookList = bookList
+  const baseBooks = showBookmarks ? bookmarkedBooks : allBooks;
+  const availableBooks = showUnavailable
+    ? baseBooks
+    : baseBooks.filter((book) => book.available > 0);
+
+  const filteredBookList = availableBooks
     .filter((book) => {
       const matchesCategory = categoryFilter
         ? book.categories.includes(categoryFilter)
@@ -141,6 +147,7 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     event.preventDefault();
     event.stopPropagation();
 
+    setShowBookmarks(false);
     if (categoryId === categoryFilter) {
       setCategoryFilter(null);
     } else {
@@ -161,7 +168,17 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     event.preventDefault();
     event.stopPropagation();
 
+    setShowBookmarks(false);
     setCategoryFilter(null);
+  };
+
+  const handleShowBookmarks = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setCategoryFilter(null);
+    setShowBookmarks(true);
   };
 
   const handleAddBookmark = async (
@@ -282,13 +299,25 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
                 <div className='sidebar-categories-container'>
                   <p
                     className={`${
-                      categoryFilter === null
+                      categoryFilter === null && !showBookmarks
                         ? 'sidebar-content-item-selected'
                         : 'sidebar-content-item-deselected'
                     }`}
                     onMouseDown={(e) => handleShowAllBooks(e)}
                   >
                     {allBooksText}
+                  </p>
+                  <p
+                    className={`${
+                      !showBookmarks && categoryFilter === null
+                        ? 'sidebar-content-item'
+                        : showBookmarks
+                        ? 'sidebar-content-item-selected'
+                        : 'sidebar-content-item-deselected'
+                    }`}
+                    onMouseDown={(e) => handleShowBookmarks(e)}
+                  >
+                    {bookmarksText}
                   </p>
                   {categories.map((category) => {
                     const isSelected = categoryFilter === category.id;
