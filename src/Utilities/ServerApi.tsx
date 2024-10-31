@@ -210,16 +210,16 @@ const ServerApi = () => {
   };
 
   const deleteBookmark = async (
-    bookmarkId: number
-  ): Promise<{ success: boolean; error?: string }> => {
+    bookId: number
+  ): Promise<{ success: boolean; data?: any; error?: string }> => {
     try {
       const response: AxiosResponse = await axiosInstance.delete(
-        `/api/bookmarks/${bookmarkId}/remove/`
+        `/api/bookmarks/remove/${bookId}/`
       );
 
       if (response.status === 200) {
         console.log('Bookmark deleted successfully');
-        return { success: true };
+        return { success: true, data: response.data };
       } else {
         return { success: false, error: 'Unexpected response status' };
       }

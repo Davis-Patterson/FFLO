@@ -425,11 +425,39 @@
 
 .book-image-list-container {
   width: 158px;
-
   height: 200px;
   position: relative;
   z-index: 3;
   display: flex;
+}
+
+.book-list-bookmark-toggle-container {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  z-index: 2;
+}
+
+.book-list-bookmark-icon {
+  fill: var(--clr-bookmark);
+  width: 20px;
+}
+.book-list-bookmark-icon-bookmarked {
+  fill: var(--clr-light);
+  width: 20px;
+}
+.book-list-bookmark-icon:hover {
+  transform: scale(110%);
+  fill: var(--clr-light);
+}
+.book-list-bookmark-icon-bookmarked:hover {
+  fill: var(--clr-bookmark);
+}
+.book-list-bookmark-icon {
+  opacity: 0;
+}
+.book-card:hover .book-list-bookmark-icon {
+  opacity: 1;
 }
 
 .book-flair-container {

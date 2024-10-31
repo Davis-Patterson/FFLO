@@ -15,6 +15,7 @@ const AuthApi = () => {
     authToken,
     setAuthToken,
     setAuthUser,
+    setBookmarkedBooks,
     clearAuthToken,
     clearAuthUser,
   } = context;
@@ -54,6 +55,7 @@ const AuthApi = () => {
 
       if (response.status === 200) {
         setAuthUser(response.data.user_info);
+        setBookmarkedBooks(response.data.user_info.bookmarked_books);
         console.log('Token is valid. User info:', response.data.user_info);
         return { success: true, tokenValid: true };
       } else {
@@ -86,6 +88,7 @@ const AuthApi = () => {
       if (response.status === 200 && response.data.token) {
         setAuthToken(response.data.token);
         setAuthUser(response.data.user);
+        setBookmarkedBooks(response.data.user.bookmarked_books);
 
         console.log('User info retrieved:', response.data.user);
 

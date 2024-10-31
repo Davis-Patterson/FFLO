@@ -1,15 +1,18 @@
 import { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { useParams } from 'react-router-dom';
+import ServerApi from 'Utilities/ServerApi';
 import TitleFlair from 'Svgs/TitleFlair';
 import BookList from 'Components/BookList';
 import BookCoverIcon from 'Svgs/BookCoverIcon';
+import BookmarkOutline from 'Svgs/BookmarkOutline';
+import BookmarkSolid from 'Svgs/BookmarkSolid';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Book.css';
-import BookmarkOutline from 'Svgs/BookmarkOutline';
 
 const Book: React.FC = () => {
   const { title } = useParams<{ title: string }>();
+  const { createBookmark, deleteBookmark } = ServerApi();
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
@@ -21,6 +24,8 @@ const Book: React.FC = () => {
     setShowBookEditWindow,
     setShowPolicyWindow,
     allBooks,
+    bookmarkedBooks,
+    setBookmarkedBooks,
     setSelectedBook,
     formatTitleForURL,
     language,
@@ -29,6 +34,10 @@ const Book: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const book = allBooks.find((book) => formatTitleForURL(book.title) === title);
+  const isBookmarked =
+    bookmarkedBooks &&
+    Array.isArray(bookmarkedBooks) &&
+    bookmarkedBooks.some((b) => b.id === book?.id);
 
   // Translations
   const noBookText = language === 'EN' ? 'No Book Found' : 'Aucun Livre Trouvé';
@@ -108,6 +117,46 @@ const Book: React.FC = () => {
     event.stopPropagation();
 
     fullscreenOpen(imageSrc, imageAlt, title, author, desc);
+  };
+
+  const handleAddBookmark = async (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    bookId: number
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      const result = await createBookmark(bookId);
+      if (result.success) {
+        setBookmarkedBooks(result.data.bookmarks);
+      } else {
+        console.error(result.error || 'Failed to add bookmark');
+      }
+    } catch (error) {
+      console.error('Error in handleAddBookmark:', error);
+    }
+  };
+
+  const handleRemoveBookmark = async (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    bookId: number
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      const result = await deleteBookmark(bookId);
+      if (result.success && result.data) {
+        setBookmarkedBooks(result.data.bookmarks);
+      } else {
+        console.error(result.error || 'Failed to remove bookmark');
+      }
+    } catch (error) {
+      console.error('Error in handleRemoveBookmark:', error);
+    }
   };
 
   if (!book) {
@@ -223,7 +272,17 @@ const Book: React.FC = () => {
             </div>
           </div>
           <div className='book-bookmark-toggle-container'>
-            <BookmarkOutline className='bookmark-icon' />
+            {isBookmarked ? (
+              <BookmarkSolid
+                className='bookmark-icon'
+                onClick={(e) => handleRemoveBookmark(e, book.id)}
+              />
+            ) : (
+              <BookmarkOutline
+                className='bookmark-icon'
+                onClick={(e) => handleAddBookmark(e, book.id)}
+              />
+            )}
           </div>
         </div>
         <div className='book-details-description-container'>

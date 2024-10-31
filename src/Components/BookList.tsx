@@ -9,6 +9,7 @@ import ListIcon from 'Svgs/ListIcon';
 import SidebarOpen from 'Svgs/SidebarOpen';
 import SidebarClose from 'Svgs/SidebarClose';
 import GearIcon from 'Svgs/GearIcon';
+import BookmarkSolid from 'Svgs/BookmarkSolid';
 import 'Styles/BookList.css';
 
 interface BookListProps {
@@ -16,7 +17,7 @@ interface BookListProps {
 }
 
 const BookList: React.FC<BookListProps> = ({ bookList }) => {
-  const { getCategories } = ServerApi();
+  const { getCategories, createBookmark, deleteBookmark } = ServerApi();
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
@@ -29,6 +30,8 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     setCategories,
     categoryFilter,
     setCategoryFilter,
+    bookmarkedBooks,
+    setBookmarkedBooks,
     formatTitleForURL,
   } = context;
 
@@ -159,6 +162,46 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
     event.stopPropagation();
 
     setCategoryFilter(null);
+  };
+
+  const handleAddBookmark = async (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    bookId: number
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      const result = await createBookmark(bookId);
+      if (result.success) {
+        setBookmarkedBooks(result.data.bookmarks);
+      } else {
+        console.error(result.error || 'Failed to add bookmark');
+      }
+    } catch (error) {
+      console.error('Error in handleAddBookmark:', error);
+    }
+  };
+
+  const handleRemoveBookmark = async (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    bookId: number
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      const result = await deleteBookmark(bookId);
+      if (result.success && result.data) {
+        setBookmarkedBooks(result.data.bookmarks);
+      } else {
+        console.error(result.error || 'Failed to remove bookmark');
+      }
+    } catch (error) {
+      console.error('Error in handleRemoveBookmark:', error);
+    }
   };
 
   return (
@@ -389,9 +432,25 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
                 {displayedBooks.map((book: Book) => {
                   const hasImage = !!book.images[0]?.image_url;
                   const bookUrl = `/books/${formatTitleForURL(book.title)}`;
+                  const isBookmarked = bookmarkedBooks.some(
+                    (b) => b.id === book.id
+                  );
                   return (
                     <Link key={book.id} to={bookUrl} className='book-card'>
                       <div className='book-image-container'>
+                        <div className='book-list-bookmark-toggle-container'>
+                          {isBookmarked ? (
+                            <BookmarkSolid
+                              className='book-list-bookmark-icon-bookmarked'
+                              onClick={(e) => handleRemoveBookmark(e, book.id)}
+                            />
+                          ) : (
+                            <BookmarkSolid
+                              className='book-list-bookmark-icon'
+                              onClick={(e) => handleAddBookmark(e, book.id)}
+                            />
+                          )}
+                        </div>
                         {book.flair && (
                           <div className='book-flair-container'>
                             <p className='book-flair'>{book.flair}</p>
