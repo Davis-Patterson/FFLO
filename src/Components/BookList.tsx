@@ -495,9 +495,25 @@ const BookList: React.FC<BookListProps> = ({ bookList }) => {
                 {displayedBooks.map((book: Book) => {
                   const hasImage = !!book.images[0]?.image_url;
                   const bookUrl = `/books/${formatTitleForURL(book.title)}`;
+                  const isBookmarked = bookmarkedBooks.some(
+                    (b) => b.id === book.id
+                  );
                   return (
                     <Link key={book.id} to={bookUrl} className='book-card-list'>
                       <div className='book-image-list-container'>
+                        <div className='book-list-bookmark-toggle-container'>
+                          {isBookmarked ? (
+                            <BookmarkSolid
+                              className='book-list-bookmark-icon-bookmarked'
+                              onClick={(e) => handleRemoveBookmark(e, book.id)}
+                            />
+                          ) : (
+                            <BookmarkSolid
+                              className='book-list-bookmark-icon'
+                              onClick={(e) => handleAddBookmark(e, book.id)}
+                            />
+                          )}
+                        </div>
                         {book.flair && (
                           <div className='book-flair-container'>
                             <p className='book-flair'>{book.flair}</p>

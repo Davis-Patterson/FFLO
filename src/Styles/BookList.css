@@ -439,7 +439,7 @@
 }
 
 .book-list-bookmark-icon {
-  fill: var(--clr-bookmark);
+  fill: var(--clr-light);
   width: 20px;
 }
 .book-list-bookmark-icon-bookmarked {
@@ -448,7 +448,7 @@
 }
 .book-list-bookmark-icon:hover {
   transform: scale(110%);
-  fill: var(--clr-light);
+  fill: var(--clr-bookmark);
 }
 .book-list-bookmark-icon-bookmarked:hover {
   fill: var(--clr-bookmark);
@@ -456,7 +456,8 @@
 .book-list-bookmark-icon {
   opacity: 0;
 }
-.book-card:hover .book-list-bookmark-icon {
+.book-card:hover .book-list-bookmark-icon,
+.book-card-list:hover .book-list-bookmark-icon {
   opacity: 1;
 }
 
