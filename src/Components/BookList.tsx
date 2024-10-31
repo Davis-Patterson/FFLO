@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AppContext } from 'Contexts/AppContext';
 import { Book } from 'Contexts/AppContext';
 import ServerApi from 'Utilities/ServerApi';
@@ -13,6 +13,7 @@ import BookmarkSolid from 'Svgs/BookmarkSolid';
 import 'Styles/BookList.css';
 
 const BookList: React.FC = () => {
+  const { title } = useParams<{ title: string }>();
   const { getCategories, createBookmark, deleteBookmark } = ServerApi();
   const context = useContext(AppContext);
   if (!context) {
@@ -98,7 +99,9 @@ const BookList: React.FC = () => {
         ? book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           book.author.toLowerCase().includes(searchQuery.toLowerCase())
         : true;
-      return matchesCategory && matchesSearch;
+
+      const isCurrentBook = title && formatTitleForURL(book.title) === title;
+      return matchesCategory && matchesSearch && !isCurrentBook;
     })
     .sort((a, b) => {
       if (filterSetting === 'title-asc') return a.title.localeCompare(b.title);

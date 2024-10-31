@@ -37,8 +37,6 @@ const Books: React.FC = () => {
   const cardWidth = 190;
   const maxSlideIndex = Math.max(0, categories.length - visibleCategories);
 
-  const availableBooks = allBooks.filter((book) => book.available > 0);
-
   const calculateTranslateValue = (index: number) => {
     return index === maxSlideIndex
       ? (index - 1) * cardWidth + 150
