@@ -26,7 +26,6 @@ const BookList: React.FC = () => {
     allBooks,
     categories,
     setCategories,
-    selectedBook,
     categoryFilter,
     setCategoryFilter,
     bookmarkedBooks,
@@ -42,7 +41,7 @@ const BookList: React.FC = () => {
   const [visibleBooks, setVisibleBooks] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
   const [showBookmarks, setShowBookmarks] = useState(false);
-  const [showUnavailable, setShowUnavailable] = useState(false);
+  const showUnavailable = false;
 
   // translations
   const gridViewText = language === 'EN' ? 'Grid' : 'Grille';
@@ -182,8 +181,13 @@ const BookList: React.FC = () => {
     event.preventDefault();
     event.stopPropagation();
 
-    setCategoryFilter(null);
-    setShowBookmarks(true);
+    if (showBookmarks) {
+      setCategoryFilter(null);
+      setShowBookmarks(false);
+    } else {
+      setCategoryFilter(null);
+      setShowBookmarks(true);
+    }
   };
 
   const handleAddBookmark = async (
