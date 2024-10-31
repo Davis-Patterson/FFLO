@@ -100,7 +100,9 @@ const BookList: React.FC = () => {
           book.author.toLowerCase().includes(searchQuery.toLowerCase())
         : true;
 
-      const isCurrentBook = title && formatTitleForURL(book.title) === title;
+      const isCurrentBook = showBookmarks
+        ? null
+        : title && formatTitleForURL(book.title) === title;
       return matchesCategory && matchesSearch && !isCurrentBook;
     })
     .sort((a, b) => {
