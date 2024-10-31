@@ -10,7 +10,7 @@ import BookmarkSolid from 'Svgs/BookmarkSolid';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Book.css';
 
-// https://www.npmjs.com/package/react-simple-image-slider
+('https://www.npmjs.com/package/react-simple-image-slider');
 
 const Book: React.FC = () => {
   const { title } = useParams<{ title: string }>();

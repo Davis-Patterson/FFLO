@@ -14,6 +14,7 @@ export default defineConfig({
       Utils: path.resolve(__dirname, 'src/Components/Utils'),
       Tools: path.resolve(__dirname, 'src/Components/Tools'),
       Svgs: path.resolve(__dirname, 'src/Assets/Svgs'),
+      Home: path.resolve(__dirname, 'src/Assets/Home'),
     },
   },
   assetsInclude: [
