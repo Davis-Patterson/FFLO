@@ -20,7 +20,7 @@ const Home: React.FC = () => {
     language === 'EN'
       ? 'French For Little Ones'
       : 'Français pour les tout-petits';
-  const playText = language === 'EN' ? 'Play.' : 'Jouer.';
+  const readText = language === 'EN' ? 'Read.' : 'Lire.';
   const learnText = language === 'EN' ? 'Learn.' : 'Apprendre.';
   const growText = language === 'EN' ? 'Grow.' : 'Grandir.';
 
@@ -58,7 +58,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
               <div className='home-header-subtext-container'>
-                <p className='home-header-subtext blue'>{playText}</p>
+                <p className='home-header-subtext blue'>{readText}</p>
                 <p className='home-header-subtext light-blue'>{learnText}</p>
                 <p className='home-header-subtext orange'>{growText}</p>
               </div>

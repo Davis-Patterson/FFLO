@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import Letter from 'Utils/Letter';
+import Letter from 'Components/Letter';
 import 'Styles/About.css';
 
 const About: React.FC = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ffloLogo from 'Assets/Logos/fflo-logo.webp';
 import UserIcon from 'Svgs/UserIcon';
 import 'Styles/Nav.css';
@@ -13,6 +13,8 @@ const Nav: React.FC = () => {
   }
 
   const { setShowAuth, authUser, language, handleLanguageChange } = context;
+
+  const location = useLocation();
 
   const handleLogin = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
@@ -79,16 +81,42 @@ const Nav: React.FC = () => {
       </section>
       <section className='nav-links'>
         <Link to='/'>
-          <div className='nav-link'>{homeText}</div>
+          <div
+            className={`${
+              location.pathname === '/' ? 'nav-link-current' : 'nav-link'
+            }`}
+          >
+            {homeText}
+          </div>
         </Link>
         <Link to='/books'>
-          <div className='nav-link'>{booksText}</div>
+          <div
+            className={`${
+              location.pathname === '/books' ? 'nav-link-current' : 'nav-link'
+            }`}
+          >
+            {booksText}
+          </div>
         </Link>
         <Link to='/about'>
-          <div className='nav-link'>{aboutText}</div>
+          <div
+            className={`${
+              location.pathname === '/about' ? 'nav-link-current' : 'nav-link'
+            }`}
+          >
+            {aboutText}
+          </div>
         </Link>
         <Link to='/membership'>
-          <div className='nav-link'>{membershipText}</div>
+          <div
+            className={`${
+              location.pathname === '/membership'
+                ? 'nav-link-current'
+                : 'nav-link'
+            }`}
+          >
+            {membershipText}
+          </div>
         </Link>
       </section>
     </nav>

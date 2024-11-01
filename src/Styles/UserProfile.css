@@ -18,23 +18,23 @@
   flex-direction: row;
 }
 
-.title-flair-left,
-.title-flair-right {
+.title-flair-leaf-left,
+.title-flair-leaf-right {
   fill: var(--clr-title-flair);
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
 }
-.title-flair-left {
+.title-flair-leaf-left {
   margin: 0px 20px 0px 0px;
-}
-.title-flair-right {
   transform: scaleX(-1);
+}
+.title-flair-leaf-right {
   margin: 0px 0px 0px 20px;
 }
 
 .user-profile-title-text {
-  font-family: 'Sacramento', sans-serif;
-  font-size: 3.5em;
+  font-family: 'Indie Flower', cursive;
+  font-size: 2.5em;
   line-height: 1;
   font-weight: 200;
   color: var(--clr-text-blue);
@@ -42,18 +42,41 @@
 
 .user-profile-main {
   display: flex;
+  flex-direction: column;
+  margin: 0px 35px;
+}
+
+.user-profile-info-container {
+  background-color: var(--clr-light);
+  padding: 20px;
+}
+
+.user-info-container {
+  display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
-.user-profile-left {
-  width: 25%;
-  padding-right: 20px;
-  border-right: 1px solid #ddd;
+.user-info-membership-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 50%;
+  width: 100%;
+  border-right: 1px solid var(--clr-divider);
+  margin: 0px 20px 0px 0px;
 }
 
-.user-profile-right {
-  width: 75%;
-  padding-left: 20px;
+.user-checked-out-container {
+  width: 50%;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--clr-divider);
+  padding: 0px 0px 20px 0px;
+  width: 100%;
 }
 
 .user-profile-image-container {
@@ -80,11 +103,37 @@
   fill: var(--clr-icon);
 }
 
-.user-name,
-.user-email,
-.user-phone {
-  font-size: 18px;
+.user-name {
+  font-family: 'Merriweather', serif;
+  font-size: 1.6em;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--clr-text-blue);
+  transform: scaleY(95%);
   margin: 5px 0;
+}
+.user-email {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.4em;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--clr-text-grey);
+  transform: scaleY(90%);
+  margin: 5px 0;
+}
+.user-phone {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.2em;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--clr-icon);
+  transform: scaleY(75%);
+  margin: 5px 0;
+}
+
+.user-membership-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .checked-out-book,

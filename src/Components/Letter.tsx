@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import LeafIcon from 'Svgs/LeafIcon';
-import 'Styles/Utils/Letter.css';
 import PaperPlaneIcon from 'Svgs/PaperPlaneIcon';
 import PlantIcon from 'Svgs/PlantIcon';
 import GrassIcon from 'Svgs/GrassIcon';
@@ -9,6 +8,7 @@ import BeanstalkIcon from 'Svgs/BeanstalkIcon';
 import ButterflyIcon from 'Svgs/ButterflyIcon';
 import Crayon1 from 'Svgs/Crayon1';
 import Crayon2 from 'Svgs/Crayon2';
+import 'Styles/Letter.css';
 
 const Letter: React.FC = () => {
   const context = useContext(AppContext);

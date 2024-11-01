@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import UserIcon from 'Svgs/UserIcon';
-import TitleFlair from 'Svgs/TitleFlair';
+import LeafIcon from 'Svgs/LeafIcon';
 import 'Styles/UserProfile.css';
 
 const UserProfile: React.FC = () => {
@@ -52,43 +52,49 @@ const UserProfile: React.FC = () => {
 
   const renderUserInfo = () => (
     <>
-      <div className='user-info'>
-        {authUser?.image?.image_url ? (
-          <div className='user-profile-image-container'>
-            <img
-              src={authUser.image.image_url}
-              alt='User'
-              className='user-profile-image'
-            />
+      <div className='user-info-container'>
+        <div className='user-info-membership-container'>
+          <div className='user-info'>
+            {authUser?.image?.image_url ? (
+              <div className='user-profile-image-container'>
+                <img
+                  src={authUser.image.image_url}
+                  alt='User'
+                  className='user-profile-image'
+                />
+              </div>
+            ) : (
+              <UserIcon className='user-profile-icon' />
+            )}
+            {authUser?.first_name && (
+              <p className='user-name'>
+                {authUser.first_name} {authUser.last_name}
+              </p>
+            )}
+            {authUser?.email && <p className='user-email'>{authUser.email}</p>}
+            {authUser?.phone && <p className='user-phone'>{authUser.phone}</p>}
           </div>
-        ) : (
-          <UserIcon className='user-profile-icon' />
-        )}
-        {authUser?.first_name && (
-          <p className='user-name'>
-            {authUser.first_name} {authUser.last_name}
-          </p>
-        )}
-        {authUser?.email && <p className='user-email'>{authUser.email}</p>}
-        {authUser?.phone && <p className='user-phone'>{authUser.phone}</p>}
-        {authUser?.membership?.active ? (
-          <div className='membership-status'>
-            <p>Active Membership</p>
-            {authUser.membership.recurrence ? (
-              <p>Recurrence Date: {authUser.membership.recurrence}</p>
-            ) : authUser.membership.end_date ? (
-              <p>End Date: {authUser.membership.end_date}</p>
-            ) : null}
-            <p>Books Used This Month: {authUser.membership.monthly_books}</p>
+          <div className='user-membership-container'>
+            {authUser?.membership?.active ? (
+              <div className='membership-status'>
+                <p>Active Membership</p>
+                {authUser.membership.recurrence ? (
+                  <p>Recurrence Date: {authUser.membership.recurrence}</p>
+                ) : authUser.membership.end_date ? (
+                  <p>End Date: {authUser.membership.end_date}</p>
+                ) : null}
+                <p>
+                  Books Used This Month: {authUser.membership.monthly_books}
+                </p>
+              </div>
+            ) : (
+              <p>No active membership</p>
+            )}
           </div>
-        ) : (
-          <p>No active membership</p>
-        )}
-      </div>
-      <div className='user-info-options'>
-        <button onMouseDown={(e) => handleUpdate(e)}>Update</button>
-        <button onMouseDown={(e) => handleAddBook(e)}>Add Book</button>
-        <button onMouseDown={(e) => handleLogout(e)}>Logout</button>
+        </div>
+        <div className='user-checked-out-container'>
+          {renderCheckedOutBook()}
+        </div>
       </div>
     </>
   );
@@ -145,21 +151,18 @@ const UserProfile: React.FC = () => {
     <div className='user-profile-container'>
       <header className='user-profile-header'>
         <div className='user-profile-header-title'>
-          <TitleFlair className='title-flair-left' />
+          <LeafIcon className='title-flair-leaf-left' />
           <p className='user-profile-title-text'>{headerText}</p>
-          <TitleFlair className='title-flair-right' />
+          <LeafIcon className='title-flair-leaf-right' />
         </div>
       </header>
       <section className='user-profile-main'>
-        <div className='user-profile-left'>
+        <div className='user-profile-info-container'>
           {authUser ? renderUserInfo() : renderPlaceholders()}
         </div>
-        <div className='user-profile-right'>
+        <div className='user-profile-history'>
           {authUser ? (
-            <>
-              {renderCheckedOutBook()}
-              {renderRentalHistory()}
-            </>
+            <>{renderRentalHistory()}</>
           ) : (
             <>
               <p>{noBookText}</p>
@@ -168,6 +171,11 @@ const UserProfile: React.FC = () => {
           )}
         </div>
       </section>
+      <div className='user-info-options'>
+        <button onMouseDown={(e) => handleUpdate(e)}>Update</button>
+        <button onMouseDown={(e) => handleAddBook(e)}>Add Book</button>
+        <button onMouseDown={(e) => handleLogout(e)}>Logout</button>
+      </div>
     </div>
   );
 };

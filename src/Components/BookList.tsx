@@ -11,6 +11,7 @@ import SidebarClose from 'Svgs/SidebarClose';
 import GearIcon from 'Svgs/GearIcon';
 import BookmarkSolid from 'Svgs/BookmarkSolid';
 import 'Styles/BookList.css';
+import BookmarkOutline from 'Svgs/BookmarkOutline';
 
 const BookList: React.FC = () => {
   const { title } = useParams<{ title: string }>();
@@ -483,7 +484,7 @@ const BookList: React.FC = () => {
                               onClick={(e) => handleRemoveBookmark(e, book.id)}
                             />
                           ) : (
-                            <BookmarkSolid
+                            <BookmarkOutline
                               className='book-list-bookmark-icon'
                               onClick={(e) => handleAddBookmark(e, book.id)}
                             />
