@@ -78,7 +78,6 @@
   font-size: 0.85em;
   line-height: 1;
   font-weight: 300;
-  color: var(--clr-dark);
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 0.5rem;
@@ -88,12 +87,139 @@
   color: var(--clr-dark);
 }
 
-.user-edit-name-inputs {
+.user-delete-upload-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.user-image-delete-container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.user-edit-image-container {
+  width: 75px;
+  height: 75px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--clr-transparent);
+  position: relative;
+  z-index: 5;
+  transition: all 0.15s ease-in-out;
+}
+.user-edit-image-container.selected {
+  border: 1px solid var(--clr-error);
+}
+
+.user-edit-placeholder-container {
+  width: 55px;
+  height: 55px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--clr-transparent);
+  position: relative;
+  z-index: 5;
+  transition: all 0.15s ease-in-out;
+}
+
+.user-edit-image-x-container,
+.user-edit-image-trash-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 3px 5px;
+  background-color: var(--clr-light);
+  border: 1px solid var(--clr-break);
+  z-index: 10;
+  transition: all 0.15s ease-in-out;
+}
+.user-edit-image-x-container {
+  opacity: 1;
+}
+.user-edit-image-trash-container {
+  opacity: 0;
+}
+.user-image-delete-container:hover .user-edit-image-trash-container {
+  opacity: 1;
+}
+
+.user-edit-trash-icon,
+.user-edit-trash-x {
+  width: 12px;
+  fill: var(--clr-icon);
+  cursor: pointer;
+}
+.user-edit-trash-icon:hover {
+  fill: var(--clr-error);
+}
+.user-edit-trash-x:hover {
+  fill: var(--clr-dark);
+}
+
+.image-thumbnail-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--clr-error);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 4;
+}
+.image-thumbnail-overlay.selected {
+  opacity: 0.4;
+}
+
+.user-edit-image-wrapper {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  transition: filter 0.5s ease-in-out;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.user-edit-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.user-edit-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  fill: var(--clr-icon);
+}
+
+.image-file-upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  width: 70%;
+  overflow: hidden;
+}
+
+.image-file-text {
   font-family: 'Lato', sans-serif;
   font-size: 0.85em;
   line-height: 1;
   font-weight: 300;
-  color: var(--clr-dark);
+}
+
+.user-edit-name-inputs {
   display: flex;
   justify-content: space-between;
   gap: 0.5rem;

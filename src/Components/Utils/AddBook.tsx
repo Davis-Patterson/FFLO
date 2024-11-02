@@ -15,7 +15,7 @@ import TitleFlair from 'Svgs/TitleFlair';
 import XIcon from 'Svgs/XIcon';
 import GearIcon from 'Svgs/GearIcon';
 import BackArrow from 'Svgs/BackArrow';
-import BookIcon from 'Svgs/BookIcon';
+import BookOpenIcon from 'Svgs/BookOpenIcon';
 import TrashIcon from 'Svgs/TrashIcon';
 import CheckIcon from 'Svgs/CheckIcon';
 import DragIcon from 'Svgs/DragIcon';
@@ -650,7 +650,7 @@ const AddBook: React.FC = () => {
           <div className='category-list' />
           <p className='category-text'>{category.name}</p>
           <div className='category-quantity-container'>
-            <BookIcon className='book-icon' />
+            <BookOpenIcon className='book-icon' />
             <div className='category-quantity'>{category.quantity}</div>
           </div>
         </div>
@@ -932,7 +932,7 @@ const AddBook: React.FC = () => {
                                           {category.name}
                                         </span>
                                         <div className='category-quantity-container'>
-                                          <BookIcon className='book-icon' />
+                                          <BookOpenIcon className='book-icon' />
                                           <div className='category-quantity'>
                                             {category.quantity}
                                           </div>

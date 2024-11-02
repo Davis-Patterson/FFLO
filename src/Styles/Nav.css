@@ -89,6 +89,7 @@
 }
 
 .nav-user-image-container {
+  position: relative;
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -102,6 +103,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 2;
+}
+
+.nav-user-image-background {
+  position: absolute;
+  background-color: var(--clr-light);
+  width: 38px;
+  height: 38px;
 }
 
 .nav-user-icon {

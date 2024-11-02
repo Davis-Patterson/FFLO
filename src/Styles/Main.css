@@ -63,8 +63,9 @@
   --clr-orange: #f97338;
   --clr-title-flair: #f3c535;
   --clr-error: #ff0000;
-  --clr-error-dark: #ad0000;
+  --clr-error2: #fa2a2a;
   --clr-success: #00ff00;
+  --clr-member-green: #00b900;
   --clr-transparent: #ffffff00;
 }
 
@@ -99,7 +100,6 @@
   --clr-orange: #f97338;
   --clr-title-flair: #f3c535;
   --clr-error: #ff0000;
-  --clr-error-dark: #ad0000;
   --clr-success: #00ff00;
   --clr-transparent: #ffffff00;
 }

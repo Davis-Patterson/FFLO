@@ -598,7 +598,6 @@
   pointer-events: none;
   z-index: 4;
 }
-
 .image-thumbnail-overlay.selected {
   opacity: 0.4;
 }

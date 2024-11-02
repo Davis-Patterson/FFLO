@@ -181,17 +181,19 @@ const AuthApi = () => {
     firstName: string,
     lastName: string,
     phone: string | null,
-    imageFile: File | null
+    imageFile: File | null,
+    removeImage: boolean = false
   ): Promise<{ success: boolean; data?: any }> => {
     try {
       const formData = new FormData();
       formData.append('first_name', firstName);
-      formData.append('last_name', lastName);
-      if (phone) {
-        formData.append('phone', phone);
-      }
+      formData.append('last_name', lastName || '');
+      formData.append('phone', phone || '');
       if (imageFile) {
         formData.append('image_file', imageFile);
+      }
+      if (removeImage) {
+        formData.append('remove_image', 'true');
       }
 
       const response: AxiosResponse = await axiosInstance.put(
@@ -206,7 +208,6 @@ const AuthApi = () => {
 
       if (response.status === 200) {
         console.log('Profile updated successfully:', response.data);
-
         setAuthUser(response.data);
 
         return { success: true, data: response.data };

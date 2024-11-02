@@ -6,6 +6,9 @@ import TitleFlair from 'Svgs/TitleFlair';
 import XIcon from 'Svgs/XIcon';
 import UKFlag from 'Svgs/UKFlag';
 import FrenchFlag from 'Svgs/FrenchFlag';
+import UserIcon from 'Svgs/UserIcon';
+import BackArrow from 'Svgs/BackArrow';
+import TrashIcon from 'Svgs/TrashIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Utils/EditProfile.css';
 
@@ -25,16 +28,29 @@ const EditProfile: React.FC = () => {
     handleLanguageChange,
   } = context;
 
+  const [initialUserData, setInitialUserData] = useState<{
+    initialFirstName: string;
+    initialLastName: string;
+    initialPhone: string | null;
+  }>({
+    initialFirstName: '',
+    initialLastName: '',
+    initialPhone: '',
+  });
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [removeImage, setRemoveImage] = useState(false);
 
   const [buttonActive, setButtonActive] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const editContainerRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Translations
   const editProfileText =
@@ -59,18 +75,20 @@ const EditProfile: React.FC = () => {
   }, [errorMessage]);
 
   useEffect(() => {
-    if (authUser) {
-      if (authUser.first_name) {
-        setFirstName(authUser.first_name);
-      }
-      if (authUser.last_name) {
-        setLastName(authUser.last_name);
-      }
-      if (authUser.phone) {
-        setPhone(authUser.phone);
-      }
+    if (authUser && showEdit) {
+      setInitialUserData({
+        initialFirstName: authUser.first_name || '',
+        initialLastName: authUser.last_name || '',
+        initialPhone: authUser.phone || '',
+      });
+      setFirstName(authUser.first_name || '');
+      setLastName(authUser.last_name || '');
+      setPhone(authUser.phone || '');
+      setImageFile(null);
+      setRemoveImage(false);
+      setLoaded(true);
     }
-  }, [authUser]);
+  }, [authUser, showEdit]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -78,6 +96,17 @@ const EditProfile: React.FC = () => {
         editContainerRef.current &&
         !editContainerRef.current.contains(event.target as Node)
       ) {
+        setInitialUserData({
+          initialFirstName: '',
+          initialLastName: '',
+          initialPhone: '',
+        });
+        setFirstName('');
+        setLastName('');
+        setPhone('');
+        setImageFile(null);
+        setRemoveImage(false);
+        setLoaded(false);
         setShowEdit(false);
       }
     };
@@ -94,21 +123,51 @@ const EditProfile: React.FC = () => {
   }, [showEdit, setShowEdit]);
 
   useEffect(() => {
-    const isFormEmpty =
-      !firstName.trim() && !lastName.trim() && !phone.trim() && !imageFile;
-    setButtonActive(!isFormEmpty);
-  }, [firstName, lastName, phone, imageFile]);
+    if (loaded) {
+      const hasFormChanged =
+        (firstName.trim() !== '' &&
+          firstName !== initialUserData.initialFirstName) ||
+        lastName !== initialUserData.initialLastName ||
+        phone !== initialUserData.initialPhone ||
+        !!imageFile ||
+        removeImage;
+
+      setButtonActive(hasFormChanged);
+    }
+  }, [
+    firstName,
+    lastName,
+    phone,
+    imageFile,
+    removeImage,
+    initialUserData,
+    loaded,
+  ]);
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!firstName.trim()) {
+      setErrorMessage('First name is required.');
+      return;
+    }
     setIsLoading(true);
-
     try {
-      const result = await updateProfile(firstName, lastName, phone, imageFile);
-
+      const result = await updateProfile(
+        firstName,
+        lastName,
+        phone,
+        imageFile,
+        removeImage
+      );
       if (result.success) {
         console.log('Profile updated successfully');
         setShowEdit(false);
+        setInitialUserData({
+          initialFirstName: firstName,
+          initialLastName: lastName,
+          initialPhone: phone,
+        });
+        setLoaded(false);
       } else {
         setErrorMessage('Failed to update profile');
       }
@@ -124,7 +183,44 @@ const EditProfile: React.FC = () => {
     event.preventDefault();
     event.stopPropagation();
 
+    setInitialUserData({
+      initialFirstName: '',
+      initialLastName: '',
+      initialPhone: '',
+    });
+    setFirstName('');
+    setLastName('');
+    setPhone('');
+    setImageFile(null);
+    setRemoveImage(false);
+    setLoaded(false);
     setShowEdit(false);
+  };
+
+  const handleDeleteBookImage = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    setRemoveImage(true);
+  };
+
+  const handleUndoDeleteBookImage = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    setRemoveImage(false);
+    setImageFile(null);
+
+    // Clear the file input field
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   return (
@@ -168,17 +264,89 @@ const EditProfile: React.FC = () => {
                 </div>
                 <p className='edit-header-subtext'>{editSubtext}</p>
                 <form onSubmit={handleUpdateProfile}>
-                  <div>
-                    <input
-                      type='file'
-                      name='image'
-                      accept='image/*'
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        setImageFile(file || null);
-                      }}
-                      className='auth-input'
-                    />
+                  <div className='user-edit-input'>
+                    <div className='user-delete-upload-container'>
+                      <div className='user-image-delete-container'>
+                        {authUser &&
+                          (authUser.image?.image_url ? (
+                            <div
+                              className={`user-edit-image-container ${
+                                removeImage === true ? 'selected' : ''
+                              }`}
+                            >
+                              <div
+                                className={`image-thumbnail-overlay ${
+                                  removeImage === true ? 'selected' : ''
+                                }`}
+                              />
+                              <div
+                                className={
+                                  removeImage === true
+                                    ? 'user-edit-image-x-container'
+                                    : 'user-edit-image-trash-container'
+                                }
+                              >
+                                {removeImage === true ? (
+                                  <BackArrow
+                                    className='user-edit-trash-x'
+                                    onMouseDown={(e) =>
+                                      handleUndoDeleteBookImage(e)
+                                    }
+                                  />
+                                ) : (
+                                  <TrashIcon
+                                    className='user-edit-trash-icon'
+                                    onMouseDown={(e) =>
+                                      handleDeleteBookImage(e)
+                                    }
+                                  />
+                                )}
+                              </div>
+                              <div
+                                className='user-edit-image-wrapper blur-load'
+                                style={{
+                                  backgroundImage: `url(${authUser.image.image_small})`,
+                                }}
+                              >
+                                <img
+                                  src={authUser.image.image_url}
+                                  alt='User'
+                                  className='user-edit-image'
+                                  onLoad={(e) => {
+                                    const imgElement =
+                                      e.target as HTMLImageElement;
+                                    imgElement.parentElement?.classList.add(
+                                      'loaded'
+                                    );
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          ) : (
+                            <div className='user-edit-placeholder-container'>
+                              <div className='user-edit-image-wrapper'>
+                                <UserIcon className='user-edit-icon' />
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                      <div className='image-file-upload'>
+                        <input
+                          type='file'
+                          name='image'
+                          accept='image/*'
+                          ref={fileInputRef}
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            setImageFile(file || null);
+                            if (file) {
+                              setRemoveImage(true);
+                            }
+                          }}
+                          className='image-file-text'
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className='auth-name-inputs'>
                     <div>

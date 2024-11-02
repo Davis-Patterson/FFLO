@@ -3,7 +3,6 @@ import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Link, useLocation } from 'react-router-dom';
 import ffloLogo from 'Assets/Logos/fflo-logo.webp';
-import UserIcon from 'Svgs/UserIcon';
 import 'Styles/Nav.css';
 
 const Nav: React.FC = () => {
@@ -71,8 +70,14 @@ const Nav: React.FC = () => {
                   />
                 </div>
               ) : (
-                <div className='nav-user-icon-container'>
-                  <UserIcon className='nav-user-icon' />{' '}
+                // If authUser exists but has no image, display Robohash avatar
+                <div className='nav-user-image-container'>
+                  <img
+                    src={`https://robohash.org/set_set4/${authUser.email}`}
+                    alt='User'
+                    className='nav-user-image'
+                  />
+                  <div className='nav-user-image-background' />
                 </div>
               )}
             </Link>
