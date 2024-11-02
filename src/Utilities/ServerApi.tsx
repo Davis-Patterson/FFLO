@@ -326,9 +326,9 @@ const ServerApi = () => {
         formData.append('categories_to_remove', categoriesToRemove.join(','));
       }
 
-      imagesToRemove.forEach((imageId) => {
-        formData.append('images_to_remove', imageId.toString());
-      });
+      if (imagesToRemove.length > 0) {
+        formData.append('images_to_remove', imagesToRemove.join(','));
+      }
 
       const response: AxiosResponse = await axiosInstance.put(
         `/api/books/${bookId}/update/`,

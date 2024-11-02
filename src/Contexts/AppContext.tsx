@@ -93,6 +93,14 @@ interface AppContextType {
   setAuthToken: (token: string | null) => void;
   authUser: User | null;
   setAuthUser: (user: User | null) => void;
+  allBooks: Book[];
+  setAllBooks: (books: Book[]) => void;
+  categories: Category[];
+  setCategories: (categories: Category[]) => void;
+  bookmarkedBooks: Book[];
+  setBookmarkedBooks: (books: Book[]) => void;
+  selectedBook: Book | null;
+  setSelectedBook: (book: Book | null) => void;
   showFullscreen: boolean;
   setShowFullscreen: (value: boolean) => void;
   fullscreenData: FullscreenData;
@@ -113,14 +121,6 @@ interface AppContextType {
   setLanguage: (language: string) => void;
   categoryFilter: number | null;
   setCategoryFilter: (categoryFilter: number | null) => void;
-  allBooks: Book[];
-  setAllBooks: (books: Book[]) => void;
-  categories: Category[];
-  setCategories: (categories: Category[]) => void;
-  bookmarkedBooks: Book[];
-  setBookmarkedBooks: (books: Book[]) => void;
-  selectedBook: Book | null;
-  setSelectedBook: (book: Book | null) => void;
   fetchError: boolean;
   setFetchError: (value: boolean) => void;
   isFetched: boolean;
@@ -159,6 +159,11 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   );
   const [authUser, setAuthUser] = useState<User | null>(null);
 
+  const [allBooks, setAllBooks] = useState<Book[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
+  const [bookmarkedBooks, setBookmarkedBooks] = useState<Book[]>([]);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+
   const [showFullscreen, setShowFullscreen] = useState<boolean>(false);
   const [fullscreenData, setFullscreenData] = useState({
     src: '',
@@ -180,11 +185,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     defaultValue: 'EN',
   });
   const [categoryFilter, setCategoryFilter] = useState<number | null>(null);
-
-  const [allBooks, setAllBooks] = useState<Book[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
-  const [bookmarkedBooks, setBookmarkedBooks] = useState<Book[]>([]);
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
   const [fetchError, setFetchError] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
@@ -276,6 +276,14 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setAuthToken,
         authUser,
         setAuthUser,
+        allBooks,
+        setAllBooks,
+        categories,
+        setCategories,
+        bookmarkedBooks,
+        setBookmarkedBooks,
+        selectedBook,
+        setSelectedBook,
         showFullscreen,
         setShowFullscreen,
         fullscreenData,
@@ -296,14 +304,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setLanguage,
         categoryFilter,
         setCategoryFilter,
-        allBooks,
-        setAllBooks,
-        categories,
-        setCategories,
-        bookmarkedBooks,
-        setBookmarkedBooks,
-        selectedBook,
-        setSelectedBook,
         fetchError,
         setFetchError,
         isFetched,

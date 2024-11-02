@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from 'Contexts/AppContext';
+import { Link, useNavigate } from 'react-router-dom';
+import MiniBookList from 'Components/MiniBookList';
 import UserIcon from 'Svgs/UserIcon';
 import LeafIcon from 'Svgs/LeafIcon';
 import GearIcon from 'Svgs/GearIcon';
@@ -8,6 +10,8 @@ import ScissorsIcon from 'Svgs/ScissorsIcon';
 import GlueIcon from 'Svgs/GlueIcon';
 import Paperclip1 from 'Svgs/Paperclip1';
 import Paperclip2 from 'Svgs/Paperclip2';
+import BookClipart from 'Svgs/BookClipart';
+import PointingIcon from 'Svgs/PointingIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/UserProfile.css';
 
@@ -20,6 +24,9 @@ const UserProfile: React.FC = () => {
     context;
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isAdminLoading, setIsAdminLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   // Translations
   const headerText = language === 'EN' ? 'Profile' : 'Profil';
@@ -27,10 +34,15 @@ const UserProfile: React.FC = () => {
   const emailText = language === 'EN' ? 'Email' : 'Courriel';
   const phoneText = language === 'EN' ? 'Phone' : 'Téléphone';
   const logoutText = language === 'EN' ? 'Logout' : 'Déconnexion';
+  const staffText = language === 'EN' ? 'Staff' : 'Personnelle';
   const noBookText =
     language === 'EN'
       ? 'No book currently checked out.'
       : 'Aucun livre actuellement extrait.';
+  const noBookMemberSubText =
+    language === 'EN'
+      ? 'Explore our library to find your next read!'
+      : 'Explorez pour trouver votre prochaine lecture !';
   const noRentalHistoryText =
     language === 'EN'
       ? 'No rental history available.'
@@ -49,8 +61,8 @@ const UserProfile: React.FC = () => {
     language === 'EN' ? 'Book Used This Month' : 'Livre utilisé ce mois-ci';
   const booksUsedThisMonthText =
     language === 'EN' ? 'Books Used This Month' : 'Livres utilisés ce mois-ci';
-  const cancelSubscriptionText =
-    language === 'EN' ? 'Cancel Subscription' : "Annuler l'abonnement";
+  const manageSubscriptionText =
+    language === 'EN' ? 'Manage Subscription' : "Gérer l'abonnement";
 
   const months: { [key: number]: string } = {
     1: 'Jan',
@@ -109,6 +121,26 @@ const UserProfile: React.FC = () => {
       console.log('Handle Cancel.');
       setIsLoading(false);
     }, 1000);
+  };
+
+  const handleAdmin = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setIsAdminLoading(true);
+    setTimeout(() => {
+      console.log('Handle Cancel.');
+      setIsAdminLoading(false);
+    }, 1000);
+  };
+
+  const handleBooksLink = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    navigate('/Books');
   };
 
   const renderUserInfo = () => (
@@ -174,15 +206,30 @@ const UserProfile: React.FC = () => {
                     onMouseDown={(e) => handleUpdate(e)}
                   />
                 </div>
-                <button
-                  className='logout-button'
-                  onMouseDown={(e) => handleLogout(e)}
-                >
-                  {logoutText}
-                </button>
+                <div className='user-profile-logout-container'>
+                  {authUser?.is_staff && (
+                    <button
+                      className='admin-button'
+                      onMouseDown={(e) => handleAdmin(e)}
+                    >
+                      {isAdminLoading ? (
+                        <LinearProgress color='inherit' />
+                      ) : (
+                        staffText
+                      )}
+                    </button>
+                  )}
+                  <button
+                    className='logout-button'
+                    onMouseDown={(e) => handleLogout(e)}
+                    style={{ width: `{}` }}
+                  >
+                    {logoutText}
+                  </button>
+                </div>
               </div>
               <div className='user-phone-edit-icons'>
-                <ScissorsIcon className='scissors-icon' />
+                {authUser?.phone && <ScissorsIcon className='scissors-icon' />}
                 <GlueIcon className='glue-icon' />
               </div>
             </div>
@@ -212,16 +259,18 @@ const UserProfile: React.FC = () => {
                         </p>
                       </div>
                     ) : null}
-                    <button
-                      className='cancel-button'
-                      onMouseDown={(e) => handleCancel(e)}
-                    >
-                      {isLoading ? (
-                        <LinearProgress color='inherit' />
-                      ) : (
-                        cancelSubscriptionText
-                      )}
-                    </button>
+                    <Link to='/membership'>
+                      <button
+                        className='manage-button'
+                        onMouseDown={(e) => handleCancel(e)}
+                      >
+                        {isLoading ? (
+                          <LinearProgress color='inherit' />
+                        ) : (
+                          manageSubscriptionText
+                        )}
+                      </button>
+                    </Link>
                   </div>
                 </div>
                 <div className='membership-right'>
@@ -270,7 +319,29 @@ const UserProfile: React.FC = () => {
         </div>
       );
     } else {
-      return <p className='no-checked-out'>{noBookText}</p>;
+      return (
+        <>
+          <div className='no-checked-out-header'>
+            <BookClipart className='book-clipart' />
+            <p className='no-checked-out-header-text'>{noBookText}</p>
+          </div>
+          <div className='no-ckecked-out-content'>
+            <div className='no-checked-out-books-link-container'>
+              <p
+                className='no-checked-out-text'
+                onMouseDown={(e) => handleBooksLink(e)}
+              >
+                {noBookMemberSubText}
+              </p>
+              <PointingIcon
+                className='pointing-icon'
+                onMouseDown={(e) => handleBooksLink(e)}
+              />
+            </div>
+            <MiniBookList />
+          </div>
+        </>
+      );
     }
   };
 

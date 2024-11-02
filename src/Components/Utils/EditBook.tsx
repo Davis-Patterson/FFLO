@@ -127,6 +127,8 @@ const EditBook: React.FC = () => {
     null
   );
 
+  console.log('images to remove, ', imagesToRemove);
+
   const [categoryOrder, setCategoryOrder] = useState<number[]>([]);
 
   const showBookEditWindowContainerRef = useRef<HTMLDivElement>(null);

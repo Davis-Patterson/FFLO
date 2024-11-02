@@ -2,9 +2,9 @@ import React from 'react';
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const OpenSidebarIcon: React.FC<IconProps> = (props) => (
+const ChevronRight: React.FC<IconProps> = (props) => (
   <svg
-    id='OpenSidebarIcon'
+    id='ChevronRight'
     data-name='Layer 4 Image'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 103.17 177.75'
@@ -14,4 +14,4 @@ const OpenSidebarIcon: React.FC<IconProps> = (props) => (
   </svg>
 );
 
-export default OpenSidebarIcon;
+export default ChevronRight;
