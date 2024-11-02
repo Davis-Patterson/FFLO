@@ -217,10 +217,29 @@ const EditProfile: React.FC = () => {
     setRemoveImage(false);
     setImageFile(null);
 
-    // Clear the file input field
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
+  };
+
+  const formatPhoneNumber = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+
+    if (numbers.length <= 3) {
+      return numbers;
+    } else if (numbers.length <= 6) {
+      return `(${numbers.slice(0, 3)}) ${numbers.slice(3)}`;
+    } else {
+      return `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(
+        6,
+        10
+      )}`;
+    }
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedPhone = formatPhoneNumber(e.target.value);
+    setPhone(formattedPhone);
   };
 
   return (
@@ -354,6 +373,7 @@ const EditProfile: React.FC = () => {
                         type='text'
                         name='fname'
                         value={firstName}
+                        maxLength={20}
                         onChange={(e) => setFirstName(e.target.value)}
                         placeholder={firstNamePlaceholder}
                         className='auth-name-input first'
@@ -364,6 +384,7 @@ const EditProfile: React.FC = () => {
                         type='text'
                         name='lname'
                         value={lastName}
+                        maxLength={20}
                         onChange={(e) => setLastName(e.target.value)}
                         placeholder={lastNamePlaceholder}
                         className='auth-name-input last'
@@ -375,7 +396,8 @@ const EditProfile: React.FC = () => {
                       type='text'
                       name='phone'
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      maxLength={15}
+                      onChange={handlePhoneChange}
                       placeholder={phonePlaceholder}
                       className='auth-input'
                     />
