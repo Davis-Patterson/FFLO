@@ -10,8 +10,14 @@ import SidebarOpen from 'Svgs/SidebarOpen';
 import SidebarClose from 'Svgs/SidebarClose';
 import GearIcon from 'Svgs/GearIcon';
 import BookmarkSolid from 'Svgs/BookmarkSolid';
-import 'Styles/BookList.css';
 import BookmarkOutline from 'Svgs/BookmarkOutline';
+import RulerIcon from 'Svgs/RulerIcon';
+import ScissorsIcon from 'Svgs/ScissorsIcon';
+import GlueIcon from 'Svgs/GlueIcon';
+import TapeIcon from 'Svgs/TapeIcon';
+import Marker2 from 'Svgs/Marker2';
+import Pencil2 from 'Svgs/Pencil2';
+import 'Styles/BookList.css';
 
 const BookList: React.FC = () => {
   const { title } = useParams<{ title: string }>();
@@ -374,6 +380,10 @@ const BookList: React.FC = () => {
                     />
                   </div>
                 )}
+                <div className='sidebar-icon-container'>
+                  <Marker2 className='sidebar-marker' />
+                  <GlueIcon className='sidebar-glue' />
+                </div>
                 <div className='sidebar-sorting-container'>
                   <p className='sidebar-content-header-text'>{sortByText}</p>
                   <div className='sidebar-sorting-options'>
@@ -419,6 +429,10 @@ const BookList: React.FC = () => {
                     </p>
                   </div>
                 </div>
+                <div className='sidebar-icon-container'>
+                  <ScissorsIcon className='sidebar-scissors' />
+                  <TapeIcon className='sidebar-tape' />
+                </div>
                 <div className='sidebar-view-setting'>
                   <p className='sidebar-content-header-text-view-mode'>
                     {viewModeText}
@@ -445,6 +459,10 @@ const BookList: React.FC = () => {
                       {listViewTextView}
                     </p>
                   </div>
+                </div>
+                <div className='sidebar-icon-container'>
+                  <Pencil2 className='sidebar-pencil' />
+                  <RulerIcon className='sidebar-ruler' />
                 </div>
               </div>
             </div>

@@ -211,7 +211,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin: 35px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
 }
 
 .sidebar-content-item,
@@ -315,6 +315,33 @@
 }
 .edit-categories-sidebar-toggle-text:hover + .gear-icon-sidebar {
   fill: var(--clr-dark);
+}
+
+.sidebar-icon-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 20px 0px;
+}
+
+.sidebar-glue {
+  width: 30px;
+}
+.sidebar-scissors {
+  width: 60px;
+}
+.sidebar-marker {
+  width: 60px;
+}
+.sidebar-tape {
+  width: 45px;
+}
+.sidebar-pencil {
+  width: 50px;
+}
+.sidebar-ruler {
+  width: 80px;
 }
 
 .book-grid-view {
