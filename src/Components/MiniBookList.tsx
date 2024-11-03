@@ -103,7 +103,29 @@ const MiniBookList: React.FC = () => {
   const isAtEnd = currentIndex + booksPerPage >= allBooks.length;
 
   if (!allBooks || allBooks.length === 0) {
-    return <LinearProgress />;
+    return (
+      <>
+        <div className='mini-list-container'>
+          <div className='mini-list-container-prev'>
+            <ChevronRight
+              className={`mini-list-prev ${isAtStart ? 'disabled' : ''}`}
+              onMouseDown={(e) => handlePrev(e)}
+            />
+          </div>
+          <div className='mini-list-slider-container'>
+            <div className='mini-list-slider'>
+              <LinearProgress color='inherit' />
+            </div>
+          </div>
+          <div className='mini-list-container-next'>
+            <ChevronRight
+              className={`mini-list-next ${isAtEnd ? 'disabled' : ''}`}
+              onMouseDown={(e) => handleNext(e)}
+            />
+          </div>
+        </div>
+      </>
+    );
   }
 
   return (

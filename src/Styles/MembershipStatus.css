@@ -1,0 +1,112 @@
+.membership-status {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  padding: 10px 5px;
+  border: 1px solid var(--clr-divider);
+  background-color: var(--clr-light);
+  border-radius: 10px;
+}
+
+.membership-left {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.membership-right {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.active-membership,
+.expiring-membership,
+.no-membership {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7em;
+  line-height: 1;
+  font-weight: 400;
+  border-radius: 50px;
+  text-align: center;
+  padding: 4px 0px;
+}
+.active-membership {
+  color: var(--clr-member-green);
+  background-color: var(--clr-light);
+  border: 1px solid var(--clr-member-green);
+  width: 110px;
+}
+.expiring-membership {
+  color: var(--clr-moyenne);
+  background-color: var(--clr-light);
+  border: 1px solid var(--clr-moyenne);
+  width: 120px;
+}
+.no-membership {
+  color: var(--clr-error);
+  border: 1px solid var(--clr-error);
+  width: 100px;
+}
+
+.user-membership-dates-container {
+  color: var(--clr-text-blue);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7em;
+  line-height: 1;
+  font-weight: 400;
+  margin: 0px 0px 2px 0px;
+}
+
+.user-membership-dates-text {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1;
+  font-weight: 400;
+  font-style: italic;
+  transform: scaleY(95%);
+}
+
+.user-membership-dates {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1;
+  font-weight: 400;
+  margin: 2px 0px 0px 0px;
+}
+
+.memebership-books-count-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.membership-books-count,
+.no-membership-books-count {
+  color: var(--clr-text-blue);
+  font-family: 'Lato', sans-serif;
+  line-height: 1;
+  font-weight: 800;
+  margin: 0px 0px 5px 0px;
+  text-align: center;
+}
+.membership-books-count {
+  font-size: 4.5rem;
+  transform: scaleY(115%);
+}
+.no-membership-books-count {
+  font-size: 3.8rem;
+  transform: scaleY(115%);
+}
+
+.membership-books-text {
+  color: var(--clr-text-blue);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem;
+  line-height: 1;
+  font-weight: 400;
+  transform: scaleY(85%);
+  text-align: center;
+}

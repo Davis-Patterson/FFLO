@@ -16,8 +16,15 @@ const Auth: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authToken, showAuth, setShowAuth, language, handleLanguageChange } =
-    context;
+  const {
+    authToken,
+    setAuthToken,
+    setAuthUser,
+    showAuth,
+    setShowAuth,
+    language,
+    handleLanguageChange,
+  } = context;
 
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -183,6 +190,8 @@ const Auth: React.FC = () => {
     } catch (error) {
       setErrorMessage('Logout failed.');
     }
+    setAuthToken('');
+    setAuthUser(null);
     setIsLoading(false);
   };
 

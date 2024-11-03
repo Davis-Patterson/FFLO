@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import MiniBookList from 'Components/MiniBookList';
 import UserIcon from 'Svgs/UserIcon';
 import LeafIcon from 'Svgs/LeafIcon';
@@ -17,6 +17,7 @@ import RulerIcon from 'Svgs/RulerIcon';
 import TapeIcon from 'Svgs/TapeIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/UserProfile.css';
+import MembershipStatus from './MembershipStatus';
 
 const UserProfile: React.FC = () => {
   const context = useContext(AppContext);
@@ -26,7 +27,6 @@ const UserProfile: React.FC = () => {
   const { authUser, setShowAuth, setShowEdit, setShowAddBookWindow, language } =
     context;
 
-  const [isLoading, setIsLoading] = useState(false);
   const [isAdminLoading, setIsAdminLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -37,6 +37,7 @@ const UserProfile: React.FC = () => {
   const emailText = language === 'EN' ? 'Email' : 'Courriel';
   const phoneText = language === 'EN' ? 'Phone' : 'Téléphone';
   const logoutText = language === 'EN' ? 'Logout' : 'Déconnexion';
+  const loginText = language === 'EN' ? 'Login' : 'Se connecter';
   const staffText = language === 'EN' ? 'Staff' : 'Personnelle';
   const noBookText =
     language === 'EN'
@@ -52,43 +53,6 @@ const UserProfile: React.FC = () => {
       : 'Aucun historique de location disponible.';
   const editCategoriesToggleText =
     language === 'EN' ? 'Update Profile' : 'Mettre à jour le profil';
-  const activeMembershipText =
-    language === 'EN' ? 'Active Membership' : 'Adhésion active';
-  const subscriptionRenewText =
-    language === 'EN'
-      ? 'Subscription Renews:'
-      : "Renouvellement de l'abonnement :";
-  const subscriptionEndText =
-    language === 'EN' ? 'Subscription Ends:' : "Fin de l'abonnement :";
-  const bookUsedThisMonthText =
-    language === 'EN' ? 'Book Used This Month' : 'Livre utilisé ce mois-ci';
-  const booksUsedThisMonthText =
-    language === 'EN' ? 'Books Used This Month' : 'Livres utilisés ce mois-ci';
-  const manageSubscriptionText =
-    language === 'EN' ? 'Manage Subscription' : "Gérer l'abonnement";
-
-  const months: { [key: number]: string } = {
-    1: 'Jan',
-    2: 'Feb',
-    3: 'Mar',
-    4: 'Apr',
-    5: 'May',
-    6: 'Jun',
-    7: 'Jul',
-    8: 'Aug',
-    9: 'Sep',
-    10: 'Oct',
-    11: 'Nov',
-    12: 'Dec',
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const month = months[date.getMonth() + 1];
-    const day = date.getDate();
-    const year = date.getFullYear();
-    return `${month} ${day}, ${year}`;
-  };
 
   const handleUpdate = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
@@ -114,18 +78,6 @@ const UserProfile: React.FC = () => {
     setShowAuth(true);
   };
 
-  const handleCancel = (event: React.MouseEvent) => {
-    if (event.button !== 0) return;
-    event.preventDefault();
-    event.stopPropagation();
-
-    setIsLoading(true);
-    setTimeout(() => {
-      console.log('Handle Cancel.');
-      setIsLoading(false);
-    }, 1000);
-  };
-
   const handleAdmin = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
     event.preventDefault();
@@ -145,6 +97,56 @@ const UserProfile: React.FC = () => {
 
     navigate('/Books');
   };
+
+  const renderPlaceholders = () => (
+    <>
+      <div className='user-info-container'>
+        <div className='user-info-membership-container'>
+          <div className='user-info'>
+            <div className='user-info-header'>
+              <UserIcon className='user-profile-icon' />
+              <TacksIcon className='tacks-icon' />
+            </div>
+            <p className='user-name'>{nameText}</p>
+            <p className='user-email'>{emailText}</p>
+            <div className='user-phone-edit-icon-container'>
+              <div className='user-phone-edit-container'>
+                <p className='user-phone'>{phoneText}</p>
+                <div className='user-profile-logout-container'>
+                  <button
+                    className='login-button'
+                    onMouseDown={(e) => handleLogout(e)}
+                    style={{ width: `{}` }}
+                  >
+                    {loginText}
+                  </button>
+                </div>
+              </div>
+              <div className='user-phone-edit-icons'>
+                <ScissorsIcon className='scissors-icon' />
+              </div>
+            </div>
+          </div>
+          <div className='user-membership-container'>
+            <MembershipStatus />
+            <div className='user-membership-icon-container'>
+              <Paperclip2
+                className='paperclip-icon'
+                style={{ fill: 'var(--clr-toute)' }}
+              />
+              <Paperclip1
+                className='paperclip-icon'
+                style={{ fill: 'var(--clr-moyenne)' }}
+              />
+            </div>
+          </div>
+        </div>
+        <div className='user-checked-out-container'>
+          {renderCheckedOutBook()}
+        </div>
+      </div>
+    </>
+  );
 
   const renderUserInfo = () => (
     <>
@@ -238,60 +240,7 @@ const UserProfile: React.FC = () => {
             </div>
           </div>
           <div className='user-membership-container'>
-            {authUser?.membership?.active ? (
-              <div className='membership-status'>
-                <div className='membership-left'>
-                  <p className='active-membership'>{activeMembershipText}</p>
-                  <div>
-                    {authUser.membership.recurrence ? (
-                      <div className='user-membership-dates-container'>
-                        <p className='user-membership-dates-text'>
-                          {subscriptionRenewText}
-                        </p>
-                        <p className='user-membership-dates'>
-                          {formatDate(authUser.membership.recurrence)}
-                        </p>
-                      </div>
-                    ) : authUser.membership.end_date ? (
-                      <div className='user-membership-dates-container'>
-                        <p className='user-membership-dates-text'>
-                          {subscriptionEndText}
-                        </p>
-                        <p className='user-membership-dates'>
-                          {formatDate(authUser.membership.end_date)}
-                        </p>
-                      </div>
-                    ) : null}
-                    <Link to='/membership'>
-                      <button
-                        className='manage-button'
-                        onMouseDown={(e) => handleCancel(e)}
-                      >
-                        {isLoading ? (
-                          <LinearProgress color='inherit' />
-                        ) : (
-                          manageSubscriptionText
-                        )}
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-                <div className='membership-right'>
-                  <div className='memebership-books-count-container'>
-                    <p className='membership-books-count'>
-                      {authUser.membership.monthly_books}
-                    </p>
-                  </div>
-                  <p className='membership-books-text'>
-                    {authUser.membership.monthly_books === 1
-                      ? bookUsedThisMonthText
-                      : booksUsedThisMonthText}
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <p>No active membership</p>
-            )}
+            <MembershipStatus />
             <div className='user-membership-icon-container'>
               <Paperclip2
                 className='paperclip-icon'
@@ -373,18 +322,6 @@ const UserProfile: React.FC = () => {
       return <p className='no-history'>{noRentalHistoryText}</p>;
     }
   };
-
-  const renderPlaceholders = () => (
-    <div className='user-info'>
-      {/* Default User Icon */}
-      <UserIcon className='user-profile-icon' />
-
-      {/* Placeholder Text */}
-      <p className='user-name'>{nameText}</p>
-      <p className='user-email'>{emailText}</p>
-      <p className='user-phone'>{phoneText}</p>
-    </div>
-  );
 
   return (
     <div className='page-container'>
