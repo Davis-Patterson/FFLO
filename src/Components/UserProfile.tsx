@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { useNavigate } from 'react-router-dom';
 import MiniBookList from 'Components/MiniBookList';
+import MembershipStatus from 'Utils/MembershipStatus';
+import CheckedOut from 'Utils/CheckedOut';
 import UserIcon from 'Svgs/UserIcon';
 import LeafIcon from 'Svgs/LeafIcon';
 import GearIcon from 'Svgs/GearIcon';
@@ -10,14 +12,10 @@ import ScissorsIcon from 'Svgs/ScissorsIcon';
 import GlueIcon from 'Svgs/GlueIcon';
 import Paperclip1 from 'Svgs/Paperclip1';
 import Paperclip2 from 'Svgs/Paperclip2';
-import BookClipart from 'Svgs/BookClipart';
 import PointingIcon from 'Svgs/PointingIcon';
-import Pencil2 from 'Svgs/Pencil2';
-import RulerIcon from 'Svgs/RulerIcon';
-import TapeIcon from 'Svgs/TapeIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/UserProfile.css';
-import MembershipStatus from './MembershipStatus';
+import RentalHistory from './Utils/RentalHistory';
 
 const UserProfile: React.FC = () => {
   const context = useContext(AppContext);
@@ -39,18 +37,10 @@ const UserProfile: React.FC = () => {
   const logoutText = language === 'EN' ? 'Logout' : 'Déconnexion';
   const loginText = language === 'EN' ? 'Login' : 'Se connecter';
   const staffText = language === 'EN' ? 'Staff' : 'Personnelle';
-  const noBookText =
-    language === 'EN'
-      ? 'No book currently checked out.'
-      : 'Aucun livre actuellement extrait.';
   const noBookMemberSubText =
     language === 'EN'
       ? 'Explore our library to find your next read!'
       : 'Explorez pour trouver votre prochaine lecture !';
-  const noRentalHistoryText =
-    language === 'EN'
-      ? 'No rental history available.'
-      : 'Aucun historique de location disponible.';
   const editCategoriesToggleText =
     language === 'EN' ? 'Update Profile' : 'Mettre à jour le profil';
 
@@ -142,7 +132,22 @@ const UserProfile: React.FC = () => {
           </div>
         </div>
         <div className='user-checked-out-container'>
-          {renderCheckedOutBook()}
+          <CheckedOut />
+          <div className='profile-mini-list-container'>
+            <div className='mini-list-books-link-container'>
+              <p
+                className='mini-list-books-link-text'
+                onMouseDown={(e) => handleBooksLink(e)}
+              >
+                {noBookMemberSubText}
+              </p>
+              <PointingIcon
+                className='pointing-icon'
+                onMouseDown={(e) => handleBooksLink(e)}
+              />
+            </div>
+            <MiniBookList />
+          </div>
         </div>
       </div>
     </>
@@ -254,38 +259,11 @@ const UserProfile: React.FC = () => {
           </div>
         </div>
         <div className='user-checked-out-container'>
-          {renderCheckedOutBook()}
-        </div>
-      </div>
-    </>
-  );
-
-  const renderCheckedOutBook = () => {
-    if (authUser?.checked_out?.length) {
-      const book = authUser.checked_out[0];
-      return (
-        <div className='checked-out-book'>
-          <h3>Currently Checked Out</h3>
-          <p>{book.title}</p>
-          <p>Checked out on: {book.rental_date}</p>
-        </div>
-      );
-    } else {
-      return (
-        <>
-          <div className='no-checked-out-header'>
-            <BookClipart className='book-clipart' />
-            <p className='no-checked-out-header-text'>{noBookText}</p>
-            <div className='no-checked-out-header-icons'>
-              <Pencil2 className='pencil-icon' />
-              <TapeIcon className='tape-icon' />
-              <RulerIcon className='ruler-icon' />
-            </div>
-          </div>
-          <div className='no-ckecked-out-content'>
-            <div className='no-checked-out-books-link-container'>
+          <CheckedOut />
+          <div className='profile-mini-list-container'>
+            <div className='mini-list-books-link-container'>
               <p
-                className='no-checked-out-text'
+                className='mini-list-books-link-text'
                 onMouseDown={(e) => handleBooksLink(e)}
               >
                 {noBookMemberSubText}
@@ -297,31 +275,10 @@ const UserProfile: React.FC = () => {
             </div>
             <MiniBookList />
           </div>
-        </>
-      );
-    }
-  };
-
-  const renderRentalHistory = () => {
-    if (authUser?.book_history?.length) {
-      return (
-        <div className='rental-history'>
-          <h3>Rental History</h3>
-          <ul>
-            {authUser.book_history.map((book, index) => (
-              <li key={index}>
-                <p>{book.title}</p>
-                <p>Rented on: {book.rental_date}</p>
-                <p>Returned on: {book.return_date || 'Not returned yet'}</p>
-              </li>
-            ))}
-          </ul>
         </div>
-      );
-    } else {
-      return <p className='no-history'>{noRentalHistoryText}</p>;
-    }
-  };
+      </div>
+    </>
+  );
 
   return (
     <div className='page-container'>
@@ -338,14 +295,7 @@ const UserProfile: React.FC = () => {
             {authUser ? renderUserInfo() : renderPlaceholders()}
           </div>
           <div className='user-profile-history'>
-            {authUser ? (
-              <>{renderRentalHistory()}</>
-            ) : (
-              <>
-                <p>{noBookText}</p>
-                <p>{noRentalHistoryText}</p>
-              </>
-            )}
+            <RentalHistory />
           </div>
         </section>
         <div className='user-info-options'>

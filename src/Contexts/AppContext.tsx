@@ -34,6 +34,15 @@ export interface Book {
   on_hold: boolean;
 }
 
+interface CheckedOutBook {
+  rental_date: string;
+  return_date: string | null;
+  is_active: boolean;
+  book: Book;
+}
+
+interface RentalHistoryItem extends CheckedOutBook {}
+
 export interface Category {
   id: number;
   name: string;
@@ -70,9 +79,9 @@ interface User {
   is_staff: boolean;
   joined_date: string;
   membership: Membership | null;
-  checked_out: any[];
+  checked_out: CheckedOutBook[];
   on_hold: any | null;
-  book_history: any[];
+  book_history: RentalHistoryItem[];
 }
 
 interface IconProps {

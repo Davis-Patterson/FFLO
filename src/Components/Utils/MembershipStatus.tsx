@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Link } from 'react-router-dom';
 import LinearProgress from '@mui/material/LinearProgress';
-import 'Styles/MembershipStatus.css';
+import 'Styles/Utils/MembershipStatus.css';
 
 const MembershipStatus: React.FC = () => {
   const context = useContext(AppContext);

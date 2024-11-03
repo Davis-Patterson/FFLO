@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Link } from 'react-router-dom';
 import { Book } from 'Contexts/AppContext';
@@ -16,11 +16,41 @@ const MiniBookList: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { allBooks, bookmarkedBooks, setBookmarkedBooks, formatTitleForURL } =
-    context;
+  const {
+    authUser,
+    allBooks,
+    bookmarkedBooks,
+    setBookmarkedBooks,
+    formatTitleForURL,
+  } = context;
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [shuffledBooks, setShuffledBooks] = useState<Book[]>([]);
+  const showUnavailable = false;
+
   const booksPerPage = 4;
+
+  useEffect(() => {
+    const shuffleArray = (array: Book[]) => {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    };
+
+    const availableBooks = showUnavailable
+      ? allBooks
+      : allBooks.filter((book) => book.available > 0);
+
+    const checkedOutBookId = authUser?.checked_out?.[0]?.book?.id ?? null;
+    const filteredBookList = availableBooks.filter(
+      (book) => book.id !== checkedOutBookId
+    );
+
+    setShuffledBooks(shuffleArray(filteredBookList));
+  }, [allBooks, authUser, showUnavailable]);
 
   const handleAddBookmark = async (
     e: React.MouseEvent<SVGSVGElement, MouseEvent>,
@@ -82,33 +112,13 @@ const MiniBookList: React.FC = () => {
     }
   };
 
-  const shuffleArray = (array: Book[]) => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  };
-
-  const randomBooks = shuffleArray(allBooks);
-
-  const displayedBooks = [];
-  for (let i = 0; i < booksPerPage; i++) {
-    const bookIndex = (currentIndex + i) % randomBooks.length;
-    displayedBooks.push(randomBooks[bookIndex]);
-  }
-
-  const isAtStart = currentIndex === 0;
-  const isAtEnd = currentIndex + booksPerPage >= allBooks.length;
-
-  if (!allBooks || allBooks.length === 0) {
+  if (!allBooks || !shuffledBooks || shuffledBooks.length === 0) {
     return (
       <>
         <div className='mini-list-container'>
           <div className='mini-list-container-prev'>
             <ChevronRight
-              className={`mini-list-prev ${isAtStart ? 'disabled' : ''}`}
+              className='mini-list-prev disabled'
               onMouseDown={(e) => handlePrev(e)}
             />
           </div>
@@ -119,7 +129,7 @@ const MiniBookList: React.FC = () => {
           </div>
           <div className='mini-list-container-next'>
             <ChevronRight
-              className={`mini-list-next ${isAtEnd ? 'disabled' : ''}`}
+              className='mini-list-next disabled'
               onMouseDown={(e) => handleNext(e)}
             />
           </div>
@@ -127,6 +137,15 @@ const MiniBookList: React.FC = () => {
       </>
     );
   }
+
+  const displayedBooks = [];
+  for (let i = 0; i < booksPerPage; i++) {
+    const bookIndex = (currentIndex + i) % shuffledBooks.length;
+    displayedBooks.push(shuffledBooks[bookIndex]);
+  }
+
+  const isAtStart = currentIndex === 0;
+  const isAtEnd = currentIndex + booksPerPage >= allBooks.length;
 
   return (
     <>

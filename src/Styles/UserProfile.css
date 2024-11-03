@@ -346,19 +346,19 @@
   height: 50px;
 }
 
-.no-ckecked-out-content {
+.profile-mini-list-container {
   display: flex;
   flex-direction: column;
 }
 
-.no-checked-out-books-link-container {
+.mini-list-books-link-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   height: 25px;
 }
 
-.no-checked-out-text {
+.mini-list-books-link-text {
   font-family: 'Patrick Hand', sans-serif;
   letter-spacing: 0.01rem;
   font-size: 1.4rem;
@@ -368,7 +368,7 @@
   cursor: pointer;
   transition: all 0.15s ease-in-out;
 }
-.no-checked-out-text:hover {
+.mini-list-books-link-text:hover {
   color: var(--clr-text-blue);
 }
 
@@ -384,7 +384,7 @@
   width: 35px;
   fill: var(--clr-text-blue);
 }
-.no-checked-out-text:hover + .pointing-icon {
+.mini-list-books-link-text:hover + .pointing-icon {
   width: 35px;
   margin: 2px 0px 0px 15px;
   fill: var(--clr-text-blue);
