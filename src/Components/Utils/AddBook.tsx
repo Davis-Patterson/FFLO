@@ -74,7 +74,8 @@ const AddBook: React.FC = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
-  const [flair, setFlair] = useState('');
+  const [bookLanguage, setBookLanguage] = useState<string>('');
+  const [flair, setFlair] = useState<string>('');
   const [quantity, setQuantity] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
@@ -123,6 +124,9 @@ const AddBook: React.FC = () => {
   const bookFlairPlaceholder = language === 'EN' ? 'Flair' : 'Flair';
   const bookQuantityPlaceholder = language === 'EN' ? 'Quantity' : 'Quantité';
   const bookCreateSubmitText = language === 'EN' ? 'Submit' : 'Soumettre';
+  const languageText = language === 'EN' ? 'Language' : 'Langue';
+  const languagePlaceholder =
+    language === 'EN' ? 'Other language' : 'Autre langue';
   const requiredText = language === 'EN' ? '*required' : '*obligatoire';
   const noCategoriesText =
     language === 'EN' ? 'No categories.' : 'Aucune catégorie.';
@@ -206,6 +210,7 @@ const AddBook: React.FC = () => {
         setImageFile(null);
         setSelectedCategories([]);
         setFlair('');
+        setBookLanguage('');
         setCategoryName('');
         setCategoryDescription('');
         setCategoryFlair('');
@@ -231,7 +236,7 @@ const AddBook: React.FC = () => {
   }, [showAddBookWindow, setShowAddBookWindow]);
 
   useEffect(() => {
-    const isFormEmpty = !title.trim() || !author.trim();
+    const isFormEmpty = !title.trim() || !author.trim() || !bookLanguage.trim();
     setShowAddBookWindowButtonActive(!isFormEmpty);
 
     const isCategoryFormEmpty =
@@ -259,6 +264,7 @@ const AddBook: React.FC = () => {
   }, [
     title,
     author,
+    bookLanguage,
     categoryName,
     editCategoryName,
     categoryDescription,
@@ -281,6 +287,7 @@ const AddBook: React.FC = () => {
       title,
       author,
       description,
+      bookLanguage,
       selectedQuantity,
       imageFile ? [imageFile] : [],
       selectedCategories,
@@ -298,6 +305,7 @@ const AddBook: React.FC = () => {
       setImageFile(null);
       setSelectedCategories([]);
       setFlair('');
+      setBookLanguage('');
 
       const booksResult = await getBooks();
       if (booksResult.success) {
@@ -414,6 +422,21 @@ const AddBook: React.FC = () => {
     }
   };
 
+  const handleSetBookLanguage = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    languageOption: string
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (languageOption === bookLanguage) {
+      setBookLanguage('');
+    } else {
+      setBookLanguage(languageOption);
+    }
+  };
+
   const handleShowCategories = (
     e: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
@@ -503,6 +526,7 @@ const AddBook: React.FC = () => {
     setImageFile(null);
     setSelectedCategories([]);
     setFlair('');
+    setBookLanguage('');
 
     setShowAddBookWindow(false);
     setShowEditCategory(false);
@@ -849,6 +873,46 @@ const AddBook: React.FC = () => {
                           className='book-create-quantity-input'
                         />
                       </div>
+                    </div>
+                    <p className='book-create-label-text'>{`${languageText}${
+                      bookLanguage ? '' : '*'
+                    }`}</p>
+                    <div className='book-create-language-container'>
+                      <div className='book-create-flag-input'>
+                        <FrenchFlag
+                          className={`create-flag ${
+                            !bookLanguage
+                              ? ''
+                              : bookLanguage === 'French'
+                              ? 'selected'
+                              : 'unselected'
+                          }`}
+                          onMouseDown={(e) =>
+                            handleSetBookLanguage(e, 'French')
+                          }
+                        />
+                        <UKFlag
+                          className={`create-flag ${
+                            !bookLanguage
+                              ? ''
+                              : bookLanguage === 'English'
+                              ? 'selected'
+                              : 'unselected'
+                          }`}
+                          onMouseDown={(e) =>
+                            handleSetBookLanguage(e, 'English')
+                          }
+                        />
+                      </div>
+                      <input
+                        type='text'
+                        name='Language'
+                        value={bookLanguage}
+                        maxLength={20}
+                        onChange={(e) => setBookLanguage(e.target.value)}
+                        placeholder={languagePlaceholder}
+                        className='book-create-language-input'
+                      />
                     </div>
                     {!showAddBookWindowButtonActive && (
                       <p className='auth-required'>{requiredText}</p>

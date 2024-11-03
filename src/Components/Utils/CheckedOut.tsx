@@ -39,15 +39,17 @@ const CheckedOut: React.FC = () => {
 
   return (
     <>
-      <div className='checked-out-book'>
-        <h3>Currently Checked Out</h3>
-        <p>{checkedOutBook.title}</p>
-        <p>Checked out on: {authUser.checked_out[0].rental_date}</p>
-      </div>
-      <div className='no-checked-out-header-icons'>
-        <Pencil2 className='pencil-icon' />
-        <TapeIcon className='tape-icon' />
-        <RulerIcon className='ruler-icon' />
+      <div className='checked-out-header'>
+        <div className='checked-out-book'>
+          <h3>Currently Checked Out</h3>
+          <p>{checkedOutBook.title}</p>
+          <p>Checked out on: {authUser.checked_out[0].rental_date}</p>
+        </div>
+        <div className='no-checked-out-header-icons'>
+          <Pencil2 className='pencil-icon' />
+          <TapeIcon className='tape-icon' />
+          <RulerIcon className='ruler-icon' />
+        </div>
       </div>
     </>
   );

@@ -239,6 +239,7 @@ const ServerApi = () => {
     title: string,
     author: string,
     description: string,
+    language: string,
     inventory: number = 1,
     images: File[],
     categories: number[],
@@ -249,6 +250,7 @@ const ServerApi = () => {
       formData.append('title', title);
       formData.append('author', author);
       formData.append('description', description);
+      formData.append('language', language);
       formData.append('inventory', inventory.toString());
 
       if (flair) {
@@ -296,6 +298,7 @@ const ServerApi = () => {
     title: string,
     author: string,
     description: string,
+    language: string,
     inventory: number = 1,
     images: File[],
     imagesToRemove: number[],
@@ -308,6 +311,7 @@ const ServerApi = () => {
       formData.append('title', title);
       formData.append('author', author);
       formData.append('description', description);
+      formData.append('language', language);
       formData.append('inventory', inventory.toString());
 
       if (flair) {

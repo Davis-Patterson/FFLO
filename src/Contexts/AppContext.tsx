@@ -24,6 +24,7 @@ export interface Book {
   title: string;
   author: string;
   description: string;
+  language: string;
   images: BookImage[];
   inventory: number;
   available: number;

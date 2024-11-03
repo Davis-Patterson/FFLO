@@ -9,7 +9,7 @@ import {
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { CSS } from '@dnd-kit/utilities';
 import { useContext } from 'react';
-import { AppContext } from 'Contexts/AppContext';
+import { AppContext, BookImage } from 'Contexts/AppContext';
 import ServerApi from 'Utilities/ServerApi';
 import TitleFlair from 'Svgs/TitleFlair';
 import XIcon from 'Svgs/XIcon';
@@ -57,14 +57,24 @@ const EditBook: React.FC = () => {
     categoryColorOptions,
   } = context;
 
-  const [initialBookData, setInitialBookData] = useState({
+  const [initialBookData, setInitialBookData] = useState<{
+    title: string;
+    author: string;
+    description: string;
+    bookLanguage: string;
+    flair: string;
+    quantity: string;
+    selectedCategories: number[];
+    images: BookImage[] | null;
+  }>({
     title: '',
     author: '',
     description: '',
+    bookLanguage: '',
     flair: '',
     quantity: '',
     selectedCategories: [] as number[],
-    images: [] as any[],
+    images: [],
   });
 
   const [initialCategoryData, setInitialCategoryData] = useState<{
@@ -93,6 +103,7 @@ const EditBook: React.FC = () => {
   const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
   const [flair, setFlair] = useState('');
+  const [bookLanguage, setBookLanguage] = useState('');
   const [quantity, setQuantity] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagesToRemove, setImagesToRemove] = useState<number[]>([]);
@@ -143,6 +154,9 @@ const EditBook: React.FC = () => {
   const bookTitlePlaceholder = language === 'EN' ? 'Title' : 'Titre';
   const bookAuthorPlaceholder = language === 'EN' ? 'Author' : 'Auteur';
   const descPlaceholder = language === 'EN' ? 'Description' : 'Description';
+  const languageText = language === 'EN' ? 'Language' : 'Langue';
+  const languagePlaceholder =
+    language === 'EN' ? 'Other language' : 'Autre langue';
   const bookFlairPlaceholder = language === 'EN' ? 'Flair' : 'Flair';
   const bookQuantityPlaceholder = language === 'EN' ? 'Quantity' : 'Quantité';
   const bookCreateSubmitText = language === 'EN' ? 'Submit' : 'Soumettre';
@@ -206,6 +220,7 @@ const EditBook: React.FC = () => {
       setTitle(selectedBook.title || '');
       setAuthor(selectedBook.author || '');
       setDescription(selectedBook.description || '');
+      setBookLanguage(selectedBook.language || '');
       setFlair(selectedBook.flair || '');
       setQuantity(selectedBook.inventory.toString() || '');
       setSelectedCategories(selectedBook.categories || []);
@@ -214,6 +229,7 @@ const EditBook: React.FC = () => {
         title: selectedBook.title || '',
         author: selectedBook.author || '',
         description: selectedBook.description || '',
+        bookLanguage: selectedBook.language || '',
         flair: selectedBook.flair || '',
         quantity: selectedBook.inventory.toString() || '',
         selectedCategories: selectedBook.categories || [],
@@ -255,6 +271,16 @@ const EditBook: React.FC = () => {
         setShowArchiveBook(false);
         setShowEditBook(true);
         setSelectedBook(null);
+
+        setTitle('');
+        setAuthor('');
+        setDescription('');
+        setBookLanguage('');
+        setQuantity('');
+        setImageFile(null);
+        setSelectedCategories([]);
+        setFlair('');
+        setImagesToRemove([]);
         setCategoryIcon(null);
         setEditCategoryIcon(null);
         setCategoryColor(null);
@@ -275,10 +301,15 @@ const EditBook: React.FC = () => {
 
   useEffect(() => {
     const hasChanges = (): boolean => {
+      if (!title.trim() || !author.trim() || !bookLanguage.trim()) {
+        return false;
+      }
+
       const fieldsChanged =
         title !== initialBookData.title ||
         author !== initialBookData.author ||
         description !== initialBookData.description ||
+        bookLanguage !== initialBookData.bookLanguage ||
         flair !== initialBookData.flair ||
         quantity !== initialBookData.quantity;
 
@@ -323,6 +354,7 @@ const EditBook: React.FC = () => {
     title,
     author,
     description,
+    bookLanguage,
     flair,
     quantity,
     selectedCategories,
@@ -338,6 +370,7 @@ const EditBook: React.FC = () => {
     editCategoryIcon,
     categoryColor,
     editCategoryColor,
+    initialBookData,
     initialCategoryData,
   ]);
 
@@ -358,6 +391,7 @@ const EditBook: React.FC = () => {
       title,
       author,
       description,
+      bookLanguage,
       selectedQuantity,
       imageFile ? [imageFile] : [],
       imagesToRemove,
@@ -578,6 +612,21 @@ const EditBook: React.FC = () => {
     }
   };
 
+  const handleSetBookLanguage = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    languageOption: string
+  ) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (languageOption === bookLanguage) {
+      setBookLanguage('');
+    } else {
+      setBookLanguage(languageOption);
+    }
+  };
+
   const handleShowCategories = (
     e: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
@@ -621,6 +670,8 @@ const EditBook: React.FC = () => {
 
     setTitle('');
     setAuthor('');
+    setDescription('');
+    setBookLanguage('');
     setQuantity('');
     setImageFile(null);
     setSelectedCategories([]);
@@ -1097,6 +1148,46 @@ const EditBook: React.FC = () => {
                               className='book-edit-quantity-input'
                             />
                           </div>
+                        </div>
+                        <p className='book-create-label-text'>{`${languageText}${
+                          bookLanguage ? '' : '*'
+                        }`}</p>
+                        <div className='book-create-language-container'>
+                          <div className='book-create-flag-input'>
+                            <FrenchFlag
+                              className={`create-flag ${
+                                !bookLanguage
+                                  ? ''
+                                  : bookLanguage === 'French'
+                                  ? 'selected'
+                                  : 'unselected'
+                              }`}
+                              onMouseDown={(e) =>
+                                handleSetBookLanguage(e, 'French')
+                              }
+                            />
+                            <UKFlag
+                              className={`create-flag ${
+                                !bookLanguage
+                                  ? ''
+                                  : bookLanguage === 'English'
+                                  ? 'selected'
+                                  : 'unselected'
+                              }`}
+                              onMouseDown={(e) =>
+                                handleSetBookLanguage(e, 'English')
+                              }
+                            />
+                          </div>
+                          <input
+                            type='text'
+                            name='Language'
+                            value={bookLanguage}
+                            maxLength={20}
+                            onChange={(e) => setBookLanguage(e.target.value)}
+                            placeholder={languagePlaceholder}
+                            className='book-create-language-input'
+                          />
                         </div>
                         <div className='category-book-edit-container'>
                           <div

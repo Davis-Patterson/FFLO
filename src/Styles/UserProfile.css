@@ -302,50 +302,6 @@
   height: 45px;
 }
 
-.no-checked-out-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.book-clipart {
-  width: 145px;
-  height: 145px;
-  margin: 0px 5px 0px 0px;
-}
-
-.no-checked-out-header-text {
-  color: var(--clr-text-blue);
-  font-family: 'Lato', sans-serif;
-  font-size: 1.8rem;
-  line-height: 1;
-  font-weight: 600;
-  transform: scaleY(85%);
-  margin: 0px 0px 45px 0px;
-  width: 300px;
-}
-
-.no-checked-out-header-icons {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 20%;
-  gap: 10px;
-}
-.ruler-icon {
-  width: 80px;
-}
-.tape-icon {
-  width: 60px;
-}
-
-.marker-icon,
-.pencil-icon,
-.pen-icon {
-  width: 60px;
-  height: 50px;
-}
-
 .profile-mini-list-container {
   display: flex;
   flex-direction: column;
