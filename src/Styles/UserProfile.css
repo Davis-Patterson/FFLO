@@ -410,6 +410,27 @@
   width: 300px;
 }
 
+.no-checked-out-header-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 20%;
+  gap: 10px;
+}
+.ruler-icon {
+  width: 80px;
+}
+.tape-icon {
+  width: 60px;
+}
+
+.marker-icon,
+.pencil-icon,
+.pen-icon {
+  width: 60px;
+  height: 50px;
+}
+
 .no-ckecked-out-content {
   display: flex;
   flex-direction: column;

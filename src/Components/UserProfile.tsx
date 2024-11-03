@@ -12,6 +12,9 @@ import Paperclip1 from 'Svgs/Paperclip1';
 import Paperclip2 from 'Svgs/Paperclip2';
 import BookClipart from 'Svgs/BookClipart';
 import PointingIcon from 'Svgs/PointingIcon';
+import Pencil2 from 'Svgs/Pencil2';
+import RulerIcon from 'Svgs/RulerIcon';
+import TapeIcon from 'Svgs/TapeIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/UserProfile.css';
 
@@ -324,6 +327,11 @@ const UserProfile: React.FC = () => {
           <div className='no-checked-out-header'>
             <BookClipart className='book-clipart' />
             <p className='no-checked-out-header-text'>{noBookText}</p>
+            <div className='no-checked-out-header-icons'>
+              <Pencil2 className='pencil-icon' />
+              <TapeIcon className='tape-icon' />
+              <RulerIcon className='ruler-icon' />
+            </div>
           </div>
           <div className='no-ckecked-out-content'>
             <div className='no-checked-out-books-link-container'>

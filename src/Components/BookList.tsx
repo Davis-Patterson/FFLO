@@ -85,37 +85,6 @@ const BookList: React.FC = () => {
     setVisibleBooks(10);
   };
 
-  const baseBooks = showBookmarks ? bookmarkedBooks : allBooks;
-  const availableBooks = showUnavailable
-    ? baseBooks
-    : baseBooks.filter((book) => book.available > 0);
-
-  const filteredBookList = availableBooks
-    .filter((book) => {
-      const matchesCategory = categoryFilter
-        ? book.categories.includes(categoryFilter)
-        : true;
-      const matchesSearch = searchQuery
-        ? book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          book.author.toLowerCase().includes(searchQuery.toLowerCase())
-        : true;
-
-      const isCurrentBook = showBookmarks
-        ? null
-        : title && formatTitleForURL(book.title) === title;
-      return matchesCategory && matchesSearch && !isCurrentBook;
-    })
-    .sort((a, b) => {
-      if (filterSetting === 'title-asc') return a.title.localeCompare(b.title);
-      if (filterSetting === 'title-desc') return b.title.localeCompare(a.title);
-      if (filterSetting === 'auth-asc') return a.author.localeCompare(b.author);
-      if (filterSetting === 'auth-desc')
-        return b.author.localeCompare(a.author);
-      return 0;
-    });
-
-  const displayedBooks = filteredBookList.slice(0, visibleBooks);
-
   const handleViewMore = () => {
     setVisibleBooks((prev) => prev + 10);
   };
@@ -230,6 +199,37 @@ const BookList: React.FC = () => {
       console.error('Error in handleRemoveBookmark:', error);
     }
   };
+
+  const baseBooks = showBookmarks ? bookmarkedBooks : allBooks;
+  const availableBooks = showUnavailable
+    ? baseBooks
+    : baseBooks.filter((book) => book.available > 0);
+
+  const filteredBookList = availableBooks
+    .filter((book) => {
+      const matchesCategory = categoryFilter
+        ? book.categories.includes(categoryFilter)
+        : true;
+      const matchesSearch = searchQuery
+        ? book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          book.author.toLowerCase().includes(searchQuery.toLowerCase())
+        : true;
+
+      const isCurrentBook = showBookmarks
+        ? null
+        : title && formatTitleForURL(book.title) === title;
+      return matchesCategory && matchesSearch && !isCurrentBook;
+    })
+    .sort((a, b) => {
+      if (filterSetting === 'title-asc') return a.title.localeCompare(b.title);
+      if (filterSetting === 'title-desc') return b.title.localeCompare(a.title);
+      if (filterSetting === 'auth-asc') return a.author.localeCompare(b.author);
+      if (filterSetting === 'auth-desc')
+        return b.author.localeCompare(a.author);
+      return 0;
+    });
+
+  const displayedBooks = filteredBookList.slice(0, visibleBooks);
 
   return (
     <section className='book-list-container'>
