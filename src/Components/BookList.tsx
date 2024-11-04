@@ -13,22 +13,18 @@ import SidebarClose from 'Svgs/SidebarClose';
 import GearIcon from 'Svgs/GearIcon';
 import BookmarkSolid from 'Svgs/BookmarkSolid';
 import BookmarkOutline from 'Svgs/BookmarkOutline';
-import RulerIcon from 'Svgs/RulerIcon';
-import ScissorsIcon from 'Svgs/ScissorsIcon';
-import GlueIcon from 'Svgs/GlueIcon';
 import TapeIcon from 'Svgs/TapeIcon';
 import Marker2 from 'Svgs/Marker2';
 import Pencil2 from 'Svgs/Pencil2';
 import BookClipart from 'Svgs/BookClipart';
 import Paperclip3 from 'Svgs/Paperclip3';
-import Marker4 from 'Svgs/Marker4';
 import FrenchFlag from 'Svgs/FrenchFlag';
 import UKFlag from 'Svgs/UKFlag';
-import 'Styles/BookList.css';
 import StarColor from 'Svgs/StarColor';
 import StarGrey from 'Svgs/StarGrey';
 import EyeShown from 'Svgs/EyeShown';
 import EyeHidden from 'Svgs/EyeHidden';
+import 'Styles/BookList.css';
 
 const BookList: React.FC = () => {
   const { title } = useParams<{ title: string }>();
@@ -433,8 +429,10 @@ const BookList: React.FC = () => {
                   </div>
                 )}
                 <div className='sidebar-icon-container'>
-                  <Marker2 className='sidebar-marker2' />
-                  <GlueIcon className='sidebar-glue' />
+                  <Marker2
+                    className='sidebar-marker2'
+                    style={{ marginTop: '5px', marginBottom: '5px' }}
+                  />
                 </div>
                 <div className='sidebar-language-container'>
                   <p className='sidebar-content-header-text'>{languageText}</p>
@@ -465,7 +463,6 @@ const BookList: React.FC = () => {
                   </div>
                   <div className='sidebar-icon-container'>
                     <Paperclip3 className='sidebar-paperclip' />
-                    <Marker4 className='sidebar-marker4' />
                   </div>
                 </div>
                 <div className='sidebar-sorting-container'>
@@ -524,7 +521,6 @@ const BookList: React.FC = () => {
                   </div>
                 </div>
                 <div className='sidebar-icon-container'>
-                  <ScissorsIcon className='sidebar-scissors' />
                   <TapeIcon className='sidebar-tape' />
                 </div>
                 <div className='sidebar-view-setting'>
@@ -581,7 +577,6 @@ const BookList: React.FC = () => {
                 </div>
                 <div className='sidebar-icon-container'>
                   <Pencil2 className='sidebar-pencil' />
-                  <RulerIcon className='sidebar-ruler' />
                 </div>
               </div>
             </div>

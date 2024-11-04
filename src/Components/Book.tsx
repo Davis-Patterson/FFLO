@@ -10,12 +10,13 @@ import DefaultBookIcon from 'Svgs/DefaultBookIcon';
 import BookmarkOutline from 'Svgs/BookmarkOutline';
 import BookmarkSolid from 'Svgs/BookmarkSolid';
 import LinearProgress from '@mui/material/LinearProgress';
-import 'Styles/Book.css';
 import UKFlag from 'Svgs/UKFlag';
 import FrenchFlag from 'Svgs/FrenchFlag';
 import StarColor from 'Svgs/StarColor';
 import StarGrey from 'Svgs/StarGrey';
 import BookOpenIcon from 'Svgs/BookOpenIcon';
+import BookRating from './Utils/BookRating';
+import 'Styles/Book.css';
 
 ('https://www.npmjs.com/package/react-simple-image-slider');
 
@@ -45,7 +46,8 @@ const Book: React.FC = () => {
     fullscreenOpen,
     categoryIconOptions,
   } = context;
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -68,7 +70,8 @@ const Book: React.FC = () => {
     language === 'EN' ? 'Book Policies' : 'Politiques du livre';
   const bookDescriptionHeader =
     language === 'EN' ? 'Book Description:' : 'Description du livre :';
-  const availableCopiesText = language === 'EN' ? 'Available:' : 'Disponible:';
+  const availableText = language === 'EN' ? 'Available' : 'Disponible';
+  const unavailableText = language === 'EN' ? 'Unavailable' : 'Indisponible';
   const bookLanguageHeader = language === 'EN' ? 'Language:' : 'Langue :';
   const bookRatingHeader = language === 'EN' ? 'Rating:' : 'Notation :';
   const noRatingText = language === 'EN' ? 'No rating' : 'Aucune note';
@@ -274,9 +277,14 @@ const Book: React.FC = () => {
             <div className='book-detail-info-header'>
               <h2 className='book-detail-title-text'>{book.title}</h2>
               <p className='book-detail-author-text'>{book.author}</p>
+              {book.available ? (
+                <p className='book-detail-available'>{availableText}</p>
+              ) : (
+                <p className='book-detail-unavailable'>{unavailableText}</p>
+              )}
             </div>
             <div className='book-detail-checkout-container'>
-              <div className='book-detail-rating-'></div>
+              <BookRating />
               {!authUser?.is_staff && (
                 <button
                   className='submit-button'
@@ -388,7 +396,7 @@ const Book: React.FC = () => {
             </div>
           )}
           <div className='book-details-item-container'>
-            <p className='book-details-label-text'>{availableCopiesText}</p>
+            <p className='book-details-label-text'>{availableText}:</p>
             <div className='book-details-multi-item'>
               <BookOpenIcon className='book-details-book-open-icon' />
               <p className='book-details-number-text'>{book.available}</p>

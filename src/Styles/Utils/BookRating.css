@@ -1,0 +1,17 @@
+.book-rating-stars-container {
+  width: 150px;
+}
+
+.book-rating-stars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+  gap: 5px;
+  margin: 0px 0px 10px 0px;
+}
+
+.book-rating-star {
+  width: 25px;
+  cursor: pointer;
+}
