@@ -140,7 +140,7 @@
 }
 
 .book-detail-info-container {
-  margin: 0px 0px 0px 20px;
+  margin: 0px 10px 0px 10px;
   width: 300px;
   display: flex;
   flex-direction: column;
@@ -154,22 +154,21 @@
 
 .book-detail-title-text {
   font-family: 'Lato', sans-serif;
-  font-size: 1.6em;
+  font-size: 1.9em;
   font-weight: 600;
-  line-height: 1.2;
-  transform: scaleY(90%);
-  color: var(--clr-dark);
-  margin: 0px 0px 2px 0px;
+  line-height: 1.05;
+  transform: scaleY(95%);
+  color: var(--clr-text-blue);
+  margin: 0px 0px 10px 0px;
 }
 
 .book-detail-author-text {
   font-family: 'Lato', sans-serif;
-  font-size: 1.2em;
+  font-size: 1.35em;
   font-weight: 400;
   line-height: 1;
-  transform: scaleY(90%);
-  font-style: italic;
-  color: var(--clr-icon);
+  transform: scaleY(95%);
+  color: var(--clr-text-grey);
   margin: 0;
 }
 
@@ -191,28 +190,112 @@
   justify-content: space-between;
 }
 
-.book-details-description-container {
+.book-details-info-container {
   display: flex;
   flex-direction: column;
   max-width: 700px;
+  gap: 20px;
 }
 
-.book-details-description-header {
+.book-details-item-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.book-details-category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.book-details-label-text {
   font-family: 'Merriweather', serif;
-  font-size: 1.05em;
+  font-size: 1.15em;
   font-weight: 600;
   line-height: 1.2;
   transform: scaleY(90%);
   color: var(--clr-text-blue);
 }
 
-.book-details-description-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.05em;
+.book-details-text,
+.book-details-number-text,
+.book-details-category-text,
+.book-details-no-rating-text {
+  font-family: 'Patrick Hand', sans-serif;
   font-weight: 400;
   line-height: 1.1;
-  transform: scaleY(90%);
   color: var(--clr-text-grey);
+}
+.book-details-text {
+  font-size: 1.25em;
+  transform: scaleY(85%);
+}
+.book-details-number-text {
+  font-size: 1.6em;
+  transform: scaleY(85%);
+}
+.book-details-category-text {
+  font-size: 1.25em;
+  transform: scaleY(85%);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+.book-details-category-text:hover {
+  color: var(--clr-text-blue);
+}
+
+.book-details-multi-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.book-details-language-flag {
+  width: 25px;
+  margin: 1px 0px 0px 0px;
+}
+
+.book-details-star-icon {
+  width: 20px;
+}
+
+.book-details-book-open-icon {
+  width: 22px;
+  fill: var(--clr-icon);
+  margin: 2px 0px 0px 0px;
+}
+
+.book-details-categories-icon {
+  width: 22px;
+  fill: var(--clr-icon);
+  margin: 2px 0px 0px 0px;
+}
+
+.book-details-category-icon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.policy-button {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  line-height: 1;
+  font-weight: 400;
+  width: 100%;
+  height: 30px;
+  padding: 0.25rem;
+  color: var(--clr-light);
+  background-color: var(--clr-text-blue);
+  border: none;
+  cursor: pointer;
+  max-width: 120px;
+  margin: 20px 0px 0px 0px;
+}
+.policy-button:hover {
+  background-color: var(--clr-text-blue-hover);
 }
 
 .book-bookmark-toggle-container {

@@ -19,6 +19,13 @@ export interface BookImage {
   image_small: string | null;
 }
 
+export interface BookRating {
+  id: number;
+  book: number;
+  user: number;
+  rating: number;
+}
+
 export interface Book {
   id: number;
   title: string;
@@ -33,6 +40,8 @@ export interface Book {
   categories: number[];
   archived: boolean;
   on_hold: boolean;
+  rating: number | null;
+  ratings: BookRating[] | null;
 }
 
 interface CheckedOutBook {

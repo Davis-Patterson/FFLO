@@ -3,7 +3,9 @@ import { Link, useParams } from 'react-router-dom';
 import { AppContext } from 'Contexts/AppContext';
 import { Book } from 'Contexts/AppContext';
 import ServerApi from 'Utilities/ServerApi';
-import BookCoverIcon from 'Svgs/BookCoverIcon';
+import FrenchBookIcon from 'Svgs/FrenchBookIcon';
+import EnglishBookIcon from 'Svgs/EnglishBookIcon';
+import DefaultBookIcon from 'Svgs/DefaultBookIcon';
 import GridIcon from 'Svgs/GridIcon';
 import ListIcon from 'Svgs/ListIcon';
 import SidebarOpen from 'Svgs/SidebarOpen';
@@ -17,7 +19,16 @@ import GlueIcon from 'Svgs/GlueIcon';
 import TapeIcon from 'Svgs/TapeIcon';
 import Marker2 from 'Svgs/Marker2';
 import Pencil2 from 'Svgs/Pencil2';
+import BookClipart from 'Svgs/BookClipart';
+import Paperclip3 from 'Svgs/Paperclip3';
+import Marker4 from 'Svgs/Marker4';
+import FrenchFlag from 'Svgs/FrenchFlag';
+import UKFlag from 'Svgs/UKFlag';
 import 'Styles/BookList.css';
+import StarColor from 'Svgs/StarColor';
+import StarGrey from 'Svgs/StarGrey';
+import EyeShown from 'Svgs/EyeShown';
+import EyeHidden from 'Svgs/EyeHidden';
 
 const BookList: React.FC = () => {
   const { title } = useParams<{ title: string }>();
@@ -43,12 +54,17 @@ const BookList: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [fetchedCategories, setFetchedCategories] = useState(false);
 
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [viewSetting, setViewSetting] = useState<string>('grid');
   const [filterSetting, setFilterSetting] = useState<string>('title-asc');
   const [visibleBooks, setVisibleBooks] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
   const [showBookmarks, setShowBookmarks] = useState(false);
-  const showUnavailable = false;
+  const [showUnavailable, setShowUnavailable] = useState(false);
+
+  const uniqueLanguages = Array.from(
+    new Set(allBooks.map((book) => book.language))
+  );
 
   // translations
   const gridViewText = language === 'EN' ? 'Grid' : 'Grille';
@@ -62,8 +78,14 @@ const BookList: React.FC = () => {
     language === 'EN' ? 'Categories' : 'Catégories';
   const allBooksText = language === 'EN' ? 'All Books' : 'Tous les livres';
   const bookmarksText = language === 'EN' ? 'Bookmarks' : 'Signets';
+  const languageText = language === 'EN' ? 'Language' : 'Langue';
+  const ratingText = language === 'EN' ? 'Rating' : 'Notation';
+  const allLanguagesText =
+    language === 'EN' ? 'All Languages' : 'Toutes les langues';
   const sortByText = language === 'EN' ? 'Sort By' : 'Trier Par';
-  const viewModeText = language === 'EN' ? 'View Mode' : "Mode d'Affichage";
+  const viewModeText =
+    language === 'EN' ? 'View Settings' : 'Afficher les paramètres';
+  const unavailableText = language === 'EN' ? 'Unavailable' : 'Indisponible';
   const noBooksFoundText =
     language === 'EN'
       ? 'No books match your search.'
@@ -72,6 +94,16 @@ const BookList: React.FC = () => {
     language === 'EN'
       ? 'Your search did not match the title or author of any book. Please try again.'
       : "Votre recherche ne correspond au titre ou à l'auteur d'aucun livre. Veuillez réessayer.";
+
+  const getBookIcon = (book: Book) => {
+    if (book?.language === 'French') {
+      return <FrenchBookIcon className='book-detail-cover-icon' />;
+    } else if (book?.language === 'English') {
+      return <EnglishBookIcon className='book-detail-cover-icon' />;
+    } else {
+      return <DefaultBookIcon className='book-detail-cover-icon' />;
+    }
+  };
 
   const handleToggleViewSetting = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
@@ -206,6 +238,19 @@ const BookList: React.FC = () => {
     }
   };
 
+  const handleLanguageFilter = (language: string | null) => {
+    setSelectedLanguage(language);
+    setVisibleBooks(10);
+  };
+
+  const handleToggleUnavailable = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setShowUnavailable(!showUnavailable);
+  };
+
   const baseBooks = showBookmarks ? bookmarkedBooks : allBooks;
   const availableBooks = showUnavailable
     ? baseBooks
@@ -216,6 +261,9 @@ const BookList: React.FC = () => {
       const matchesCategory = categoryFilter
         ? book.categories.includes(categoryFilter)
         : true;
+      const matchesLanguage = selectedLanguage
+        ? book.language === selectedLanguage
+        : true;
       const matchesSearch = searchQuery
         ? book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           book.author.toLowerCase().includes(searchQuery.toLowerCase())
@@ -224,7 +272,9 @@ const BookList: React.FC = () => {
       const isCurrentBook = showBookmarks
         ? null
         : title && formatTitleForURL(book.title) === title;
-      return matchesCategory && matchesSearch && !isCurrentBook;
+      return (
+        matchesCategory && matchesLanguage && matchesSearch && !isCurrentBook
+      );
     })
     .sort((a, b) => {
       if (filterSetting === 'title-asc') return a.title.localeCompare(b.title);
@@ -232,6 +282,7 @@ const BookList: React.FC = () => {
       if (filterSetting === 'auth-asc') return a.author.localeCompare(b.author);
       if (filterSetting === 'auth-desc')
         return b.author.localeCompare(a.author);
+      if (filterSetting === 'rating') return (b.rating || 0) - (a.rating || 0);
       return 0;
     });
 
@@ -274,6 +325,7 @@ const BookList: React.FC = () => {
               <option value='title-desc'>{titleText} (Z-A)</option>
               <option value='auth-asc'>{authorText} (A-Z)</option>
               <option value='auth-desc'>{authorText} (Z-A)</option>
+              <option value='rating'>{ratingText}</option>
             </select>
           </div>
         </div>
@@ -381,8 +433,40 @@ const BookList: React.FC = () => {
                   </div>
                 )}
                 <div className='sidebar-icon-container'>
-                  <Marker2 className='sidebar-marker' />
+                  <Marker2 className='sidebar-marker2' />
                   <GlueIcon className='sidebar-glue' />
+                </div>
+                <div className='sidebar-language-container'>
+                  <p className='sidebar-content-header-text'>{languageText}</p>
+                  <div className='sidebar-language-options'>
+                    <p
+                      className={`sidebar-content-item ${
+                        !selectedLanguage
+                          ? 'sidebar-content-item-selected'
+                          : 'sidebar-content-item-deselected'
+                      }`}
+                      onMouseDown={() => handleLanguageFilter(null)}
+                    >
+                      {allLanguagesText}
+                    </p>
+                    {uniqueLanguages.map((lang) => (
+                      <p
+                        key={lang}
+                        className={`sidebar-content-item ${
+                          selectedLanguage === lang
+                            ? 'sidebar-content-item-selected'
+                            : 'sidebar-content-item-deselected'
+                        }`}
+                        onMouseDown={() => handleLanguageFilter(lang)}
+                      >
+                        {lang}
+                      </p>
+                    ))}
+                  </div>
+                  <div className='sidebar-icon-container'>
+                    <Paperclip3 className='sidebar-paperclip' />
+                    <Marker4 className='sidebar-marker4' />
+                  </div>
                 </div>
                 <div className='sidebar-sorting-container'>
                   <p className='sidebar-content-header-text'>{sortByText}</p>
@@ -427,6 +511,16 @@ const BookList: React.FC = () => {
                     >
                       {authorText} (Z-A)
                     </p>
+                    <p
+                      className={`${
+                        filterSetting === 'rating'
+                          ? 'sidebar-content-item-selected'
+                          : 'sidebar-content-item-deselected'
+                      }`}
+                      onMouseDown={() => setFilterSetting('rating')}
+                    >
+                      {ratingText}
+                    </p>
                   </div>
                 </div>
                 <div className='sidebar-icon-container'>
@@ -438,6 +532,31 @@ const BookList: React.FC = () => {
                     {viewModeText}
                   </p>
                   <div className='sidebar-view-options'>
+                    <div className='sidebar-unavailable-toggle-container'>
+                      <p
+                        className={`${
+                          showUnavailable
+                            ? 'sidebar-content-unavailable-selected'
+                            : 'sidebar-content-unavailable-deselected'
+                        }`}
+                        onMouseDown={(e) => handleToggleUnavailable(e)}
+                      >
+                        {unavailableText}
+                      </p>
+                      <div className='hidden-icon-container'>
+                        {showUnavailable ? (
+                          <EyeShown
+                            className='shown-icon'
+                            onMouseDown={(e) => handleToggleUnavailable(e)}
+                          />
+                        ) : (
+                          <EyeHidden
+                            className='hidden-icon'
+                            onMouseDown={(e) => handleToggleUnavailable(e)}
+                          />
+                        )}
+                      </div>
+                    </div>
                     <p
                       className={`${
                         viewSetting === 'grid'
@@ -473,7 +592,7 @@ const BookList: React.FC = () => {
             <div className='no-books-message'>
               <div className='book-image-list-container'>
                 <div className='book-image-wrapper'>
-                  <BookCoverIcon className='book-list-cover-icon' />
+                  <BookClipart className='book-list-cover-icon' />
                 </div>
               </div>
               <div className='no-book-info'>
@@ -493,7 +612,15 @@ const BookList: React.FC = () => {
                     (b) => b.id === book.id
                   );
                   return (
-                    <Link key={book.id} to={bookUrl} className='book-card'>
+                    <Link
+                      key={book.id}
+                      to={bookUrl}
+                      className={`${
+                        book.available < 1
+                          ? 'book-card-unavailable'
+                          : 'book-card'
+                      }`}
+                    >
                       <div className='book-image-container'>
                         <div className='book-list-bookmark-toggle-container'>
                           {isBookmarked ? (
@@ -534,13 +661,44 @@ const BookList: React.FC = () => {
                               }}
                             />
                           ) : (
-                            <BookCoverIcon className='book-list-cover-icon' />
+                            getBookIcon(book)
                           )}
                         </div>
                       </div>
                       <div className='book-info'>
-                        <h3 className='book-title'>{book.title}</h3>
+                        <h3
+                          className={`${
+                            book.available < 1
+                              ? 'book-title-unavailable'
+                              : 'book-title'
+                          }`}
+                        >
+                          {book.title}
+                        </h3>
                         <p className='book-author'>{book.author}</p>
+                        <div className='book-language-rating-container'>
+                          <p className='book-language'>{book.language}</p>
+                          {book.language === 'French' && (
+                            <FrenchFlag className='book-language-flag' />
+                          )}
+                          {book.language === 'English' && (
+                            <UKFlag className='book-language-flag' />
+                          )}
+                          <p className='pipe-icon'>|</p>
+                          <div className='rating-container'>
+                            {!book.rating && (
+                              <StarGrey className='book-grid-star-icon' />
+                            )}
+                            {book.rating && (
+                              <>
+                                <StarColor className='book-grid-star-icon' />
+                                <p className='book-grid-rating'>
+                                  {book.rating}
+                                </p>
+                              </>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </Link>
                   );
@@ -556,7 +714,15 @@ const BookList: React.FC = () => {
                     (b) => b.id === book.id
                   );
                   return (
-                    <Link key={book.id} to={bookUrl} className='book-card-list'>
+                    <Link
+                      key={book.id}
+                      to={bookUrl}
+                      className={`${
+                        book.available < 1
+                          ? 'book-card-list-unavailable'
+                          : 'book-card-list'
+                      }`}
+                    >
                       <div className='book-image-list-container'>
                         <div className='book-list-bookmark-toggle-container'>
                           {isBookmarked ? (
@@ -597,14 +763,47 @@ const BookList: React.FC = () => {
                               }}
                             />
                           ) : (
-                            <BookCoverIcon className='book-list-cover-icon' />
+                            getBookIcon(book)
                           )}
                         </div>
                       </div>
                       <div className='book-list-info'>
                         <div className='book-list-title-author'>
-                          <h3 className='book-list-title'>{book.title}</h3>
+                          <h3
+                            className={`${
+                              book.available < 1
+                                ? 'book-list-title-unavailable'
+                                : 'book-list-title'
+                            }`}
+                          >
+                            {book.title}
+                          </h3>
                           <p className='book-list-author'>{book.author}</p>
+                          <div className='book-list-language-rating-container'>
+                            <p className='book-list-language'>
+                              {book.language}
+                            </p>
+                            {book.language === 'French' && (
+                              <FrenchFlag className='book-list-language-flag' />
+                            )}
+                            {book.language === 'English' && (
+                              <UKFlag className='book-list-language-flag' />
+                            )}
+                            <p className='pipe-icon'>|</p>
+                            <div className='rating-container'>
+                              {!book.rating && (
+                                <StarGrey className='book-list-star-icon' />
+                              )}
+                              {book.rating && (
+                                <>
+                                  <StarColor className='book-list-star-icon' />
+                                  <p className='book-list-rating'>
+                                    {book.rating}
+                                  </p>
+                                </>
+                              )}
+                            </div>
+                          </div>
                         </div>
                         <div className='book-list-desc'>
                           <p className='book-list-desc-text'>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Book } from 'Contexts/AppContext';
 import ServerApi from 'Utilities/ServerApi';
 import ChevronRight from 'Svgs/ChevronRight';
-import BookCoverIcon from 'Svgs/BookCoverIcon';
+import FrenchBookIcon from 'Svgs/FrenchBookIcon';
 import BookmarkSolid from 'Svgs/BookmarkSolid';
 import BookmarkOutline from 'Svgs/BookmarkOutline';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -208,7 +208,7 @@ const MiniBookList: React.FC = () => {
                           }}
                         />
                       ) : (
-                        <BookCoverIcon className='mini-list-cover-icon' />
+                        <FrenchBookIcon className='mini-list-cover-icon' />
                       )}
                     </div>
                   </div>

@@ -85,7 +85,7 @@ const UserProfile: React.FC = () => {
     event.preventDefault();
     event.stopPropagation();
 
-    navigate('/Books');
+    navigate('/books');
   };
 
   const renderPlaceholders = () => (

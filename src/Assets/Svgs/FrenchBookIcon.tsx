@@ -2,9 +2,9 @@ import React from 'react';
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const BookCoverIcon: React.FC<IconProps> = (props) => (
+const FrenchBookCover: React.FC<IconProps> = (props) => (
   <svg
-    id='BookCoverIcon'
+    id='FrenchBookCover'
     data-name='Layer 4 Image'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 108.01 148.82'
@@ -133,4 +133,4 @@ const BookCoverIcon: React.FC<IconProps> = (props) => (
   </svg>
 );
 
-export default BookCoverIcon;
+export default FrenchBookCover;

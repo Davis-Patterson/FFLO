@@ -883,7 +883,7 @@ const AddBook: React.FC = () => {
                           className={`create-flag ${
                             !bookLanguage
                               ? ''
-                              : bookLanguage === 'French'
+                              : bookLanguage.toLowerCase() === 'french'
                               ? 'selected'
                               : 'unselected'
                           }`}
@@ -895,7 +895,7 @@ const AddBook: React.FC = () => {
                           className={`create-flag ${
                             !bookLanguage
                               ? ''
-                              : bookLanguage === 'English'
+                              : bookLanguage.toLowerCase() === 'english'
                               ? 'selected'
                               : 'unselected'
                           }`}

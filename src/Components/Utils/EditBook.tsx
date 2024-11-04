@@ -18,7 +18,7 @@ import BackArrow from 'Svgs/BackArrow';
 import BookOpenIcon from 'Svgs/BookOpenIcon';
 import TrashIcon from 'Svgs/TrashIcon';
 import CheckIcon from 'Svgs/CheckIcon';
-import BookCoverIcon from 'Svgs/BookCoverIcon';
+import FrenchBookIcon from 'Svgs/FrenchBookIcon';
 import DragIcon from 'Svgs/DragIcon';
 import UKFlag from 'Svgs/UKFlag';
 import FrenchFlag from 'Svgs/FrenchFlag';
@@ -309,8 +309,10 @@ const EditBook: React.FC = () => {
         title !== initialBookData.title ||
         author !== initialBookData.author ||
         description !== initialBookData.description ||
-        bookLanguage !== initialBookData.bookLanguage ||
-        flair !== initialBookData.flair ||
+        bookLanguage.trim().toLowerCase() !==
+          initialBookData.bookLanguage.trim().toLowerCase() ||
+        flair.trim().toLowerCase() !==
+          initialBookData.flair.trim().toLowerCase() ||
         quantity !== initialBookData.quantity;
 
       const categoriesChanged = !(
@@ -1158,7 +1160,7 @@ const EditBook: React.FC = () => {
                               className={`create-flag ${
                                 !bookLanguage
                                   ? ''
-                                  : bookLanguage === 'French'
+                                  : bookLanguage.toLowerCase() === 'french'
                                   ? 'selected'
                                   : 'unselected'
                               }`}
@@ -1170,7 +1172,7 @@ const EditBook: React.FC = () => {
                               className={`create-flag ${
                                 !bookLanguage
                                   ? ''
-                                  : bookLanguage === 'English'
+                                  : bookLanguage.toLowerCase() === 'english'
                                   ? 'selected'
                                   : 'unselected'
                               }`}
@@ -1368,7 +1370,7 @@ const EditBook: React.FC = () => {
                                           />
                                         </>
                                       ) : (
-                                        <BookCoverIcon className='book-icon-thumbnail' />
+                                        <FrenchBookIcon className='book-icon-thumbnail' />
                                       )}
                                     </div>
                                   </div>
