@@ -27,6 +27,8 @@ const CheckedOut: React.FC = () => {
     language === 'EN'
       ? 'No book currently checked out.'
       : 'Aucun livre actuellement extrait.';
+  const startText = language === 'EN' ? 'Start:' : 'Commencer:';
+  const dueText = language === 'EN' ? 'Due:' : 'Exigible:';
 
   const getBookIcon = (book: Book) => {
     if (book?.language === 'French') {
@@ -101,17 +103,11 @@ const CheckedOut: React.FC = () => {
           </div>
         </div>
         <div className='checked-out-book-info'>
-          <h3 className='checked-out-book-title'>{checkedOutBook.title}</h3>
-          <p className='checked-out-book-author'>{checkedOutBook.author}</p>
-          <p className='checked-out-book-date'>
-            Checked out on: {formatDate(checkedOutData.rental_date)}
-          </p>
-          <p className='checked-out-book-due-date'>
-            Due date: {formatDate(checkedOutData.due_date)}
-          </p>
           <div className={`checked-out-book-status ${statusClass}`}>
             <span>{statusText}</span>
           </div>
+          <h3 className='checked-out-book-title'>{checkedOutBook.title}</h3>
+          <p className='checked-out-book-author'>{checkedOutBook.author}</p>
           <div className='checked-out-book-language-rating'>
             <p className='checked-out-book-language'>
               {checkedOutBook.language}
@@ -136,6 +132,12 @@ const CheckedOut: React.FC = () => {
               )}
             </div>
           </div>
+          <p className='checked-out-book-date'>
+            {startText} {formatDate(checkedOutData.rental_date)}
+          </p>
+          <p className='checked-out-book-due-date'>
+            {dueText} {formatDate(checkedOutData.due_date)}
+          </p>
         </div>
       </Link>
       <div className='no-checked-out-header-icons'>

@@ -331,7 +331,7 @@
 .pointing-icon {
   width: 30px;
   height: 25px;
-  margin: 1px 0px 0px 10px;
+  margin: 0px 0px 0px 10px;
   fill: var(--clr-icon);
   cursor: pointer;
   transition: all 0.15s ease-in-out;
@@ -344,4 +344,51 @@
   width: 35px;
   margin: 2px 0px 0px 15px;
   fill: var(--clr-text-blue);
+}
+
+.input-token-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-token-input {
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.token-input {
+  padding: 8px;
+  background-color: var(--clr-light);
+  color: var(--clr-text-blue);
+  border: 1px solid var(--clr-icon);
+  width: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.token-button {
+  padding: 4px;
+  cursor: pointer;
+  border: 1px solid var(--clr-icon);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+.token-button:hover {
+  padding: 4px;
+  cursor: pointer;
+  border: 1px solid var(--clr-text-blue);
+  background-color: var(--clr-text-blue);
+  color: var(--clr-light);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
 }

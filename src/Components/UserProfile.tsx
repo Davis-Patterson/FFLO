@@ -22,10 +22,19 @@ const UserProfile: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authUser, setShowAuth, setShowEdit, setShowAddBookWindow, language } =
-    context;
+  const {
+    authToken,
+    setAuthToken,
+    authUser,
+    setShowAuth,
+    setShowEdit,
+    setShowAddBookWindow,
+    language,
+  } = context;
 
   const [isAdminLoading, setIsAdminLoading] = useState(false);
+  const [token, setToken] = useState('');
+  const [adminToken, setAdminToken] = useState('');
 
   const navigate = useNavigate();
 
@@ -86,6 +95,14 @@ const UserProfile: React.FC = () => {
     event.stopPropagation();
 
     navigate('/books');
+  };
+
+  const handleTokenSet = () => {
+    setAuthToken(token);
+  };
+
+  const handleAdminTokenSet = () => {
+    setAuthToken(adminToken);
   };
 
   const renderPlaceholders = () => (
@@ -282,6 +299,40 @@ const UserProfile: React.FC = () => {
 
   return (
     <div className='page-container'>
+      <div className='input-token-container'>
+        <div className='input-token-input'>
+          <input
+            type='text'
+            name='token'
+            value={adminToken}
+            onChange={(e) => setAdminToken(e.target.value)}
+            required
+            placeholder={
+              authToken && authUser?.is_staff ? `${authToken}` : 'Token'
+            }
+            className='token-input'
+          />
+          <div className='token-button' onClick={handleAdminTokenSet}>
+            adm
+          </div>
+        </div>
+        <div className='input-token-input'>
+          <input
+            type='text'
+            name='token'
+            value={token}
+            onChange={(e) => setToken(e.target.value)}
+            required
+            placeholder={
+              authToken && !authUser?.is_staff ? `${authToken}` : 'Token'
+            }
+            className='token-input'
+          />
+          <div className='token-button' onClick={handleTokenSet}>
+            user
+          </div>
+        </div>
+      </div>
       <div className='user-profile-container'>
         <header className='user-profile-header'>
           <div className='user-profile-header-title'>
