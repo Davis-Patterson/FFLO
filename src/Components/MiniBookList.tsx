@@ -9,6 +9,8 @@ import BookmarkSolid from 'Svgs/BookmarkSolid';
 import BookmarkOutline from 'Svgs/BookmarkOutline';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/MiniBookList.css';
+import EnglishBookIcon from 'Svgs/EnglishBookIcon';
+import DefaultBookIcon from 'Svgs/DefaultBookIcon';
 
 const MiniBookList: React.FC = () => {
   const { createBookmark, deleteBookmark } = ServerApi();
@@ -164,6 +166,16 @@ const MiniBookList: React.FC = () => {
               const isBookmarked = bookmarkedBooks.some(
                 (b) => b.id === book.id
               );
+
+              const getBookIcon = () => {
+                if (book?.language === 'French') {
+                  return <FrenchBookIcon className='mini-list-cover-icon' />;
+                } else if (book?.language === 'English') {
+                  return <EnglishBookIcon className='mini-list-cover-icon' />;
+                } else {
+                  return <DefaultBookIcon className='mini-list-cover-icon' />;
+                }
+              };
               return (
                 <Link
                   key={book.id}
@@ -208,7 +220,7 @@ const MiniBookList: React.FC = () => {
                           }}
                         />
                       ) : (
-                        <FrenchBookIcon className='mini-list-cover-icon' />
+                        getBookIcon()
                       )}
                     </div>
                   </div>

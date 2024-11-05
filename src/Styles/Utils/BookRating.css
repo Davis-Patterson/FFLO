@@ -1,3 +1,19 @@
+.rating-text-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.rating-text {
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1;
+  transform: scaleY(90%);
+  font-style: italic;
+  color: var(--clr-text-grey);
+  margin: 0px 0px 2px 2px;
+}
+
 .book-rating-stars-container {
   width: 150px;
 }
@@ -6,12 +22,75 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 5px;
-  gap: 5px;
   margin: 0px 0px 10px 0px;
 }
 
 .book-rating-star {
   width: 25px;
   cursor: pointer;
+}
+
+.book-rating-star-wrapper {
+  width: 100%;
+  padding: 5px 8px 5px 2px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#StarIcon {
+  cursor: pointer;
+}
+.star-icon-path-outline,
+.star-icon-path-1,
+.star-icon-path-2,
+.star-icon-path-3,
+.star-icon-path-4 {
+  transition: all 0.3s ease-in-out;
+}
+.star-icon-path-outline {
+  fill: var(--clr-star-grey-outline);
+}
+.star-icon-path-1 {
+  fill: var(--clr-star-grey-1);
+}
+.star-icon-path-2 {
+  fill: var(--clr-star-grey-2);
+}
+.star-icon-path-3 {
+  fill: var(--clr-star-grey-3);
+}
+.star-icon-path-4 {
+  fill: var(--clr-star-grey-4);
+}
+/* #StarIcon:hover .star-icon-path-outline {
+  fill: var(--clr-star-color-outline);
+}
+#StarIcon:hover .star-icon-path-1 {
+  fill: var(--clr-star-color-1);
+}
+#StarIcon:hover .star-icon-path-2 {
+  fill: var(--clr-star-color-2);
+}
+#StarIcon:hover .star-icon-path-3 {
+  fill: var(--clr-star-color-3);
+}
+#StarIcon:hover .star-icon-path-4 {
+  fill: var(--clr-star-color-4);
+} */
+.star-icon-path-outline-filled {
+  fill: var(--clr-star-color-outline);
+}
+.star-icon-path-1-filled {
+  fill: var(--clr-star-color-1);
+}
+.star-icon-path-2-filled {
+  fill: var(--clr-star-color-2);
+}
+.star-icon-path-3-filled {
+  fill: var(--clr-star-color-3);
+}
+.star-icon-path-4-filled {
+  fill: var(--clr-star-color-4);
 }

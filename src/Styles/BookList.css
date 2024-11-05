@@ -616,7 +616,6 @@
 .book-list-cover-icon {
   height: 200px;
   width: 100%;
-  fill: var(--clr-icon);
   transform: scaleX(108%);
 }
 

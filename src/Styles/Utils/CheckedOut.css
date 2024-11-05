@@ -42,3 +42,116 @@
   width: 60px;
   height: 50px;
 }
+
+.checked-out-book-container {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.checked-out-book-link {
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+}
+
+.checked-out-book-image-container {
+  margin-right: 16px;
+  flex: 0 0 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checked-out-book-image-wrapper {
+  width: 100px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checked-out-book-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-clipart-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.checked-out-book-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.checked-out-book-title {
+  font-size: 1.25em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.checked-out-book-author {
+  font-size: 1em;
+  color: #666;
+}
+
+.checked-out-book-date {
+  font-size: 0.9em;
+  color: #888;
+}
+
+.checked-out-book-language-rating {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.checked-out-book-language {
+  font-size: 0.9em;
+  margin-right: 8px;
+}
+
+.book-language-flag {
+  width: 20px;
+  height: auto;
+  margin-right: 8px;
+}
+
+.pipe-icon {
+  margin: 0 8px;
+  font-size: 0.9em;
+  color: #888;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+}
+
+.checked-out-star-icon {
+  width: 20px;
+  height: 20px;
+  color: gold;
+}
+
+.checked-out-book-rating {
+  font-size: 1em;
+  margin-left: 4px;
+  color: #333;
+}
+
+.no-checked-out-header-icons {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}

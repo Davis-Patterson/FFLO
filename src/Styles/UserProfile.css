@@ -330,7 +330,7 @@
 
 .pointing-icon {
   width: 30px;
-  height: auto;
+  height: 25px;
   margin: 1px 0px 0px 10px;
   fill: var(--clr-icon);
   cursor: pointer;

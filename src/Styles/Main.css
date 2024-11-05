@@ -67,6 +67,16 @@
   --clr-success: #00ff00;
   --clr-member-green: #00b900;
   --clr-transparent: #ffffff00;
+  --clr-star-color-outline: #223a6f;
+  --clr-star-color-1: #fda71e;
+  --clr-star-color-2: #fed82d;
+  --clr-star-color-3: #fce371;
+  --clr-star-color-4: #fefefc;
+  --clr-star-grey-outline: #636a66;
+  --clr-star-grey-1: #8d8d8d;
+  --clr-star-grey-2: #959595;
+  --clr-star-grey-3: #b7b7b7;
+  --clr-star-grey-4: #fdfdfd;
 }
 
 .darkMode {

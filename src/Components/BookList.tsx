@@ -93,11 +93,11 @@ const BookList: React.FC = () => {
 
   const getBookIcon = (book: Book) => {
     if (book?.language === 'French') {
-      return <FrenchBookIcon className='book-detail-cover-icon' />;
+      return <FrenchBookIcon className='book-list-cover-icon' />;
     } else if (book?.language === 'English') {
-      return <EnglishBookIcon className='book-detail-cover-icon' />;
+      return <EnglishBookIcon className='book-list-cover-icon' />;
     } else {
-      return <DefaultBookIcon className='book-detail-cover-icon' />;
+      return <DefaultBookIcon className='book-list-cover-icon' />;
     }
   };
 

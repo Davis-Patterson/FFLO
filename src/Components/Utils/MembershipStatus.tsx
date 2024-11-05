@@ -9,7 +9,7 @@ const MembershipStatus: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authUser, language } = context;
+  const { authUser, language, formatDate } = context;
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,29 +41,6 @@ const MembershipStatus: React.FC = () => {
       ? 'Become a member to reserve books from the library.'
       : 'Devenez membre pour réserver des livres de la bibliothèque.';
   const membershipText = language === 'EN' ? 'Membership' : 'Adhésion';
-
-  const months: { [key: number]: string } = {
-    1: 'Jan',
-    2: 'Feb',
-    3: 'Mar',
-    4: 'Apr',
-    5: 'May',
-    6: 'Jun',
-    7: 'Jul',
-    8: 'Aug',
-    9: 'Sep',
-    10: 'Oct',
-    11: 'Nov',
-    12: 'Dec',
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const month = months[date.getMonth() + 1];
-    const day = date.getDate();
-    const year = date.getFullYear();
-    return `${month} ${day}, ${year}`;
-  };
 
   const handleManageMembership = (event: React.MouseEvent) => {
     if (event.button !== 0) return;

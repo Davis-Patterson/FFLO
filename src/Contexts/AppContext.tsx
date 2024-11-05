@@ -47,8 +47,13 @@ export interface Book {
 interface CheckedOutBook {
   rental_date: string;
   return_date: string | null;
+  due_date: string;
+  reserved: boolean;
   is_active: boolean;
+  late: boolean;
   book: Book;
+  language: string;
+  rating: number | null;
 }
 
 interface RentalHistoryItem extends CheckedOutBook {}
@@ -114,6 +119,7 @@ interface AppContextType {
   setAuthUser: (user: User | null) => void;
   allBooks: Book[];
   setAllBooks: (books: Book[]) => void;
+  updateSingleBook: (updatedBook: Book) => void;
   categories: Category[];
   setCategories: (categories: Category[]) => void;
   bookmarkedBooks: Book[];
@@ -151,6 +157,7 @@ interface AppContextType {
     newLanguage: string | null
   ) => void;
   formatTitleForURL: (inputString: string) => string;
+  formatDate: (dateString: string) => string;
   fullscreenOpen: (
     src: string,
     alt: string,
@@ -179,6 +186,12 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [authUser, setAuthUser] = useState<User | null>(null);
 
   const [allBooks, setAllBooks] = useState<Book[]>([]);
+  const updateSingleBook = (updatedBook: Book) => {
+    setAllBooks((prevBooks) =>
+      prevBooks.map((book) => (book.id === updatedBook.id ? updatedBook : book))
+    );
+  };
+
   const [categories, setCategories] = useState<any[]>([]);
   const [bookmarkedBooks, setBookmarkedBooks] = useState<Book[]>([]);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
@@ -234,6 +247,29 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/-+$/, '');
+  };
+
+  const months: { [key: number]: string } = {
+    1: language === 'English' ? 'Jan' : 'Jan',
+    2: language === 'English' ? 'Feb' : 'Fév',
+    3: language === 'English' ? 'Mar' : 'Mar',
+    4: language === 'English' ? 'Apr' : 'Avr',
+    5: language === 'English' ? 'May' : 'Mai',
+    6: language === 'English' ? 'Jun' : 'Juin',
+    7: language === 'English' ? 'Jul' : 'Juil',
+    8: language === 'English' ? 'Aug' : 'Août',
+    9: language === 'English' ? 'Sep' : 'Sep',
+    10: language === 'English' ? 'Oct' : 'Oct',
+    11: language === 'English' ? 'Nov' : 'Nov',
+    12: language === 'English' ? 'Dec' : 'Déc',
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const month = months[date.getMonth() + 1];
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month} ${day}, ${year}`;
   };
 
   const fullscreenOpen = (
@@ -297,6 +333,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setAuthUser,
         allBooks,
         setAllBooks,
+        updateSingleBook,
         categories,
         setCategories,
         bookmarkedBooks,
@@ -331,6 +368,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         clearAuthUser,
         handleLanguageChange,
         formatTitleForURL,
+        formatDate,
         fullscreenOpen,
         fullscreenClose,
         categoryIconOptions,
