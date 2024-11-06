@@ -45,6 +45,7 @@
   display: flex;
   flex-direction: column;
   margin: 0px 35px;
+  gap: 25px;
 }
 
 .user-profile-info-container {
@@ -56,6 +57,18 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.profile-line-divider {
+  height: 1px;
+  width: 100%;
+  z-index: 1;
+  padding: 0px 25px;
+}
+
+.profile-line-divider line {
+  stroke: var(--clr-divider);
+  stroke-width: 1px;
 }
 
 .user-info-membership-container {

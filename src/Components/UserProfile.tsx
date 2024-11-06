@@ -345,6 +345,9 @@ const UserProfile: React.FC = () => {
           <div className='user-profile-info-container'>
             {authUser ? renderUserInfo() : renderPlaceholders()}
           </div>
+          <svg className='profile-line-divider'>
+            <line x1='0' y1='50%' x2='100%' y2='50%' />
+          </svg>
           <div className='user-profile-history'>
             <RentalHistory />
           </div>

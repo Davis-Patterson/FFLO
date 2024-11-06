@@ -1,0 +1,240 @@
+.rental-history-container {
+  background-color: var(--clr-light);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rental-history h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--clr-text-grey);
+  margin-bottom: 10px;
+}
+
+.rental-history-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rental-history-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 15px;
+  gap: 15px;
+  background-color: var(--clr-light);
+}
+
+.rental-history-line-divider {
+  height: 1px;
+  stroke: var(--clr-divider);
+  height: 1px;
+  width: 100%;
+  z-index: 1;
+  padding: 0px 25px;
+}
+
+.history-book-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.history-book-image-container {
+  flex: 0 0 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.history-book-image-wrapper {
+  width: 100px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease-in-out;
+}
+.history-book-image-container:hover .history-book-image-wrapper {
+  transform: scale(102%);
+}
+
+.history-book-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+
+.history-book-image-wrapper.loaded .history-book-image {
+  opacity: 1;
+}
+
+.history-book-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+  height: 150px;
+}
+
+.history-book-title {
+  font-family: 'Merriweather', sans-serif;
+  font-size: 1.15em;
+  font-weight: bold;
+  color: var(--clr-text-blue);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-book-title:hover {
+  color: var(--clr-moyenne);
+}
+
+.history-book-author {
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 1.1em;
+  color: var(--clr-text-grey);
+  margin: 0;
+  transform: scaleY(90%);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-book-language-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 5px 0;
+}
+
+.history-book-language {
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 0.85em;
+  color: var(--clr-icon);
+  transform: scaleY(90%);
+}
+
+.book-language-flag {
+  width: 18px;
+  height: auto;
+}
+
+.pipe-icon {
+  font-size: 0.9em;
+  color: #888;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+}
+
+.history-star-icon {
+  width: 11px;
+  height: 11px;
+  color: gold;
+}
+
+.history-book-rating {
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 0.85em;
+  color: var(--clr-icon);
+  transform: scaleY(90%);
+  margin-left: 4px;
+}
+
+.history-book-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-active,
+.status-reserved,
+.status-late {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85em;
+  font-weight: 400;
+  border-radius: 50px;
+  text-align: center;
+  padding: 3px 0px 2px 0px;
+  width: 75px;
+}
+.status-returned {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85em;
+  font-weight: 400;
+  border-radius: 50px;
+  text-align: center;
+  padding: 1px 0px 1px 0px;
+  width: 75px;
+}
+
+.status-active {
+  color: var(--clr-member-green);
+  background-color: var(--clr-light);
+  border: 1px solid var(--clr-member-green);
+}
+
+.status-reserved {
+  color: var(--clr-moyenne);
+  background-color: var(--clr-light);
+  border: 1px solid var(--clr-moyenne);
+}
+
+.status-late {
+  color: var(--clr-error);
+  background-color: var(--clr-light);
+  border: 1px solid var(--clr-error);
+}
+
+.status-returned {
+  color: var(--clr-toute);
+  background-color: var(--clr-light);
+  border: 1px solid var(--clr-toute);
+}
+
+.history-book-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.history-date-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.history-date-label {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--clr-text-grey);
+  letter-spacing: -1.1px;
+}
+
+.history-date-value {
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 1.1em;
+  color: var(--clr-icon);
+  transform: scaleY(90%);
+}
