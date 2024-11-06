@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { useParams, useNavigate } from 'react-router-dom';
 import ServerApi from 'Utilities/ServerApi';
+import ReservationApi from 'Utilities/ReservationApi';
 import TitleFlair from 'Svgs/TitleFlair';
 import BookList from 'Components/BookList';
 import FrenchBookIcon from 'Svgs/FrenchBookIcon';
@@ -25,6 +26,7 @@ type IconProps = React.SVGProps<SVGSVGElement>;
 const Book: React.FC = () => {
   const { title } = useParams<{ title: string }>();
   const { getCategories, createBookmark, deleteBookmark } = ServerApi();
+  const { reserveBook, cancelReservation } = ReservationApi();
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
@@ -32,10 +34,12 @@ const Book: React.FC = () => {
   const {
     authToken,
     authUser,
+    setAuthUser,
     setShowAuth,
     setShowBookEditWindow,
     setShowPolicyWindow,
     allBooks,
+    updateSingleBook,
     categories,
     setCategories,
     bookmarkedBooks,
@@ -68,7 +72,17 @@ const Book: React.FC = () => {
     language === 'EN' ? 'Book Information' : 'Informations sur le Livre';
   const moreBooksText = language === 'EN' ? 'More Books' : 'Plus de Livres';
   const reserveBookText =
-    language === 'EN' ? 'Reserve book' : 'Réserver un livre';
+    language === 'EN' ? 'Reserve Book' : 'Réserver un livre';
+  const cancelReservationText =
+    language === 'EN' ? 'Cancel Reservation' : 'Annuler la réservation';
+  const anotherReservationActiveText =
+    language === 'EN'
+      ? 'Another reservation active'
+      : 'Une autre réservation active';
+  const returnBookFirstText =
+    language === 'EN'
+      ? 'Return book before reserving another'
+      : "Retournez avant d'en réserver un autre";
   const holdBookText = language === 'EN' ? 'Hold book' : 'Tenir le livre';
   const editBookText = language === 'EN' ? 'Edit book' : 'Modifier le livre';
   const bookPolicyButtonText =
@@ -94,6 +108,9 @@ const Book: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (categories.length === 0) {
       const fetchCategories = async () => {
         const result = await getCategories();
@@ -129,6 +146,65 @@ const Book: React.FC = () => {
         setIsLoading(false);
       }, 1000);
     }
+  };
+
+  const handleReserveBook = async (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setIsLoading(true);
+    try {
+      const result = await reserveBook(book?.id!);
+      if (result.success && result.data) {
+        console.log('Book reserved successfully');
+
+        setAuthUser(result.data.user);
+        updateSingleBook(result.data.book);
+      } else {
+        console.error(result.error || 'Failed to reserve book');
+      }
+    } catch (error) {
+      console.error('Error reserving book:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCancelReservation = async (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setIsLoading(true);
+    try {
+      const result = await cancelReservation(book?.id!);
+      if (result.success && result.data) {
+        console.log('Reservation canceled successfully');
+
+        setAuthUser(result.data.user);
+        updateSingleBook(result.data.book);
+      } else {
+        console.error(result.error || 'Failed to cancel reservation');
+      }
+    } catch (error) {
+      console.error('Error canceling reservation:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleShowAuth = async (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setIsLoading(true);
+    setTimeout(() => {
+      console.log('Show auth');
+      setShowAuth(true);
+      setIsLoading(false);
+    }, 1000);
   };
 
   const handleShowBookEditWindow = (event: React.MouseEvent) => {
@@ -235,10 +311,111 @@ const Book: React.FC = () => {
   }
 
   const hasImage = !!book.images[0]?.image_url;
+  const isBookReserved =
+    authUser?.checked_out?.length && authUser.checked_out[0].reserved;
 
   const bookCategories = categories
     .filter((category) => book.categories.includes(category.id))
     .sort((a, b) => a.sort_order - b.sort_order);
+
+  const renderSubmitButton = () => {
+    if (!authToken || !authUser) {
+      return (
+        <button
+          className='submit-button'
+          onMouseDown={(e) => handleShowAuth(e)}
+        >
+          {reserveBookText}
+        </button>
+      );
+    }
+
+    if (authUser.is_staff) {
+      return (
+        <div className='staff-book-buttons'>
+          <button
+            className='submit-half-button'
+            onMouseDown={(e) => handleButtonClick(e)}
+          >
+            {isLoading ? <LinearProgress color='inherit' /> : holdBookText}
+          </button>
+          <button
+            className='edit-button'
+            onMouseDown={(e) => handleShowBookEditWindow(e)}
+          >
+            {editBookText}
+          </button>
+        </div>
+      );
+    }
+
+    if (authUser.membership && !authUser.membership.active) {
+      return (
+        <button
+          className='submit-button'
+          onMouseDown={(e) => handleShowAuth(e)}
+        >
+          {isLoading ? <LinearProgress color='inherit' /> : reserveBookText}
+        </button>
+      );
+    }
+
+    if (authUser.checked_out.length > 0) {
+      const checkedOutBook = authUser.checked_out[0];
+
+      if (checkedOutBook.book.id !== book?.id) {
+        return (
+          <button className='inactive-button' disabled>
+            {anotherReservationActiveText}
+          </button>
+        );
+      }
+
+      if (checkedOutBook.book.id === book.id) {
+        if (!checkedOutBook.is_active && checkedOutBook.reserved) {
+          return (
+            <button
+              className='submit-button'
+              onMouseDown={(e) => handleCancelReservation(e)}
+            >
+              {isLoading ? (
+                <LinearProgress color='inherit' />
+              ) : (
+                cancelReservationText
+              )}
+            </button>
+          );
+        } else if (checkedOutBook.is_active) {
+          return (
+            <button className='inactive-button' disabled>
+              {returnBookFirstText}
+            </button>
+          );
+        }
+      }
+    }
+
+    if (
+      authUser.membership &&
+      authUser.membership.monthly_books === 4 &&
+      !authUser.checked_out.some((book) => book.reserved && !book.is_active)
+    ) {
+      return (
+        <button className='inactive-button' disabled>
+          Monthly book limit reached
+        </button>
+      );
+    }
+
+    return (
+      <button
+        className='submit-button'
+        onMouseDown={(e) => handleReserveBook(e)}
+      >
+        {isLoading ? <LinearProgress color='inherit' /> : reserveBookText}
+      </button>
+    );
+  };
 
   return (
     <main className='page-container'>
@@ -260,16 +437,21 @@ const Book: React.FC = () => {
             {book.images.length > 0 && book.images[0].image_url ? (
               <div
                 className={`book-detail-image-wrapper ${
-                  hasImage ? 'blur-load' : ''
+                  !book.available ? 'inactive' : hasImage ? 'blur-load' : ''
                 }`}
                 style={{
                   backgroundImage: `url(${book.images[0]?.image_small})`,
                 }}
               >
                 <img
+                  key={`${book.id}-${
+                    isBookReserved ? 'reserved' : 'available'
+                  }`}
                   src={book.images[0].image_url}
                   alt={book.title}
-                  className='book-detail-image'
+                  className={`book-detail-image ${
+                    !book.available ? 'inactive' : ''
+                  }`}
                   onLoad={(e) => {
                     const imgElement = e.target as HTMLImageElement;
                     imgElement.parentElement?.classList.add('loaded');
@@ -302,38 +484,7 @@ const Book: React.FC = () => {
             </div>
             <div className='book-detail-checkout-container'>
               <BookRating bookId={book.id} ratings={book.ratings || []} />
-              {!authUser?.is_staff && (
-                <button
-                  className='submit-button'
-                  onMouseDown={(e) => handleButtonClick(e)}
-                >
-                  {isLoading ? (
-                    <LinearProgress color='inherit' />
-                  ) : (
-                    reserveBookText
-                  )}
-                </button>
-              )}
-              {authUser?.is_staff && (
-                <div className='staff-book-buttons'>
-                  <button
-                    className='submit-half-button'
-                    onMouseDown={(e) => handleButtonClick(e)}
-                  >
-                    {isLoading ? (
-                      <LinearProgress color='inherit' />
-                    ) : (
-                      holdBookText
-                    )}
-                  </button>
-                  <button
-                    className='edit-button'
-                    onMouseDown={(e) => handleShowBookEditWindow(e)}
-                  >
-                    {editBookText}
-                  </button>
-                </div>
-              )}
+              {renderSubmitButton()}
             </div>
           </div>
           <div className='book-bookmark-toggle-container'>

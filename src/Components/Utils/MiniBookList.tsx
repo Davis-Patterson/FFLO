@@ -8,9 +8,9 @@ import FrenchBookIcon from 'Svgs/FrenchBookIcon';
 import BookmarkSolid from 'Svgs/BookmarkSolid';
 import BookmarkOutline from 'Svgs/BookmarkOutline';
 import LinearProgress from '@mui/material/LinearProgress';
-import 'Styles/MiniBookList.css';
 import EnglishBookIcon from 'Svgs/EnglishBookIcon';
 import DefaultBookIcon from 'Svgs/DefaultBookIcon';
+import 'Styles/Utils/MiniBookList.css';
 
 const MiniBookList: React.FC = () => {
   const { createBookmark, deleteBookmark } = ServerApi();

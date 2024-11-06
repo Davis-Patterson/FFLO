@@ -96,7 +96,8 @@
   z-index: 1;
 }
 
-.book-detail-image-wrapper {
+.book-detail-image-wrapper,
+.book-detail-image-wrapper.inactive {
   position: absolute;
   top: 0;
   left: 0;
@@ -109,8 +110,12 @@
   z-index: 0;
   cursor: pointer;
 }
+.book-detail-image-wrapper.inactive {
+  opacity: 0.5;
+}
 
-.book-detail-image {
+.book-detail-image,
+.book-detail-image.inactive {
   position: absolute;
   top: 0;
   left: 0;
@@ -121,6 +126,16 @@
   transition: opacity 0.5s ease-in-out;
   z-index: 1;
   cursor: pointer;
+}
+.book-detail-image.inactive {
+  filter: grayscale(100%);
+}
+.book-detail-image.blur-load {
+  filter: blur(10px);
+  transition: filter 0.5s ease;
+}
+.book-detail-image.loaded {
+  filter: none;
 }
 
 .book-detail-image-wrapper.blur-load {

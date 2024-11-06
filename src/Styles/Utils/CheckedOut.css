@@ -43,11 +43,26 @@
   height: 50px;
 }
 
+.checked-out-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checked-out-header-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15em;
+  line-height: 1;
+  font-weight: 400;
+  font-weight: bold;
+  margin: 0;
+  color: var(--clr-text-grey);
+}
+
 .checked-out-book-container {
   display: flex;
   align-items: center;
   border-radius: 8px;
-  margin-top: 16px;
 }
 
 .checked-out-book-link {
@@ -74,6 +89,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.15s ease-in-out;
+}
+.checked-out-book-image-container:hover .checked-out-book-image-wrapper {
+  transform: scale(102%);
 }
 
 .checked-out-book-image {
@@ -94,15 +113,86 @@
   justify-content: space-between;
 }
 
+.checked-out-book-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  margin: 0px 0px 3px 0px;
+}
+
+.status-active,
+.status-reserved,
+.status-late {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85em;
+  line-height: 1;
+  font-weight: 400;
+  border-radius: 50px;
+  text-align: center;
+  padding: 3px 0px 2px 0px;
+  width: 75px;
+}
+.status-active {
+  color: var(--clr-member-green);
+  background-color: var(--clr-light);
+  border: 1px solid var(--clr-member-green);
+}
+.status-reserved {
+  color: var(--clr-moyenne);
+  background-color: var(--clr-light);
+  border: 1px solid var(--clr-moyenne);
+}
+.status-late {
+  color: var(--clr-error);
+  border: 1px solid var(--clr-error);
+}
+
+.reserved-x-ixon {
+  width: 10px;
+  fill: var(--clr-icon);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+.reserved-x-ixon:hover {
+  fill: var(--clr-error);
+}
+
 .checked-out-book-title {
-  font-size: 1.25em;
+  font-family: 'Merriweather', sans-serif;
+  font-size: 1.15em;
+  line-height: 1.1;
+  font-weight: 400;
   font-weight: bold;
   margin: 0;
+  color: var(--clr-text-blue);
+  margin: 0px 0px 2px 0px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.checked-out-book-title:hover {
+  color: var(--clr-moyenne);
 }
 
 .checked-out-book-author {
-  font-size: 1em;
-  color: #666;
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 1.1em;
+  line-height: 1;
+  font-weight: 400;
+  margin: 0;
+  color: var(--clr-text-grey);
+  transform: scaleY(90%);
+  margin: 1px 0px 0px 0px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .checked-out-book-date {
@@ -113,22 +203,35 @@
 .checked-out-book-language-rating {
   display: flex;
   align-items: center;
-  margin-top: 8px;
+  margin: 2px 0px 18px 0px;
 }
 
 .checked-out-book-language {
-  font-size: 0.9em;
-  margin-right: 8px;
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 0.85em;
+  line-height: 1;
+  font-weight: 400;
+  margin: 0;
+  color: var(--clr-icon);
+  transform: scaleY(90%);
+  margin-right: 2px;
 }
 
 .book-language-flag {
-  width: 20px;
+  width: 18px;
   height: auto;
-  margin-right: 8px;
+  margin: 0px 4px 0px 4px;
 }
 
 .pipe-icon {
-  margin: 0 8px;
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 0.85em;
+  line-height: 1;
+  font-weight: 400;
+  margin: 0;
+  color: var(--clr-divider);
+  transform: scaleY(90%);
+  margin: 0px 4px 0px 0px;
   font-size: 0.9em;
   color: #888;
 }
@@ -139,19 +242,60 @@
 }
 
 .checked-out-star-icon {
-  width: 20px;
-  height: 20px;
+  width: 11px;
+  height: 11px;
   color: gold;
 }
 
 .checked-out-book-rating {
-  font-size: 1em;
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 0.85em;
+  line-height: 1;
+  font-weight: 400;
+  margin: 0;
+  color: var(--clr-icon);
+  transform: scaleY(90%);
   margin-left: 4px;
-  color: #333;
 }
 
 .no-checked-out-header-icons {
   display: flex;
   gap: 8px;
   margin-left: auto;
+}
+
+.checked-out-dates-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.checked-out-date-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.checked-out-book-date-text,
+.checked-out-book-due-date-text {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 1.1em;
+  line-height: 1;
+  font-weight: 600;
+  margin: 0;
+  color: var(--clr-text-grey);
+  transform: scaleY(95%);
+  letter-spacing: -1.1px;
+}
+
+.checked-out-book-date,
+.checked-out-book-due-date {
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 1.1em;
+  line-height: 1;
+  font-weight: 400;
+  margin: 1px 0px 0px 0px;
+  color: var(--clr-icon);
+  transform: scaleY(90%);
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { useNavigate } from 'react-router-dom';
-import MiniBookList from 'Components/MiniBookList';
+import MiniBookList from 'Components/Utils/MiniBookList';
 import MembershipStatus from 'Utils/MembershipStatus';
 import CheckedOut from 'Utils/CheckedOut';
 import UserIcon from 'Svgs/UserIcon';
