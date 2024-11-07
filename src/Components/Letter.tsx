@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import LeafIcon from 'Svgs/LeafIcon';
+import Leaf1 from 'Svgs/Leaf1';
 import PaperPlaneIcon from 'Svgs/PaperPlaneIcon';
 import PlantIcon from 'Svgs/PlantIcon';
 import GrassIcon from 'Svgs/GrassIcon';
@@ -43,9 +43,9 @@ const Letter: React.FC = () => {
         <section className='letter-details'>
           <header className='letter-header'>
             <div className='letter-header-title'>
-              <LeafIcon className='letter-title-flair left' />
+              <Leaf1 className='letter-title-flair left' />
               <p className='letter-title-text'>{letterHeaderText}</p>
-              <LeafIcon className='letter-title-flair right' />
+              <Leaf1 className='letter-title-flair right' />
             </div>
             <div className='plane-container'>
               <PaperPlaneIcon className='plane-icon' />

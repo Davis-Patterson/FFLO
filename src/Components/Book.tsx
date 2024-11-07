@@ -97,12 +97,33 @@ const Book: React.FC = () => {
   const categoriesText = language === 'EN' ? 'Categories:' : 'Catégories :';
 
   const getBookIcon = () => {
-    if (book?.language === 'French') {
-      return <FrenchBookIcon className='book-detail-cover-icon' />;
-    } else if (book?.language === 'English') {
-      return <EnglishBookIcon className='book-detail-cover-icon' />;
+    if (!book) {
+      return null;
+    }
+    if (book.language === 'French') {
+      return (
+        <FrenchBookIcon
+          className={`book-detail-cover-icon ${
+            !book.available ? 'inactive' : ''
+          }`}
+        />
+      );
+    } else if (book.language === 'English') {
+      return (
+        <EnglishBookIcon
+          className={`book-detail-cover-icon ${
+            !book.available ? 'inactive' : ''
+          }`}
+        />
+      );
     } else {
-      return <DefaultBookIcon className='book-detail-cover-icon' />;
+      return (
+        <DefaultBookIcon
+          className={`book-detail-cover-icon ${
+            !book.available ? 'inactive' : ''
+          }`}
+        />
+      );
     }
   };
 

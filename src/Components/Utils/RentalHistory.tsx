@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Link } from 'react-router-dom';
 import StarGrey from 'Svgs/StarGrey';
@@ -10,43 +10,61 @@ import EnglishBookIcon from 'Svgs/EnglishBookIcon';
 import DefaultBookIcon from 'Svgs/DefaultBookIcon';
 import 'Styles/Utils/RentalHistory.css';
 
+type IconProps = React.SVGProps<SVGSVGElement>;
+
 const RentalHistory: React.FC = () => {
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
   }
 
-  const { authUser, language, formatTitleForURL, formatDate } = context;
+  const { authUser, language, formatTitleForURL, formatDate, natureIcons } =
+    context;
+  const [visibleCount, setVisibleCount] = useState(5);
+  const loadMore = () => setVisibleCount((prev) => prev + 5);
+  const [shuffledIcons, setShuffledIcons] = useState<React.FC[]>([]);
 
-  // Translations
+  useEffect(() => {
+    const shuffled = Object.values(natureIcons)
+      .map((icon) => ({ icon, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ icon }) => icon);
+
+    setShuffledIcons(shuffled);
+  }, [natureIcons]);
+
   const noRentalHistoryText =
     language === 'EN'
       ? 'No rental history available.'
       : 'Aucun historique de location disponible.';
+  const activeText = language === 'EN' ? 'Active' : 'Active';
+  const reservedText = language === 'EN' ? 'Reserved' : 'Réservée';
+  const lateText = language === 'EN' ? 'Late' : 'En retard';
   const returnedText = language === 'EN' ? 'Returned:' : 'Retourné:';
+  const showingText = language === 'EN' ? 'Showing:' : 'Montrant :';
   const startText = language === 'EN' ? 'Reserved:' : 'Réservée:';
   const dueText = language === 'EN' ? 'Due Date:' : 'Exigible:';
 
   const getBookIcon = (language: string) => {
     switch (language) {
       case 'French':
-        return <FrenchBookIcon className='book-icon' />;
+        return <FrenchBookIcon className='history-book-icon' />;
       case 'English':
-        return <EnglishBookIcon className='book-icon' />;
+        return <EnglishBookIcon className='history-book-icon' />;
       default:
-        return <DefaultBookIcon className='book-icon' />;
+        return <DefaultBookIcon className='history-book-icon' />;
     }
   };
 
   const getStatusLabel = (historyItem: any) => {
     if (historyItem.return_date) {
-      return { text: 'Returned', className: 'status-returned' };
+      return { text: returnedText, className: 'status-returned' };
     } else if (historyItem.late) {
-      return { text: 'Late', className: 'status-late' };
+      return { text: lateText, className: 'status-late' };
     } else if (historyItem.is_active) {
-      return { text: 'Active', className: 'status-active' };
+      return { text: activeText, className: 'status-active' };
     } else if (historyItem.reserved) {
-      return { text: 'Reserved', className: 'status-reserved' };
+      return { text: reservedText, className: 'status-reserved' };
     }
     return { text: '', className: '' };
   };
@@ -59,15 +77,31 @@ const RentalHistory: React.FC = () => {
     return <p className='no-history'>{noRentalHistoryText}</p>;
   }
 
+  const sortedHistory = [...authUser.book_history].sort((a, b) => {
+    if (!a.return_date) return -1;
+    if (!b.return_date) return 1;
+
+    return (
+      new Date(b.return_date).getTime() - new Date(a.return_date).getTime()
+    );
+  });
+
+  const visibleHistory = sortedHistory.slice(0, visibleCount);
+
   return (
     <section className='rental-history-container'>
       <h3>{language === 'EN' ? 'Rental History' : 'Historique de location'}</h3>
-      <ul className='rental-history-list'>
-        {authUser.book_history.map((historyItem, index) => {
+      <div className='rental-history-list'>
+        {visibleHistory.map((historyItem, index) => {
           const { text: statusText, className: statusClass } =
             getStatusLabel(historyItem);
           const bookUrl = `/books/${formatTitleForURL(historyItem.book.title)}`;
-          console.log('historyItem: ', historyItem);
+
+          // Get the icon based on the index
+          const IconComponent = shuffledIcons[
+            index % shuffledIcons.length
+          ] as React.FC<IconProps>;
+          if (!IconComponent) return null;
 
           return (
             <React.Fragment key={index}>
@@ -75,16 +109,16 @@ const RentalHistory: React.FC = () => {
                 <div className='history-book-info'>
                   <Link to={bookUrl}>
                     <div className='history-book-image-container'>
-                      <div
-                        className='history-book-image-wrapper'
-                        style={{
-                          backgroundImage: historyItem.book.images[0]
-                            ?.image_small
-                            ? `url(${historyItem.book.images[0].image_small})`
-                            : 'none',
-                        }}
-                      >
-                        {historyItem.book.images[0]?.image_url ? (
+                      {historyItem.book.images[0]?.image_url ? (
+                        <div
+                          className='history-book-image-wrapper'
+                          style={{
+                            backgroundImage: historyItem.book.images[0]
+                              ?.image_small
+                              ? `url(${historyItem.book.images[0].image_small})`
+                              : 'none',
+                          }}
+                        >
                           <img
                             src={historyItem.book.images[0].image_url}
                             alt={historyItem.book.title}
@@ -94,10 +128,10 @@ const RentalHistory: React.FC = () => {
                               imgElement.parentElement?.classList.add('loaded');
                             }}
                           />
-                        ) : (
-                          getBookIcon(historyItem.book.language)
-                        )}
-                      </div>
+                        </div>
+                      ) : (
+                        getBookIcon(historyItem.book.language)
+                      )}
                     </div>
                   </Link>
                   <div className='history-book-details-container'>
@@ -111,63 +145,69 @@ const RentalHistory: React.FC = () => {
                         {historyItem.book.author}
                       </p>
                       <div className='history-book-language-rating'>
-                        <p className='history-book-language'>
-                          {historyItem.book.language}
-                        </p>
-                        {historyItem.book.language === 'French' && (
-                          <FrenchFlag className='book-language-flag' />
-                        )}
-                        {historyItem.book.language === 'English' && (
-                          <UKFlag className='book-language-flag' />
-                        )}
-                        <p className='pipe-icon'>|</p>
+                        <div className='history-book-language-container'>
+                          <p className='history-book-language'>
+                            {historyItem.book.language}
+                          </p>
+                          {historyItem.book.language === 'French' && (
+                            <FrenchFlag className='history-language-flag' />
+                          )}
+                          {historyItem.book.language === 'English' && (
+                            <UKFlag className='history-language-flag' />
+                          )}
+                        </div>
                         <div className='rating-container'>
                           {!historyItem.book.rating ? (
-                            <StarGrey className='history-star-icon' />
+                            <StarGrey className='history-star-icon-grey' />
                           ) : (
                             <>
-                              <StarColor className='history-star-icon' />
                               <p className='history-book-rating'>
                                 {historyItem.book.rating.toFixed(1)}
                               </p>
+                              <StarColor className='history-star-icon' />
                             </>
                           )}
                         </div>
                       </div>
                     </div>
-                    <div className='history-book-dates'>
+                    <div className='history-book-dates-status-container'>
                       <div className='history-book-status'>
                         <div className={statusClass}>
                           <span>{statusText}</span>
                         </div>
                       </div>
-                      <div className='history-date-row'>
-                        <p className='history-date-label'>{startText}</p>
-                        <p className='history-date-value'>
-                          {formatDate(historyItem.rental_date)}
-                        </p>
+                      <div className='history-book-dates'>
+                        <div className='history-date-row'>
+                          <p className='history-date-label'>{startText}</p>
+                          <p className='history-date-value'>
+                            {formatDate(historyItem.rental_date)}
+                          </p>
+                        </div>
+                        {!historyItem.return_date && (
+                          <div className='history-date-row'>
+                            <p className='history-date-label'>{dueText}</p>
+                            <p className='history-date-value'>
+                              {formatDate(historyItem.due_date)}
+                            </p>
+                          </div>
+                        )}
+                        {historyItem.return_date && (
+                          <div className='history-date-row'>
+                            <p className='history-date-label'>{returnedText}</p>
+                            <p className='history-date-value'>
+                              {formatDate(historyItem.return_date)}
+                            </p>
+                          </div>
+                        )}
                       </div>
-                      {!historyItem.return_date && (
-                        <div className='history-date-row'>
-                          <p className='history-date-label'>{dueText}</p>
-                          <p className='history-date-value'>
-                            {formatDate(historyItem.due_date)}
-                          </p>
-                        </div>
-                      )}
-                      {historyItem.return_date && (
-                        <div className='history-date-row'>
-                          <p className='history-date-label'>{returnedText}</p>
-                          <p className='history-date-value'>
-                            {formatDate(historyItem.return_date)}
-                          </p>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
+                <div className='history-icons-container'>
+                  <IconComponent className='history-icon' />
+                </div>
               </div>
-              {index < authUser.book_history.length - 1 && (
+              {index < visibleHistory.length - 1 && (
                 <svg className='rental-history-line-divider'>
                   <line x1='0' y1='50%' x2='100%' y2='50%' />
                 </svg>
@@ -175,7 +215,25 @@ const RentalHistory: React.FC = () => {
             </React.Fragment>
           );
         })}
-      </ul>
+        {sortedHistory.length > 0 && (
+          <div className='history-item-count-container'>
+            <p className='history-item-count-text'>{showingText}</p>
+            <p className='history-item-count'>
+              {visibleCount < sortedHistory.length
+                ? visibleCount
+                : sortedHistory.length}
+              /{sortedHistory.length}
+            </p>
+          </div>
+        )}
+        {visibleCount < sortedHistory.length && (
+          <div className='history-load-more-container'>
+            <button className='load-more-button' onClick={loadMore}>
+              Load More
+            </button>
+          </div>
+        )}
+      </div>
     </section>
   );
 };

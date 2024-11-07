@@ -1,3 +1,21 @@
+.checked-out-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.checked-out-info-icons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.checked-out-info-container {
+  display: flex;
+  flex-direction: column;
+  width: 82%;
+  gap: 10px;
+}
+
 .checked-out-header,
 .no-checked-out-header {
   display: flex;
@@ -22,12 +40,13 @@
   width: 300px;
 }
 
-.no-checked-out-header-icons {
+.checked-out-icons-container {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  width: 20%;
+  width: 18%;
   gap: 10px;
+  justify-content: space-between;
 }
 .ruler-icon {
   width: 80px;
@@ -41,12 +60,6 @@
 .pen-icon {
   width: 60px;
   height: 50px;
-}
-
-.checked-out-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .checked-out-header-text {
@@ -155,7 +168,7 @@
   transition: all 0.15s ease-in-out;
 }
 .reserved-x-ixon:hover {
-  fill: var(--clr-error);
+  fill: var(--clr-dark);
 }
 
 .checked-out-book-title {
@@ -260,8 +273,9 @@
 
 .no-checked-out-header-icons {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   gap: 8px;
-  margin-left: auto;
 }
 
 .checked-out-dates-container {

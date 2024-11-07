@@ -27,21 +27,51 @@
   padding: 15px;
   gap: 15px;
   background-color: var(--clr-light);
+  justify-content: space-between;
 }
 
 .rental-history-line-divider {
   height: 1px;
-  stroke: var(--clr-divider);
-  height: 1px;
   width: 100%;
   z-index: 1;
   padding: 0px 25px;
+  margin: 0px 0px 5px 0px;
+}
+
+.rental-history-line-divider line {
+  stroke: var(--clr-divider);
+  stroke-width: 1px;
 }
 
 .history-book-info {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+.history-icons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  height: 100px;
+}
+
+.history-icon {
+  width: 50px;
+  max-height: 50px;
+  fill: var(--clr-toute);
+}
+
+.history-book-icon {
+  height: 100px;
+  width: 67px;
+  transition: all 0.15s ease-in-out;
+}
+.history-book-image-container:hover .history-book-icon {
+  transform: scale(102%);
 }
 
 .history-book-image-container {
@@ -52,8 +82,8 @@
 }
 
 .history-book-image-wrapper {
-  width: 100px;
-  height: 150px;
+  height: 100px;
+  width: 67px;
   background-size: cover;
   background-position: center;
   border-radius: 4px;
@@ -80,18 +110,23 @@
 
 .history-book-details-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   gap: 5px;
-  height: 150px;
+  height: 100px;
+}
+
+.history-book-details {
+  width: 250px;
 }
 
 .history-book-title {
   font-family: 'Merriweather', sans-serif;
   font-size: 1.15em;
+  line-height: 1.15;
   font-weight: bold;
   color: var(--clr-text-blue);
-  margin: 0;
+  margin: 4px 0px 0px 0px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   line-clamp: 1;
@@ -107,8 +142,9 @@
 .history-book-author {
   font-family: 'Patrick Hand', sans-serif;
   font-size: 1.1em;
+  line-height: 1;
   color: var(--clr-text-grey);
-  margin: 0;
+  margin: 6px 0px 4px 0px;
   transform: scaleY(90%);
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -120,26 +156,41 @@
 
 .history-book-language-rating {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 5px 0;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.history-book-language-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
 }
 
 .history-book-language {
   font-family: 'Patrick Hand', sans-serif;
   font-size: 0.85em;
+  line-height: 1;
   color: var(--clr-icon);
   transform: scaleY(90%);
+  margin: 0px 3px 0px 0px;
 }
 
-.book-language-flag {
-  width: 18px;
+.history-language-flag {
+  width: 16px;
   height: auto;
+  margin: 2px 0px 0px 0px;
 }
 
-.pipe-icon {
+.history-pipe-icon {
+  font-family: 'Lato', sans-serif;
+  text-align: left;
   font-size: 0.9em;
-  color: #888;
+  font-weight: 400;
+  color: var(--clr-icon);
+  width: 10px;
+  height: auto;
+  margin: 0px 0px 2px -2px;
+  text-align: center;
 }
 
 .rating-container {
@@ -150,7 +201,14 @@
 .history-star-icon {
   width: 11px;
   height: 11px;
-  color: gold;
+  transform: scaleY(95%);
+}
+
+.history-star-icon-grey {
+  width: 11px;
+  height: 11px;
+  transform: scaleY(95%);
+  margin: 3px 0px 0px 0px;
 }
 
 .history-book-rating {
@@ -158,13 +216,14 @@
   font-size: 0.85em;
   color: var(--clr-icon);
   transform: scaleY(90%);
-  margin-left: 4px;
+  margin: 0px 4px 1px 0px;
 }
 
 .history-book-status {
   display: flex;
   align-items: center;
   gap: 5px;
+  margin: 4px 0px 0px 0px;
 }
 
 .status-active,
@@ -184,7 +243,6 @@
   font-weight: 400;
   border-radius: 50px;
   text-align: center;
-  padding: 1px 0px 1px 0px;
   width: 75px;
 }
 
@@ -212,10 +270,16 @@
   border: 1px solid var(--clr-toute);
 }
 
+.history-book-dates-status-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: 'Titillium Web', sans-serif;
+}
+
 .history-book-dates {
   display: flex;
   flex-direction: column;
-  gap: 4px;
   font-family: 'Titillium Web', sans-serif;
 }
 
@@ -223,6 +287,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  height: 22px;
 }
 
 .history-date-label {
@@ -237,4 +302,44 @@
   font-size: 1.1em;
   color: var(--clr-icon);
   transform: scaleY(90%);
+}
+
+.history-item-count-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 0px 0px 10px;
+}
+
+.history-item-count-text {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--clr-text-grey);
+  letter-spacing: -1px;
+}
+
+.history-item-count {
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 1.1em;
+  color: var(--clr-icon);
+  transform: scaleY(90%);
+  margin: 2px 0px 0px 0px;
+}
+
+.history-load-more-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.load-more-button {
+  width: 300px;
+  border: none;
+  background-color: var(--clr-text-blue);
+  color: var(--clr-light);
+}
+.load-more-button:hover {
+  background-color: var(--clr-text-blue-hover);
 }

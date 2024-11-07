@@ -12,6 +12,24 @@ import BearIcon from 'Svgs/BearIcon';
 import SquirrelIcon from 'Svgs/SquirrelIcon';
 import Bird2Icon from 'Svgs/Bird2Icon';
 import DeerIcon from 'Svgs/DeerIcon';
+import Flower1 from 'Svgs/Flower1';
+import Flower2 from 'Svgs/Flower2';
+import PlantIcon from 'Svgs/PlantIcon';
+import BerryBranch from 'Svgs/BerryBranch';
+import Branch1 from 'Svgs/Branch1';
+import Branch2 from 'Svgs/Branch2';
+import Branch3 from 'Svgs/Branch3';
+import Flower3 from 'Svgs/Flower3';
+import FlowerBranch1 from 'Svgs/FlowerBranch1';
+import FlowerBranch2 from 'Svgs/FlowerBranch2';
+import GrassesIcon from 'Svgs/GrassesIcon';
+import GrassIcon from 'Svgs/GrassIcon';
+import Leaf2 from 'Svgs/Leaf2';
+import Leaf3 from 'Svgs/Leaf3';
+import PlantBuds1 from 'Svgs/PlantBuds1';
+import PlantBuds2 from 'Svgs/PlantBuds2';
+import TreeBranch from 'Svgs/TreeBranch';
+import WreathIcon from 'Svgs/WreathIcon';
 
 export interface BookImage {
   id: number;
@@ -168,6 +186,7 @@ interface AppContextType {
   fullscreenClose: (event: React.MouseEvent) => void;
   categoryIconOptions: { [key: number]: React.FC };
   categoryColorOptions: { [key: number]: string };
+  natureIcons: { [key: number]: React.FC };
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -324,6 +343,27 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     6: 'var(--clr-lavender)',
   };
 
+  const natureIcons: { [key: number]: React.FC } = {
+    1: BerryBranch,
+    2: Branch1,
+    3: Branch2,
+    4: Branch3,
+    5: Flower1,
+    6: Flower2,
+    7: Flower3,
+    8: FlowerBranch1,
+    9: FlowerBranch2,
+    10: GrassesIcon,
+    11: GrassIcon,
+    12: Leaf2,
+    13: Leaf3,
+    14: PlantBuds1,
+    15: PlantBuds2,
+    16: PlantIcon,
+    17: TreeBranch,
+    18: WreathIcon,
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -373,6 +413,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         fullscreenClose,
         categoryIconOptions,
         categoryColorOptions,
+        natureIcons,
       }}
     >
       {children}

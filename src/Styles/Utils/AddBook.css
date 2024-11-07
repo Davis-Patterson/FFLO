@@ -15,7 +15,7 @@
 
 .book-create-container {
   background-color: var(--clr-background);
-  padding: 2rem 2rem 0rem 2rem;
+  padding: calc(2rem - 1px) calc(2rem - 1px) 0rem calc(2rem - 1px);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -379,6 +379,7 @@
   overflow-y: auto;
   max-height: calc(100vh - 8rem);
   padding-bottom: 2rem;
+  padding: 1px;
 }
 
 .scrollable-container::-webkit-scrollbar {

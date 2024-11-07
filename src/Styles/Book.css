@@ -155,6 +155,11 @@
   width: 100%;
   fill: var(--clr-icon);
   transform: scaleX(108%);
+  transition: opacity 0.5s ease-in-out;
+}
+.book-detail-cover-icon.inactive {
+  filter: grayscale(100%);
+  opacity: 0.3;
 }
 
 .book-detail-info-container {

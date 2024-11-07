@@ -41,6 +41,9 @@ const CheckedOut: React.FC = () => {
     language === 'EN' ? 'Current reservation' : 'Réservation en cours';
   const startText = language === 'EN' ? 'Reserved:' : 'Réservée:';
   const dueText = language === 'EN' ? 'Due Date:' : 'Exigible:';
+  const activeText = language === 'EN' ? 'Active' : 'Active';
+  const reservedText = language === 'EN' ? 'Reserved' : 'Réservée';
+  const lateText = language === 'EN' ? 'Late' : 'En retard';
 
   const getBookIcon = (book: Book) => {
     if (book?.language === 'French') {
@@ -91,105 +94,113 @@ const CheckedOut: React.FC = () => {
   let statusText = '';
   let statusClass = '';
   if (checkedOutData.late) {
-    statusText = 'Late';
+    statusText = lateText;
     statusClass = 'status-late';
   } else if (checkedOutData.is_active) {
-    statusText = 'Active';
+    statusText = activeText;
     statusClass = 'status-active';
   } else if (checkedOutData.reserved) {
-    statusText = 'Reserved';
+    statusText = reservedText;
     statusClass = 'status-reserved';
   }
 
   return (
     <>
       <div className='checked-out-container'>
-        <p className='checked-out-header-text'>{currentReservationText}</p>
-        <div className='checked-out-book-container'>
-          <div className='checked-out-book-image-container'>
-            <Link to={bookUrl}>
-              <div
-                className={`checked-out-book-image-wrapper ${
-                  hasImage ? 'blur-load' : ''
-                }`}
-                style={{
-                  backgroundImage: hasImage
-                    ? `url(${checkedOutBook.images[0].image_small})`
-                    : 'none',
-                }}
-              >
-                {hasImage ? (
-                  <img
-                    src={checkedOutBook.images[0].image_url || undefined}
-                    alt={checkedOutBook.title}
-                    className='checked-out-book-image'
-                    onLoad={(e) => {
-                      const imgElement = e.target as HTMLImageElement;
-                      imgElement.parentElement?.classList.add('loaded');
+        <div className='checked-out-info-icons-container'>
+          <div className='checked-out-info-container'>
+            <p className='checked-out-header-text'>{currentReservationText}</p>
+            <div className='checked-out-book-container'>
+              <div className='checked-out-book-image-container'>
+                <Link to={bookUrl}>
+                  <div
+                    className={`checked-out-book-image-wrapper ${
+                      hasImage ? 'blur-load' : ''
+                    }`}
+                    style={{
+                      backgroundImage: hasImage
+                        ? `url(${checkedOutBook.images[0].image_small})`
+                        : 'none',
                     }}
-                  />
-                ) : (
-                  getBookIcon(checkedOutBook)
-                )}
+                  >
+                    {hasImage ? (
+                      <img
+                        src={checkedOutBook.images[0].image_url || undefined}
+                        alt={checkedOutBook.title}
+                        className='checked-out-book-image'
+                        onLoad={(e) => {
+                          const imgElement = e.target as HTMLImageElement;
+                          imgElement.parentElement?.classList.add('loaded');
+                        }}
+                      />
+                    ) : (
+                      getBookIcon(checkedOutBook)
+                    )}
+                  </div>
+                </Link>
               </div>
-            </Link>
-          </div>
-          <div className='checked-out-book-info'>
-            <Link to={bookUrl}>
-              <h3 className='checked-out-book-title'>{checkedOutBook.title}</h3>
-            </Link>
-            <p className='checked-out-book-author'>{checkedOutBook.author}</p>
-            <div className='checked-out-book-language-rating'>
-              <p className='checked-out-book-language'>
-                {checkedOutBook.language}
-              </p>
-              {checkedOutBook.language === 'French' && (
-                <FrenchFlag className='book-language-flag' />
-              )}
-              {checkedOutBook.language === 'English' && (
-                <UKFlag className='book-language-flag' />
-              )}
-              <p className='pipe-icon'>|</p>
-              <div className='rating-container'>
-                {!checkedOutBook.rating ? (
-                  <StarGrey className='checked-out-star-icon' />
-                ) : (
-                  <>
-                    <StarColor className='checked-out-star-icon' />
-                    <p className='checked-out-book-rating'>
-                      {checkedOutBook.rating.toFixed(1)}
+              <div className='checked-out-book-info'>
+                <Link to={bookUrl}>
+                  <h3 className='checked-out-book-title'>
+                    {checkedOutBook.title}
+                  </h3>
+                </Link>
+                <p className='checked-out-book-author'>
+                  {checkedOutBook.author}
+                </p>
+                <div className='checked-out-book-language-rating'>
+                  <p className='checked-out-book-language'>
+                    {checkedOutBook.language}
+                  </p>
+                  {checkedOutBook.language === 'French' && (
+                    <FrenchFlag className='book-language-flag' />
+                  )}
+                  {checkedOutBook.language === 'English' && (
+                    <UKFlag className='book-language-flag' />
+                  )}
+                  <p className='pipe-icon'>|</p>
+                  <div className='rating-container'>
+                    {!checkedOutBook.rating ? (
+                      <StarGrey className='checked-out-star-icon' />
+                    ) : (
+                      <>
+                        <StarColor className='checked-out-star-icon' />
+                        <p className='checked-out-book-rating'>
+                          {checkedOutBook.rating.toFixed(1)}
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div className='checked-out-book-status'>
+                  <div className={statusClass}>
+                    <span>{statusText}</span>
+                  </div>
+                  {checkedOutData.reserved && (
+                    <XIcon
+                      className='reserved-x-ixon'
+                      onClick={handleCancelReservation}
+                    />
+                  )}
+                </div>
+                <div className='checked-out-dates-container'>
+                  <div className='checked-out-date-container'>
+                    <p className='checked-out-book-date-text'>{startText}</p>
+                    <p className='checked-out-book-date'>
+                      {formatDate(checkedOutData.rental_date)}
                     </p>
-                  </>
-                )}
-              </div>
-            </div>
-            <div className='checked-out-book-status'>
-              <div className={statusClass}>
-                <span>{statusText}</span>
-              </div>
-              {checkedOutData.reserved && (
-                <XIcon
-                  className='reserved-x-ixon'
-                  onClick={handleCancelReservation}
-                />
-              )}
-            </div>
-            <div className='checked-out-dates-container'>
-              <div className='checked-out-date-container'>
-                <p className='checked-out-book-date-text'>{startText}</p>
-                <p className='checked-out-book-date'>
-                  {formatDate(checkedOutData.rental_date)}
-                </p>
-              </div>
-              <div className='checked-out-date-container'>
-                <p className='checked-out-book-due-date-text'>{dueText}</p>
-                <p className='checked-out-book-due-date'>
-                  {formatDate(checkedOutData.due_date)}
-                </p>
+                  </div>
+                  <div className='checked-out-date-container'>
+                    <p className='checked-out-book-due-date-text'>{dueText}</p>
+                    <p className='checked-out-book-due-date'>
+                      {formatDate(checkedOutData.due_date)}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div className='no-checked-out-header-icons'>
+          <div className='checked-out-icons-container'>
             <Pencil2 className='pencil-icon' />
             <TapeIcon className='tape-icon' />
             <RulerIcon className='ruler-icon' />

@@ -5,7 +5,7 @@ import MiniBookList from 'Components/Utils/MiniBookList';
 import MembershipStatus from 'Utils/MembershipStatus';
 import CheckedOut from 'Utils/CheckedOut';
 import UserIcon from 'Svgs/UserIcon';
-import LeafIcon from 'Svgs/LeafIcon';
+import Leaf1 from 'Svgs/Leaf1';
 import GearIcon from 'Svgs/GearIcon';
 import TacksIcon from 'Svgs/TacksIcon';
 import ScissorsIcon from 'Svgs/ScissorsIcon';
@@ -336,9 +336,9 @@ const UserProfile: React.FC = () => {
       <div className='user-profile-container'>
         <header className='user-profile-header'>
           <div className='user-profile-header-title'>
-            <LeafIcon className='title-flair-leaf-left' />
+            <Leaf1 className='title-flair-leaf-left' />
             <p className='user-profile-title-text'>{headerText}</p>
-            <LeafIcon className='title-flair-leaf-right' />
+            <Leaf1 className='title-flair-leaf-right' />
           </div>
         </header>
         <section className='user-profile-main'>

@@ -358,7 +358,7 @@
 }
 .mini-list-books-link-text:hover + .pointing-icon {
   width: 35px;
-  margin: 2px 0px 0px 15px;
+  margin: 0px 0px 0px 15px;
   fill: var(--clr-text-blue);
 }
 
