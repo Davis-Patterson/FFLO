@@ -21,11 +21,12 @@ const RentalHistory: React.FC = () => {
 
   const { authUser, language, formatTitleForURL, formatDate, natureIcons } =
     context;
-  const [visibleCount, setVisibleCount] = useState(5);
-  const loadMore = () => setVisibleCount((prev) => prev + 5);
+  const [visibleCount, setVisibleCount] = useState(3);
   const [shuffledIcons, setShuffledIcons] = useState<React.FC[]>([]);
   const [filterSetting, setFilterSetting] = useState<string>('newest');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const loadMore = () => setVisibleCount((prev) => prev + 3);
 
   useEffect(() => {
     const shuffled = Object.values(natureIcons)
