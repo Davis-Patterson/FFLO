@@ -339,7 +339,7 @@ const UserProfile: React.FC = () => {
         <header className='user-profile-header'>
           <div className='user-profile-header-title'>
             <Leaf1 className='title-flair-leaf-left' />
-            <p className='user-profile-title-text'>{headerText}</p>
+            <h1 className='user-profile-title-text'>{headerText}</h1>
             <Leaf1 className='title-flair-leaf-right' />
           </div>
         </header>

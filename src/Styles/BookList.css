@@ -413,7 +413,7 @@
   padding: 20px;
   justify-items: center;
   align-items: start;
-  grid-auto-rows: min-content;
+  grid-auto-rows: auto;
 }
 
 .book-list-view {

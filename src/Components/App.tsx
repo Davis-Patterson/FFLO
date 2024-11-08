@@ -32,6 +32,7 @@ const App: React.FC = () => {
   }
   const {
     authToken,
+    setAuthToken,
     authUser,
     setAuthUser,
     showFullscreen,
@@ -51,6 +52,12 @@ const App: React.FC = () => {
         } else {
           console.log('Token is invalid or expired.');
           await logout();
+          if (result.success) {
+            console.log('Logout successful');
+          } else {
+            setAuthToken('');
+            console.log('Logout failed. AuthToken reset.');
+          }
         }
       }
     };

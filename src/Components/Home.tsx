@@ -68,7 +68,7 @@ const Home: React.FC = () => {
         <div className='home-content-header'>
           <div className='home-content-header-title'>
             <TitleFlair className='title-flair-left' />
-            <p className='home-content-title-text'>{headerText}</p>
+            <h1 className='home-content-title-text'>{headerText}</h1>
             <TitleFlair className='title-flair-right' />
           </div>
         </div>

@@ -112,17 +112,6 @@ const Nav: React.FC = () => {
             {aboutText}
           </div>
         </Link>
-        <Link to='/membership'>
-          <div
-            className={`${
-              location.pathname === '/membership'
-                ? 'nav-link-current'
-                : 'nav-link'
-            }`}
-          >
-            {membershipText}
-          </div>
-        </Link>
       </section>
     </nav>
   );

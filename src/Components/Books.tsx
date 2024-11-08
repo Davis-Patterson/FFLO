@@ -127,7 +127,7 @@ const Books: React.FC = () => {
         <header className='categories-header'>
           <div className='categories-header-title'>
             <TitleFlair className='title-flair-left' />
-            <p className='categories-title-text'>{headerText}</p>
+            <h1 className='categories-title-text'>{headerText}</h1>
             <TitleFlair className='title-flair-right' />
           </div>
         </header>

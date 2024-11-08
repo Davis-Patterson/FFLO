@@ -37,10 +37,6 @@ const RentalHistory: React.FC = () => {
     setShuffledIcons(shuffled);
   }, [natureIcons]);
 
-  const noRentalHistoryText =
-    language === 'EN'
-      ? 'No rental history yet.'
-      : "Pas d'historique de location pour l'instant.";
   const noBooksFoundText =
     language === 'EN'
       ? 'No books match your search.'
@@ -91,8 +87,60 @@ const RentalHistory: React.FC = () => {
     return { text: '', className: '' };
   };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+    setVisibleCount(10);
+  };
+
+  const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilterSetting(event.target.value);
+  };
+
   if (!authUser || !authUser.book_history) {
-    return <p className='no-history'>{noRentalHistoryText}</p>;
+    return (
+      <section className='rental-history-container'>
+        <div className='rental-history-header'>
+          <h3 className='rental-history-header-text'>
+            {language === 'EN' ? 'Rental History' : 'Historique de location'}
+          </h3>
+          <div className='history-search-container'>
+            <input
+              type='text'
+              className='history-search-input'
+              placeholder='Search'
+              value={searchQuery}
+              onChange={handleSearchChange}
+              disabled={true}
+            />
+            <div className='history-filter-setting'>
+              <select
+                value={filterSetting}
+                onChange={handleFilterChange}
+                className='history-filter-dropdown'
+              >
+                <option value='newest'>-</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className='book-grid-view'>
+          <div className='no-books-message'>
+            <div className='book-image-list-container'>
+              <div className='book-image-wrapper'>
+                <BookClipart className='book-list-cover-icon' />
+              </div>
+            </div>
+            <div className='no-book-info'>
+              <p className='no-book-info-text-header'>
+                {noRentalHistoryHeader}
+              </p>
+              <p className='no-book-info-subtext'>{noRentalHistoryFound}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   const filteredHistory = authUser.book_history.filter((historyItem) => {
@@ -122,15 +170,6 @@ const RentalHistory: React.FC = () => {
   });
 
   const visibleHistory = sortedHistory.slice(0, visibleCount);
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
-    setVisibleCount(10);
-  };
-
-  const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilterSetting(event.target.value);
-  };
 
   if (authUser.book_history.length === 0) {
     return (

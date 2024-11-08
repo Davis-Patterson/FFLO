@@ -276,7 +276,7 @@ const Auth: React.FC = () => {
               <>
                 <div className='login-header'>
                   <TitleFlair className='auth-flair-left' />
-                  <p className='auth-header-text'>{logoutHeader}</p>
+                  <h1 className='auth-header-text'>{logoutHeader}</h1>
                   <TitleFlair className='auth-flair-right' />
                 </div>
                 <button className='submit-button' onClick={handleLogout}>

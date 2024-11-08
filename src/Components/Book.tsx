@@ -320,7 +320,7 @@ const Book: React.FC = () => {
         <header className='book-header'>
           <div className='book-header-title'>
             <TitleFlair className='title-flair-left' />
-            <p className='book-title-text'>{noBookText}</p>
+            <h1 className='book-title-text'>{noBookText}</h1>
             <TitleFlair className='title-flair-right' />
           </div>
         </header>
@@ -443,7 +443,7 @@ const Book: React.FC = () => {
       <header className='book-header'>
         <div className='book-header-title'>
           <TitleFlair className='title-flair-left' />
-          <p className='book-title-text'>{headerText}</p>
+          <h1 className='book-title-text'>{headerText}</h1>
           <TitleFlair className='title-flair-right' />
         </div>
       </header>
@@ -635,7 +635,7 @@ const Book: React.FC = () => {
       <section className='more-books-container'>
         <div className='more-books-header-title'>
           <TitleFlair className='more-books-title-flair-left' />
-          <p className='more-books-title-text'>{moreBooksText}</p>
+          <h1 className='more-books-title-text'>{moreBooksText}</h1>
           <TitleFlair className='more-books-title-flair-right' />
         </div>
         <BookList />

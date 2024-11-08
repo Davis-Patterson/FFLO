@@ -44,7 +44,7 @@ const Letter: React.FC = () => {
           <header className='letter-header'>
             <div className='letter-header-title'>
               <Leaf1 className='letter-title-flair left' />
-              <p className='letter-title-text'>{letterHeaderText}</p>
+              <h1 className='letter-title-text'>{letterHeaderText}</h1>
               <Leaf1 className='letter-title-flair right' />
             </div>
             <div className='plane-container'>
