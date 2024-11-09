@@ -31,8 +31,9 @@
       "Styles/*": ["src/Styles/*"],
       "Utils/*": ["src/Components/Utils/*"],
       "Tools/*": ["src/Components/Tools/*"],
+      "Admin/*": ["src/Components/Admin/*"],
       "Svgs/*": ["src/Assets/Svgs/*"],
-      "Home/*": ["src/Assets/Home/*"]
+      "FFLO/*": ["src/Assets/FFLO/*"]
     }
   },
   "include": ["src"]

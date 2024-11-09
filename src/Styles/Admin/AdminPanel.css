@@ -1,0 +1,38 @@
+.admin-panel-header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  margin: 30px 0px 40px 0px;
+}
+
+.admin-panel-header-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.admin-panel-title-flair.left,
+.admin-panel-title-flair.right {
+  fill: var(--clr-title-flair);
+  width: 40px;
+  height: 40px;
+}
+.admin-panel-title-flair.left {
+  margin: 0px 20px 0px 0px;
+}
+.admin-panel-title-flair.right {
+  margin: 0px 0px 0px 20px;
+  transform: scaleX(-1);
+}
+
+.admin-panel-title-text {
+  font-family: 'Sacramento', sans-serif;
+  font-size: 2.5em;
+  line-height: 1;
+  font-weight: 200;
+  color: var(--clr-text-blue);
+  width: auto;
+  text-align: center;
+}

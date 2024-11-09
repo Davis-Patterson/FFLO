@@ -13,8 +13,9 @@ export default defineConfig({
       Styles: path.resolve(__dirname, 'src/Styles'),
       Utils: path.resolve(__dirname, 'src/Components/Utils'),
       Tools: path.resolve(__dirname, 'src/Components/Tools'),
+      Admin: path.resolve(__dirname, 'src/Components/Admin'),
       Svgs: path.resolve(__dirname, 'src/Assets/Svgs'),
-      Home: path.resolve(__dirname, 'src/Assets/Home'),
+      FFLO: path.resolve(__dirname, 'src/Assets/FFLO'),
     },
   },
   assetsInclude: [

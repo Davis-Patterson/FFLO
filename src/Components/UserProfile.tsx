@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MiniBookList from 'Components/Utils/MiniBookList';
 import MembershipStatus from 'Utils/MembershipStatus';
 import CheckedOut from 'Utils/CheckedOut';
@@ -235,7 +235,8 @@ const UserProfile: React.FC = () => {
                 </div>
                 <div className='user-profile-logout-container'>
                   {authUser?.is_staff && (
-                    <button
+                    <Link
+                      to='/admin'
                       className='admin-button'
                       onMouseDown={(e) => handleAdmin(e)}
                     >
@@ -244,7 +245,7 @@ const UserProfile: React.FC = () => {
                       ) : (
                         staffText
                       )}
-                    </button>
+                    </Link>
                   )}
                   <button
                     className='logout-button'
@@ -300,7 +301,7 @@ const UserProfile: React.FC = () => {
   return (
     <div className='page-container'>
       <div className='input-token-container'>
-        <p>4b18a318c3a0aef247808a7d4fbacbf329a8f4d9</p>
+        <p>2eac7ed8fe1af63251bc4ed8f9d091b56d704b86</p>
         <div className='input-token-input'>
           <input
             type='text'
@@ -317,7 +318,7 @@ const UserProfile: React.FC = () => {
             adm
           </div>
         </div>
-        <p>d0e5985c2ce3645d7a5137a0ea3710589a40547b</p>
+        <p>7600c79f7d1731d9f560dc02619756bb3104dc43</p>
         <div className='input-token-input'>
           <input
             type='text'

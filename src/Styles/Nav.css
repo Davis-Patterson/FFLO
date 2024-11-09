@@ -125,7 +125,7 @@
 .nav-links {
   display: flex;
   gap: 30px;
-  width: 80%;
+  width: 90%;
   font-family: 'Lato', sans-serif;
   flex-grow: 2;
   justify-content: space-evenly;

@@ -25,9 +25,9 @@ const Nav: React.FC = () => {
   // translations
   const loginText = language === 'EN' ? 'Login' : 'Se Connecter';
   const homeText = language === 'EN' ? 'Home' : 'Maison';
-  const booksText = language === 'EN' ? 'Books' : 'Livres';
-  const aboutText = language === 'EN' ? 'About' : 'À propos';
-  const membershipText = language === 'EN' ? 'Member' : 'Membre';
+  const booksText = language === 'EN' ? 'Library' : 'Livres';
+  const aboutText = language === 'EN' ? 'Info' : 'À propos';
+  const membershipText = language === 'EN' ? 'Membership' : 'Membre';
 
   return (
     <nav className='nav-container'>
@@ -110,6 +110,17 @@ const Nav: React.FC = () => {
             }`}
           >
             {aboutText}
+          </div>
+        </Link>
+        <Link to='/membership'>
+          <div
+            className={`${
+              location.pathname === '/membership'
+                ? 'nav-link-current'
+                : 'nav-link'
+            }`}
+          >
+            {membershipText}
           </div>
         </Link>
       </section>

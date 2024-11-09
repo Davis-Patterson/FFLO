@@ -2,8 +2,8 @@ import { useContext, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import TitleFlair from 'Svgs/TitleFlair';
 import BookList from 'Components/BookList';
-import libraryShelfImg from 'Home/library_shelf.webp';
-import libraryShelfSmall from 'Home/library_shelf_small.webp';
+import libraryShelfImg from 'FFLO/library_shelf.webp';
+import libraryShelfSmall from 'FFLO/library_shelf_small.webp';
 import 'Styles/Home.css';
 
 const Home: React.FC = () => {
@@ -65,6 +65,9 @@ const Home: React.FC = () => {
             </div>
           </div>
         </header>
+        <svg className='home-line-divider'>
+          <line x1='0' y1='50%' x2='100%' y2='50%' />
+        </svg>
         <div className='home-content-header'>
           <div className='home-content-header-title'>
             <TitleFlair className='title-flair-left' />

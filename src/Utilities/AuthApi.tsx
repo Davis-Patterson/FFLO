@@ -77,6 +77,45 @@ const AuthApi = () => {
     }
   };
 
+  const verifyAdmin = async (): Promise<
+    | {
+        success: boolean;
+        isAdmin?: boolean;
+        error?: string;
+      }
+    | undefined
+  > => {
+    try {
+      const response: AxiosResponse = await axiosInstance.get('/auth/admin/');
+      if (response.status === 200) {
+        console.log('User is a staff member.');
+        return { success: true, isAdmin: true };
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          if (error.response.status === 403) {
+            console.log('User is not a staff member.');
+            return {
+              success: true,
+              isAdmin: false,
+              error: 'User is not a staff member.',
+            };
+          } else if (error.response.status === 401) {
+            console.log('Invalid or expired token.');
+            clearAuthToken();
+            clearAuthUser();
+            return { success: false, error: 'Invalid or expired token.' };
+          }
+        }
+      }
+      console.error('An unexpected error occurred:', error);
+      return { success: false, error: 'An unexpected error occurred.' };
+    }
+
+    return { success: false, error: 'Unhandled error in verifyAdmin.' };
+  };
+
   const login = async (
     email: string,
     password: string
@@ -222,6 +261,7 @@ const AuthApi = () => {
 
   return {
     verifyToken,
+    verifyAdmin,
     login,
     logout,
     register,

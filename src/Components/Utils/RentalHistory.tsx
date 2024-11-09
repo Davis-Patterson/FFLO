@@ -8,8 +8,8 @@ import UKFlag from 'Svgs/UKFlag';
 import FrenchBookIcon from 'Svgs/FrenchBookIcon';
 import EnglishBookIcon from 'Svgs/EnglishBookIcon';
 import DefaultBookIcon from 'Svgs/DefaultBookIcon';
+import BookStack from 'Svgs/BookStack';
 import 'Styles/Utils/RentalHistory.css';
-import BookClipart from 'Svgs/BookClipart';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 
@@ -128,7 +128,7 @@ const RentalHistory: React.FC = () => {
           <div className='no-books-message'>
             <div className='book-image-list-container'>
               <div className='book-image-wrapper'>
-                <BookClipart className='book-list-cover-icon' />
+                <BookStack className='book-list-cover-icon' />
               </div>
             </div>
             <div className='no-book-info'>
@@ -203,7 +203,7 @@ const RentalHistory: React.FC = () => {
           <div className='no-books-message'>
             <div className='book-image-list-container'>
               <div className='book-image-wrapper'>
-                <BookClipart className='book-list-cover-icon' />
+                <BookStack className='book-list-cover-icon' />
               </div>
             </div>
             <div className='no-book-info'>
@@ -250,7 +250,7 @@ const RentalHistory: React.FC = () => {
           <div className='no-books-message'>
             <div className='book-image-list-container'>
               <div className='book-image-wrapper'>
-                <BookClipart className='book-list-cover-icon' />
+                <BookStack className='book-list-cover-icon' />
               </div>
             </div>
             <div className='no-book-info'>

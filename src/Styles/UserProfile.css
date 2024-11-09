@@ -216,6 +216,10 @@
   width: 100px;
   height: 26px;
   margin: 20px 0px 0px 0px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .logout-button:hover {
   border: 1px solid var(--clr-error);

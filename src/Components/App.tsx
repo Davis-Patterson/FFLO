@@ -15,13 +15,17 @@ import Home from 'Components/Home';
 import NotFound from 'Tools/NotFound';
 import Footer from 'Components/Footer';
 import ProtectedRoute from 'Tools/ProtectedRoute';
+import AdminRoute from 'Tools/AdminRoute';
 import Fallback from 'Tools/Fallback';
+import Restricted from 'Tools/Restricted';
 import 'Styles/App.css';
 
 const Book = lazy(() => import('Components/Book'));
 const Books = lazy(() => import('Components/Books'));
 const About = lazy(() => import('Components/About'));
 const UserProfile = lazy(() => import('Components/UserProfile'));
+const Membership = lazy(() => import('Components/Membership'));
+const AdminPanel = lazy(() => import('Admin/AdminPanel'));
 
 const App: React.FC = () => {
   const { verifyToken, logout } = AuthApi();
@@ -131,7 +135,7 @@ const App: React.FC = () => {
             element={
               <ProtectedRoute>
                 <Suspense fallback={<Fallback />}>
-                  <About />
+                  <Membership />
                 </Suspense>
               </ProtectedRoute>
             }
@@ -146,8 +150,29 @@ const App: React.FC = () => {
               </ProtectedRoute>
             }
           />
-          <Route path='*' element={<NotFound />} />
+          <Route
+            path='/profile'
+            element={
+              <ProtectedRoute>
+                <Suspense fallback={<Fallback />}>
+                  <UserProfile />
+                </Suspense>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/admin/*'
+            element={
+              <AdminRoute>
+                <Suspense fallback={<Fallback />}>
+                  <AdminPanel />
+                </Suspense>
+              </AdminRoute>
+            }
+          />
           <Route path='/fallback' element={<Fallback />} />
+          <Route path='/restricted' element={<Restricted />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
       </>

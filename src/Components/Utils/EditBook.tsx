@@ -1160,7 +1160,8 @@ const EditBook: React.FC = () => {
                               className={`create-flag ${
                                 !bookLanguage
                                   ? ''
-                                  : bookLanguage.toLowerCase() === 'french'
+                                  : bookLanguage.toLowerCase() === 'french' ||
+                                    'français'
                                   ? 'selected'
                                   : 'unselected'
                               }`}

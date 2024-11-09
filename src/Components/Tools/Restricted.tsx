@@ -6,9 +6,9 @@ import PointingIcon from 'Svgs/PointingIcon';
 import BulletPoint from 'Svgs/BulletPoint';
 import GlobeClipart from 'Svgs/GlobeClipart';
 import BookList from 'Components/BookList';
-import 'Styles/Tools/NotFound.css';
+import 'Styles/Tools/Restricted.css';
 
-const NotFound: React.FC = () => {
+const Restricted: React.FC = () => {
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
@@ -50,32 +50,32 @@ const NotFound: React.FC = () => {
   return (
     <>
       <div className='page-container'>
-        <div className='not-found-wrapper'>
-          <div className='not-found-container'>
-            <div className='not-found-header'>
-              <div className='not-found-header-text-container'>
-                <TitleFlair className='not-found-flair-left' />
-                <h1 className='not-found-header-text'>{notFoundText}</h1>
-                <TitleFlair className='not-found-flair-right' />
+        <div className='restricted-wrapper'>
+          <div className='restricted-container'>
+            <div className='restricted-header'>
+              <div className='restricted-header-text-container'>
+                <TitleFlair className='restricted-flair-left' />
+                <h1 className='restricted-header-text'>{notFoundText}</h1>
+                <TitleFlair className='restricted-flair-right' />
               </div>
-              <div className='not-found-header-subtext-container'>
-                <p className='not-found-header-subtext'>{notFoundSubtext}</p>
+              <div className='restricted-header-subtext-container'>
+                <p className='restricted-header-subtext'>{notFoundSubtext}</p>
               </div>
             </div>
-            <div className='not-found-content-container'>
-              <div className='not-found-content'>
-                <GlobeClipart className='not-found-globe-clipart' />
-                <div className='not-found-content-links-container'>
-                  <p className='not-found-text-hand'>{alternativesSubtext}</p>
-                  <div className='not-found-content-links'>
+            <div className='restricted-content-container'>
+              <div className='restricted-content'>
+                <GlobeClipart className='restricted-globe-clipart' />
+                <div className='restricted-content-links-container'>
+                  <p className='restricted-text-hand'>{alternativesSubtext}</p>
+                  <div className='restricted-content-links'>
                     <Link to={'/'}>
                       <div
-                        className='not-found-content-link-item'
+                        className='restricted-content-link-item'
                         onMouseEnter={() => setHoveredCategoryId('homepage')}
                         onMouseLeave={() => setHoveredCategoryId('')}
                       >
                         <BulletPoint
-                          className={`not-found-bullet-point ${
+                          className={`restricted-bullet-point ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'homepage'
@@ -84,7 +84,7 @@ const NotFound: React.FC = () => {
                           }`}
                         />
                         <p
-                          className={`not-found-content-link-text ${
+                          className={`restricted-content-link-text ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'homepage'
@@ -95,7 +95,7 @@ const NotFound: React.FC = () => {
                           {homepageText}
                         </p>
                         <PointingIcon
-                          className={`not-found-hand-icon ${
+                          className={`restricted-hand-icon ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'homepage'
@@ -107,12 +107,12 @@ const NotFound: React.FC = () => {
                     </Link>
                     <Link to={'/about'}>
                       <div
-                        className='not-found-content-link-item'
+                        className='restricted-content-link-item'
                         onMouseEnter={() => setHoveredCategoryId('about')}
                         onMouseLeave={() => setHoveredCategoryId('')}
                       >
                         <BulletPoint
-                          className={`not-found-bullet-point ${
+                          className={`restricted-bullet-point ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'about'
@@ -121,7 +121,7 @@ const NotFound: React.FC = () => {
                           }`}
                         />
                         <p
-                          className={`not-found-content-link-text ${
+                          className={`restricted-content-link-text ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'about'
@@ -132,7 +132,7 @@ const NotFound: React.FC = () => {
                           {aboutText}
                         </p>
                         <PointingIcon
-                          className={`not-found-hand-icon ${
+                          className={`restricted-hand-icon ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'about'
@@ -144,12 +144,12 @@ const NotFound: React.FC = () => {
                     </Link>
                     <Link to={'/profile'}>
                       <div
-                        className='not-found-content-link-item'
+                        className='restricted-content-link-item'
                         onMouseEnter={() => setHoveredCategoryId('profile')}
                         onMouseLeave={() => setHoveredCategoryId('')}
                       >
                         <BulletPoint
-                          className={`not-found-bullet-point ${
+                          className={`restricted-bullet-point ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'profile'
@@ -158,7 +158,7 @@ const NotFound: React.FC = () => {
                           }`}
                         />
                         <p
-                          className={`not-found-content-link-text ${
+                          className={`restricted-content-link-text ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'profile'
@@ -169,7 +169,7 @@ const NotFound: React.FC = () => {
                           {authToken ? profileText : loginText}
                         </p>
                         <PointingIcon
-                          className={`not-found-hand-icon ${
+                          className={`restricted-hand-icon ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'profile'
@@ -181,12 +181,12 @@ const NotFound: React.FC = () => {
                     </Link>
                     <Link to={'/library'}>
                       <div
-                        className='not-found-content-link-item'
+                        className='restricted-content-link-item'
                         onMouseEnter={() => setHoveredCategoryId('library')}
                         onMouseLeave={() => setHoveredCategoryId('')}
                       >
                         <BulletPoint
-                          className={`not-found-bullet-point ${
+                          className={`restricted-bullet-point ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'library'
@@ -195,7 +195,7 @@ const NotFound: React.FC = () => {
                           }`}
                         />
                         <p
-                          className={`not-found-content-link-text ${
+                          className={`restricted-content-link-text ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'library'
@@ -206,7 +206,7 @@ const NotFound: React.FC = () => {
                           {libraryText}
                         </p>
                         <PointingIcon
-                          className={`not-found-hand-icon ${
+                          className={`restricted-hand-icon ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'library'
@@ -228,4 +228,4 @@ const NotFound: React.FC = () => {
   );
 };
 
-export default NotFound;
+export default Restricted;

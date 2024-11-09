@@ -4,8 +4,19 @@
   justify-content: center;
   align-items: center;
   padding: 20px 0px 50px 0px;
-  border-bottom: 1px solid var(--clr-divider);
+}
+
+.home-line-divider {
+  height: 1px;
+  width: 100%;
+  z-index: 1;
+  padding: 0px 25px;
   margin: 0px 0px 90px 0px;
+}
+
+.home-line-divider line {
+  stroke: var(--clr-divider);
+  stroke-width: 1px;
 }
 
 .home-header-image-container {
