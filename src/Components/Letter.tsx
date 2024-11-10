@@ -32,8 +32,11 @@ const Letter: React.FC = () => {
     language === 'EN'
       ? 'This inspired me to open the reading room, a dedicated space filled with over 500 French books generously offered by my mother and donated by our community. My goal is to provide a welcoming environment where families can easily access French educational tools and foster a love for reading in their little ones. I believe that by creating this space, we can enrich our community and make the joys of French literature accessible to everyone.'
       : "Cela m'a inspiré à ouvrir la salle de lecture, un espace dédié rempli de plus de 500 livres français généreusement offerts par ma mère et donnés par notre communauté. Mon objectif est d'offrir un environnement accueillant où les familles peuvent facilement accéder aux outils pédagogiques en français et favoriser l'amour de la lecture chez leurs tout-petits. Je crois qu'en créant cet espace, nous pouvons enrichir notre communauté et rendre les joies de la littérature française accessibles à tous.";
-  const letterContent4 =
-    language === 'EN' ? '- Sonia Gautier' : '- Sonia Gautier';
+  const letterContent4 = language === 'EN' ? 'Sonia Gautier' : 'Sonia Gautier';
+  const letterContent5 =
+    language === 'EN'
+      ? 'Owner & Director, FFLO'
+      : 'Propriétaire & directeur, FFLO';
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -64,7 +67,10 @@ const Letter: React.FC = () => {
               <p className='letter-content-text'>{letterContent1}</p>
               <p className='letter-content-text'>{letterContent2}</p>
               <p className='letter-content-text'>{letterContent3}</p>
-              <p className='letter-content-signature'>{letterContent4}</p>
+              <div className='letter-signature-title-container'>
+                <p className='letter-content-signature'>{letterContent4}</p>
+                <p className='letter-content-title'>{letterContent5}</p>
+              </div>
             </div>
             <div className='letter-content-margin right'>
               <Crayon2 className='crayon-icon' />
