@@ -63,7 +63,7 @@ const Auth: React.FC = () => {
   const lastNamePlaceholder =
     language === 'EN' ? 'Last Name' : 'Nom de Famille';
   const logoutText = language === 'EN' ? 'Logout' : 'Déconnexion';
-  const logoutHeader = language === 'EN' ? 'Goodbye' : 'Au Revoir';
+  const logoutHeader = language === 'EN' ? 'Au Revoir' : 'Au Revoir';
   const emailPlaceholder = language === 'EN' ? 'Email' : 'Courriel';
   const passwordPlaceholder = language === 'EN' ? 'Password' : 'Mot de Passe';
   const confirmPasswordPlaceholder =

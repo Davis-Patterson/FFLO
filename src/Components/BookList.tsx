@@ -25,6 +25,8 @@ import StarGrey from 'Svgs/StarGrey';
 import EyeShown from 'Svgs/EyeShown';
 import EyeHidden from 'Svgs/EyeHidden';
 import 'Styles/BookList.css';
+import BackArrow from 'Svgs/BackArrow';
+import XIcon from 'Svgs/XIcon';
 
 const BookList: React.FC = () => {
   const { title } = useParams<{ title: string }>();
@@ -70,6 +72,7 @@ const BookList: React.FC = () => {
   const titleText = language === 'EN' ? 'Title' : 'Titre';
   const authorText = language === 'EN' ? 'Author' : 'Auteur';
   const sidebarHeaderText = language === 'EN' ? 'Categories' : 'Catégories';
+  const closeSidebarText = language === 'EN' ? 'Close' : 'Fermer';
   const editCategoriesToggleText =
     language === 'EN' ? 'Categories' : 'Catégories';
   const allBooksText = language === 'EN' ? 'All Books' : 'Tous les livres';
@@ -539,19 +542,17 @@ const BookList: React.FC = () => {
                       >
                         {unavailableText}
                       </p>
-                      <div className='hidden-icon-container'>
-                        {showUnavailable ? (
-                          <EyeShown
-                            className='shown-icon'
-                            onMouseDown={(e) => handleToggleUnavailable(e)}
-                          />
-                        ) : (
-                          <EyeHidden
-                            className='hidden-icon'
-                            onMouseDown={(e) => handleToggleUnavailable(e)}
-                          />
-                        )}
-                      </div>
+                      {showUnavailable ? (
+                        <EyeShown
+                          className='shown-icon'
+                          onMouseDown={(e) => handleToggleUnavailable(e)}
+                        />
+                      ) : (
+                        <EyeHidden
+                          className='hidden-icon'
+                          onMouseDown={(e) => handleToggleUnavailable(e)}
+                        />
+                      )}
                     </div>
                     <p
                       className={`${
@@ -580,6 +581,16 @@ const BookList: React.FC = () => {
                 </div>
               </div>
             </div>
+            <div
+              className='close-sidebar-container'
+              onMouseDown={(e) => handleShowSidebar(e)}
+              style={{
+                transform: showSidebar ? 'translateX(0%)' : 'translateX(-100%)',
+              }}
+            >
+              <p className='close-sidebar-text'>{closeSidebarText}</p>
+              <XIcon className='sidebar-close-icon' />
+            </div>
           </div>
         </div>
         {filteredBookList.length === 0 ? (
@@ -599,200 +610,99 @@ const BookList: React.FC = () => {
         ) : (
           <>
             {viewSetting === 'grid' && (
-              <div className='book-grid-view'>
-                {displayedBooks.map((book: Book) => {
-                  const hasImage = !!book.images[0]?.image_url;
-                  const bookUrl = `/books/${formatTitleForURL(book.title)}`;
-                  const isBookmarked = bookmarkedBooks.some(
-                    (b) => b.id === book.id
-                  );
-                  return (
-                    <Link
-                      key={book.id}
-                      to={bookUrl}
-                      className={`${
-                        book.available < 1
-                          ? 'book-card-unavailable'
-                          : 'book-card'
-                      }`}
-                    >
-                      <div className='book-image-container'>
-                        <div className='book-list-bookmark-toggle-container'>
-                          {isBookmarked ? (
-                            <BookmarkSolid
-                              className='book-list-bookmark-icon-bookmarked'
-                              onClick={(e) => handleRemoveBookmark(e, book.id)}
-                            />
-                          ) : (
-                            <BookmarkOutline
-                              className='book-list-bookmark-icon'
-                              onClick={(e) => handleAddBookmark(e, book.id)}
-                            />
-                          )}
-                        </div>
-                        {book.flair && (
-                          <div className='book-flair-container'>
-                            <p className='book-flair'>{book.flair}</p>
-                          </div>
-                        )}
-                        <div
-                          className={`book-image-wrapper ${
-                            hasImage ? 'blur-load' : ''
-                          }`}
-                          style={{
-                            backgroundImage: `url(${book.images[0]?.image_small})`,
-                          }}
-                        >
-                          {hasImage ? (
-                            <img
-                              src={book.images[0]?.image_url ?? undefined}
-                              alt={book.title}
-                              className='book-image'
-                              onLoad={(e) => {
-                                const imgElement = e.target as HTMLImageElement;
-                                imgElement.parentElement?.classList.add(
-                                  'loaded'
-                                );
-                              }}
-                            />
-                          ) : (
-                            getBookIcon(book)
-                          )}
-                        </div>
-                      </div>
-                      <div className='book-info'>
-                        <h3
-                          className={`${
-                            book.available < 1
-                              ? 'book-title-unavailable'
-                              : 'book-title'
-                          }`}
-                        >
-                          {book.title}
-                        </h3>
-                        <p className='book-author'>{book.author}</p>
-                        <div className='book-language-rating-container'>
-                          <p className='book-language'>{book.language}</p>
-                          {book.language === 'French' && (
-                            <FrenchFlag className='book-language-flag' />
-                          )}
-                          {book.language === 'English' && (
-                            <UKFlag className='book-language-flag' />
-                          )}
-                          <p className='pipe-icon'>|</p>
-                          <div className='rating-container'>
-                            {!book.rating && (
-                              <StarGrey className='book-grid-star-icon' />
+              <div className='book-list-submit-container'>
+                <div className='book-grid-view'>
+                  {displayedBooks.map((book: Book) => {
+                    const hasImage = !!book.images[0]?.image_url;
+                    const bookUrl = `/books/${formatTitleForURL(book.title)}`;
+                    const isBookmarked = bookmarkedBooks.some(
+                      (b) => b.id === book.id
+                    );
+                    return (
+                      <Link
+                        key={book.id}
+                        to={bookUrl}
+                        className={`${
+                          book.available < 1
+                            ? 'book-card-unavailable'
+                            : 'book-card'
+                        }`}
+                      >
+                        <div className='book-image-container'>
+                          <div className='book-list-bookmark-toggle-container'>
+                            {isBookmarked ? (
+                              <BookmarkSolid
+                                className='book-list-bookmark-icon-bookmarked'
+                                onClick={(e) =>
+                                  handleRemoveBookmark(e, book.id)
+                                }
+                              />
+                            ) : (
+                              <BookmarkOutline
+                                className='book-list-bookmark-icon'
+                                onClick={(e) => handleAddBookmark(e, book.id)}
+                              />
                             )}
-                            {book.rating && (
-                              <>
-                                <StarColor className='book-grid-star-icon' />
-                                <p className='book-grid-rating'>
-                                  {book.rating}
-                                </p>
-                              </>
+                          </div>
+                          {book.flair && (
+                            <div className='book-flair-container'>
+                              <p className='book-flair'>{book.flair}</p>
+                            </div>
+                          )}
+                          <div
+                            className={`book-image-wrapper ${
+                              hasImage ? 'blur-load' : ''
+                            }`}
+                            style={{
+                              backgroundImage: `url(${book.images[0]?.image_small})`,
+                            }}
+                          >
+                            {hasImage ? (
+                              <img
+                                src={book.images[0]?.image_url ?? undefined}
+                                alt={book.title}
+                                className='book-image'
+                                onLoad={(e) => {
+                                  const imgElement =
+                                    e.target as HTMLImageElement;
+                                  imgElement.parentElement?.classList.add(
+                                    'loaded'
+                                  );
+                                }}
+                              />
+                            ) : (
+                              getBookIcon(book)
                             )}
                           </div>
                         </div>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
-            {viewSetting === 'list' && (
-              <div className='book-list-view'>
-                {displayedBooks.map((book: Book) => {
-                  const hasImage = !!book.images[0]?.image_url;
-                  const bookUrl = `/books/${formatTitleForURL(book.title)}`;
-                  const isBookmarked = bookmarkedBooks.some(
-                    (b) => b.id === book.id
-                  );
-                  return (
-                    <Link
-                      key={book.id}
-                      to={bookUrl}
-                      className={`${
-                        book.available < 1
-                          ? 'book-card-list-unavailable'
-                          : 'book-card-list'
-                      }`}
-                    >
-                      <div className='book-image-list-container'>
-                        <div className='book-list-bookmark-toggle-container'>
-                          {isBookmarked ? (
-                            <BookmarkSolid
-                              className='book-list-bookmark-icon-bookmarked'
-                              onClick={(e) => handleRemoveBookmark(e, book.id)}
-                            />
-                          ) : (
-                            <BookmarkSolid
-                              className='book-list-bookmark-icon'
-                              onClick={(e) => handleAddBookmark(e, book.id)}
-                            />
-                          )}
-                        </div>
-                        {book.flair && (
-                          <div className='book-flair-container'>
-                            <p className='book-flair'>{book.flair}</p>
-                          </div>
-                        )}
-                        <div
-                          className={`book-image-wrapper ${
-                            hasImage ? 'blur-load' : ''
-                          }`}
-                          style={{
-                            backgroundImage: `url(${book.images[0]?.image_small})`,
-                          }}
-                        >
-                          {hasImage ? (
-                            <img
-                              src={book.images[0]?.image_url ?? undefined}
-                              alt={book.title}
-                              className='book-image'
-                              onLoad={(e) => {
-                                const imgElement = e.target as HTMLImageElement;
-                                imgElement.parentElement?.classList.add(
-                                  'loaded'
-                                );
-                              }}
-                            />
-                          ) : (
-                            getBookIcon(book)
-                          )}
-                        </div>
-                      </div>
-                      <div className='book-list-info'>
-                        <div className='book-list-title-author'>
+                        <div className='book-info'>
                           <h3
                             className={`${
                               book.available < 1
-                                ? 'book-list-title-unavailable'
-                                : 'book-list-title'
+                                ? 'book-title-unavailable'
+                                : 'book-title'
                             }`}
                           >
                             {book.title}
                           </h3>
-                          <p className='book-list-author'>{book.author}</p>
-                          <div className='book-list-language-rating-container'>
-                            <p className='book-list-language'>
-                              {book.language}
-                            </p>
+                          <p className='book-author'>{book.author}</p>
+                          <div className='book-language-rating-container'>
+                            <p className='book-language'>{book.language}</p>
                             {book.language === 'French' && (
-                              <FrenchFlag className='book-list-language-flag' />
+                              <FrenchFlag className='book-language-flag' />
                             )}
                             {book.language === 'English' && (
-                              <UKFlag className='book-list-language-flag' />
+                              <UKFlag className='book-language-flag' />
                             )}
                             <p className='pipe-icon'>|</p>
                             <div className='rating-container'>
                               {!book.rating && (
-                                <StarGrey className='book-list-star-icon' />
+                                <StarGrey className='book-grid-star-icon' />
                               )}
                               {book.rating && (
                                 <>
-                                  <StarColor className='book-list-star-icon' />
-                                  <p className='book-list-rating'>
+                                  <StarColor className='book-grid-star-icon' />
+                                  <p className='book-grid-rating'>
                                     {book.rating}
                                   </p>
                                 </>
@@ -800,27 +710,151 @@ const BookList: React.FC = () => {
                             </div>
                           </div>
                         </div>
-                        <div className='book-list-desc'>
-                          <p className='book-list-desc-text'>
-                            {book.description}
-                          </p>
+                      </Link>
+                    );
+                  })}
+                </div>
+                {visibleBooks < filteredBookList.length && (
+                  <div className='view-more-button-container'>
+                    <button
+                      onClick={handleViewMore}
+                      className='view-more-button'
+                    >
+                      View More
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+            {viewSetting === 'list' && (
+              <div className='book-list-submit-container'>
+                <div className='book-list-view'>
+                  {displayedBooks.map((book: Book) => {
+                    const hasImage = !!book.images[0]?.image_url;
+                    const bookUrl = `/books/${formatTitleForURL(book.title)}`;
+                    const isBookmarked = bookmarkedBooks.some(
+                      (b) => b.id === book.id
+                    );
+                    return (
+                      <Link
+                        key={book.id}
+                        to={bookUrl}
+                        className={`${
+                          book.available < 1
+                            ? 'book-card-list-unavailable'
+                            : 'book-card-list'
+                        }`}
+                      >
+                        <div className='book-image-list-container'>
+                          <div className='book-list-bookmark-toggle-container'>
+                            {isBookmarked ? (
+                              <BookmarkSolid
+                                className='book-list-bookmark-icon-bookmarked'
+                                onClick={(e) =>
+                                  handleRemoveBookmark(e, book.id)
+                                }
+                              />
+                            ) : (
+                              <BookmarkSolid
+                                className='book-list-bookmark-icon'
+                                onClick={(e) => handleAddBookmark(e, book.id)}
+                              />
+                            )}
+                          </div>
+                          {book.flair && (
+                            <div className='book-flair-container'>
+                              <p className='book-flair'>{book.flair}</p>
+                            </div>
+                          )}
+                          <div
+                            className={`book-image-wrapper ${
+                              hasImage ? 'blur-load' : ''
+                            }`}
+                            style={{
+                              backgroundImage: `url(${book.images[0]?.image_small})`,
+                            }}
+                          >
+                            {hasImage ? (
+                              <img
+                                src={book.images[0]?.image_url ?? undefined}
+                                alt={book.title}
+                                className='book-image'
+                                onLoad={(e) => {
+                                  const imgElement =
+                                    e.target as HTMLImageElement;
+                                  imgElement.parentElement?.classList.add(
+                                    'loaded'
+                                  );
+                                }}
+                              />
+                            ) : (
+                              getBookIcon(book)
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    </Link>
-                  );
-                })}
+                        <div className='book-list-info'>
+                          <div className='book-list-title-author'>
+                            <h3
+                              className={`${
+                                book.available < 1
+                                  ? 'book-list-title-unavailable'
+                                  : 'book-list-title'
+                              }`}
+                            >
+                              {book.title}
+                            </h3>
+                            <p className='book-list-author'>{book.author}</p>
+                            <div className='book-list-language-rating-container'>
+                              <p className='book-list-language'>
+                                {book.language}
+                              </p>
+                              {book.language === 'French' && (
+                                <FrenchFlag className='book-list-language-flag' />
+                              )}
+                              {book.language === 'English' && (
+                                <UKFlag className='book-list-language-flag' />
+                              )}
+                              <p className='pipe-icon'>|</p>
+                              <div className='rating-container'>
+                                {!book.rating && (
+                                  <StarGrey className='book-list-star-icon' />
+                                )}
+                                {book.rating && (
+                                  <>
+                                    <StarColor className='book-list-star-icon' />
+                                    <p className='book-list-rating'>
+                                      {book.rating}
+                                    </p>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <div className='book-list-desc'>
+                            <p className='book-list-desc-text'>
+                              {book.description}
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+                {visibleBooks < filteredBookList.length && (
+                  <div className='view-more-button-container'>
+                    <button
+                      onClick={handleViewMore}
+                      className='view-more-button'
+                    >
+                      View More
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </>
         )}
       </div>
-      {visibleBooks < filteredBookList.length && (
-        <div className='view-more-button-container'>
-          <button onClick={handleViewMore} className='view-more-button'>
-            View More
-          </button>
-        </div>
-      )}
     </section>
   );
 };

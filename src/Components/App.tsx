@@ -12,6 +12,7 @@ import EditCategories from 'Utils/EditCategories';
 import PolicyPanel from 'Utils/PolicyPanel';
 import Nav from 'Components/Nav';
 import Home from 'Components/Home';
+import Contact from 'Components/Contact';
 import NotFound from 'Tools/NotFound';
 import Footer from 'Components/Footer';
 import ProtectedRoute from 'Tools/ProtectedRoute';
@@ -131,21 +132,21 @@ const App: React.FC = () => {
             }
           />
           <Route
-            path='/membership'
+            path='/contact'
             element={
               <ProtectedRoute>
                 <Suspense fallback={<Fallback />}>
-                  <Membership />
+                  <Contact />
                 </Suspense>
               </ProtectedRoute>
             }
           />
           <Route
-            path='/profile'
+            path='/membership'
             element={
               <ProtectedRoute>
                 <Suspense fallback={<Fallback />}>
-                  <UserProfile />
+                  <Membership />
                 </Suspense>
               </ProtectedRoute>
             }

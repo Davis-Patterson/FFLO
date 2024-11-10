@@ -29,10 +29,14 @@
   width: 75px;
   height: 75px;
 }
-.flower-dots {
+.flower-dots-left,
+.flower-dots-right {
   fill: var(--clr-dots);
   width: 55px;
   height: 55px;
+}
+.flower-dots-right {
+  transform: scaleY(-1);
 }
 
 .footer-center-header {

@@ -163,10 +163,13 @@
 
 .books-sidebar-container {
   width: 100%;
-  padding: 20px 20px 20px 10px;
+  padding: 20px 20px 0px 10px;
   border-right: 1px solid var(--clr-divider);
   height: 100%;
   transition: all 0.75s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sidebar-content {
@@ -183,7 +186,7 @@
   line-height: 1;
   transform: scaleY(90%);
   color: var(--clr-dark);
-  margin: 0px 0px 15px 0px;
+  margin: 10px 0px 15px 0px;
 }
 .sidebar-content-header-text {
   font-size: 1.25em;
@@ -220,6 +223,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 5px;
 }
 
 .hidden-icon-container {
@@ -232,7 +236,6 @@
 
 .hidden-icon,
 .shown-icon {
-  margin: 1px 0px 0px 0px;
   cursor: pointer;
   transition: all 0.15s ease-in-out;
 }
@@ -244,7 +247,7 @@
 .shown-icon {
   width: 20px;
   height: 12px;
-  margin: 0px 3px 0px 0px;
+  margin: 0px 0px 0px 3px;
 }
 .hidden-icon:hover,
 .sidebar-content-unavailable-deselected:hover + .hidden-icon {
@@ -253,16 +256,19 @@
 .shown-icon {
   fill: var(--clr-dark);
 }
+.sidebar-content-unavailable-deselected:hover + .hidden-icon {
+  fill: var(--clr-icon);
+}
 
 .sidebar-content-item,
 .sidebar-content-item-selected,
 .sidebar-content-unavailable-selected,
 .sidebar-content-item-deselected,
 .sidebar-content-unavailable-deselected {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Patrick Hand', sans-serif;
   font-size: 1em;
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.35;
   cursor: pointer;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -403,6 +409,51 @@
 }
 .sidebar-ruler {
   width: 60px;
+}
+
+.close-sidebar-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.close-sidebar-text {
+  font-family: 'Indie Flower', sans-serif;
+  font-size: 1.3em;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--clr-icon);
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  transform: scaleY(90%);
+}
+.close-sidebar-text:hover {
+  color: var(--clr-dark);
+}
+
+.sidebar-close-icon {
+  fill: var(--clr-icon);
+  width: 12px;
+  height: 12px;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  margin: 0px 0px 0px 0px;
+}
+.sidebar-close-icon:hover {
+  fill: var(--clr-dark);
+}
+.close-sidebar-text:hover + .sidebar-close-icon {
+  fill: var(--clr-dark);
+}
+
+.book-list-submit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
 }
 
 .book-grid-view {
@@ -881,6 +932,8 @@
   border: 1px solid var(--clr-text-blue);
   cursor: pointer;
   max-width: 260px;
+  transition: all 0.13s ease-in-out;
+  margin: 25px 0px 0px 0px;
 }
 .view-more-button {
   width: 100%;

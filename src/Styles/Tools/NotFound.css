@@ -138,7 +138,7 @@
 }
 .not-found-bullet-point.deselected {
   fill: var(--clr-divider);
-  opacity: 0.5;
+  opacity: 0.95;
 }
 
 .not-found-content-link-text {
@@ -154,7 +154,7 @@
 }
 .not-found-content-link-text.deselected {
   color: var(--clr-divider);
-  opacity: 0.5;
+  opacity: 0.95;
 }
 
 .not-found-hand-icon {
@@ -171,5 +171,5 @@
 }
 .not-found-hand-icon.deselected {
   fill: var(--clr-divider);
-  opacity: 0.5;
+  opacity: 0.95;
 }
