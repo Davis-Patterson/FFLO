@@ -85,6 +85,16 @@
   font-weight: 500;
   color: var(--clr-text-grey);
 }
+.letter-content-signature {
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.1em;
+  line-height: 1.35;
+  font-weight: 500;
+  color: var(--clr-text-grey);
+  width: 100%;
+  text-align: left;
+  margin: 0px 0px 0px 50px;
+}
 
 .letter-footer-container {
   width: 100%;

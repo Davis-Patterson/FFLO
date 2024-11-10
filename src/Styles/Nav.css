@@ -129,35 +129,66 @@
   font-family: 'Lato', sans-serif;
   flex-grow: 2;
   justify-content: space-evenly;
+  align-items: center;
   margin: 15px 0px 15px 0px;
 }
 
 .nav-link {
+  transition: all 0.15s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 104px;
+}
+
+.nav-link-text,
+.nav-link-text-current {
   font-family: 'Lato', sans-serif;
-  font-size: 1em;
+  font-size: 1.18em;
   line-height: 1;
   font-weight: 600;
   text-decoration: none;
-  color: var(--clr-text-blue);
-  font-size: 18px;
   transition: all 0.15s ease;
   cursor: pointer;
 }
-.nav-link:hover {
+.nav-link-text {
+  color: var(--clr-text-blue);
+}
+.nav-link-text:hover {
+  color: var(--clr-moyenne);
+}
+.nav-link-text-current {
   color: var(--clr-moyenne);
 }
 
-.nav-link-current {
+.nav-link-icon {
+  width: 16px;
+  height: 16px;
+  fill: var(--clr-icon);
+  margin: 0px 4px 0px 4px;
+  transition: all 0.15s ease-in-out;
+}
+.nav-link:hover .nav-link-icon,
+.nav-link-icon:hover {
+  fill: var(--clr-moyenne);
+}
+
+.nav-link-text:hover + .nav-link-icon {
+  margin: 0px 0px 0px 8px;
+  fill: var(--clr-moyenne);
+}
+
+.nav-link-flair {
   font-family: 'Lato', sans-serif;
-  font-size: 1em;
+  color: var(--clr-icon);
+  font-size: 0.75em;
   line-height: 1;
   font-weight: 600;
+  font-style: italic;
   text-decoration: none;
-  color: var(--clr-moyenne);
-  font-size: 18px;
   transition: all 0.15s ease;
-  cursor: pointer;
-}
-.nav-link-current:hover {
-  color: var(--clr-moyenne);
+  cursor: default;
+  margin: 0px 0px 0px 6px;
 }

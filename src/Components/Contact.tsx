@@ -6,6 +6,7 @@ import FbIcon from 'Svgs/FbIcon';
 import PaperPlaneIcon from 'Svgs/PaperPlaneIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Contact.css';
+import LetterIcon from 'Svgs/LetterIcon';
 
 const Contact: React.FC = () => {
   const context = useContext(AppContext);
@@ -102,116 +103,125 @@ const Contact: React.FC = () => {
   return (
     <>
       <main className='page-container'>
-        <header className='contact-header'>
-          <div className='contact-header-title'>
-            <TitleFlair className='title-flair-left' />
-            <h1 className='contact-title-text'>{headerText}</h1>
-            <TitleFlair className='title-flair-right' />
-          </div>
-          <p className='contact-title-subtext'>{contactText}</p>
-        </header>
-        <section className='contact-content-container'>
-          <div className='contact-social-location-container'>
-            <div className='contact-online-section'>
+        <main className='contact-container'>
+          <header className='contact-header'>
+            <div className='contact-header-title'>
+              <TitleFlair className='contact-title-flair-left' />
+              <h1 className='contact-title-text'>{headerText}</h1>
+              <TitleFlair className='contact-title-flair-right' />
+            </div>
+            <p className='contact-title-subtext'>{contactText}</p>
+          </header>
+          <svg className='contact-line-divider'>
+            <line x1='0' y1='50%' x2='100%' y2='50%' />
+          </svg>
+          <section className='contact-content-container'>
+            <div className='contact-social-icon-location-container'>
+              <div className='contact-online-section'>
+                <div className='contact-section-header'>
+                  <p className='contact-section-header-text'>{onlineText}</p>
+                </div>
+                <div className='contact-socials-container'>
+                  <IgIcon
+                    className='contact-social-icon'
+                    onMouseDown={(e) => handleLinkClick(e, 'IG')}
+                  />
+                  <FbIcon
+                    className='contact-social-icon'
+                    onMouseDown={(e) => handleLinkClick(e, 'FB')}
+                  />
+                </div>
+                <p className='contact-email-text'>fflo.staff@gmail.com</p>
+              </div>
+              <div className='contact-icon-container'>
+                <LetterIcon className='contact-letter-icon' />
+              </div>
+              <div className='contact-location-container'>
+                <div className='contact-section-header'>
+                  <p className='contact-section-header-text'>{locationText}</p>
+                </div>
+                <p className='contact-phone-text'>(347) 830-0114</p>
+                <div className='contact-address-container'>
+                  <p className='contact-address-text'>33 Nassau Avenue</p>
+                  <p className='contact-address-text'>Brooklyn, NY 11222</p>
+                </div>
+              </div>
+            </div>
+            <div className='contact-message-input-container'>
               <div className='contact-section-header'>
-                <p className='contact-section-header-text'>{onlineText}</p>
+                <p className='contact-section-header-text'>{reachOutText}</p>
               </div>
-              <div className='contact-socials-container'>
-                <IgIcon
-                  className='contact-social-icon'
-                  onMouseDown={(e) => handleLinkClick(e, 'IG')}
-                />
-                <FbIcon
-                  className='contact-social-icon'
-                  onMouseDown={(e) => handleLinkClick(e, 'FB')}
-                />
+              <div className='contact-plane-container'>
+                <PaperPlaneIcon className='contact-plane-icon' />
               </div>
-              <p className='contact-email-text'>fflo.staff@gmail.com</p>
-            </div>
-            <svg className='contact-divider'></svg>
-            <div className='contact-location-container'>
-              <div className='contact-section-header'>
-                <p className='contact-section-header-text'>{locationText}</p>
-              </div>
-              <p className='contact-phone-text'>(347) 830-0114</p>
-              <div className='contact-address-container'>
-                <p className='contact-address-text'>33 Nassau Avenue</p>
-                <p className='contact-address-text'>Brooklyn, NY 11222</p>
-              </div>
-            </div>
-          </div>
-          <div className='contact-message-input-container'>
-            <div className='contact-section-header'>
-              <p className='contact-section-header-text'>{reachOutText}</p>
-            </div>
-            <div className='contact-plane-container'>
-              <PaperPlaneIcon className='contact-plane-icon' />
-            </div>
-            <form onSubmit={handleSendMessage}>
-              <div className='auth-name-inputs'>
+              <form onSubmit={handleSendMessage}>
+                <div className='auth-name-inputs'>
+                  <div>
+                    <input
+                      type='text'
+                      name='fname'
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required
+                      placeholder={firstNamePlaceholder}
+                      className='contact-name-input'
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type='text'
+                      name='lname'
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder={lastNamePlaceholder}
+                      className='contact-name-input'
+                    />
+                  </div>
+                </div>
                 <div>
                   <input
                     type='text'
-                    name='fname'
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    name='email'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
-                    placeholder={firstNamePlaceholder}
-                    className='contact-name-input'
+                    placeholder={emailPlaceholder + '*'}
+                    className='contact-input'
                   />
                 </div>
                 <div>
-                  <input
-                    type='text'
-                    name='lname'
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    placeholder={lastNamePlaceholder}
-                    className='contact-name-input'
+                  <textarea
+                    name='message'
+                    value={message}
+                    maxLength={1200}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder={messagePlaceholder}
+                    className='contact-message-input'
                   />
                 </div>
-              </div>
-              <div>
-                <input
-                  type='text'
-                  name='email'
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  placeholder={emailPlaceholder + '*'}
-                  className='contact-input'
-                />
-              </div>
-              <div>
-                <textarea
-                  name='message'
-                  value={message}
-                  maxLength={1200}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder={messagePlaceholder}
-                  className='contact-message-input'
-                />
-              </div>
-              {!messageButtonActive && (
-                <p className='contact-required'>{requiredText}</p>
-              )}
-              {errorMessage && <p className='error-message'>{errorMessage}</p>}
-              <button
-                type='submit'
-                className={`${
-                  messageButtonActive ? 'submit-button' : 'inactive-button'
-                }`}
-                disabled={!messageButtonActive}
-              >
-                {isLoading ? (
-                  <LinearProgress color='inherit' />
-                ) : (
-                  messageButtonText
+                {!messageButtonActive && (
+                  <p className='contact-required'>{requiredText}</p>
                 )}
-              </button>
-            </form>
-          </div>
-        </section>
+                {errorMessage && (
+                  <p className='error-message'>{errorMessage}</p>
+                )}
+                <button
+                  type='submit'
+                  className={`${
+                    messageButtonActive ? 'submit-button' : 'inactive-button'
+                  }`}
+                  disabled={!messageButtonActive}
+                >
+                  {isLoading ? (
+                    <LinearProgress color='inherit' />
+                  ) : (
+                    messageButtonText
+                  )}
+                </button>
+              </form>
+            </div>
+          </section>
+        </main>
       </main>
     </>
   );

@@ -70,9 +70,9 @@ const Home: React.FC = () => {
         </svg>
         <div className='home-content-header'>
           <div className='home-content-header-title'>
-            <TitleFlair className='title-flair-left' />
+            <TitleFlair className='home-title-flair-left' />
             <h1 className='home-content-title-text'>{headerText}</h1>
-            <TitleFlair className='title-flair-right' />
+            <TitleFlair className='home-title-flair-right' />
           </div>
         </div>
         <div className='home-content-books-container'>

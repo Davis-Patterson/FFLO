@@ -162,7 +162,7 @@ const MiniBookList: React.FC = () => {
           <div className='mini-list-slider'>
             {displayedBooks.map((book: Book) => {
               const hasImage = !!book.images[0]?.image_url;
-              const bookUrl = `/books/${formatTitleForURL(book.title)}`;
+              const bookUrl = `/library/${formatTitleForURL(book.title)}`;
               const isBookmarked = bookmarkedBooks.some(
                 (b) => b.id === book.id
               );

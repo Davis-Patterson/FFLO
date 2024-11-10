@@ -24,9 +24,8 @@ import StarColor from 'Svgs/StarColor';
 import StarGrey from 'Svgs/StarGrey';
 import EyeShown from 'Svgs/EyeShown';
 import EyeHidden from 'Svgs/EyeHidden';
-import 'Styles/BookList.css';
-import BackArrow from 'Svgs/BackArrow';
 import XIcon from 'Svgs/XIcon';
+import 'Styles/BookList.css';
 
 const BookList: React.FC = () => {
   const { title } = useParams<{ title: string }>();
@@ -614,7 +613,7 @@ const BookList: React.FC = () => {
                 <div className='book-grid-view'>
                   {displayedBooks.map((book: Book) => {
                     const hasImage = !!book.images[0]?.image_url;
-                    const bookUrl = `/books/${formatTitleForURL(book.title)}`;
+                    const bookUrl = `/library/${formatTitleForURL(book.title)}`;
                     const isBookmarked = bookmarkedBooks.some(
                       (b) => b.id === book.id
                     );
@@ -731,7 +730,7 @@ const BookList: React.FC = () => {
                 <div className='book-list-view'>
                   {displayedBooks.map((book: Book) => {
                     const hasImage = !!book.images[0]?.image_url;
-                    const bookUrl = `/books/${formatTitleForURL(book.title)}`;
+                    const bookUrl = `/library/${formatTitleForURL(book.title)}`;
                     const isBookmarked = bookmarkedBooks.some(
                       (b) => b.id === book.id
                     );

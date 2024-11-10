@@ -649,6 +649,9 @@
   overflow: hidden;
   border-radius: 4px;
   z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .book-image {
@@ -658,6 +661,10 @@
   transition: opacity 0.5s ease-in-out;
   opacity: 0;
   z-index: 1;
+}
+.book-image-wrapper:hover .book-image {
+  transition: transform 0.3s ease-in-out;
+  transform: scale(1.04);
 }
 
 .book-image.loaded {

@@ -76,6 +76,7 @@
   line-height: 1.2;
   color: var(--clr-text-blue);
   text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .home-header-title-container {
@@ -149,18 +150,19 @@
 .home-content-header-title {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
-.title-flair-left,
-.title-flair-right {
+.home-title-flair-left,
+.home-title-flair-right {
   fill: var(--clr-title-flair);
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
-.title-flair-left {
+.home-title-flair-left {
   margin: 0px 20px 0px 0px;
 }
-.title-flair-right {
+.home-title-flair-right {
   transform: scaleX(-1);
   margin: 0px 0px 0px 20px;
 }

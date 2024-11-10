@@ -1,34 +1,58 @@
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 950px;
+  width: 100%;
+}
+
 .contact-header {
   display: flex;
   flex-direction: column;
   width: 100%;
   position: relative;
   align-items: center;
-  margin: 20px 0px 40px 0px;
+  margin: 20px 0px 20px 0px;
+}
+
+.contact-line-divider {
+  height: 1px;
+  width: 100%;
+  z-index: 1;
+  padding: 0px 25px;
+  margin: 0px 0px 45px 0px;
+  max-width: 750px;
+}
+
+.contact-line-divider line {
+  stroke: var(--clr-divider);
+  stroke-width: 1px;
 }
 
 .contact-header-title {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
-.title-flair-left,
-.title-flair-right {
+.contact-title-flair-left,
+.contact-title-flair-right {
   fill: var(--clr-title-flair);
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
 }
-.title-flair-left {
+.contact-title-flair-left {
   margin: 0px 20px 0px 0px;
 }
-.title-flair-right {
+.contact-title-flair-right {
   transform: scaleX(-1);
   margin: 0px 0px 0px 20px;
 }
 
 .contact-title-text {
   font-family: 'Sacramento', sans-serif;
-  font-size: 3.5em;
+  font-size: 3.2em;
   line-height: 1;
   font-weight: 200;
   color: var(--clr-text-blue);
@@ -55,12 +79,25 @@
   align-items: center;
 }
 
-.contact-social-location-container {
+.contact-social-icon-location-container {
   display: flex;
   flex-direction: row;
   width: 100%;
   max-width: 950px;
   margin: 0px 35px 45px 0px;
+}
+
+.contact-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px 40px 0px;
+  width: 20%;
+}
+
+.contact-letter-icon {
+  width: 110px;
+  height: 110px;
 }
 
 .contact-divider {
@@ -73,7 +110,7 @@
 .contact-online-section {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 40%;
   align-items: center;
   margin: 0px 0px 45px 35px;
 }
@@ -81,7 +118,7 @@
 .contact-location-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 40%;
   align-items: center;
 }
 
@@ -98,6 +135,7 @@
   font-weight: 300;
   color: var(--clr-text-blue);
   text-decoration: underline;
+  text-underline-offset: 4px;
   width: 100%;
   text-align: center;
   transform: scaleY(90%);

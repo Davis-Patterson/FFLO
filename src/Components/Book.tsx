@@ -70,6 +70,7 @@ const Book: React.FC = () => {
   const noBookText = language === 'EN' ? 'No Book Found' : 'Aucun Livre Trouvé';
   const headerText =
     language === 'EN' ? 'Book Information' : 'Informations sur le Livre';
+  const headerPretext = language === 'EN' ? 'Library' : 'Bibliothèque';
   const moreBooksText = language === 'EN' ? 'More Books' : 'Plus de Livres';
   const reserveBookText =
     language === 'EN' ? 'Reserve Book' : 'Réserver un livre';
@@ -129,7 +130,7 @@ const Book: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [book]);
 
   useEffect(() => {
     if (categories.length === 0) {
@@ -441,12 +442,16 @@ const Book: React.FC = () => {
   return (
     <main className='page-container'>
       <header className='book-header'>
+        <h2 className='book-header-pretext'>{headerPretext}</h2>
         <div className='book-header-title'>
           <TitleFlair className='title-flair-left' />
           <h1 className='book-title-text'>{headerText}</h1>
           <TitleFlair className='title-flair-right' />
         </div>
       </header>
+      <svg className='book-line-divider'>
+        <line x1='0' y1='50%' x2='100%' y2='50%' />
+      </svg>
       <section className='book-details'>
         <div className='book-details-header'>
           <div className='book-detail-image-container'>

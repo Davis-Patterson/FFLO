@@ -44,7 +44,8 @@ const Books: React.FC = () => {
   };
 
   // translations
-  const headerText = language === 'EN' ? 'Categories' : 'Catégories';
+  const headerPretext = language === 'EN' ? 'Library' : 'Bibliothèque';
+  const headerText = language === 'EN' ? 'Story Space' : "Espace d'histoire";
   const editCategoriesToggleText =
     language === 'EN' ? 'Edit Categories' : 'Modifier les catégories';
   const categoryButtonText =
@@ -125,12 +126,16 @@ const Books: React.FC = () => {
     <>
       <main className='page-container'>
         <header className='categories-header'>
+          <h2 className='categories-header-pretext'>{headerPretext}</h2>
           <div className='categories-header-title'>
-            <TitleFlair className='title-flair-left' />
-            <h1 className='categories-title-text'>{headerText}</h1>
-            <TitleFlair className='title-flair-right' />
+            <TitleFlair className='categories-title-flair-left' />
+            <h1 className='categories-header-title-text'>{headerText}</h1>
+            <TitleFlair className='categories-title-flair-right' />
           </div>
         </header>
+        <svg className='categories-line-divider'>
+          <line x1='0' y1='50%' x2='100%' y2='50%' />
+        </svg>
         <div className='categories-container'>
           {authUser?.is_staff && (
             <div className='edit-categories-toggle-container'>

@@ -108,7 +108,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route
-            path='/books/:title'
+            path='/library/:title'
             element={
               <Suspense fallback={<Fallback />}>
                 <Book />
@@ -116,7 +116,7 @@ const App: React.FC = () => {
             }
           />
           <Route
-            path='/books'
+            path='/library'
             element={
               <Suspense fallback={<Fallback />}>
                 <Books />
