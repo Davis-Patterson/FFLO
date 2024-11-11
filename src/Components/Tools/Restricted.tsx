@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import TitleFlair from 'Svgs/TitleFlair';
 import PointingIcon from 'Svgs/PointingIcon';
 import BulletPoint from 'Svgs/BulletPoint';
-import GlobeClipart from 'Svgs/GlobeClipart';
+import StopClipart from 'Svgs/StopClipart';
 import BookList from 'Components/BookList';
 import 'Styles/Tools/Restricted.css';
 
@@ -18,12 +18,11 @@ const Restricted: React.FC = () => {
   const [hoveredCategoryId, setHoveredCategoryId] = useState('');
 
   // Translations
-  const notFoundText =
-    language === 'EN' ? 'Page Not Found' : 'Page Introuvable';
+  const notFoundText = language === 'EN' ? 'Restricted' : 'Limitée';
   const notFoundSubtext =
     language === 'EN'
-      ? 'Sorry, the page you are looking for does not exist.'
-      : "Désolé, la page que vous recherchez n'existe pas.";
+      ? 'Sorry, you do not have authorization to view this page.'
+      : "Désolé, vous n'êtes pas autorisé à consulter cette page.";
   const alternativesSubtext =
     language === 'EN'
       ? 'Here are some links to help you find your way:'
@@ -64,7 +63,7 @@ const Restricted: React.FC = () => {
             </div>
             <div className='restricted-content-container'>
               <div className='restricted-content'>
-                <GlobeClipart className='restricted-globe-clipart' />
+                <StopClipart className='restricted-stop-clipart' />
                 <div className='restricted-content-links-container'>
                   <p className='restricted-text-hand'>{alternativesSubtext}</p>
                   <div className='restricted-content-links'>
