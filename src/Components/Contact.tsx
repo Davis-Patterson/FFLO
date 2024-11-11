@@ -83,7 +83,6 @@ const Contact: React.FC = () => {
 
     setTimeout(() => {
       console.log('handle message');
-      setErrorMessage('message sent');
       setIsLoading(false);
 
       if (authUser) {

@@ -123,6 +123,7 @@
 
 .plant-icon,
 .grass-icon,
+.flower-icon,
 .butterfly-icon,
 .beanstalk-icon {
   width: 45px;
@@ -130,6 +131,9 @@
 }
 .grass-icon {
   fill: var(--clr-grass);
+}
+.flower-icon {
+  transform: scaleX(-1);
 }
 .butterfly-icon {
   fill: var(--clr-butterfly);

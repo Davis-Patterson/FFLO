@@ -1,3 +1,9 @@
+.footer-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .footer-container {
   display: flex;
   flex-direction: column;
@@ -5,6 +11,7 @@
   padding: 20px 0px;
   background-color: var(--clr-background);
   width: 100%;
+  max-width: 1150px;
   margin: 0px 0px 10px 0px;
 }
 

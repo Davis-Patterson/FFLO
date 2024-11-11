@@ -312,7 +312,7 @@ const Book: React.FC = () => {
     event.stopPropagation();
 
     setCategoryFilter(categoryId);
-    navigate('/books');
+    navigate('/library');
   };
 
   if (!book) {
@@ -589,6 +589,7 @@ const Book: React.FC = () => {
                         className='book-details-category-wrapper'
                         onMouseEnter={() => setHoveredCategoryId(category.id)}
                         onMouseLeave={() => setHoveredCategoryId(null)}
+                        onMouseDown={(e) => handleCategoryClick(e, category.id)}
                         style={{
                           border:
                             hoveredCategoryId === category.id
@@ -600,17 +601,9 @@ const Book: React.FC = () => {
                               : undefined,
                         }}
                       >
-                        <IconComponent
-                          className='book-details-category-icon'
-                          onMouseDown={(e) =>
-                            handleCategoryClick(e, category.id)
-                          }
-                        />
+                        <IconComponent className='book-details-category-icon' />
                         <p
                           className='book-details-category-text'
-                          onMouseDown={(e) =>
-                            handleCategoryClick(e, category.id)
-                          }
                           style={{
                             color:
                               hoveredCategoryId === category.id

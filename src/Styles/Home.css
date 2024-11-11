@@ -12,6 +12,7 @@
   z-index: 1;
   padding: 0px 25px;
   margin: 0px 0px 90px 0px;
+  max-width: 1050px;
 }
 
 .home-line-divider line {

@@ -5,10 +5,10 @@ import PaperPlaneIcon from 'Svgs/PaperPlaneIcon';
 import PlantIcon from 'Svgs/PlantIcon';
 import GrassIcon from 'Svgs/GrassIcon';
 import BeanstalkIcon from 'Svgs/BeanstalkIcon';
-import ButterflyIcon from 'Svgs/ButterflyIcon';
 import Crayon1 from 'Svgs/Crayon1';
 import Crayon2 from 'Svgs/Crayon2';
 import 'Styles/Letter.css';
+import Flower1 from 'Svgs/Flower1';
 
 const Letter: React.FC = () => {
   const context = useContext(AppContext);
@@ -84,7 +84,7 @@ const Letter: React.FC = () => {
             <GrassIcon className='grass-icon left' />
             <PlantIcon className='plant-icon' />
             <GrassIcon className='grass-icon right' />
-            <ButterflyIcon className='butterfly-icon' />
+            <Flower1 className='flower-icon' />
           </div>
         </section>
       </div>

@@ -15,7 +15,7 @@ import DeerIcon from 'Svgs/DeerIcon';
 import Flower1 from 'Svgs/Flower1';
 import Flower2 from 'Svgs/Flower2';
 import PlantIcon from 'Svgs/PlantIcon';
-import BerryBranch from 'Svgs/BerryBranch';
+import BerryBranch from 'Svgs/BerryBranch1';
 import Branch1 from 'Svgs/Branch1';
 import Branch2 from 'Svgs/Branch2';
 import Branch3 from 'Svgs/Branch3';
@@ -30,6 +30,14 @@ import PlantBuds1 from 'Svgs/PlantBuds1';
 import PlantBuds2 from 'Svgs/PlantBuds2';
 import TreeBranch from 'Svgs/TreeBranch';
 import WreathIcon from 'Svgs/WreathIcon';
+import BeanstalkIcon from 'Svgs/BeanstalkIcon';
+import Flowers1 from 'Svgs/Flowers1';
+import Flowers2 from 'Svgs/Flowers2';
+import Flowers3 from 'Svgs/Flowers3';
+import ButterflyIcon from 'Svgs/ButterflyIcon';
+import FlowerDots from 'Svgs/FlowerDots';
+import BerryBranch1 from 'Svgs/BerryBranch1';
+import BerryBranch2 from 'Svgs/BerryBranch2';
 
 export interface BookImage {
   id: number;
@@ -344,24 +352,31 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   };
 
   const natureIcons: { [key: number]: React.FC } = {
-    1: BerryBranch,
-    2: Branch1,
-    3: Branch2,
-    4: Branch3,
-    5: Flower1,
-    6: Flower2,
-    7: Flower3,
-    8: FlowerBranch1,
-    9: FlowerBranch2,
-    10: GrassesIcon,
-    11: GrassIcon,
-    12: Leaf2,
-    13: Leaf3,
-    14: PlantBuds1,
-    15: PlantBuds2,
-    16: PlantIcon,
-    17: TreeBranch,
-    18: WreathIcon,
+    1: BeanstalkIcon,
+    2: BerryBranch1,
+    3: BerryBranch2,
+    4: Branch1,
+    5: Branch2,
+    6: Branch3,
+    7: ButterflyIcon,
+    8: Flower1,
+    9: Flower2,
+    10: Flower3,
+    11: FlowerBranch1,
+    12: FlowerBranch2,
+    13: FlowerDots,
+    14: Flowers1,
+    15: Flowers2,
+    16: Flowers3,
+    17: GrassesIcon,
+    18: GrassIcon,
+    19: Leaf2,
+    20: Leaf3,
+    21: PlantBuds1,
+    22: PlantBuds2,
+    23: PlantIcon,
+    24: TreeBranch,
+    25: WreathIcon,
   };
 
   return (
