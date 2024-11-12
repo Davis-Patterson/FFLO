@@ -15,7 +15,8 @@ import DeerIcon from 'Svgs/DeerIcon';
 import Flower1 from 'Svgs/Flower1';
 import Flower2 from 'Svgs/Flower2';
 import PlantIcon from 'Svgs/PlantIcon';
-import BerryBranch from 'Svgs/BerryBranch1';
+import BerryBranch1 from 'Svgs/BerryBranch1';
+import BerryBranch2 from 'Svgs/BerryBranch2';
 import Branch1 from 'Svgs/Branch1';
 import Branch2 from 'Svgs/Branch2';
 import Branch3 from 'Svgs/Branch3';
@@ -36,8 +37,6 @@ import Flowers2 from 'Svgs/Flowers2';
 import Flowers3 from 'Svgs/Flowers3';
 import ButterflyIcon from 'Svgs/ButterflyIcon';
 import FlowerDots from 'Svgs/FlowerDots';
-import BerryBranch1 from 'Svgs/BerryBranch1';
-import BerryBranch2 from 'Svgs/BerryBranch2';
 
 export interface BookImage {
   id: number;

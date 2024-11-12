@@ -14,10 +14,14 @@ import Nav from 'Components/Nav';
 import Home from 'Components/Home';
 import Contact from 'Components/Contact';
 import NotFound from 'Tools/NotFound';
+import BookNotFound from 'Tools/BookNotFound';
 import Footer from 'Components/Footer';
 import ProtectedRoute from 'Tools/ProtectedRoute';
 import AdminRoute from 'Tools/AdminRoute';
 import Fallback from 'Tools/Fallback';
+import BookFallback from 'Tools/BookFallback';
+import AboutFallback from 'Tools/AboutFallback';
+import UserProfileFallback from 'Tools/UserProfileFallback';
 import Restricted from 'Tools/Restricted';
 import 'Styles/App.css';
 
@@ -110,11 +114,12 @@ const App: React.FC = () => {
           <Route
             path='/library/:title'
             element={
-              <Suspense fallback={<Fallback />}>
+              <Suspense fallback={<BookFallback />}>
                 <Book />
               </Suspense>
             }
           />
+          <Route path='/library/not_found' element={<BookNotFound />} />
           <Route
             path='/library'
             element={
@@ -126,7 +131,7 @@ const App: React.FC = () => {
           <Route
             path='/about'
             element={
-              <Suspense fallback={<Fallback />}>
+              <Suspense fallback={<AboutFallback />}>
                 <About />
               </Suspense>
             }
@@ -155,7 +160,7 @@ const App: React.FC = () => {
             path='/profile'
             element={
               <ProtectedRoute>
-                <Suspense fallback={<Fallback />}>
+                <Suspense fallback={<UserProfileFallback />}>
                   <UserProfile />
                 </Suspense>
               </ProtectedRoute>
@@ -171,7 +176,7 @@ const App: React.FC = () => {
               </AdminRoute>
             }
           />
-          <Route path='/fallback' element={<Fallback />} />
+          <Route path='/fallback' element={<BookFallback />} />
           <Route path='/restricted' element={<Restricted />} />
           <Route path='*' element={<NotFound />} />
         </Routes>

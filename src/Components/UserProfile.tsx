@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Link, useNavigate } from 'react-router-dom';
 import MiniBookList from 'Components/Utils/MiniBookList';
 import MembershipStatus from 'Utils/MembershipStatus';
 import CheckedOut from 'Utils/CheckedOut';
+import RentalHistory from 'Utils/RentalHistory';
 import UserIcon from 'Svgs/UserIcon';
 import Leaf1 from 'Svgs/Leaf1';
 import GearIcon from 'Svgs/GearIcon';
@@ -15,7 +16,6 @@ import Paperclip2 from 'Svgs/Paperclip2';
 import PointingIcon from 'Svgs/PointingIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/UserProfile.css';
-import RentalHistory from './Utils/RentalHistory';
 
 const UserProfile: React.FC = () => {
   const context = useContext(AppContext);
@@ -39,7 +39,9 @@ const UserProfile: React.FC = () => {
   const navigate = useNavigate();
 
   // Translations
-  const headerText = language === 'EN' ? 'Profile' : 'Profil';
+  const headerPretext =
+    language === 'EN' ? 'User Profile' : 'Profil utilisateur';
+  const headerText = language === 'EN' ? 'Information' : 'Information';
   const nameText = language === 'EN' ? 'Name' : 'Nom';
   const emailText = language === 'EN' ? 'Email' : 'Courriel';
   const phoneText = language === 'EN' ? 'Phone' : 'Téléphone';
@@ -52,6 +54,10 @@ const UserProfile: React.FC = () => {
       : 'Explorez pour trouver votre prochaine lecture !';
   const editCategoriesToggleText =
     language === 'EN' ? 'Update Profile' : 'Mettre à jour le profil';
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleUpdate = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
@@ -299,7 +305,39 @@ const UserProfile: React.FC = () => {
   );
 
   return (
-    <div className='page-container'>
+    <main className='page-container'>
+      <div className='user-profile-container'>
+        <header className='user-profile-header'>
+          <h2 className='user-profile-header-pretext'>{headerPretext}</h2>
+          <div className='user-profile-header-title'>
+            <Leaf1 className='title-flair-leaf-left' />
+            <h1 className='user-profile-title-text'>{headerText}</h1>
+            <Leaf1 className='title-flair-leaf-right' />
+          </div>
+        </header>
+
+        <svg className='user-profile-line-divider'>
+          <line x1='0' y1='50%' x2='100%' y2='50%' />
+        </svg>
+
+        <section className='user-profile-main'>
+          <div className='user-profile-info-container'>
+            {authUser ? renderUserInfo() : renderPlaceholders()}
+          </div>
+
+          <svg className='profile-line-divider'>
+            <line x1='0' y1='50%' x2='100%' y2='50%' />
+          </svg>
+
+          <div className='user-profile-history'>
+            <RentalHistory />
+          </div>
+        </section>
+        <div className='user-info-options'>
+          <button onMouseDown={(e) => handleAddBook(e)}>Add Book</button>
+        </div>
+      </div>
+
       <div className='input-token-container'>
         <p>2eac7ed8fe1af63251bc4ed8f9d091b56d704b86</p>
         <div className='input-token-input'>
@@ -336,30 +374,7 @@ const UserProfile: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className='user-profile-container'>
-        <header className='user-profile-header'>
-          <div className='user-profile-header-title'>
-            <Leaf1 className='title-flair-leaf-left' />
-            <h1 className='user-profile-title-text'>{headerText}</h1>
-            <Leaf1 className='title-flair-leaf-right' />
-          </div>
-        </header>
-        <section className='user-profile-main'>
-          <div className='user-profile-info-container'>
-            {authUser ? renderUserInfo() : renderPlaceholders()}
-          </div>
-          <svg className='profile-line-divider'>
-            <line x1='0' y1='50%' x2='100%' y2='50%' />
-          </svg>
-          <div className='user-profile-history'>
-            <RentalHistory />
-          </div>
-        </section>
-        <div className='user-info-options'>
-          <button onMouseDown={(e) => handleAddBook(e)}>Add Book</button>
-        </div>
-      </div>
-    </div>
+    </main>
   );
 };
 

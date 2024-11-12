@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Link } from 'react-router-dom';
-import TitleFlair from 'Svgs/TitleFlair';
+import AlertIcon from 'Svgs/AlertIcon';
 import PointingIcon from 'Svgs/PointingIcon';
 import BulletPoint from 'Svgs/BulletPoint';
 import GlobeClipart from 'Svgs/GlobeClipart';
@@ -54,9 +54,9 @@ const NotFound: React.FC = () => {
           <div className='not-found-container'>
             <div className='not-found-header'>
               <div className='not-found-header-text-container'>
-                <TitleFlair className='not-found-flair-left' />
+                <AlertIcon className='not-found-alert-left' />
                 <h1 className='not-found-header-text'>{notFoundText}</h1>
-                <TitleFlair className='not-found-flair-right' />
+                <AlertIcon className='not-found-alert-right' />
               </div>
               <div className='not-found-header-subtext-container'>
                 <p className='not-found-header-subtext'>{notFoundSubtext}</p>

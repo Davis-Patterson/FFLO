@@ -221,18 +221,17 @@
   justify-content: space-between;
 }
 
-.about-intro-icon-left,
-.about-intro-icon-right {
+.about-intro-icon {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
 }
-.about-intro-icon-left {
+.about-intro-icon.left {
   justify-content: left;
   margin: -20px 0px 0px 0px;
 }
-.about-intro-icon-right {
+.about-intro-icon.right {
   justify-content: right;
 }
 
@@ -335,19 +334,18 @@
   justify-content: space-between;
 }
 
-.about-member-icon-left,
-.about-member-icon-right {
+.about-member-icon {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
 }
-.about-member-icon-left {
+.about-member-icon.left {
   justify-content: left;
-  margin: -20px 0px 0px 0px;
 }
-.about-member-icon-right {
+.about-member-icon.right {
   justify-content: right;
+  margin: -20px 0px 0px 0px;
 }
 
 .about-member-text-container {

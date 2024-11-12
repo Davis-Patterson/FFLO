@@ -1,0 +1,122 @@
+.book-fallback-header {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin: 0px 0px 30px 0px;
+}
+
+.book-fallback-header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.book-fallback-line-divider {
+  height: 1px;
+  width: 100%;
+  z-index: 1;
+  padding: 0px 25px;
+  margin: 0px 0px 35px 0px;
+  max-width: 700px;
+}
+
+.book-fallback {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 700px;
+  padding: 40px;
+  background-color: var(--clr-light);
+}
+
+.book-fallback-info-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.book-fallback-image-container {
+  width: 250px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-fallback-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  height: 300px;
+}
+
+.book-fallback-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 5px 5px 0px 0px;
+}
+
+.book-fallback-author-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.book-fallback-checkout-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-fallback-rating-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.book-fallback-bookmark-toggle-container {
+  margin-top: 10px;
+  justify-content: flex-start;
+  height: 300px;
+}
+
+.book-fallback-info-divider {
+  height: 1px;
+  width: 100%;
+  z-index: 1;
+  padding: 0px 5px;
+  margin: 5px 0px 15px 0px;
+  max-width: 700px;
+}
+
+.book-fallback-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.book-fallback-column-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.book-fallback-more-books-container {
+  margin-top: 30px;
+}
+
+.book-fallback-more-books-header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}

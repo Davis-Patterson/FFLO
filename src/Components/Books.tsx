@@ -133,9 +133,11 @@ const Books: React.FC = () => {
             <TitleFlair className='categories-title-flair-right' />
           </div>
         </header>
+
         <svg className='categories-line-divider'>
           <line x1='0' y1='50%' x2='100%' y2='50%' />
         </svg>
+
         <div className='categories-container'>
           {authUser?.is_staff && (
             <div className='edit-categories-toggle-container'>

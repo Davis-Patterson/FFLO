@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import AlertIcon from 'Svgs/AlertIcon';
 import PointingIcon from 'Svgs/PointingIcon';
 import BulletPoint from 'Svgs/BulletPoint';
-import StopClipart from 'Svgs/StopClipart';
+import SadBookIcon from 'Svgs/SadBookIcon';
 import BookList from 'Components/BookList';
-import 'Styles/Tools/Restricted.css';
+import 'Styles/Tools/BookNotFound.css';
 
-const Restricted: React.FC = () => {
+const BookNotFound: React.FC = () => {
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
@@ -18,15 +18,12 @@ const Restricted: React.FC = () => {
   const [hoveredCategoryId, setHoveredCategoryId] = useState('');
 
   // Translations
-  const notFoundText = language === 'EN' ? 'Restricted' : 'Limitée';
+  const notFoundText =
+    language === 'EN' ? 'Book Not Found' : 'Page Introuvable';
   const notFoundSubtext =
     language === 'EN'
-      ? 'Sorry, you do not have authorization to view this page.'
-      : "Désolé, vous n'êtes pas autorisé à consulter cette page.";
-  const notFoundSubtext2 =
-    language === 'EN'
-      ? 'Please check your credentials and try again.'
-      : "Désolé, vous n'êtes pas autorisé à consulter cette page.";
+      ? 'Sorry, the book you are looking for could not be found in our library.'
+      : 'Désolé, le livre que vous recherchez est introuvable dans notre bibliothèque.';
   const alternativesSubtext =
     language === 'EN'
       ? 'Here are some links to help you find your way:'
@@ -53,33 +50,36 @@ const Restricted: React.FC = () => {
   return (
     <>
       <div className='page-container'>
-        <div className='restricted-wrapper'>
-          <div className='restricted-container'>
-            <div className='restricted-header'>
-              <div className='restricted-header-text-container'>
-                <AlertIcon className='restricted-alert-left' />
-                <h1 className='restricted-header-text'>{notFoundText}</h1>
-                <AlertIcon className='restricted-alert-right' />
+        <div className='book-not-found-wrapper'>
+          <div className='book-not-found-container'>
+            <div className='book-not-found-header'>
+              <div className='book-not-found-header-text-container'>
+                <AlertIcon className='book-not-found-flair-left' />
+                <h1 className='book-not-found-header-text'>{notFoundText}</h1>
+                <AlertIcon className='book-not-found-flair-right' />
               </div>
-              <div className='restricted-header-subtext-container'>
-                <p className='restricted-header-subtext'>{notFoundSubtext}</p>
-                <p className='restricted-header-subtext'>{notFoundSubtext2}</p>
+              <div className='book-not-found-header-subtext-container'>
+                <p className='book-not-found-header-subtext'>
+                  {notFoundSubtext}
+                </p>
               </div>
             </div>
-            <div className='restricted-content-container'>
-              <div className='restricted-content'>
-                <StopClipart className='restricted-stop-clipart' />
-                <div className='restricted-content-links-container'>
-                  <p className='restricted-text-hand'>{alternativesSubtext}</p>
-                  <div className='restricted-content-links'>
+            <div className='book-not-found-content-container'>
+              <div className='book-not-found-content'>
+                <SadBookIcon className='book-not-found-globe-clipart' />
+                <div className='book-not-found-content-links-container'>
+                  <p className='book-not-found-text-hand'>
+                    {alternativesSubtext}
+                  </p>
+                  <div className='book-not-found-content-links'>
                     <Link to={'/'}>
                       <div
-                        className='restricted-content-link-item'
+                        className='book-not-found-content-link-item'
                         onMouseEnter={() => setHoveredCategoryId('homepage')}
                         onMouseLeave={() => setHoveredCategoryId('')}
                       >
                         <BulletPoint
-                          className={`restricted-bullet-point ${
+                          className={`book-not-found-bullet-point ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'homepage'
@@ -88,7 +88,7 @@ const Restricted: React.FC = () => {
                           }`}
                         />
                         <p
-                          className={`restricted-content-link-text ${
+                          className={`book-not-found-content-link-text ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'homepage'
@@ -99,7 +99,7 @@ const Restricted: React.FC = () => {
                           {homepageText}
                         </p>
                         <PointingIcon
-                          className={`restricted-hand-icon ${
+                          className={`book-not-found-hand-icon ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'homepage'
@@ -111,12 +111,12 @@ const Restricted: React.FC = () => {
                     </Link>
                     <Link to={'/about'}>
                       <div
-                        className='restricted-content-link-item'
+                        className='book-not-found-content-link-item'
                         onMouseEnter={() => setHoveredCategoryId('about')}
                         onMouseLeave={() => setHoveredCategoryId('')}
                       >
                         <BulletPoint
-                          className={`restricted-bullet-point ${
+                          className={`book-not-found-bullet-point ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'about'
@@ -125,7 +125,7 @@ const Restricted: React.FC = () => {
                           }`}
                         />
                         <p
-                          className={`restricted-content-link-text ${
+                          className={`book-not-found-content-link-text ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'about'
@@ -136,7 +136,7 @@ const Restricted: React.FC = () => {
                           {aboutText}
                         </p>
                         <PointingIcon
-                          className={`restricted-hand-icon ${
+                          className={`book-not-found-hand-icon ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'about'
@@ -148,12 +148,12 @@ const Restricted: React.FC = () => {
                     </Link>
                     <Link to={'/profile'}>
                       <div
-                        className='restricted-content-link-item'
+                        className='book-not-found-content-link-item'
                         onMouseEnter={() => setHoveredCategoryId('profile')}
                         onMouseLeave={() => setHoveredCategoryId('')}
                       >
                         <BulletPoint
-                          className={`restricted-bullet-point ${
+                          className={`book-not-found-bullet-point ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'profile'
@@ -162,7 +162,7 @@ const Restricted: React.FC = () => {
                           }`}
                         />
                         <p
-                          className={`restricted-content-link-text ${
+                          className={`book-not-found-content-link-text ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'profile'
@@ -173,7 +173,7 @@ const Restricted: React.FC = () => {
                           {authToken ? profileText : loginText}
                         </p>
                         <PointingIcon
-                          className={`restricted-hand-icon ${
+                          className={`book-not-found-hand-icon ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'profile'
@@ -185,12 +185,12 @@ const Restricted: React.FC = () => {
                     </Link>
                     <Link to={'/library'}>
                       <div
-                        className='restricted-content-link-item'
+                        className='book-not-found-content-link-item'
                         onMouseEnter={() => setHoveredCategoryId('library')}
                         onMouseLeave={() => setHoveredCategoryId('')}
                       >
                         <BulletPoint
-                          className={`restricted-bullet-point ${
+                          className={`book-not-found-bullet-point ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'library'
@@ -199,7 +199,7 @@ const Restricted: React.FC = () => {
                           }`}
                         />
                         <p
-                          className={`restricted-content-link-text ${
+                          className={`book-not-found-content-link-text ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'library'
@@ -210,7 +210,7 @@ const Restricted: React.FC = () => {
                           {libraryText}
                         </p>
                         <PointingIcon
-                          className={`restricted-hand-icon ${
+                          className={`book-not-found-hand-icon ${
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'library'
@@ -232,4 +232,4 @@ const Restricted: React.FC = () => {
   );
 };
 
-export default Restricted;
+export default BookNotFound;

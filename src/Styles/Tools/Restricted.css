@@ -27,7 +27,7 @@
 
 .restricted-header-text {
   font-family: 'Marriweather', serif;
-  font-size: 2.4em;
+  font-size: 3.5em;
   line-height: 1;
   font-weight: 300;
   color: var(--clr-text-blue);
@@ -40,16 +40,15 @@
   justify-content: center;
 }
 
-.restricted-flair-left,
-.restricted-flair-right {
-  fill: var(--clr-title-flair);
-  width: 30px;
-  height: 30px;
+.restricted-alert-left,
+.restricted-alert-right {
+  width: 52px;
+  height: 52px;
 }
-.restricted-flair-left {
+.restricted-alert-left {
   margin: 0px 20px 0px 0px;
 }
-.restricted-flair-right {
+.restricted-alert-right {
   transform: scaleX(-1);
   margin: 0px 0px 0px 20px;
 }

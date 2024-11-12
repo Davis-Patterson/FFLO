@@ -131,7 +131,7 @@ const About: React.FC = () => {
             </div>
           </div>
           <div className='about-intro-content'>
-            <div className='about-intro-icon-right'>
+            <div className='about-intro-icon right'>
               {renderIcon(iconIndices[0])}
             </div>
             <div className='about-intro-text-container'>
@@ -140,7 +140,7 @@ const About: React.FC = () => {
                 <p className='about-intro-paragraph-text'>{introParagraph}</p>
               </div>
             </div>
-            <div className='about-intro-icon-left'>
+            <div className='about-intro-icon left'>
               {renderIcon(iconIndices[1])}
             </div>
           </div>
@@ -152,7 +152,7 @@ const About: React.FC = () => {
 
         <section className='about-membership-container'>
           <div className='about-member-content'>
-            <div className='about-member-icon-right'>
+            <div className='about-member-icon left'>
               {renderIcon(iconIndices[2])}
             </div>
             <div className='about-member-text-container'>
@@ -161,7 +161,7 @@ const About: React.FC = () => {
                 <p className='about-member-paragraph-text'>{memberParagraph}</p>
               </div>
             </div>
-            <div className='about-member-icon-left'>
+            <div className='about-member-icon right'>
               {renderIcon(iconIndices[3])}
             </div>
           </div>

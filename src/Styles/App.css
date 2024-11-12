@@ -31,6 +31,7 @@
   border: none;
   cursor: pointer;
   max-width: 360px;
+  transition: all 0.15s ease-in-out;
 }
 .submit-button {
   width: 100%;
@@ -57,6 +58,7 @@
   border: none;
   cursor: pointer;
   max-width: 360px;
+  transition: all 0.15s ease-in-out;
 }
 .edit-button {
   background-color: var(--clr-break);

@@ -1,0 +1,267 @@
+.user-fallback-profile-container {
+  width: 100%;
+  max-width: 850px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-fallback-line-divider {
+  height: 1px;
+  width: 100%;
+  z-index: 1;
+  padding: 0px 25px;
+  margin: 20px 0px 20px 0px;
+  max-width: 850px;
+}
+
+.user-fallback-header-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 25px 0px 20px 0px;
+}
+
+.user-fallback-header-title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 4px;
+}
+
+.user-fallback-info-container {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  gap: 20px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 850px;
+  background-color: var(--clr-light);
+  margin: 15px 0px 0px 0px;
+}
+
+.user-fallback-info-membership-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  width: 40%;
+  height: 400px;
+  margin: 0px 20px 0px 0px;
+}
+
+.user-fallback-vertical-divider {
+  display: flex;
+  width: 1%;
+  height: 400px;
+}
+
+.user-fallback-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.user-fallback-info-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.user-fallback-header-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.user-fallback-phone-edit-icon-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-fallback-phone-edit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-fallback-membership-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.user-fallback-membership-icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 5px;
+  height: 100%;
+}
+
+.user-fallback-checked-out-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+  width: 60%;
+  height: 400px;
+}
+
+.user-fallback-checked-out-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+
+.user-fallback-checked-out-header-text {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 6px;
+}
+
+.user-fallback-checked-out-book-info {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.user-fallback-checked-out-book-image {
+  display: flex;
+  flex-direction: row;
+  margin: 0px 10px 0px 0px;
+}
+
+.user-fallback-checked-out-book-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  gap: 20px;
+}
+
+.user-fallback-checked-out-book-details-top {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 4px;
+}
+
+.user-fallback-checked-out-book-details-bottom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 4px;
+}
+
+.user-fallback-checked-out-icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.user-fallback-mini-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-fallback-mini-list-books-link-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-fallback-mini-list-content {
+  display: flex;
+  flex-direction: row;
+  height: 130px;
+}
+
+.user-fallback-mini-list-control-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 10%;
+}
+
+.user-fallback-mini-list-main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 90%;
+  gap: 5px;
+}
+
+.user-fallback-rental-history {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--clr-light);
+  width: 100%;
+  padding: 20px;
+  gap: 5px;
+}
+
+.user-fallback-rental-history-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-fallback-search-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.user-fallback-rental-history-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 40px 0px 20px 0px;
+}
+
+.user-fallback-rental-history-content-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: space-between;
+  height: 135px;
+}
+
+.user-fallback-rental-history-text-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
