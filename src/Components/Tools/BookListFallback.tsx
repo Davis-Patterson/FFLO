@@ -8,7 +8,7 @@ const BookListFallback: React.FC = () => {
   }, []);
 
   return (
-    <section className='book-list-container'>
+    <section className='book-fallback-list-container'>
       <div className='page-toggles-container'>
         <Skeleton
           variant='rectangular'
@@ -50,38 +50,38 @@ const BookListFallback: React.FC = () => {
       </div>
 
       <div className='books-main-container'>
-        <div className='book-grid-view'>
+        <div className='book-fallback-grid-view'>
           {Array.from({ length: 10 }).map((_, index) => (
-            <div key={index} className='book-card-skeleton'>
+            <div key={index} className='book-fallback-card-skeleton'>
               <Skeleton
                 variant='rectangular'
                 animation='wave'
                 width={158}
                 height={200}
-                className='book-image-skeleton'
+                className='book-fallback-image-skeleton'
               />
-              <div className='book-info-skeleton'>
+              <div className='book-fallback-info-skeleton'>
                 <Skeleton
                   variant='rectangular'
                   animation='wave'
                   width='90%'
                   height={18}
-                  className='book-title-skeleton'
+                  className='book-fallback-title-skeleton'
                 />
                 <Skeleton
                   variant='rectangular'
                   animation='wave'
                   width='75%'
                   height={14}
-                  className='book-author-skeleton'
+                  className='book-fallback-author-skeleton'
                 />
-                <div className='book-language-rating-skeleton'>
+                <div className='book-fallback-language-rating-skeleton'>
                   <Skeleton
                     variant='rectangular'
                     animation='wave'
                     width={30}
                     height={10}
-                    className='book-language-skeleton'
+                    className='book-fallback-language-skeleton'
                   />
                   <Skeleton
                     variant='rectangular'

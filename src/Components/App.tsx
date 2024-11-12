@@ -25,6 +25,7 @@ import ContactFallback from 'Tools/ContactFallback';
 import UserProfileFallback from 'Tools/UserProfileFallback';
 import Restricted from 'Tools/Restricted';
 import 'Styles/App.css';
+import BookListFallback from './Tools/BookListFallback';
 
 const Book = lazy(() => import('Components/Book'));
 const Books = lazy(() => import('Components/Books'));
@@ -181,7 +182,6 @@ const App: React.FC = () => {
               </AdminRoute>
             }
           />
-          <Route path='/fallback' element={<ContactFallback />} />
           <Route path='/restricted' element={<Restricted />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
