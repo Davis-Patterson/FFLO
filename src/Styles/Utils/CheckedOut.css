@@ -174,7 +174,7 @@
 .checked-out-book-title {
   font-family: 'Merriweather', sans-serif;
   font-size: 1.15em;
-  line-height: 1.15;
+  line-height: 1.2;
   font-weight: 400;
   font-weight: bold;
   margin: 0;
@@ -194,7 +194,7 @@
 .checked-out-book-author {
   font-family: 'Patrick Hand', sans-serif;
   font-size: 1.1em;
-  line-height: 1;
+  line-height: 1.25;
   font-weight: 400;
   margin: 0;
   color: var(--clr-text-grey);
