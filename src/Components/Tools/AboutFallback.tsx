@@ -64,7 +64,7 @@ const AboutFallback: React.FC = () => {
           </div>
         </header>
 
-        <div className='book-fallback-line-divider'>
+        <div className='about-fallback-line-divider'>
           <Skeleton
             variant='rectangular'
             animation='wave'
@@ -121,7 +121,7 @@ const AboutFallback: React.FC = () => {
           </div>
         </section>
 
-        <div className='book-fallback-line-divider'>
+        <div className='about-fallback-line-divider'>
           <Skeleton
             variant='rectangular'
             animation='wave'
@@ -178,7 +178,7 @@ const AboutFallback: React.FC = () => {
           </div>
         </section>
 
-        <div className='book-fallback-line-divider'>
+        <div className='about-fallback-line-divider'>
           <Skeleton
             variant='rectangular'
             animation='wave'

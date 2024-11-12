@@ -12,7 +12,6 @@ import EditCategories from 'Utils/EditCategories';
 import PolicyPanel from 'Utils/PolicyPanel';
 import Nav from 'Components/Nav';
 import Home from 'Components/Home';
-import Contact from 'Components/Contact';
 import NotFound from 'Tools/NotFound';
 import BookNotFound from 'Tools/BookNotFound';
 import Footer from 'Components/Footer';
@@ -20,7 +19,9 @@ import ProtectedRoute from 'Tools/ProtectedRoute';
 import AdminRoute from 'Tools/AdminRoute';
 import Fallback from 'Tools/Fallback';
 import BookFallback from 'Tools/BookFallback';
+import BooksFallback from 'Tools/BooksFallback';
 import AboutFallback from 'Tools/AboutFallback';
+import ContactFallback from 'Tools/ContactFallback';
 import UserProfileFallback from 'Tools/UserProfileFallback';
 import Restricted from 'Tools/Restricted';
 import 'Styles/App.css';
@@ -28,6 +29,7 @@ import 'Styles/App.css';
 const Book = lazy(() => import('Components/Book'));
 const Books = lazy(() => import('Components/Books'));
 const About = lazy(() => import('Components/About'));
+const Contact = lazy(() => import('Components/Contact'));
 const UserProfile = lazy(() => import('Components/UserProfile'));
 const Membership = lazy(() => import('Components/Membership'));
 const AdminPanel = lazy(() => import('Admin/AdminPanel'));
@@ -44,6 +46,7 @@ const App: React.FC = () => {
     setAuthToken,
     authUser,
     setAuthUser,
+    setShowAuth,
     showFullscreen,
     allBooks,
     setAllBooks,
@@ -63,8 +66,10 @@ const App: React.FC = () => {
           await logout();
           if (result.success) {
             console.log('Logout successful');
+            setShowAuth(true);
           } else {
             setAuthToken('');
+            setShowAuth(true);
             console.log('Logout failed. AuthToken reset.');
           }
         }
@@ -123,7 +128,7 @@ const App: React.FC = () => {
           <Route
             path='/library'
             element={
-              <Suspense fallback={<Fallback />}>
+              <Suspense fallback={<BooksFallback />}>
                 <Books />
               </Suspense>
             }
@@ -140,7 +145,7 @@ const App: React.FC = () => {
             path='/contact'
             element={
               <ProtectedRoute>
-                <Suspense fallback={<Fallback />}>
+                <Suspense fallback={<ContactFallback />}>
                   <Contact />
                 </Suspense>
               </ProtectedRoute>
@@ -176,7 +181,7 @@ const App: React.FC = () => {
               </AdminRoute>
             }
           />
-          <Route path='/fallback' element={<BookFallback />} />
+          <Route path='/fallback' element={<ContactFallback />} />
           <Route path='/restricted' element={<Restricted />} />
           <Route path='*' element={<NotFound />} />
         </Routes>

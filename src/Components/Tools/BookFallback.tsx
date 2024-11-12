@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import BookListFallback from 'Tools/BookListFallback';
 import Skeleton from '@mui/material/Skeleton';
 import 'Styles/Tools/BookFallback.css';
 
@@ -39,6 +40,7 @@ const BookFallback: React.FC = () => {
             />
           </div>
         </header>
+
         <div className='book-fallback-line-divider'>
           <Skeleton
             variant='rectangular'
@@ -47,6 +49,7 @@ const BookFallback: React.FC = () => {
             height={1}
           />
         </div>
+
         <section className='book-fallback'>
           <div className='book-fallback-info-header'>
             <div className='book-fallback-image-container'>
@@ -205,16 +208,23 @@ const BookFallback: React.FC = () => {
             <Skeleton
               variant='rectangular'
               animation='wave'
+              width={40}
+              height={40}
+            />
+            <Skeleton
+              variant='rectangular'
+              animation='wave'
               width={200}
-              height={30}
+              height={40}
+            />
+            <Skeleton
+              variant='rectangular'
+              animation='wave'
+              width={40}
+              height={40}
             />
           </div>
-          <Skeleton
-            variant='rectangular'
-            animation='wave'
-            width='100%'
-            height={400}
-          />
+          <BookListFallback />
         </section>
       </main>
     </>

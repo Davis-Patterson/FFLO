@@ -4,9 +4,9 @@ import TitleFlair from 'Svgs/TitleFlair';
 import IgIcon from 'Svgs/IgIcon';
 import FbIcon from 'Svgs/FbIcon';
 import PaperPlaneIcon from 'Svgs/PaperPlaneIcon';
+import LetterIcon from 'Svgs/LetterIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Contact.css';
-import LetterIcon from 'Svgs/LetterIcon';
 
 const Contact: React.FC = () => {
   const context = useContext(AppContext);

@@ -22,7 +22,7 @@
   z-index: 1;
   padding: 0px 25px;
   margin: 0px 0px 45px 0px;
-  max-width: 750px;
+  max-width: 950px;
 }
 
 .contact-line-divider line {
@@ -84,7 +84,7 @@
   flex-direction: row;
   width: 100%;
   max-width: 950px;
-  margin: 0px 35px 45px 0px;
+  margin: 0px 35px 45px 35px;
 }
 
 .contact-icon-container {
@@ -112,7 +112,7 @@
   flex-direction: column;
   width: 40%;
   align-items: center;
-  margin: 0px 0px 45px 35px;
+  margin: 0px 0px 45px 0px;
 }
 
 .contact-location-container {

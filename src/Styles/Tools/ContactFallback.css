@@ -1,0 +1,112 @@
+.contact-fallback-container {
+  width: 100%;
+  max-width: 950px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-fallback-line-divider {
+  display: flex;
+  flex-direction: row;
+  height: 1px;
+  width: 100%;
+  padding: 0px 25px;
+  margin: 15px 0px 35px 0px;
+  max-width: 950px;
+}
+
+.contact-fallback-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0px 20px 0px;
+}
+
+.contact-fallback-header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.contact-fallback-content-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.contact-fallback-social-icon-location-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: 0px 0px 85px 0px;
+}
+
+.contact-fallback-online-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 40%;
+}
+.contact-fallback-location-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 40%;
+}
+
+.contact-fallback-address {
+  gap: 4px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.social-icons-skeleton-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.contact-fallback-message-input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.contact-fallback-message-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 330px;
+}
+
+.contact-fallback-form-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  align-items: center;
+  margin: 10px 0px 0px 0px;
+}
+
+.contact-fallback-form-names {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.button-skeleton {
+  margin: 10px 0px 0px 0px;
+}

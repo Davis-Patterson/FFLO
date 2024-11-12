@@ -115,8 +115,9 @@
 
 .book-fallback-more-books-header-title {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-bottom: 10px;
+  margin: 80px 0px 25px 0px;
 }
