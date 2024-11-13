@@ -8,8 +8,16 @@ import libraryShelfSmall from 'FFLO/library_shelf_small.webp';
 import introImg from 'FFLO/book_pile.webp';
 import introImgSmall from 'FFLO/book_pile_small.webp';
 import 'Styles/Home.css';
+import ChevronRight from 'Svgs/ChevronRight';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
+
+function shuffleArray<T>(array: T[]): T[] {
+  return array
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+}
 
 const Home: React.FC = () => {
   const { getCategories, getReviews } = ServerApi();
@@ -38,7 +46,10 @@ const Home: React.FC = () => {
   const maxSlideIndex = Math.max(0, categories.length - visibleCategories);
 
   const [shuffledIcons, setShuffledIcons] = useState<React.FC[]>([]);
-  const [iconIndices, setIconIndices] = useState([0, 1]);
+  const [iconIndices, setIconIndices] = useState([0, 1, 2, 3]);
+
+  const [reviewIndex, setReviewIndex] = useState(0);
+  const [animateClass, setAnimateClass] = useState('');
 
   const calculateTranslateValue = (index: number) => {
     return index === maxSlideIndex
@@ -113,7 +124,7 @@ const Home: React.FC = () => {
     if (!reviews.length) {
       getReviews().then((result) => {
         if (result.success) {
-          setReviews(result.data);
+          setReviews(shuffleArray(result.data));
         } else {
           console.error('Failed to fetch reviews');
         }
@@ -159,6 +170,24 @@ const Home: React.FC = () => {
     if (shuffledIcons.length === 0 || !shuffledIcons[index]) return null;
     const IconComponent = shuffledIcons[index] as React.FC<IconProps>;
     return IconComponent ? <IconComponent className='home-icon' /> : null;
+  };
+
+  const handleNextReview = () => {
+    setAnimateClass('fade-out');
+    setTimeout(() => {
+      setReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+      setAnimateClass('fade-in');
+    }, 400);
+  };
+
+  const handlePrevReview = () => {
+    setAnimateClass('fade-out');
+    setTimeout(() => {
+      setReviewIndex(
+        (prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length
+      );
+      setAnimateClass('fade-in');
+    }, 400);
   };
 
   return (
@@ -329,18 +358,62 @@ const Home: React.FC = () => {
           </div>
         </section>
 
-        <svg className='home-line-divider'>
-          <line x1='0' y1='50%' x2='100%' y2='50%' />
-        </svg>
+        {reviews && reviews.length > 0 && (
+          <>
+            <svg className='home-line-divider'>
+              <line x1='0' y1='50%' x2='100%' y2='50%' />
+            </svg>
 
-        <div className='home-content-header'>
-          <p className='home-header-pretext'>{reviewsPretext}</p>
-          <div className='home-content-header-title'>
-            <TitleFlair className='home-title-flair-left' />
-            <h1 className='home-content-title-text'>{reviewsHeaderText}</h1>
-            <TitleFlair className='home-title-flair-right' />
-          </div>
-        </div>
+            <div className='home-content-header'>
+              <p className='home-header-pretext'>{reviewsPretext}</p>
+              <div className='home-content-header-title'>
+                <TitleFlair className='home-title-flair-left' />
+                <h1 className='home-content-title-text'>{reviewsHeaderText}</h1>
+                <TitleFlair className='home-title-flair-right' />
+              </div>
+            </div>
+
+            <section className='home-reviews-container'>
+              <div
+                className='home-reviews-prev-container'
+                onClick={handlePrevReview}
+              >
+                <ChevronRight className='home-reviews-prev' />
+              </div>
+
+              <div className='home-reviews-content-wrapper'>
+                <div className='home-reviews-content-container'>
+                  <div className='home-reviews-icon top'>
+                    {renderIcon(iconIndices[2])}
+                  </div>
+                  {reviews.length > 0 && (
+                    <div className={`home-reviews-review ${animateClass}`}>
+                      <p className='home-reviews-review-text'>
+                        {reviews[reviewIndex].message}
+                      </p>
+                      <div className='home-reviews-review-name-container'>
+                        <p className='home-reviews-review-dash'>—</p>
+                        <p className='home-reviews-review-name'>
+                          {reviews[reviewIndex].name}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  <div className='home-reviews-icon bottom'>
+                    {renderIcon(iconIndices[3])}
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className='home-reviews-next-container'
+                onClick={handleNextReview}
+              >
+                <ChevronRight className='home-reviews-next' />
+              </div>
+            </section>
+          </>
+        )}
       </main>
     </>
   );
