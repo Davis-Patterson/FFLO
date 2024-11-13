@@ -78,6 +78,7 @@ const BookList: React.FC = () => {
   const bookmarksText = language === 'EN' ? 'Bookmarks' : 'Signets';
   const languageText = language === 'EN' ? 'Language' : 'Langue';
   const ratingText = language === 'EN' ? 'Rating' : 'Notation';
+  const randomText = language === 'EN' ? 'Random' : 'Aléatoire';
   const allLanguagesText =
     language === 'EN' ? 'All Languages' : 'Toutes les langues';
   const sortByText = language === 'EN' ? 'Sort By' : 'Trier Par';
@@ -254,6 +255,15 @@ const BookList: React.FC = () => {
     ? baseBooks
     : baseBooks.filter((book) => book.available > 0);
 
+  const shuffleArray = (array: Book[]) => {
+    const shuffled = array.slice();
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
   const filteredBookList = availableBooks
     .filter((book) => {
       const matchesCategory = categoryFilter
@@ -284,7 +294,10 @@ const BookList: React.FC = () => {
       return 0;
     });
 
-  const displayedBooks = filteredBookList.slice(0, visibleBooks);
+  const displayedBooks =
+    filterSetting === 'random'
+      ? shuffleArray(filteredBookList).slice(0, visibleBooks)
+      : filteredBookList.slice(0, visibleBooks);
 
   return (
     <section className='book-list-container'>
@@ -302,7 +315,7 @@ const BookList: React.FC = () => {
             />
           )}
         </div>
-        <svg className='line-divider'>
+        <svg className='book-list-line-divider'>
           <line x1='0' y1='50%' x2='100%' y2='50%' />
         </svg>
         <div className='search-container'>
@@ -324,6 +337,7 @@ const BookList: React.FC = () => {
               <option value='auth-asc'>{authorText} (A-Z)</option>
               <option value='auth-desc'>{authorText} (Z-A)</option>
               <option value='rating'>{ratingText}</option>
+              <option value='random'>{randomText}</option>
             </select>
           </div>
         </div>
@@ -519,6 +533,16 @@ const BookList: React.FC = () => {
                       onMouseDown={() => setFilterSetting('rating')}
                     >
                       {ratingText}
+                    </p>
+                    <p
+                      className={`${
+                        filterSetting === 'random'
+                          ? 'sidebar-content-item-selected'
+                          : 'sidebar-content-item-deselected'
+                      }`}
+                      onMouseDown={() => setFilterSetting('random')}
+                    >
+                      {randomText}
                     </p>
                   </div>
                 </div>

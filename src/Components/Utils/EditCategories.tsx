@@ -45,6 +45,8 @@ const EditCategories: React.FC = () => {
     handleLanguageChange,
     categories,
     setCategories,
+    updateSingleCategory,
+    deleteSingleCategory,
     categoryIconOptions,
     categoryColorOptions,
   } = context;
@@ -249,7 +251,7 @@ const EditCategories: React.FC = () => {
     );
 
     if (result.success) {
-      setCategories(result.data.categories);
+      updateSingleCategory(result.data.category);
 
       setCategoryName('');
       setCategoryDescription('');
@@ -281,8 +283,7 @@ const EditCategories: React.FC = () => {
 
       if (result.success) {
         console.log(`Category ${editCategoryId} updated successfully`);
-
-        setCategories(result.data.categories);
+        updateSingleCategory(result.data.category);
 
         setEditCategoryId('');
         setEditCategoryName('');
@@ -315,9 +316,7 @@ const EditCategories: React.FC = () => {
       const result = await deleteCategory(categoryId);
       if (result.success) {
         console.log(`Category ${categoryId} deleted successfully.`);
-        setCategories(
-          categories.filter((category) => category.id !== categoryId)
-        );
+        deleteSingleCategory(categoryId);
       } else {
         console.error('Failed to delete category');
       }
@@ -855,6 +854,7 @@ const EditCategories: React.FC = () => {
                       <textarea
                         name='description'
                         value={editCategoryDesc}
+                        maxLength={50}
                         onChange={(e) => setEditCategoryDesc(e.target.value)}
                         placeholder={categoryDescPlaceholder}
                         className='category-desc-input'

@@ -32,7 +32,6 @@ const AddBook: React.FC = () => {
     deleteCategory,
     updateCategory,
     updateCategorySortOrder,
-    getBooks,
   } = ServerApi();
 
   const context = useContext(AppContext);
@@ -45,9 +44,11 @@ const AddBook: React.FC = () => {
     setShowAddBookWindow,
     language,
     handleLanguageChange,
+    updateSingleBook,
     categories,
     setCategories,
-    setAllBooks,
+    updateSingleCategory,
+    deleteSingleCategory,
     categoryIconOptions,
     categoryColorOptions,
   } = context;
@@ -296,6 +297,8 @@ const AddBook: React.FC = () => {
 
     if (result.success) {
       console.log('Book created successfully');
+      updateSingleBook(result.data);
+
       setShowAddBookWindow(false);
       setShowDeletes(false);
       setTitle('');
@@ -306,15 +309,6 @@ const AddBook: React.FC = () => {
       setSelectedCategories([]);
       setFlair('');
       setBookLanguage('');
-
-      const booksResult = await getBooks();
-      if (booksResult.success) {
-        setAllBooks(booksResult.data ?? []);
-      } else {
-        console.error('Failed to load books');
-      }
-    } else {
-      setErrorMessage(result.error || 'Failed to create book');
     }
 
     setIsLoading(false);
@@ -344,7 +338,7 @@ const AddBook: React.FC = () => {
     );
 
     if (result.success) {
-      setCategories(result.data.categories);
+      updateSingleCategory(result.data.category);
 
       setCategoryName('');
       setCategoryDescription('');
@@ -377,7 +371,7 @@ const AddBook: React.FC = () => {
       if (result.success) {
         console.log(`Category ${editCategoryId} updated successfully`);
 
-        setCategories(result.data.categories);
+        updateSingleCategory(result.data.category);
 
         setEditCategoryId('');
         setEditCategoryName('');
@@ -411,9 +405,7 @@ const AddBook: React.FC = () => {
       const result = await deleteCategory(categoryId);
       if (result.success) {
         console.log(`Category ${categoryId} deleted successfully.`);
-        setCategories(
-          categories.filter((category) => category.id !== categoryId)
-        );
+        deleteSingleCategory(categoryId);
       } else {
         console.error('Failed to delete category');
       }
@@ -884,7 +876,7 @@ const AddBook: React.FC = () => {
                             !bookLanguage
                               ? ''
                               : bookLanguage.toLowerCase() === 'french' ||
-                                'français'
+                                bookLanguage.toLowerCase() === 'français'
                               ? 'selected'
                               : 'unselected'
                           }`}
@@ -1249,6 +1241,7 @@ const AddBook: React.FC = () => {
                       <textarea
                         name='description'
                         value={editCategoryDesc}
+                        maxLength={50}
                         onChange={(e) => setEditCategoryDesc(e.target.value)}
                         placeholder={categoryDescPlaceholder}
                         className='category-desc-input'

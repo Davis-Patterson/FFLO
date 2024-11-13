@@ -445,6 +445,110 @@ const ServerApi = () => {
     }
   };
 
+  const getReviews = async (): Promise<{ success: boolean; data?: any }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.get('/api/reviews/');
+      if (response.status === 200) {
+        console.log('Reviews retrieved successfully:', response.data);
+        return { success: true, data: response.data };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      console.error('Failed to retrieve reviews:', error);
+      return { success: false };
+    }
+  };
+
+  const addReview = async (
+    name: string,
+    message: string
+  ): Promise<{ success: boolean; data?: any; error?: string }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.post(
+        '/api/reviews/',
+        {
+          name,
+          message,
+        }
+      );
+
+      if (response.status === 201) {
+        console.log('Review created successfully:', response.data);
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: 'Unexpected response status' };
+      }
+    } catch (error) {
+      let errorMessage = 'Failed to create review';
+
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data?.detail || errorMessage;
+      }
+
+      console.error('Failed to create review:', error);
+      return { success: false, error: errorMessage };
+    }
+  };
+
+  const editReview = async (
+    reviewId: number,
+    name: string,
+    message: string
+  ): Promise<{ success: boolean; data?: any; error?: string }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.put(
+        `/api/reviews/${reviewId}/`,
+        {
+          name,
+          message,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('Review updated successfully:', response.data);
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: 'Unexpected response status' };
+      }
+    } catch (error) {
+      let errorMessage = 'Failed to update review';
+
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data?.detail || errorMessage;
+      }
+
+      console.error('Failed to update review:', error);
+      return { success: false, error: errorMessage };
+    }
+  };
+
+  const deleteReview = async (
+    reviewId: number
+  ): Promise<{ success: boolean; data?: any; error?: string }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.delete(
+        `/api/reviews/${reviewId}/`
+      );
+
+      if (response.status === 204) {
+        console.log(`Review with ID ${reviewId} deleted successfully.`);
+        return { success: true };
+      } else {
+        return { success: false, error: 'Unexpected response status' };
+      }
+    } catch (error) {
+      let errorMessage = 'Failed to delete review';
+
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data?.detail || errorMessage;
+      }
+
+      console.error('Failed to delete review:', error);
+      return { success: false, error: errorMessage };
+    }
+  };
+
   return {
     getCategories,
     createCategory,
@@ -459,6 +563,10 @@ const ServerApi = () => {
     createBookmark,
     deleteBookmark,
     submitRating,
+    getReviews,
+    addReview,
+    editReview,
+    deleteReview,
   };
 };
 

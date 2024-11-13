@@ -263,12 +263,6 @@
   color: var(--clr-light);
   width: 170px;
   text-align: center;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .category-button {

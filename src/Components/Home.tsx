@@ -1,21 +1,54 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
+import { Link } from 'react-router-dom';
+import ServerApi from 'Utilities/ServerApi';
 import TitleFlair from 'Svgs/TitleFlair';
-import BookList from 'Components/BookList';
 import libraryShelfImg from 'FFLO/library_shelf.webp';
 import libraryShelfSmall from 'FFLO/library_shelf_small.webp';
+import introImg from 'FFLO/book_pile.webp';
+import introImgSmall from 'FFLO/book_pile_small.webp';
 import 'Styles/Home.css';
 
+type IconProps = React.SVGProps<SVGSVGElement>;
+
 const Home: React.FC = () => {
+  const { getCategories, getReviews } = ServerApi();
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
   }
-  const { language, allBooks, fetchError, isFetched } = context;
+  const {
+    language,
+    categories,
+    setCategories,
+    reviews,
+    setReviews,
+    setCategoryFilter,
+    categoryIconOptions,
+    categoryColorOptions,
+    natureIcons,
+  } = context;
+
+  const [fetchedCategories, setFetchedCategories] = useState(false);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [translateValue, setTranslateValue] = useState(0);
+
+  const visibleCategories = 4;
+  const cardWidth = 190;
+  const maxSlideIndex = Math.max(0, categories.length - visibleCategories);
+
+  const [shuffledIcons, setShuffledIcons] = useState<React.FC[]>([]);
+  const [iconIndices, setIconIndices] = useState([0, 1]);
+
+  const calculateTranslateValue = (index: number) => {
+    return index === maxSlideIndex
+      ? (index - 1) * cardWidth + 150
+      : index * cardWidth;
+  };
 
   // translations
   const headerText = language === 'EN' ? 'Story Space' : "Espace d'histoire";
-  const welcomeText = language === 'EN' ? 'Welcome to' : 'Bienvenue à';
+  const welcomeText = language === 'EN' ? 'Bienvenue à' : 'Bienvenue à';
   const ffloText =
     language === 'EN'
       ? 'French For Little Ones'
@@ -23,10 +56,110 @@ const Home: React.FC = () => {
   const readText = language === 'EN' ? 'Read.' : 'Lire.';
   const learnText = language === 'EN' ? 'Learn.' : 'Apprendre.';
   const growText = language === 'EN' ? 'Grow.' : 'Grandir.';
+  const libraryText = language === 'EN' ? 'Library' : 'Bibliothèque';
+  const aboutPretext = language === 'EN' ? 'About us' : 'À propos';
+  const aboutHeaderText = language === 'EN' ? 'Information' : 'Information';
+  const reviewsPretext =
+    language === 'EN' ? 'Reviews from the' : 'Commentaires du';
+  const reviewsHeaderText = language === 'EN' ? 'Community' : 'Communauté';
+  const categoriesText = language === 'EN' ? 'Categories' : 'Catégories';
+  const categoryButtonText =
+    language === 'EN' ? 'View Books' : 'Voir les Livres';
+  const introText = language === 'EN' ? 'Our Approach' : 'Notre approche';
+  const introParagraph =
+    language === 'EN'
+      ? 'At FFLO, we believe that the joy of reading is a gift meant to be shared. Our Story Space library is designed to make French literature accessible and enjoyable for young readers, fostering a love for the French language through engaging and age-appropriate books. Story Space provides families with an inviting environment to explore a wide variety of stories and reflects our commitment to making French literature readily available to nurture a lifelong love of reading.'
+      : "Chez FFLO, nous croyons que la joie de la lecture est un cadeau à partager. Notre bibliothèque, Story Space, est conçue pour rendre la littérature française accessible et agréable aux jeunes lecteurs, en favorisant un amour de la langue française à travers des livres engageants et adaptés à leur âge. Story Space offre aux familles un environnement accueillant pour explorer une grande variété d'histoires et reflète notre engagement à rendre la littérature française facilement accessible pour nourrir un amour de la lecture qui durera toute la vie.";
+  const viewMoreText = language === 'EN' ? 'View More' : 'Voir plus';
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    const shuffled = Object.values(natureIcons)
+      .map((icon) => ({ icon, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ icon }) => icon);
+
+    setShuffledIcons(shuffled);
+  }, [natureIcons]);
+
+  useEffect(() => {
+    if (shuffledIcons.length >= 4) {
+      const uniqueIndices = new Set<number>();
+      while (uniqueIndices.size < 4) {
+        uniqueIndices.add(Math.floor(Math.random() * shuffledIcons.length));
+      }
+      setIconIndices(Array.from(uniqueIndices));
+    }
+  }, [shuffledIcons]);
+
+  useEffect(() => {
+    if (!fetchedCategories) {
+      getCategories().then((result) => {
+        if (result.success) {
+          setCategories(result.data);
+          setFetchedCategories(true);
+        } else {
+          console.error('Failed to fetch categories');
+          setFetchedCategories(true);
+        }
+      });
+    }
+  }, [categories, getCategories, context]);
+
+  useEffect(() => {
+    if (!reviews.length) {
+      getReviews().then((result) => {
+        if (result.success) {
+          setReviews(result.data);
+        } else {
+          console.error('Failed to fetch reviews');
+        }
+      });
+    }
+    console.log('reviews: ', reviews);
+  }, [reviews, getReviews, setReviews]);
+
+  useEffect(() => {
+    if (slideIndex > maxSlideIndex) {
+      setSlideIndex(maxSlideIndex);
+      setTranslateValue(calculateTranslateValue(maxSlideIndex));
+    } else {
+      setTranslateValue(calculateTranslateValue(slideIndex));
+    }
+  }, [categories.length, slideIndex, maxSlideIndex]);
+
+  const handleCategoryFilter = (categoryId: number) => {
+    setCategoryFilter(categoryId);
+  };
+
+  const handleNextSlide = () => {
+    if (slideIndex < maxSlideIndex) {
+      const newTranslateValue =
+        slideIndex === maxSlideIndex - 1
+          ? translateValue + 150
+          : translateValue + 190;
+      setTranslateValue(newTranslateValue);
+      setSlideIndex((prev) => prev + 1);
+    }
+  };
+
+  const handlePrevSlide = () => {
+    if (slideIndex > 0) {
+      const newTranslateValue =
+        slideIndex === 1 ? translateValue - 150 : translateValue - 190;
+      setTranslateValue(newTranslateValue);
+      setSlideIndex((prev) => prev - 1);
+    }
+  };
+
+  const renderIcon = (index: number) => {
+    if (shuffledIcons.length === 0 || !shuffledIcons[index]) return null;
+    const IconComponent = shuffledIcons[index] as React.FC<IconProps>;
+    return IconComponent ? <IconComponent className='home-icon' /> : null;
+  };
 
   return (
     <>
@@ -68,21 +201,145 @@ const Home: React.FC = () => {
         <svg className='home-line-divider'>
           <line x1='0' y1='50%' x2='100%' y2='50%' />
         </svg>
+
         <div className='home-content-header'>
+          <p className='home-header-pretext'>{libraryText}</p>
           <div className='home-content-header-title'>
             <TitleFlair className='home-title-flair-left' />
-            <h1 className='home-content-title-text'>{headerText}</h1>
+            <h1 className='home-content-title-text'>{categoriesText}</h1>
             <TitleFlair className='home-title-flair-right' />
           </div>
         </div>
-        <div className='home-content-books-container'>
-          {fetchError ? (
-            <p>Error fetching books. Please try again later.</p>
-          ) : isFetched && allBooks.length === 0 ? (
-            <p>No books available.</p>
-          ) : (
-            <BookList />
-          )}
+
+        <div className='home-categories-container'>
+          <div className='home-categories-navigation'>
+            {slideIndex > 0 && (
+              <div className='prev-slide' onClick={handlePrevSlide}>
+                &lt;
+              </div>
+            )}
+            <div
+              className='home-categories-map-container'
+              style={{
+                transform: `translateX(-${translateValue}px)`,
+              }}
+            >
+              {categories.map((category) => {
+                const IconComponent: React.ComponentType<IconProps> =
+                  categoryIconOptions[category.icon];
+                const backgroundColor = categoryColorOptions[category.color];
+                const className = 'home-category-card';
+                return (
+                  <div
+                    key={category.id}
+                    className={className}
+                    style={{ backgroundColor }}
+                  >
+                    {category.flair && (
+                      <div className='home-category-card-flair-container'>
+                        <p className='home-category-card-flair'>
+                          {category.flair}
+                        </p>
+                      </div>
+                    )}
+                    <div className='home-category-card-header'>
+                      {IconComponent && (
+                        <IconComponent className='home-category-card-icon' />
+                      )}
+                      <p className='home-category-card-header-text'>
+                        {category.name}
+                      </p>
+                    </div>
+                    <div className='home-category-card-subtext-container'>
+                      <p className='home-category-card-subtext'>
+                        {category.description}
+                      </p>
+                    </div>
+                    <Link to='/library' className='home-category-button-link'>
+                      <button
+                        className='home-category-button'
+                        style={{ backgroundColor }}
+                        onClick={() => handleCategoryFilter(category.id)}
+                      >
+                        {categoryButtonText}
+                      </button>
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+            {slideIndex < maxSlideIndex && (
+              <div className='next-slide' onClick={handleNextSlide}>
+                &gt;
+              </div>
+            )}
+          </div>
+        </div>
+
+        <svg className='home-line-divider'>
+          <line x1='0' y1='50%' x2='100%' y2='50%' />
+        </svg>
+
+        <div className='home-content-header'>
+          <p className='home-header-pretext'>{aboutPretext}</p>
+          <div className='home-content-header-title'>
+            <TitleFlair className='home-title-flair-left' />
+            <h1 className='home-content-title-text'>{aboutHeaderText}</h1>
+            <TitleFlair className='home-title-flair-right' />
+          </div>
+        </div>
+
+        <section className='home-introduction-container'>
+          <div className='home-introduction-image'>
+            <div className='home-intro-image-container'>
+              <div
+                className='home-intro-image-wrapper blur-load'
+                style={{
+                  backgroundImage: `url(${introImgSmall})`,
+                }}
+              >
+                <img
+                  src={introImg}
+                  alt='library shelf image'
+                  className='home-intro-image'
+                  onLoad={(e) => {
+                    const imgElement = e.target as HTMLImageElement;
+                    imgElement.parentElement?.classList.add('loaded');
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          <div className='home-intro-content'>
+            <div className='home-intro-icon right'>
+              {renderIcon(iconIndices[0])}
+            </div>
+            <div className='home-intro-text-container'>
+              <p className='home-intro-header-text'>{introText}</p>
+              <div className='home-intro-paragraph'>
+                <p className='home-intro-paragraph-text'>{introParagraph}</p>
+              </div>
+              <Link to='/about' className='home-submit-button-link'>
+                <button className='home-submit-button'>{viewMoreText}</button>
+              </Link>
+            </div>
+            <div className='home-intro-icon left'>
+              {renderIcon(iconIndices[1])}
+            </div>
+          </div>
+        </section>
+
+        <svg className='home-line-divider'>
+          <line x1='0' y1='50%' x2='100%' y2='50%' />
+        </svg>
+
+        <div className='home-content-header'>
+          <p className='home-header-pretext'>{reviewsPretext}</p>
+          <div className='home-content-header-title'>
+            <TitleFlair className='home-title-flair-left' />
+            <h1 className='home-content-title-text'>{reviewsHeaderText}</h1>
+            <TitleFlair className='home-title-flair-right' />
+          </div>
         </div>
       </main>
     </>

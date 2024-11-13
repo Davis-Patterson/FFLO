@@ -26,6 +26,19 @@
   min-width: 300px;
 }
 
+.category-edit-container {
+  background-color: var(--clr-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  z-index: 1001;
+  transition: opacity 0.5s ease-in;
+  position: relative;
+  min-width: 300px;
+  padding: 1.9rem 1.9rem 0rem 1.9rem;
+}
+
 .fade-in {
   opacity: 1;
 }
@@ -146,6 +159,53 @@
 .book-edit-quantity-input {
   width: 100%;
   height: 45px;
+}
+
+.book-edit-language-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.book-edit-language-input,
+.book-edit-flag-input {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85em;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--clr-dark);
+  width: 100%;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--clr-outline);
+  border-radius: 4px;
+  background-color: var(--clr-light);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 8px;
+}
+.book-edit-language-input {
+  padding: 0.75rem;
+}
+.book-edit-flag-input {
+  padding: 2px 0.75rem;
+}
+
+.book-edit-flag {
+  width: 60px;
+  border: 1px solid var(--clr-transparent);
+  border-radius: 4px;
+  opacity: 1;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.book-edit-flag.selected {
+  opacity: 1;
+}
+.book-edit-flag.unselected {
+  opacity: 0.2;
 }
 
 .category-container {

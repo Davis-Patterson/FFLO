@@ -33,7 +33,6 @@ const EditBook: React.FC = () => {
     deleteCategory,
     updateCategory,
     updateCategorySortOrder,
-    getBooks,
     archiveBook,
     deleteBook,
   } = ServerApi();
@@ -48,9 +47,12 @@ const EditBook: React.FC = () => {
     setShowBookEditWindow,
     language,
     handleLanguageChange,
+    updateSingleBook,
+    deleteSingleBook,
     categories,
     setCategories,
-    setAllBooks,
+    updateSingleCategory,
+    deleteSingleCategory,
     selectedBook,
     setSelectedBook,
     categoryIconOptions,
@@ -404,22 +406,13 @@ const EditBook: React.FC = () => {
 
     if (result.success) {
       console.log('Book updated successfully');
+      updateSingleBook(result.data.book);
+
       setShowBookEditWindow(false);
       setShowDeletes(false);
     } else {
       setErrorMessage('Failed to update book');
     }
-
-    const fetchBooks = async () => {
-      const result = await getBooks();
-      if (result.success) {
-        setAllBooks(result.data ?? []);
-      } else {
-        console.error('Failed to load books');
-      }
-    };
-
-    fetchBooks();
 
     setIsLoading(false);
     setTitle('');
@@ -449,21 +442,12 @@ const EditBook: React.FC = () => {
       console.log(
         `Book with ID ${selectedBook.id} archived/unarchived successfully.`
       );
+      deleteSingleBook(selectedBook.id);
+
       setShowBookEditWindow(false);
     } else {
       setErrorMessage('Failed to archive/unarchive the book');
     }
-
-    const fetchBooks = async () => {
-      const result = await getBooks();
-      if (result.success) {
-        setAllBooks(result.data ?? []);
-      } else {
-        console.error('Failed to load books');
-      }
-    };
-
-    fetchBooks();
 
     setArchiveLoading(false);
     setSelectedBook(null);
@@ -487,21 +471,12 @@ const EditBook: React.FC = () => {
 
     if (result.success) {
       console.log(`Book with ID ${selectedBook.id} deleted successfully.`);
+      deleteSingleBook(selectedBook.id);
+
       setShowBookEditWindow(false);
     } else {
       setErrorMessage('Failed to delete the book');
     }
-
-    const fetchBooks = async () => {
-      const result = await getBooks();
-      if (result.success) {
-        setAllBooks(result.data ?? []);
-      } else {
-        console.error('Failed to load books');
-      }
-    };
-
-    fetchBooks();
 
     setDeleteLoading(false);
     setSelectedBook(null);
@@ -537,7 +512,7 @@ const EditBook: React.FC = () => {
     if (result.success) {
       console.log('Category created successfully:', result.data);
 
-      setCategories(result.data.categories);
+      updateSingleCategory(result.data.category);
 
       setCategoryName('');
       setCategoryDescription('');
@@ -570,7 +545,7 @@ const EditBook: React.FC = () => {
       if (result.success) {
         console.log(`Category ${editCategoryId} updated successfully`);
 
-        setCategories(result.data.categories);
+        updateSingleCategory(result.data.category);
 
         setEditCategoryId('');
         setEditCategoryName('');
@@ -603,9 +578,7 @@ const EditBook: React.FC = () => {
       const result = await deleteCategory(categoryId);
       if (result.success) {
         console.log(`Category ${categoryId} deleted successfully.`);
-        setCategories(
-          categories.filter((category) => category.id !== categoryId)
-        );
+        deleteSingleCategory(categoryId);
       } else {
         console.error('Failed to delete category');
       }
@@ -988,7 +961,7 @@ const EditBook: React.FC = () => {
           <section
             ref={showBookEditWindowContainerRef}
             className={`${
-              showEditBook ? 'book-edit-container' : 'edit-container'
+              showEditBook ? 'book-edit-container' : 'category-edit-container'
             } ${showBookEditWindow ? 'fade-in' : 'fade-out'}`}
           >
             <div className='portal-top-toggles'>
@@ -1154,14 +1127,14 @@ const EditBook: React.FC = () => {
                         <p className='book-create-label-text'>{`${languageText}${
                           bookLanguage ? '' : '*'
                         }`}</p>
-                        <div className='book-create-language-container'>
-                          <div className='book-create-flag-input'>
+                        <div className='book-edit-language-container'>
+                          <div className='book-edit-flag-input'>
                             <FrenchFlag
-                              className={`create-flag ${
+                              className={`book-edit-flag ${
                                 !bookLanguage
                                   ? ''
                                   : bookLanguage.toLowerCase() === 'french' ||
-                                    'français'
+                                    bookLanguage.toLowerCase() === 'français'
                                   ? 'selected'
                                   : 'unselected'
                               }`}
@@ -1170,7 +1143,7 @@ const EditBook: React.FC = () => {
                               }
                             />
                             <UKFlag
-                              className={`create-flag ${
+                              className={`book-edit-flag ${
                                 !bookLanguage
                                   ? ''
                                   : bookLanguage.toLowerCase() === 'english'
@@ -1189,7 +1162,7 @@ const EditBook: React.FC = () => {
                             maxLength={20}
                             onChange={(e) => setBookLanguage(e.target.value)}
                             placeholder={languagePlaceholder}
-                            className='book-create-language-input'
+                            className='book-edit-language-input'
                           />
                         </div>
                         <div className='category-book-edit-container'>
@@ -1646,6 +1619,7 @@ const EditBook: React.FC = () => {
                     <div>
                       <textarea
                         name='description'
+                        maxLength={50}
                         value={editCategoryDesc}
                         onChange={(e) => setEditCategoryDesc(e.target.value)}
                         placeholder={categoryDescPlaceholder}

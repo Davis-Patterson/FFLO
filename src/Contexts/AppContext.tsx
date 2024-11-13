@@ -137,6 +137,13 @@ interface FullscreenData {
   desc: string;
 }
 
+export interface Review {
+  id: number;
+  name: string;
+  message: string;
+  created_at: string;
+}
+
 interface AppContextType {
   authToken: string | null;
   setAuthToken: (token: string | null) => void;
@@ -145,8 +152,11 @@ interface AppContextType {
   allBooks: Book[];
   setAllBooks: (books: Book[]) => void;
   updateSingleBook: (updatedBook: Book) => void;
+  deleteSingleBook: (bookId: number) => void;
   categories: Category[];
   setCategories: (categories: Category[]) => void;
+  updateSingleCategory: (updatedCategory: Category) => void;
+  deleteSingleCategory: (categoryId: number) => void;
   bookmarkedBooks: Book[];
   setBookmarkedBooks: (books: Book[]) => void;
   selectedBook: Book | null;
@@ -155,6 +165,10 @@ interface AppContextType {
   setShowFullscreen: (value: boolean) => void;
   fullscreenData: FullscreenData;
   setFullscreenData: (data: FullscreenData) => void;
+  reviews: Review[];
+  setReviews: (reviews: Review[]) => void;
+  updateSingleReview: (updatedReview: Review) => void;
+  deleteSingleReview: (reviewId: number) => void;
   showAuth: boolean;
   setShowAuth: (value: boolean) => void;
   showEdit: boolean;
@@ -213,12 +227,40 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
   const [allBooks, setAllBooks] = useState<Book[]>([]);
   const updateSingleBook = (updatedBook: Book) => {
-    setAllBooks((prevBooks) =>
-      prevBooks.map((book) => (book.id === updatedBook.id ? updatedBook : book))
-    );
+    setAllBooks((prevBooks) => {
+      const bookExists = prevBooks.some((book) => book.id === updatedBook.id);
+
+      return bookExists
+        ? prevBooks.map((book) =>
+            book.id === updatedBook.id ? updatedBook : book
+          )
+        : [...prevBooks, updatedBook];
+    });
+  };
+  const deleteSingleBook = (bookId: number) => {
+    setAllBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
   };
 
   const [categories, setCategories] = useState<any[]>([]);
+  const updateSingleCategory = (updatedCategory: Category) => {
+    setCategories((prevCategories) => {
+      const categoryExists = prevCategories.some(
+        (category) => category.id === updatedCategory.id
+      );
+
+      return categoryExists
+        ? prevCategories.map((category) =>
+            category.id === updatedCategory.id ? updatedCategory : category
+          )
+        : [...prevCategories, updatedCategory];
+    });
+  };
+  const deleteSingleCategory = (categoryId: number) => {
+    setCategories((prevCategories) =>
+      prevCategories.filter((category) => category.id !== categoryId)
+    );
+  };
+
   const [bookmarkedBooks, setBookmarkedBooks] = useState<Book[]>([]);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
@@ -230,6 +272,25 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     author: '',
     desc: '',
   });
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const updateSingleReview = (updatedReview: Review) => {
+    setReviews((prevReviews) => {
+      const reviewExists = prevReviews.some(
+        (review) => review.id === updatedReview.id
+      );
+
+      return reviewExists
+        ? prevReviews.map((review) =>
+            review.id === updatedReview.id ? updatedReview : review
+          )
+        : [...prevReviews, updatedReview];
+    });
+  };
+  const deleteSingleReview = (reviewId: number) => {
+    setReviews((prevReviews) =>
+      prevReviews.filter((review) => review.id !== reviewId)
+    );
+  };
 
   const [showAuth, setShowAuth] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -388,8 +449,11 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         allBooks,
         setAllBooks,
         updateSingleBook,
+        deleteSingleBook,
         categories,
         setCategories,
+        updateSingleCategory,
+        deleteSingleCategory,
         bookmarkedBooks,
         setBookmarkedBooks,
         selectedBook,
@@ -398,6 +462,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setShowFullscreen,
         fullscreenData,
         setFullscreenData,
+        reviews,
+        setReviews,
+        updateSingleReview,
+        deleteSingleReview,
         showAuth,
         setShowAuth,
         showEdit,

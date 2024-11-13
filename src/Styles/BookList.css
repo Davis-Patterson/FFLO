@@ -39,14 +39,14 @@
   fill: var(--clr-dark);
 }
 
-.line-divider {
+.book-list-line-divider {
   height: 1px;
   width: 100%;
   z-index: 1;
-  padding: 0px 25px;
+  padding: 0px 0px;
 }
 
-.line-divider line {
+.book-list-line-divider line {
   stroke: var(--clr-divider);
   stroke-width: 1px;
 }
