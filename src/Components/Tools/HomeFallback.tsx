@@ -73,6 +73,57 @@ const HomeFallback: React.FC = () => {
           />
         </div>
 
+        <div className='home-categories-fallback-container'>
+          <div className='home-categories-fallback-container-header'>
+            <Skeleton
+              variant='rectangular'
+              animation='wave'
+              width={100}
+              height={20}
+            />
+            <div className='home-categories-fallback-container-title'>
+              <Skeleton
+                variant='rectangular'
+                animation='wave'
+                width={40}
+                height={40}
+              />
+              <Skeleton
+                variant='rectangular'
+                animation='wave'
+                width={150}
+                height={40}
+              />
+              <Skeleton
+                variant='rectangular'
+                animation='wave'
+                width={40}
+                height={40}
+              />
+            </div>
+          </div>
+          <div className='home-categories-fallback-map-container'>
+            {Array.from({ length: 4 }).map((_, index) => (
+              <Skeleton
+                key={index}
+                variant='rectangular'
+                animation='wave'
+                width={190}
+                height={330}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className='home-fallback-line-divider'>
+          <Skeleton
+            variant='rectangular'
+            animation='wave'
+            width={'100%'}
+            height={1}
+          />
+        </div>
+
         <section className='home-fallback-introduction-container'>
           <div className='home-fallback-introduction-image'>
             <Skeleton
@@ -130,66 +181,15 @@ const HomeFallback: React.FC = () => {
           />
         </div>
 
-        <section className='home-fallback-membership-container'>
-          <div className='home-fallback-member-content'>
-            <div className='home-fallback-content-icon left'>
-              <Skeleton
-                variant='rounded'
-                animation='wave'
-                width={55}
-                height={55}
-              />
-            </div>
-            <div className='home-fallback-content-title'>
-              <Skeleton
-                variant='rectangular'
-                animation='wave'
-                width='55%'
-                height={40}
-              />
-            </div>
-            <div className='home-fallback-content-text'>
-              {Array.from({ length: 7 }).map((_, index) => (
-                <Skeleton
-                  key={index}
-                  variant='rectangular'
-                  animation='wave'
-                  width={getRandomWidth()}
-                  height={20}
-                />
-              ))}
-            </div>
-            <div className='home-fallback-content-icon right'>
-              <Skeleton
-                variant='rounded'
-                animation='wave'
-                width={55}
-                height={55}
-              />
-            </div>
-          </div>
-          <div className='home-fallback-membership-image'>
+        <section className='home-fallback-reviews-container'>
+          <div className='home-fallback-reviews-fallback-container-header'>
             <Skeleton
               variant='rectangular'
               animation='wave'
-              width={350}
-              height={500}
+              width={100}
+              height={20}
             />
-          </div>
-        </section>
-
-        <div className='home-fallback-line-divider'>
-          <Skeleton
-            variant='rectangular'
-            animation='wave'
-            width={'100%'}
-            height={1}
-          />
-        </div>
-
-        <section className='home-fallback-letter-container'>
-          <header className='home-fallback-letter-header-container'>
-            <div className='home-fallback-letter-title-container'>
+            <div className='home-fallback-reviews-fallback-container-title'>
               <Skeleton
                 variant='rectangular'
                 animation='wave'
@@ -199,7 +199,7 @@ const HomeFallback: React.FC = () => {
               <Skeleton
                 variant='rectangular'
                 animation='wave'
-                width={260}
+                width={150}
                 height={40}
               />
               <Skeleton
@@ -209,80 +209,64 @@ const HomeFallback: React.FC = () => {
                 height={40}
               />
             </div>
-            <Skeleton
-              variant='rectangular'
-              animation='wave'
-              width={200}
-              height={50}
-            />
-          </header>
+          </div>
 
-          <div className='home-fallback-letter-content-container'>
-            <div className='home-fallback-letter-content-margin left'>
-              {Array.from({ length: 4 }).map((_, index) => (
+          <div className='home-fallback-reviews-fallback-content'>
+            <div className='home-fallback-reviews-control-container'>
+              <Skeleton
+                variant='rounded'
+                animation='wave'
+                width={20}
+                height={60}
+              />
+            </div>
+            <div className='home-fallback-reviews-content-container'>
+              <div className='home-fallback-reviews-content-icon top'>
                 <Skeleton
-                  key={index}
                   variant='rounded'
                   animation='wave'
-                  width={20}
-                  height={50}
+                  width={40}
+                  height={40}
                 />
-              ))}
-            </div>
-            <div className='home-fallback-letter-content-main'>
-              {Array.from({ length: 3 }).map((_, index) => (
-                <div
-                  key={index}
-                  className='home-fallback-letter-content-text-container'
-                >
+              </div>
+              <div className='home-fallback-reviews-review'>
+                <div className='home-fallback-reviews-review-text'>
                   {Array.from({ length: 5 }).map((_, index) => (
                     <Skeleton
                       key={index}
-                      variant='rectangular'
+                      variant='rounded'
                       animation='wave'
                       width={getRandomWidth()}
                       height={20}
                     />
                   ))}
                 </div>
-              ))}
-              <div className='home-fallback-letter-signature-title-container'>
+                <div className='home-fallback-reviews-review-name'>
+                  <Skeleton
+                    variant='rounded'
+                    animation='wave'
+                    width={150}
+                    height={30}
+                  />
+                </div>
+              </div>
+              <div className='home-fallback-reviews-content-icon bottom'>
                 <Skeleton
-                  variant='rectangular'
+                  variant='rounded'
                   animation='wave'
-                  width={100}
-                  height={25}
-                />
-                <Skeleton
-                  variant='rectangular'
-                  animation='wave'
-                  width={150}
-                  height={25}
+                  width={40}
+                  height={40}
                 />
               </div>
             </div>
-            <div className='home-fallback-letter-content-margin right'>
-              {Array.from({ length: 4 }).map((_, index) => (
-                <Skeleton
-                  key={index}
-                  variant='rounded'
-                  animation='wave'
-                  width={20}
-                  height={50}
-                />
-              ))}
-            </div>
-          </div>
-          <div className='home-fallback-letter-footer-container'>
-            {Array.from({ length: 5 }).map((_, index) => (
+            <div className='home-fallback-reviews-control-container'>
               <Skeleton
-                key={index}
-                variant='circular'
+                variant='rounded'
                 animation='wave'
-                width={40}
-                height={40}
+                width={20}
+                height={60}
               />
-            ))}
+            </div>
           </div>
         </section>
       </main>

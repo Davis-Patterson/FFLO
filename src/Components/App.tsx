@@ -11,7 +11,6 @@ import EditBook from 'Utils/EditBook';
 import EditCategories from 'Utils/EditCategories';
 import PolicyPanel from 'Utils/PolicyPanel';
 import Nav from 'Components/Nav';
-import Home from 'Components/Home';
 import NotFound from 'Tools/NotFound';
 import BookNotFound from 'Tools/BookNotFound';
 import Footer from 'Components/Footer';
@@ -27,6 +26,7 @@ import UserProfileFallback from 'Tools/UserProfileFallback';
 import Restricted from 'Tools/Restricted';
 import 'Styles/App.css';
 
+const Home = lazy(() => import('Components/Home'));
 const Book = lazy(() => import('Components/Book'));
 const Books = lazy(() => import('Components/Books'));
 const About = lazy(() => import('Components/About'));
@@ -116,7 +116,22 @@ const App: React.FC = () => {
       <>
         <Nav />
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route
+            path='/'
+            element={
+              <Suspense fallback={<HomeFallback />}>
+                <Home />
+              </Suspense>
+            }
+          />
+          <Route
+            path='/library'
+            element={
+              <Suspense fallback={<BooksFallback />}>
+                <Books />
+              </Suspense>
+            }
+          />
           <Route
             path='/library/:title'
             element={
@@ -126,14 +141,6 @@ const App: React.FC = () => {
             }
           />
           <Route path='/library/not_found' element={<BookNotFound />} />
-          <Route
-            path='/library'
-            element={
-              <Suspense fallback={<BooksFallback />}>
-                <Books />
-              </Suspense>
-            }
-          />
           <Route
             path='/about'
             element={
