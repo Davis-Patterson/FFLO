@@ -881,7 +881,7 @@ const AddBook: React.FC = () => {
                               : 'unselected'
                           }`}
                           onMouseDown={(e) =>
-                            handleSetBookLanguage(e, 'French')
+                            handleSetBookLanguage(e, 'Français')
                           }
                         />
                         <UKFlag

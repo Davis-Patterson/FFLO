@@ -1139,7 +1139,7 @@ const EditBook: React.FC = () => {
                                   : 'unselected'
                               }`}
                               onMouseDown={(e) =>
-                                handleSetBookLanguage(e, 'French')
+                                handleSetBookLanguage(e, 'Français')
                               }
                             />
                             <UKFlag
@@ -1328,23 +1328,19 @@ const EditBook: React.FC = () => {
                                         backgroundImage: `url(${image.image_small})`,
                                       }}
                                     >
-                                      {hasImage ? (
-                                        <>
-                                          <img
-                                            src={image.image_url || ''}
-                                            alt={`Thumbnail ${index + 1}`}
-                                            className='book-detail-image'
-                                            onLoad={(e) => {
-                                              const imgElement =
-                                                e.target as HTMLImageElement;
-                                              imgElement.parentElement?.classList.add(
-                                                'loaded'
-                                              );
-                                            }}
-                                          />
-                                        </>
-                                      ) : (
-                                        <FrenchBookIcon className='book-icon-thumbnail' />
+                                      {hasImage && (
+                                        <img
+                                          src={image.image_url || ''}
+                                          alt={`Thumbnail ${index + 1}`}
+                                          className='book-detail-image'
+                                          onLoad={(e) => {
+                                            const imgElement =
+                                              e.target as HTMLImageElement;
+                                            imgElement.parentElement?.classList.add(
+                                              'loaded'
+                                            );
+                                          }}
+                                        />
                                       )}
                                     </div>
                                   </div>

@@ -101,7 +101,10 @@ const Book: React.FC = () => {
     if (!book) {
       return null;
     }
-    if (book.language === 'French') {
+    if (
+      book.language.toLowerCase() === 'french' ||
+      book.language.toLowerCase() === 'français'
+    ) {
       return (
         <FrenchBookIcon
           className={`book-detail-cover-icon ${
@@ -109,7 +112,7 @@ const Book: React.FC = () => {
           }`}
         />
       );
-    } else if (book.language === 'English') {
+    } else if (book.language.toLowerCase() === 'english') {
       return (
         <EnglishBookIcon
           className={`book-detail-cover-icon ${
@@ -126,6 +129,16 @@ const Book: React.FC = () => {
         />
       );
     }
+  };
+
+  const getLanguageIcon = (language: string) => {
+    const normalizedLanguage = language.toLowerCase();
+    if (normalizedLanguage === 'french' || normalizedLanguage === 'français') {
+      return <FrenchFlag className='book-details-language-flag' />;
+    } else if (normalizedLanguage === 'english') {
+      return <UKFlag className='book-details-language-flag' />;
+    }
+    return null;
   };
 
   useEffect(() => {
@@ -534,12 +547,7 @@ const Book: React.FC = () => {
               <p className='book-details-label-text'>{bookLanguageHeader}</p>
               <div className='book-details-multi-item'>
                 <p className='book-details-text'>{book.language}</p>
-                {book.language === 'English' && (
-                  <UKFlag className='book-details-language-flag' />
-                )}
-                {book.language === 'French' && (
-                  <FrenchFlag className='book-details-language-flag' />
-                )}
+                {getLanguageIcon(book.language)}
               </div>
             </div>
             <div className='book-details-column-container'>

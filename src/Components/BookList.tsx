@@ -250,6 +250,16 @@ const BookList: React.FC = () => {
     setShowUnavailable(!showUnavailable);
   };
 
+  const getLanguageIcon = (language: string) => {
+    const normalizedLanguage = language.toLowerCase();
+    if (normalizedLanguage === 'french' || normalizedLanguage === 'français') {
+      return <FrenchFlag className='book-language-flag' />;
+    } else if (normalizedLanguage === 'english') {
+      return <UKFlag className='book-language-flag' />;
+    }
+    return null;
+  };
+
   const baseBooks = showBookmarks ? bookmarkedBooks : allBooks;
   const availableBooks = showUnavailable
     ? baseBooks
@@ -711,12 +721,7 @@ const BookList: React.FC = () => {
                           <p className='book-author'>{book.author}</p>
                           <div className='book-language-rating-container'>
                             <p className='book-language'>{book.language}</p>
-                            {book.language === 'French' && (
-                              <FrenchFlag className='book-language-flag' />
-                            )}
-                            {book.language === 'English' && (
-                              <UKFlag className='book-language-flag' />
-                            )}
+                            {getLanguageIcon(book.language)}
                             <p className='pipe-icon'>|</p>
                             <div className='rating-container'>
                               {!book.rating && (
@@ -831,10 +836,11 @@ const BookList: React.FC = () => {
                               <p className='book-list-language'>
                                 {book.language}
                               </p>
-                              {book.language === 'French' && (
+                              {(book.language.toLowerCase() === 'french' ||
+                                book.language.toLowerCase() === 'français') && (
                                 <FrenchFlag className='book-list-language-flag' />
                               )}
-                              {book.language === 'English' && (
+                              {book.language.toLowerCase() === 'english' && (
                                 <UKFlag className='book-list-language-flag' />
                               )}
                               <p className='pipe-icon'>|</p>
