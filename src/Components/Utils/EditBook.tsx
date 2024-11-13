@@ -18,7 +18,6 @@ import BackArrow from 'Svgs/BackArrow';
 import BookOpenIcon from 'Svgs/BookOpenIcon';
 import TrashIcon from 'Svgs/TrashIcon';
 import CheckIcon from 'Svgs/CheckIcon';
-import FrenchBookIcon from 'Svgs/FrenchBookIcon';
 import DragIcon from 'Svgs/DragIcon';
 import UKFlag from 'Svgs/UKFlag';
 import FrenchFlag from 'Svgs/FrenchFlag';

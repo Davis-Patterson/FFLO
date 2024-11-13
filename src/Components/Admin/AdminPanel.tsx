@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
+import { useNavigate } from 'react-router-dom';
 import TitleFlair from 'Svgs/TitleFlair';
 import 'Styles/Admin/AdminPanel.css';
 
@@ -10,11 +11,14 @@ const AdminPanel: React.FC = () => {
   }
   const { language } = context;
 
+  const navigate = useNavigate();
+
   // Translations
   const adminHeaderText = language === 'EN' ? 'Admin' : '';
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    navigate('/construction');
   }, []);
 
   return (

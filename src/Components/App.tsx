@@ -16,6 +16,7 @@ import BookNotFound from 'Tools/BookNotFound';
 import Footer from 'Components/Footer';
 import ProtectedRoute from 'Tools/ProtectedRoute';
 import AdminRoute from 'Tools/AdminRoute';
+import Construction from 'Tools/Construction';
 import Fallback from 'Tools/Fallback';
 import BookFallback from 'Tools/BookFallback';
 import BooksFallback from 'Tools/BooksFallback';
@@ -189,6 +190,7 @@ const App: React.FC = () => {
               </AdminRoute>
             }
           />
+          <Route path='/construction' element={<Construction />} />
           <Route path='/fallback' element={<HomeFallback />} />
           <Route path='/restricted' element={<Restricted />} />
           <Route path='*' element={<NotFound />} />
