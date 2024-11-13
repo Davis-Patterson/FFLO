@@ -374,11 +374,11 @@ const Home: React.FC = () => {
             </div>
 
             <section className='home-reviews-container'>
-              <div
-                className='home-reviews-prev-container'
-                onClick={handlePrevReview}
-              >
-                <ChevronRight className='home-reviews-prev' />
+              <div className='home-reviews-prev-container'>
+                <ChevronRight
+                  className='home-reviews-prev'
+                  onClick={handlePrevReview}
+                />
               </div>
 
               <div className='home-reviews-content-wrapper'>
@@ -405,11 +405,11 @@ const Home: React.FC = () => {
                 </div>
               </div>
 
-              <div
-                className='home-reviews-next-container'
-                onClick={handleNextReview}
-              >
-                <ChevronRight className='home-reviews-next' />
+              <div className='home-reviews-next-container'>
+                <ChevronRight
+                  className='home-reviews-next'
+                  onClick={handleNextReview}
+                />
               </div>
             </section>
           </>
