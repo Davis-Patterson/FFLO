@@ -83,6 +83,11 @@ interface CheckedOutBook {
 
 interface RentalHistoryItem extends CheckedOutBook {}
 
+interface OnHoldBook {
+  hold_date: string;
+  book: Book;
+}
+
 export interface Category {
   id: number;
   name: string;
@@ -120,7 +125,7 @@ interface User {
   joined_date: string;
   membership: Membership | null;
   checked_out: CheckedOutBook[];
-  on_hold: any | null;
+  on_hold: OnHoldBook[];
   book_history: RentalHistoryItem[];
 }
 
@@ -157,6 +162,20 @@ interface AppContextType {
   setCategories: (categories: Category[]) => void;
   updateSingleCategory: (updatedCategory: Category) => void;
   deleteSingleCategory: (categoryId: number) => void;
+  reviews: Review[];
+  setReviews: (reviews: Review[]) => void;
+  updateSingleReview: (updatedReview: Review) => void;
+  deleteSingleReview: (reviewId: number) => void;
+
+  tokenVerified: boolean;
+  setTokenVerified: (value: boolean) => void;
+  booksFetched: boolean;
+  setBooksFetched: (value: boolean) => void;
+  categoriesFetched: boolean;
+  setCategoriesFetched: (value: boolean) => void;
+  reviewsFetched: boolean;
+  setReviewsFetched: (value: boolean) => void;
+
   bookmarkedBooks: Book[];
   setBookmarkedBooks: (books: Book[]) => void;
   selectedBook: Book | null;
@@ -165,10 +184,6 @@ interface AppContextType {
   setShowFullscreen: (value: boolean) => void;
   fullscreenData: FullscreenData;
   setFullscreenData: (data: FullscreenData) => void;
-  reviews: Review[];
-  setReviews: (reviews: Review[]) => void;
-  updateSingleReview: (updatedReview: Review) => void;
-  deleteSingleReview: (reviewId: number) => void;
   showAuth: boolean;
   setShowAuth: (value: boolean) => void;
   showEdit: boolean;
@@ -261,17 +276,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     );
   };
 
-  const [bookmarkedBooks, setBookmarkedBooks] = useState<Book[]>([]);
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-
-  const [showFullscreen, setShowFullscreen] = useState<boolean>(false);
-  const [fullscreenData, setFullscreenData] = useState({
-    src: '',
-    alt: '',
-    title: '',
-    author: '',
-    desc: '',
-  });
   const [reviews, setReviews] = useState<Review[]>([]);
   const updateSingleReview = (updatedReview: Review) => {
     setReviews((prevReviews) => {
@@ -291,6 +295,23 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       prevReviews.filter((review) => review.id !== reviewId)
     );
   };
+
+  const [tokenVerified, setTokenVerified] = useState(false);
+  const [booksFetched, setBooksFetched] = useState(false);
+  const [categoriesFetched, setCategoriesFetched] = useState(false);
+  const [reviewsFetched, setReviewsFetched] = useState(false);
+
+  const [bookmarkedBooks, setBookmarkedBooks] = useState<Book[]>([]);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+
+  const [showFullscreen, setShowFullscreen] = useState<boolean>(false);
+  const [fullscreenData, setFullscreenData] = useState({
+    src: '',
+    alt: '',
+    title: '',
+    author: '',
+    desc: '',
+  });
 
   const [showAuth, setShowAuth] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -454,6 +475,18 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setCategories,
         updateSingleCategory,
         deleteSingleCategory,
+        reviews,
+        setReviews,
+        updateSingleReview,
+        deleteSingleReview,
+        tokenVerified,
+        setTokenVerified,
+        booksFetched,
+        setBooksFetched,
+        categoriesFetched,
+        setCategoriesFetched,
+        reviewsFetched,
+        setReviewsFetched,
         bookmarkedBooks,
         setBookmarkedBooks,
         selectedBook,
@@ -462,10 +495,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setShowFullscreen,
         fullscreenData,
         setFullscreenData,
-        reviews,
-        setReviews,
-        updateSingleReview,
-        deleteSingleReview,
         showAuth,
         setShowAuth,
         showEdit,

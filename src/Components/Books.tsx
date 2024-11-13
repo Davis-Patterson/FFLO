@@ -71,13 +71,15 @@ const Books: React.FC = () => {
   }, [categories, getCategories, context]);
 
   useEffect(() => {
-    if (slideIndex > maxSlideIndex) {
-      setSlideIndex(maxSlideIndex);
-      setTranslateValue(calculateTranslateValue(maxSlideIndex));
-    } else {
-      setTranslateValue(calculateTranslateValue(slideIndex));
+    if (fetchedCategories && categories.length > 0) {
+      if (slideIndex > maxSlideIndex) {
+        setSlideIndex(maxSlideIndex);
+        setTranslateValue(calculateTranslateValue(maxSlideIndex));
+      } else {
+        setTranslateValue(calculateTranslateValue(slideIndex));
+      }
     }
-  }, [categories.length, slideIndex, maxSlideIndex]);
+  }, [fetchedCategories, categories.length, slideIndex, maxSlideIndex]);
 
   const handleCategoryFilter = (
     event: React.MouseEvent,
@@ -122,6 +124,10 @@ const Books: React.FC = () => {
     }
   };
 
+  const sortedCategories = categories
+    .slice()
+    .sort((a, b) => a.sort_order - b.sort_order);
+
   return (
     <>
       <main className='page-container'>
@@ -165,7 +171,7 @@ const Books: React.FC = () => {
                 transform: `translateX(-${translateValue}px)`,
               }}
             >
-              {categories.map((category) => {
+              {sortedCategories.map((category) => {
                 const IconComponent: React.ComponentType<IconProps> =
                   categoryIconOptions[category.icon];
                 const backgroundColor = categoryColorOptions[category.color];

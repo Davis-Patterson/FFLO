@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, lazy, Suspense } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useCallback,
+  lazy,
+  Suspense,
+} from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Routes, Route } from 'react-router-dom';
 import AuthApi from 'Utilities/AuthApi';
@@ -36,6 +42,8 @@ const UserProfile = lazy(() => import('Components/UserProfile'));
 const Membership = lazy(() => import('Components/Membership'));
 const AdminPanel = lazy(() => import('Admin/AdminPanel'));
 
+let isVerificationRunning = false;
+
 const App: React.FC = () => {
   const { verifyToken, logout } = AuthApi();
   const { getBooks } = ServerApi();
@@ -46,40 +54,44 @@ const App: React.FC = () => {
   const {
     authToken,
     setAuthToken,
-    authUser,
     setAuthUser,
+    tokenVerified,
+    setTokenVerified,
     setShowAuth,
     showFullscreen,
     allBooks,
     setAllBooks,
+    setBookmarkedBooks,
     fetchError,
     setFetchError,
     isFetched,
     setIsFetched,
   } = context;
 
+  const memoizedVerifyToken = useCallback(verifyToken, [authToken]);
+
   useEffect(() => {
     const checkUser = async () => {
-      if (authToken && !authUser) {
-        const result = await verifyToken();
-        if (result.success && result.tokenValid) {
+      if (!isVerificationRunning && authToken && !tokenVerified) {
+        isVerificationRunning = true;
+        const result = await memoizedVerifyToken();
+        if (result.success && result.tokenValid && result.user_info) {
+          setAuthUser(result.user_info);
+          setBookmarkedBooks(result.user_info.bookmarked_books);
+          setTokenVerified(true);
         } else {
           console.log('Token is invalid or expired.');
           await logout();
-          if (result.success) {
-            console.log('Logout successful');
-            setShowAuth(true);
-          } else {
-            setAuthToken('');
-            setShowAuth(true);
-            console.log('Logout failed. AuthToken reset.');
-          }
+          setAuthToken('');
+          setAuthUser(null);
+          setShowAuth(true);
         }
+        isVerificationRunning = false;
       }
     };
 
     checkUser();
-  }, [authToken, authUser, setAuthUser, verifyToken]);
+  }, [authToken, memoizedVerifyToken]);
 
   useEffect(() => {
     const fetchBooks = async () => {

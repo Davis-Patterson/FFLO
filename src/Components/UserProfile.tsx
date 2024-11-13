@@ -3,6 +3,7 @@ import { AppContext } from 'Contexts/AppContext';
 import { Link, useNavigate } from 'react-router-dom';
 import MiniBookList from 'Components/Utils/MiniBookList';
 import MembershipStatus from 'Utils/MembershipStatus';
+import OnHold from 'Utils/OnHold';
 import CheckedOut from 'Utils/CheckedOut';
 import RentalHistory from 'Utils/RentalHistory';
 import UserIcon from 'Svgs/UserIcon';
@@ -283,7 +284,7 @@ const UserProfile: React.FC = () => {
           </div>
         </div>
         <div className='user-checked-out-container'>
-          <CheckedOut />
+          {authUser?.is_staff ? <OnHold /> : <CheckedOut />}
           <div className='profile-mini-list-container'>
             <div className='mini-list-books-link-container'>
               <p
@@ -325,19 +326,23 @@ const UserProfile: React.FC = () => {
             {authUser ? renderUserInfo() : renderPlaceholders()}
           </div>
 
-          <svg className='profile-line-divider'>
-            <line x1='0' y1='50%' x2='100%' y2='50%' />
-          </svg>
+          {!authUser?.is_staff && (
+            <>
+              <svg className='profile-line-divider'>
+                <line x1='0' y1='50%' x2='100%' y2='50%' />
+              </svg>
 
-          <div className='user-profile-history'>
-            <RentalHistory />
-          </div>
+              <div className='user-profile-history'>
+                <RentalHistory />
+              </div>
+            </>
+          )}
         </section>
-        <div className='user-info-options'>
-          <button onMouseDown={(e) => handleAddBook(e)}>Add Book</button>
-        </div>
       </div>
 
+      <div className='user-info-options'>
+        <button onMouseDown={(e) => handleAddBook(e)}>Add Book</button>
+      </div>
       <div className='input-token-container'>
         <p>2eac7ed8fe1af63251bc4ed8f9d091b56d704b86</p>
         <div className='input-token-input'>

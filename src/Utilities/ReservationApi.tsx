@@ -161,11 +161,79 @@ const ReservationApi = () => {
     }
   };
 
+  const holdBook = async (
+    bookId: number
+  ): Promise<{ success: boolean; data?: any; error?: string }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.post(
+        `/api/books/${bookId}/hold/`
+      );
+
+      if (response.status === 200) {
+        console.log(
+          `Book ID ${bookId} placed on hold successfully:`,
+          response.data
+        );
+        return { success: true, data: response.data };
+      } else {
+        return {
+          success: false,
+          error: 'Unexpected response status',
+          data: response.data,
+        };
+      }
+    } catch (error) {
+      let errorMessage = 'Failed to place book on hold';
+
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data?.detail || errorMessage;
+      }
+
+      console.error(`Failed to place book with ID ${bookId} on hold:`, error);
+      return { success: false, error: errorMessage };
+    }
+  };
+
+  const removeHold = async (
+    bookId: number
+  ): Promise<{ success: boolean; data?: any; error?: string }> => {
+    try {
+      const response: AxiosResponse = await axiosInstance.post(
+        `/api/books/${bookId}/remove-hold/`
+      );
+
+      if (response.status === 200) {
+        console.log(
+          `Hold for book ID ${bookId} removed successfully:`,
+          response.data
+        );
+        return { success: true, data: response.data };
+      } else {
+        return {
+          success: false,
+          error: 'Unexpected response status',
+          data: response.data,
+        };
+      }
+    } catch (error) {
+      let errorMessage = 'Failed to remove hold';
+
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data?.detail || errorMessage;
+      }
+
+      console.error(`Failed to remove hold for book ID ${bookId}:`, error);
+      return { success: false, error: errorMessage };
+    }
+  };
+
   return {
     reserveBook,
     cancelReservation,
     activateReservation,
     returnBook,
+    holdBook,
+    removeHold,
   };
 };
 

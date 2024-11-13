@@ -27,7 +27,8 @@ type IconProps = React.SVGProps<SVGSVGElement>;
 const Book: React.FC = () => {
   const { title } = useParams<{ title: string }>();
   const { getCategories, createBookmark, deleteBookmark } = ServerApi();
-  const { reserveBook, cancelReservation } = ReservationApi();
+  const { reserveBook, cancelReservation, holdBook, removeHold } =
+    ReservationApi();
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
@@ -85,6 +86,9 @@ const Book: React.FC = () => {
       ? 'Return book before reserving another'
       : "Retournez avant d'en réserver un autre";
   const holdBookText = language === 'EN' ? 'Hold book' : 'Tenir le livre';
+  const removeHoldText = language === 'EN' ? 'Remove Hold' : 'Livre de retour';
+  const anotherBookOnHoldText =
+    language === 'EN' ? 'Another Hold Active' : 'Une autre attente';
   const editBookText = language === 'EN' ? 'Edit book' : 'Modifier le livre';
   const bookPolicyButtonText =
     language === 'EN' ? 'Book Policies' : 'Politiques du livre';
@@ -160,26 +164,49 @@ const Book: React.FC = () => {
     }
   }, [book]);
 
-  const handleButtonClick = (event: React.MouseEvent) => {
+  const handleHoldBook = async (event: React.MouseEvent) => {
     if (event.button !== 0) return;
     event.preventDefault();
     event.stopPropagation();
 
     setIsLoading(true);
-    if (!authToken) {
-      setShowAuth(true);
-      console.log('handle login');
+    try {
+      const result = await holdBook(book?.id!);
+      if (result.success && result.data) {
+        console.log('Book held successfully');
+
+        setAuthUser(result.data.user);
+        updateSingleBook(result.data.book);
+      } else {
+        console.error(result.error || 'Failed to hold book');
+      }
+    } catch (error) {
+      console.error('Error holding book:', error);
+    } finally {
       setIsLoading(false);
-    } else if (authUser && authUser.membership && !authUser.membership.active) {
-      setTimeout(() => {
-        console.log('handle membership');
-        setIsLoading(false);
-      }, 1000);
-    } else {
-      setTimeout(() => {
-        console.log('Book reserved');
-        setIsLoading(false);
-      }, 1000);
+    }
+  };
+
+  const handleRemoveHold = async (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setIsLoading(true);
+    try {
+      const result = await removeHold(book?.id!);
+      if (result.success && result.data) {
+        console.log('Hold removed successfully');
+
+        setAuthUser(result.data.user);
+        updateSingleBook(result.data.book);
+      } else {
+        console.error(result.error || 'Failed to remove hold');
+      }
+    } catch (error) {
+      console.error('Error removing hold:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -341,6 +368,7 @@ const Book: React.FC = () => {
   const hasImage = !!book.images[0]?.image_url;
   const isBookReserved =
     authUser?.checked_out?.length && authUser.checked_out[0].reserved;
+  const isBookOnHold = authUser?.on_hold?.length && authUser.on_hold[0].book;
 
   const bookCategories = categories
     .filter((category) => book.categories.includes(category.id))
@@ -359,25 +387,63 @@ const Book: React.FC = () => {
     }
 
     if (authUser.is_staff) {
-      return (
-        <div className='staff-book-buttons'>
-          <button
-            className='submit-half-button'
-            onMouseDown={(e) => handleButtonClick(e)}
-          >
-            {isLoading ? <LinearProgress color='inherit' /> : holdBookText}
-          </button>
-          <button
-            className='edit-button'
-            onMouseDown={(e) => handleShowBookEditWindow(e)}
-          >
-            {editBookText}
-          </button>
-        </div>
+      const staffButtons = (
+        <button
+          className='edit-button'
+          onMouseDown={(e) => handleShowBookEditWindow(e)}
+        >
+          {editBookText}
+        </button>
       );
+
+      if (authUser.on_hold && authUser.on_hold.length > 0) {
+        const onHoldBook = authUser.on_hold[0];
+        if (onHoldBook.book.id === book?.id) {
+          return (
+            <div className='staff-book-buttons'>
+              {staffButtons}
+              <button
+                className='submit-half-button'
+                onMouseDown={(e) => handleRemoveHold(e)}
+              >
+                {isLoading ? (
+                  <LinearProgress color='inherit' />
+                ) : (
+                  removeHoldText
+                )}
+              </button>
+            </div>
+          );
+        } else {
+          return (
+            <div className='staff-book-buttons'>
+              {staffButtons}
+              <button className='inactive-half-button' disabled>
+                {anotherBookOnHoldText}
+              </button>
+            </div>
+          );
+        }
+      } else {
+        return (
+          <div className='staff-book-buttons'>
+            {staffButtons}
+            <button
+              className='submit-half-button'
+              onMouseDown={(e) => handleHoldBook(e)}
+            >
+              {isLoading ? <LinearProgress color='inherit' /> : holdBookText}
+            </button>
+          </div>
+        );
+      }
     }
 
-    if (authUser.membership && !authUser.membership.active) {
+    if (
+      !authUser.is_staff &&
+      authUser.membership &&
+      !authUser.membership.active
+    ) {
       return (
         <button
           className='submit-button'
@@ -388,7 +454,7 @@ const Book: React.FC = () => {
       );
     }
 
-    if (authUser.checked_out.length > 0) {
+    if (!authUser.is_staff && authUser.checked_out.length > 0) {
       const checkedOutBook = authUser.checked_out[0];
 
       if (checkedOutBook.book.id !== book?.id) {
@@ -424,6 +490,7 @@ const Book: React.FC = () => {
     }
 
     if (
+      !authUser.is_staff &&
       authUser.membership &&
       authUser.membership.monthly_books === 4 &&
       !authUser.checked_out.some((book) => book.reserved && !book.is_active)
@@ -479,7 +546,7 @@ const Book: React.FC = () => {
                   <img
                     key={`${book.id}-${
                       isBookReserved ? 'reserved' : 'available'
-                    }`}
+                    }-${isBookOnHold ? 'on hold' : 'available'}`}
                     src={book.images[0].image_url}
                     alt={book.title}
                     className={`book-detail-image ${

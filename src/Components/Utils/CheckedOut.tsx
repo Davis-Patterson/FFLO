@@ -87,7 +87,7 @@ const CheckedOut: React.FC = () => {
 
   const checkedOutData = authUser.checked_out[0];
   const checkedOutBook = checkedOutData.book;
-  const bookUrl = `/books/${formatTitleForURL(checkedOutBook.title)}`;
+  const bookUrl = `/library/${formatTitleForURL(checkedOutBook.title)}`;
   const hasImage = checkedOutBook.images && checkedOutBook.images.length > 0;
 
   // Determine status to display
@@ -152,10 +152,11 @@ const CheckedOut: React.FC = () => {
                   <p className='checked-out-book-language'>
                     {checkedOutBook.language}
                   </p>
-                  {checkedOutBook.language === 'French' && (
+                  {(checkedOutBook.language.toLowerCase() === 'french' ||
+                    checkedOutBook.language.toLowerCase() === 'français') && (
                     <FrenchFlag className='book-language-flag' />
                   )}
-                  {checkedOutBook.language === 'English' && (
+                  {checkedOutBook.language.toLowerCase() === 'english' && (
                     <UKFlag className='book-language-flag' />
                   )}
                   <p className='pipe-icon'>|</p>

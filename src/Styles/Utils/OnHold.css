@@ -1,23 +1,23 @@
-.checked-out-container {
+.on-hold-container {
   display: flex;
   flex-direction: column;
 }
 
-.checked-out-info-icons-container {
+.on-hold-info-icons-container {
   display: flex;
   flex-direction: row;
   gap: 15px;
 }
 
-.checked-out-info-container {
+.on-hold-info-container {
   display: flex;
   flex-direction: column;
   width: 82%;
   gap: 10px;
 }
 
-.checked-out-header,
-.no-checked-out-header {
+.on-hold-header,
+.no-on-hold-header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -29,7 +29,7 @@
   margin: 0px 5px 0px 0px;
 }
 
-.no-checked-out-header-text {
+.no-on-hold-header-text {
   color: var(--clr-text-blue);
   font-family: 'Lato', sans-serif;
   font-size: 1.8rem;
@@ -41,7 +41,7 @@
   width: 300px;
 }
 
-.checked-out-icons-container {
+.on-hold-icons-container {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -63,7 +63,7 @@
   height: 50px;
 }
 
-.checked-out-header-text {
+.on-hold-header-text {
   font-family: 'Inter', sans-serif;
   font-size: 1.15em;
   line-height: 1;
@@ -73,19 +73,19 @@
   color: var(--clr-text-grey);
 }
 
-.checked-out-book-container {
+.on-hold-book-container {
   display: flex;
   align-items: center;
   border-radius: 8px;
 }
 
-.checked-out-book-link {
+.on-hold-book-link {
   display: flex;
   text-decoration: none;
   color: inherit;
 }
 
-.checked-out-book-image-container {
+.on-hold-book-image-container {
   margin-right: 16px;
   flex: 0 0 100px;
   display: flex;
@@ -93,7 +93,7 @@
   align-items: center;
 }
 
-.checked-out-book-image-wrapper {
+.on-hold-book-image-wrapper {
   width: 100px;
   height: 150px;
   background-size: cover;
@@ -105,11 +105,11 @@
   justify-content: center;
   transition: all 0.15s ease-in-out;
 }
-.checked-out-book-image-container:hover .checked-out-book-image-wrapper {
+.on-hold-book-image-container:hover .on-hold-book-image-wrapper {
   transform: scale(102%);
 }
 
-.checked-out-book-image {
+.on-hold-book-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -121,13 +121,13 @@
   object-fit: contain;
 }
 
-.checked-out-book-info {
+.on-hold-book-info {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.checked-out-book-status {
+.on-hold-book-status {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -162,17 +162,17 @@
   border: 1px solid var(--clr-error);
 }
 
-.reserved-x-ixon {
+.on-hold-x-icon {
   width: 10px;
   fill: var(--clr-icon);
   cursor: pointer;
   transition: all 0.15s ease-in-out;
 }
-.reserved-x-ixon:hover {
+.on-hold-x-icon:hover {
   fill: var(--clr-dark);
 }
 
-.checked-out-book-title {
+.on-hold-book-title {
   font-family: 'Merriweather', sans-serif;
   font-size: 1.15em;
   line-height: 1.2;
@@ -188,11 +188,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.checked-out-book-title:hover {
+.on-hold-book-title:hover {
   color: var(--clr-moyenne);
 }
 
-.checked-out-book-author {
+.on-hold-book-author {
   font-family: 'Patrick Hand', sans-serif;
   font-size: 1.1em;
   line-height: 1.25;
@@ -209,18 +209,18 @@
   text-overflow: ellipsis;
 }
 
-.checked-out-book-date {
+.on-hold-book-date {
   font-size: 0.9em;
   color: #888;
 }
 
-.checked-out-book-language-rating {
+.on-hold-book-language-rating {
   display: flex;
   align-items: center;
-  margin: 2px 0px 18px 0px;
+  margin: 2px 0px 8px 0px;
 }
 
-.checked-out-book-language {
+.on-hold-book-language {
   font-family: 'Patrick Hand', sans-serif;
   font-size: 0.85em;
   line-height: 1;
@@ -255,13 +255,13 @@
   align-items: center;
 }
 
-.checked-out-star-icon {
+.on-hold-star-icon {
   width: 11px;
   height: 11px;
   color: gold;
 }
 
-.checked-out-book-rating {
+.on-hold-book-rating {
   font-family: 'Patrick Hand', sans-serif;
   font-size: 0.85em;
   line-height: 1;
@@ -272,28 +272,28 @@
   margin-left: 4px;
 }
 
-.no-checked-out-header-icons {
+.no-on-hold-header-icons {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 8px;
 }
 
-.checked-out-dates-container {
+.on-hold-dates-container {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.checked-out-date-container {
+.on-hold-date-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 6px;
 }
 
-.checked-out-book-date-text,
-.checked-out-book-due-date-text {
+.on-hold-book-date-text,
+.on-hold-book-due-date-text {
   font-family: 'Titillium Web', sans-serif;
   font-size: 1.1em;
   line-height: 1;
@@ -304,8 +304,8 @@
   letter-spacing: -1.1px;
 }
 
-.checked-out-book-date,
-.checked-out-book-due-date {
+.on-hold-book-date,
+.on-hold-book-due-date {
   font-family: 'Patrick Hand', sans-serif;
   font-size: 1.1em;
   line-height: 1;
@@ -313,4 +313,26 @@
   margin: 1px 0px 0px 0px;
   color: var(--clr-icon);
   transform: scaleY(90%);
+}
+
+.remove-hold-button {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8em;
+  line-height: 1;
+  font-weight: 400;
+  height: 30px;
+  padding: 0.5rem;
+  background-color: var(--clr-text-blue);
+  color: var(--clr-light);
+  border: none;
+  cursor: pointer;
+  max-width: 160px;
+  transition: all 0.15s ease-in-out;
+  margin: 4px 0px 0px 0px;
+}
+.remove-hold-button {
+  width: 100%;
+}
+.remove-hold-button:hover {
+  background-color: var(--clr-text-blue-hover);
 }

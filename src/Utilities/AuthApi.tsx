@@ -42,6 +42,7 @@ const AuthApi = () => {
   const verifyToken = async (): Promise<{
     success: boolean;
     tokenValid?: boolean;
+    user_info?: any;
   }> => {
     try {
       const response: AxiosResponse = await axiosInstance.get(
@@ -54,20 +55,20 @@ const AuthApi = () => {
       );
 
       if (response.status === 200) {
-        setAuthUser(response.data.user_info);
-        setBookmarkedBooks(response.data.user_info.bookmarked_books);
         console.log('Token is valid. User info:', response.data.user_info);
-        return { success: true, tokenValid: true };
+        return {
+          success: true,
+          tokenValid: true,
+          user_info: response.data.user_info,
+        };
       } else {
         return { success: false };
       }
     } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        if (error.response && error.response.status === 401) {
-          console.log('Invalid or expired token.');
-          clearAuthToken();
-          clearAuthUser();
-        }
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        console.log('Invalid or expired token.');
+        clearAuthToken();
+        clearAuthUser();
       } else {
         console.error('An unexpected error occurred:', error);
         clearAuthToken();

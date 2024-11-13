@@ -134,13 +134,15 @@ const Home: React.FC = () => {
   }, [reviews, getReviews, setReviews]);
 
   useEffect(() => {
-    if (slideIndex > maxSlideIndex) {
-      setSlideIndex(maxSlideIndex);
-      setTranslateValue(calculateTranslateValue(maxSlideIndex));
-    } else {
-      setTranslateValue(calculateTranslateValue(slideIndex));
+    if (fetchedCategories && categories.length > 0) {
+      if (slideIndex > maxSlideIndex) {
+        setSlideIndex(maxSlideIndex);
+        setTranslateValue(calculateTranslateValue(maxSlideIndex));
+      } else {
+        setTranslateValue(calculateTranslateValue(slideIndex));
+      }
     }
-  }, [categories.length, slideIndex, maxSlideIndex]);
+  }, [fetchedCategories, categories.length, slideIndex, maxSlideIndex]);
 
   const handleCategoryFilter = (categoryId: number) => {
     setCategoryFilter(categoryId);
@@ -189,6 +191,10 @@ const Home: React.FC = () => {
       setAnimateClass('fade-in');
     }, 400);
   };
+
+  const sortedCategories = categories
+    .slice()
+    .sort((a, b) => a.sort_order - b.sort_order);
 
   return (
     <>
@@ -255,7 +261,7 @@ const Home: React.FC = () => {
                     transform: `translateX(-${translateValue}px)`,
                   }}
                 >
-                  {categories.map((category) => {
+                  {sortedCategories.map((category) => {
                     const IconComponent: React.ComponentType<IconProps> =
                       categoryIconOptions[category.icon];
                     const backgroundColor =
