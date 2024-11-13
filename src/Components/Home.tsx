@@ -231,83 +231,91 @@ const Home: React.FC = () => {
           <line x1='0' y1='50%' x2='100%' y2='50%' />
         </svg>
 
-        <div className='home-content-header'>
-          <p className='home-header-pretext'>{libraryText}</p>
-          <div className='home-content-header-title'>
-            <TitleFlair className='home-title-flair-left' />
-            <h1 className='home-content-title-text'>{categoriesText}</h1>
-            <TitleFlair className='home-title-flair-right' />
-          </div>
-        </div>
-
-        <div className='home-categories-container'>
-          <div className='home-categories-navigation'>
-            {slideIndex > 0 && (
-              <div className='prev-slide' onClick={handlePrevSlide}>
-                &lt;
+        {categories && categories.length > 0 && (
+          <>
+            <div className='home-content-header'>
+              <p className='home-header-pretext'>{libraryText}</p>
+              <div className='home-content-header-title'>
+                <TitleFlair className='home-title-flair-left' />
+                <h1 className='home-content-title-text'>{categoriesText}</h1>
+                <TitleFlair className='home-title-flair-right' />
               </div>
-            )}
-            <div
-              className='home-categories-map-container'
-              style={{
-                transform: `translateX(-${translateValue}px)`,
-              }}
-            >
-              {categories.map((category) => {
-                const IconComponent: React.ComponentType<IconProps> =
-                  categoryIconOptions[category.icon];
-                const backgroundColor = categoryColorOptions[category.color];
-                const className = 'home-category-card';
-                return (
-                  <div
-                    key={category.id}
-                    className={className}
-                    style={{ backgroundColor }}
-                  >
-                    {category.flair && (
-                      <div className='home-category-card-flair-container'>
-                        <p className='home-category-card-flair'>
-                          {category.flair}
-                        </p>
-                      </div>
-                    )}
-                    <div className='home-category-card-header'>
-                      {IconComponent && (
-                        <IconComponent className='home-category-card-icon' />
-                      )}
-                      <p className='home-category-card-header-text'>
-                        {category.name}
-                      </p>
-                    </div>
-                    <div className='home-category-card-subtext-container'>
-                      <p className='home-category-card-subtext'>
-                        {category.description}
-                      </p>
-                    </div>
-                    <Link to='/library' className='home-category-button-link'>
-                      <button
-                        className='home-category-button'
-                        style={{ backgroundColor }}
-                        onClick={() => handleCategoryFilter(category.id)}
-                      >
-                        {categoryButtonText}
-                      </button>
-                    </Link>
-                  </div>
-                );
-              })}
             </div>
-            {slideIndex < maxSlideIndex && (
-              <div className='next-slide' onClick={handleNextSlide}>
-                &gt;
-              </div>
-            )}
-          </div>
-        </div>
 
-        <svg className='home-line-divider'>
-          <line x1='0' y1='50%' x2='100%' y2='50%' />
-        </svg>
+            <div className='home-categories-container'>
+              <div className='home-categories-navigation'>
+                {slideIndex > 0 && (
+                  <div className='prev-slide' onClick={handlePrevSlide}>
+                    &lt;
+                  </div>
+                )}
+                <div
+                  className='home-categories-map-container'
+                  style={{
+                    transform: `translateX(-${translateValue}px)`,
+                  }}
+                >
+                  {categories.map((category) => {
+                    const IconComponent: React.ComponentType<IconProps> =
+                      categoryIconOptions[category.icon];
+                    const backgroundColor =
+                      categoryColorOptions[category.color];
+                    const className = 'home-category-card';
+                    return (
+                      <div
+                        key={category.id}
+                        className={className}
+                        style={{ backgroundColor }}
+                      >
+                        {category.flair && (
+                          <div className='home-category-card-flair-container'>
+                            <p className='home-category-card-flair'>
+                              {category.flair}
+                            </p>
+                          </div>
+                        )}
+                        <div className='home-category-card-header'>
+                          {IconComponent && (
+                            <IconComponent className='home-category-card-icon' />
+                          )}
+                          <p className='home-category-card-header-text'>
+                            {category.name}
+                          </p>
+                        </div>
+                        <div className='home-category-card-subtext-container'>
+                          <p className='home-category-card-subtext'>
+                            {category.description}
+                          </p>
+                        </div>
+                        <Link
+                          to='/library'
+                          className='home-category-button-link'
+                        >
+                          <button
+                            className='home-category-button'
+                            style={{ backgroundColor }}
+                            onClick={() => handleCategoryFilter(category.id)}
+                          >
+                            {categoryButtonText}
+                          </button>
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
+                {slideIndex < maxSlideIndex && (
+                  <div className='next-slide' onClick={handleNextSlide}>
+                    &gt;
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <svg className='home-line-divider'>
+              <line x1='0' y1='50%' x2='100%' y2='50%' />
+            </svg>
+          </>
+        )}
 
         <div className='home-content-header'>
           <p className='home-header-pretext'>{aboutPretext}</p>
