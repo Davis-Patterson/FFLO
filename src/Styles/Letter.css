@@ -1,3 +1,9 @@
+.letter-wrapper {
+  padding: 10px;
+  background-color: var(--clr-light);
+  margin: 0px 0px 25px 0px;
+}
+
 .letter-details {
   display: flex;
   flex-direction: column;
@@ -5,7 +11,7 @@
   padding: 20px 0px;
   background-color: var(--clr-light);
   width: 650px;
-  margin: 0px 0px 25px 0px;
+  border: 1px solid var(--clr-divider);
 }
 
 .letter-header {

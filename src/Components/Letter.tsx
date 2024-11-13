@@ -7,8 +7,8 @@ import GrassIcon from 'Svgs/GrassIcon';
 import BeanstalkIcon from 'Svgs/BeanstalkIcon';
 import Crayon1 from 'Svgs/Crayon1';
 import Crayon2 from 'Svgs/Crayon2';
-import 'Styles/Letter.css';
 import Flower1 from 'Svgs/Flower1';
+import 'Styles/Letter.css';
 
 const Letter: React.FC = () => {
   const context = useContext(AppContext);
@@ -44,7 +44,7 @@ const Letter: React.FC = () => {
 
   return (
     <main className='page-container'>
-      <div>
+      <div className='letter-wrapper'>
         <section className='letter-details'>
           <header className='letter-header'>
             <div className='letter-header-title'>
