@@ -36,5 +36,5 @@
       "FFLO/*": ["src/Assets/FFLO/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "EditCategories.tsx"]
 }

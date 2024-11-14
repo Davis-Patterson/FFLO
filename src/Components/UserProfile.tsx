@@ -17,6 +17,11 @@ import Paperclip2 from 'Svgs/Paperclip2';
 import PointingIcon from 'Svgs/PointingIcon';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/UserProfile.css';
+import StaffIcon from 'Svgs/StaffIcon';
+import BookAddIcon from 'Svgs/BookAddIcon';
+import CategoriesIcon from 'Svgs/CategoriesIcon';
+import RentalsIcon from 'Svgs/RentalsIcon';
+import MembersIcon from 'Svgs/MembersIcon';
 
 const UserProfile: React.FC = () => {
   const context = useContext(AppContext);
@@ -35,6 +40,7 @@ const UserProfile: React.FC = () => {
 
   const [isAdminLoading, setIsAdminLoading] = useState(false);
   const [token, setToken] = useState('');
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -54,6 +60,19 @@ const UserProfile: React.FC = () => {
       : 'Explorez pour trouver votre prochaine lecture !';
   const editCategoriesToggleText =
     language === 'EN' ? 'Update Profile' : 'Mettre à jour le profil';
+  const staffButtonText =
+    language === 'EN' ? 'Staff Panel' : 'Panel du personnel';
+  const newBookText = language === 'EN' ? 'New Book' : 'Nouveau livre';
+  const categoriesText =
+    language === 'EN' ? 'Edit Categories' : 'Modifier les catégories';
+  const reservationsText =
+    language === 'EN'
+      ? 'Reservations Information'
+      : 'Informations sur les réservations';
+  const membershipsText =
+    language === 'EN'
+      ? 'Memberships Information'
+      : 'Informations sur les adhésions';
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -105,6 +124,14 @@ const UserProfile: React.FC = () => {
 
   const handleTokenSet = () => {
     setAuthToken(token);
+  };
+
+  const handleHover = (card: string) => {
+    setHoveredCard(card);
+  };
+
+  const handleHoverEnd = () => {
+    setHoveredCard(null);
   };
 
   const renderPlaceholders = () => (
@@ -336,7 +363,79 @@ const UserProfile: React.FC = () => {
           {authUser?.is_staff && (
             <>
               <div className='staff-options-container'>
-                <button onMouseDown={(e) => handleAddBook(e)}>Add Book</button>
+                <div className='staff-options-row'>
+                  <div
+                    className={`staff-option-card ${
+                      hoveredCard === 'staff'
+                        ? 'active'
+                        : hoveredCard
+                        ? 'inactive'
+                        : ''
+                    }`}
+                    onMouseEnter={() => handleHover('staff')}
+                    onMouseLeave={handleHoverEnd}
+                  >
+                    <StaffIcon className='staff-option-icon' />
+                    <p className='staff-option-text'>{staffButtonText}</p>
+                  </div>
+                  <div
+                    onMouseDown={(e) => handleAddBook(e)}
+                    className={`staff-option-card ${
+                      hoveredCard === 'newBook'
+                        ? 'active'
+                        : hoveredCard
+                        ? 'inactive'
+                        : ''
+                    }`}
+                    onMouseEnter={() => handleHover('newBook')}
+                    onMouseLeave={handleHoverEnd}
+                  >
+                    <BookAddIcon className='staff-option-icon' />
+                    <p className='staff-option-text'>{newBookText}</p>
+                  </div>
+                  <div
+                    className={`staff-option-card ${
+                      hoveredCard === 'categories'
+                        ? 'active'
+                        : hoveredCard
+                        ? 'inactive'
+                        : ''
+                    }`}
+                    onMouseEnter={() => handleHover('categories')}
+                    onMouseLeave={handleHoverEnd}
+                  >
+                    <CategoriesIcon className='staff-option-icon' />
+                    <p className='staff-option-text'>{categoriesText}</p>
+                  </div>
+                  <div
+                    className={`staff-option-card ${
+                      hoveredCard === 'reservations'
+                        ? 'active'
+                        : hoveredCard
+                        ? 'inactive'
+                        : ''
+                    }`}
+                    onMouseEnter={() => handleHover('reservations')}
+                    onMouseLeave={handleHoverEnd}
+                  >
+                    <RentalsIcon className='staff-option-icon' />
+                    <p className='staff-option-text'>{reservationsText}</p>
+                  </div>
+                  <div
+                    className={`staff-option-card ${
+                      hoveredCard === 'memberships'
+                        ? 'active'
+                        : hoveredCard
+                        ? 'inactive'
+                        : ''
+                    }`}
+                    onMouseEnter={() => handleHover('memberships')}
+                    onMouseLeave={handleHoverEnd}
+                  >
+                    <MembersIcon className='staff-option-icon' />
+                    <p className='staff-option-text'>{membershipsText}</p>
+                  </div>
+                </div>
 
                 <div className='input-token-container'>
                   <div className='input-token-input'>
