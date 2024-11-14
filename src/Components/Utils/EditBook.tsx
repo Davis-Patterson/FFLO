@@ -26,7 +26,6 @@ import 'Styles/Utils/EditBook.css';
 
 const EditBook: React.FC = () => {
   const {
-    getCategories,
     updateBook,
     createCategory,
     deleteCategory,
@@ -123,7 +122,6 @@ const EditBook: React.FC = () => {
     useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [categoriesLoading, setCategoriesLoading] = useState(false);
   const [categoryAddLoading, setCategoryAddLoading] = useState(false);
   const [categoryEditLoading, setCategoryEditLoading] = useState(false);
   const [archiveLoading, setArchiveLoading] = useState(false);
@@ -238,23 +236,6 @@ const EditBook: React.FC = () => {
       });
     }
   }, [selectedBook]);
-
-  useEffect(() => {
-    if (showBookEditWindow) {
-      setCategoriesLoading(true);
-      const fetchCategories = async () => {
-        const result = await getCategories();
-        if (result.success) {
-          setCategories(result.data);
-        } else {
-          console.error('Failed to load categories');
-        }
-        setCategoriesLoading(false);
-      };
-
-      fetchCategories();
-    }
-  }, [showBookEditWindow]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -1177,7 +1158,7 @@ const EditBook: React.FC = () => {
                             />
                           </div>
                           <div className='category-book-edit-scoll'>
-                            {categoriesLoading ? (
+                            {!categories ? (
                               <LinearProgress color='inherit' />
                             ) : (
                               <>
@@ -1423,7 +1404,7 @@ const EditBook: React.FC = () => {
                         )}
                       </div>
                     </div>
-                    {categoriesLoading ? (
+                    {!categories ? (
                       <LinearProgress color='inherit' />
                     ) : (
                       <>

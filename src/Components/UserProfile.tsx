@@ -35,7 +35,6 @@ const UserProfile: React.FC = () => {
 
   const [isAdminLoading, setIsAdminLoading] = useState(false);
   const [token, setToken] = useState('');
-  const [adminToken, setAdminToken] = useState('');
 
   const navigate = useNavigate();
 
@@ -106,10 +105,6 @@ const UserProfile: React.FC = () => {
 
   const handleTokenSet = () => {
     setAuthToken(token);
-  };
-
-  const handleAdminTokenSet = () => {
-    setAuthToken(adminToken);
   };
 
   const renderPlaceholders = () => (
@@ -337,47 +332,32 @@ const UserProfile: React.FC = () => {
               </div>
             </>
           )}
-        </section>
-      </div>
 
-      <div className='user-info-options'>
-        <button onMouseDown={(e) => handleAddBook(e)}>Add Book</button>
-      </div>
-      <div className='input-token-container'>
-        <p>2eac7ed8fe1af63251bc4ed8f9d091b56d704b86</p>
-        <div className='input-token-input'>
-          <input
-            type='text'
-            name='token'
-            value={adminToken}
-            onChange={(e) => setAdminToken(e.target.value)}
-            required
-            placeholder={
-              authToken && authUser?.is_staff ? `${authToken}` : 'Token'
-            }
-            className='token-input'
-          />
-          <div className='token-button' onClick={handleAdminTokenSet}>
-            adm
-          </div>
-        </div>
-        <p>7600c79f7d1731d9f560dc02619756bb3104dc43</p>
-        <div className='input-token-input'>
-          <input
-            type='text'
-            name='token'
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-            required
-            placeholder={
-              authToken && !authUser?.is_staff ? `${authToken}` : 'Token'
-            }
-            className='token-input'
-          />
-          <div className='token-button' onClick={handleTokenSet}>
-            user
-          </div>
-        </div>
+          {authUser?.is_staff && (
+            <>
+              <div className='staff-options-container'>
+                <button onMouseDown={(e) => handleAddBook(e)}>Add Book</button>
+
+                <div className='input-token-container'>
+                  <div className='input-token-input'>
+                    <input
+                      type='text'
+                      name='token'
+                      value={token}
+                      onChange={(e) => setToken(e.target.value)}
+                      required
+                      placeholder={authToken || 'token'}
+                      className='token-input'
+                    />
+                    <div className='token-button' onClick={handleTokenSet}>
+                      tkn
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </section>
       </div>
     </main>
   );

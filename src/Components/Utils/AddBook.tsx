@@ -26,7 +26,6 @@ import 'Styles/Utils/AddBook.css';
 
 const AddBook: React.FC = () => {
   const {
-    getCategories,
     createBook,
     createCategory,
     deleteCategory,
@@ -94,7 +93,6 @@ const AddBook: React.FC = () => {
     useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [categoriesLoading, setCategoriesLoading] = useState(false);
   const [categoryAddLoading, setCategoryAddLoading] = useState(false);
   const [categoryEditLoading, setCategoryEditLoading] = useState(false);
   const [showDeletes, setShowDeletes] = useState(false);
@@ -175,23 +173,6 @@ const AddBook: React.FC = () => {
       }, 3000);
     }
   }, [errorMessage]);
-
-  useEffect(() => {
-    if (showAddBookWindow) {
-      setCategoriesLoading(true);
-      const fetchCategories = async () => {
-        const result = await getCategories();
-        if (result.success) {
-          setCategories(result.data);
-        } else {
-          console.error('Failed to load categories');
-        }
-        setCategoriesLoading(false);
-      };
-
-      fetchCategories();
-    }
-  }, [showAddBookWindow]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -923,7 +904,7 @@ const AddBook: React.FC = () => {
                         />
                       </div>
                       <div className='category-book-add-scoll'>
-                        {categoriesLoading ? (
+                        {!categories ? (
                           <LinearProgress color='inherit' />
                         ) : (
                           <>
@@ -1049,7 +1030,7 @@ const AddBook: React.FC = () => {
                         )}
                       </div>
                     </div>
-                    {categoriesLoading ? (
+                    {!categories ? (
                       <LinearProgress color='inherit' />
                     ) : (
                       <>

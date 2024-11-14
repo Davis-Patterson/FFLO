@@ -26,7 +26,7 @@ type IconProps = React.SVGProps<SVGSVGElement>;
 
 const Book: React.FC = () => {
   const { title } = useParams<{ title: string }>();
-  const { getCategories, createBookmark, deleteBookmark } = ServerApi();
+  const { createBookmark, deleteBookmark } = ServerApi();
   const { reserveBook, cancelReservation, holdBook, removeHold } =
     ReservationApi();
   const context = useContext(AppContext);
@@ -43,7 +43,6 @@ const Book: React.FC = () => {
     allBooks,
     updateSingleBook,
     categories,
-    setCategories,
     bookmarkedBooks,
     setBookmarkedBooks,
     setSelectedBook,
@@ -147,21 +146,6 @@ const Book: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [book]);
-
-  useEffect(() => {
-    if (categories.length === 0) {
-      const fetchCategories = async () => {
-        const result = await getCategories();
-        if (result.success) {
-          setCategories(result.data);
-        } else {
-          console.error('Failed to load categories');
-        }
-      };
-
-      fetchCategories();
-    }
   }, [book]);
 
   const handleHoldBook = async (event: React.MouseEvent) => {

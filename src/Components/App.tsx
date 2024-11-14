@@ -43,10 +43,20 @@ const Membership = lazy(() => import('Components/Membership'));
 const AdminPanel = lazy(() => import('Admin/AdminPanel'));
 
 let isVerificationRunning = false;
+let areBooksFetching = false;
+let areCategoriesFetching = false;
+let areReviewsFetching = false;
+
+function shuffleArray<T>(array: T[]): T[] {
+  return array
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+}
 
 const App: React.FC = () => {
   const { verifyToken, logout } = AuthApi();
-  const { getBooks } = ServerApi();
+  const { getBooks, getCategories, getReviews } = ServerApi();
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
@@ -57,15 +67,23 @@ const App: React.FC = () => {
     setAuthUser,
     tokenVerified,
     setTokenVerified,
+    booksFetched,
+    setBooksFetched,
+    categoriesFetched,
+    setCategoriesFetched,
+    reviewsFetched,
+    setReviewsFetched,
+    reviews,
+    setReviews,
     setShowAuth,
     showFullscreen,
     allBooks,
     setAllBooks,
+    categories,
+    setCategories,
     setBookmarkedBooks,
     fetchError,
     setFetchError,
-    isFetched,
-    setIsFetched,
   } = context;
 
   const memoizedVerifyToken = useCallback(verifyToken, [authToken]);
@@ -95,12 +113,19 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      if (allBooks.length === 0 && !fetchError && !isFetched) {
+      if (
+        !booksFetched &&
+        !areBooksFetching &&
+        !fetchError &&
+        allBooks.length === 0
+      ) {
+        areBooksFetching = true;
         try {
           const result = await getBooks();
           if (result.success) {
             setAllBooks(result.data ?? []);
             setFetchError(false);
+            setBooksFetched(true);
           } else {
             console.error('Failed to load books');
             setFetchError(true);
@@ -109,13 +134,76 @@ const App: React.FC = () => {
           console.error('Error fetching books:', error);
           setFetchError(true);
         } finally {
-          setIsFetched(true);
+          areBooksFetching = false;
         }
       }
     };
 
     fetchBooks();
-  }, [getBooks, allBooks, setAllBooks, fetchError, isFetched]);
+  }, [
+    allBooks,
+    getBooks,
+    setAllBooks,
+    fetchError,
+    booksFetched,
+    setBooksFetched,
+  ]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      if (
+        !categoriesFetched &&
+        !areCategoriesFetching &&
+        categories.length === 0
+      ) {
+        areCategoriesFetching = true;
+        try {
+          const result = await getCategories();
+          if (result.success) {
+            setCategories(result.data);
+            setCategoriesFetched(true);
+          } else {
+            console.error('Failed to load categories');
+          }
+        } catch (error) {
+          console.error('Error fetching categories:', error);
+        } finally {
+          areCategoriesFetching = false;
+        }
+      }
+    };
+
+    fetchCategories();
+  }, [
+    categories,
+    getCategories,
+    categoriesFetched,
+    setCategories,
+    setCategoriesFetched,
+  ]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      if (!reviewsFetched && !areReviewsFetching && reviews.length === 0) {
+        areReviewsFetching = true;
+        try {
+          const result = await getReviews();
+          if (result.success) {
+            setReviews(shuffleArray(result.data));
+            setReviewsFetched(true);
+          } else {
+            console.error('Failed to load reviews');
+          }
+        } catch (error) {
+          console.error('Error fetching reviews:', error);
+        } finally {
+          areReviewsFetching = false;
+        }
+      }
+    };
+
+    fetchReviews();
+  }, [reviews, getReviews, reviewsFetched, setReviews, setReviewsFetched]);
 
   return (
     <>

@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Link } from 'react-router-dom';
-import ServerApi from 'Utilities/ServerApi';
 import TitleFlair from 'Svgs/TitleFlair';
 import libraryShelfImg from 'FFLO/library_shelf.webp';
 import libraryShelfSmall from 'FFLO/library_shelf_small.webp';
@@ -12,15 +11,7 @@ import ChevronRight from 'Svgs/ChevronRight';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 
-function shuffleArray<T>(array: T[]): T[] {
-  return array
-    .map((value) => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value);
-}
-
 const Home: React.FC = () => {
-  const { getCategories, getReviews } = ServerApi();
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
@@ -28,16 +19,14 @@ const Home: React.FC = () => {
   const {
     language,
     categories,
-    setCategories,
+    categoriesFetched,
     reviews,
-    setReviews,
     setCategoryFilter,
     categoryIconOptions,
     categoryColorOptions,
     natureIcons,
   } = context;
 
-  const [fetchedCategories, setFetchedCategories] = useState(false);
   const [slideIndex, setSlideIndex] = useState(0);
   const [translateValue, setTranslateValue] = useState(0);
 
@@ -107,34 +96,7 @@ const Home: React.FC = () => {
   }, [shuffledIcons]);
 
   useEffect(() => {
-    if (!fetchedCategories) {
-      getCategories().then((result) => {
-        if (result.success) {
-          setCategories(result.data);
-          setFetchedCategories(true);
-        } else {
-          console.error('Failed to fetch categories');
-          setFetchedCategories(true);
-        }
-      });
-    }
-  }, [categories, getCategories, context]);
-
-  useEffect(() => {
-    if (!reviews.length) {
-      getReviews().then((result) => {
-        if (result.success) {
-          setReviews(shuffleArray(result.data));
-        } else {
-          console.error('Failed to fetch reviews');
-        }
-      });
-    }
-    console.log('reviews: ', reviews);
-  }, [reviews, getReviews, setReviews]);
-
-  useEffect(() => {
-    if (fetchedCategories && categories.length > 0) {
+    if (categoriesFetched && categories.length > 0) {
       if (slideIndex > maxSlideIndex) {
         setSlideIndex(maxSlideIndex);
         setTranslateValue(calculateTranslateValue(maxSlideIndex));
@@ -142,7 +104,7 @@ const Home: React.FC = () => {
         setTranslateValue(calculateTranslateValue(slideIndex));
       }
     }
-  }, [fetchedCategories, categories.length, slideIndex, maxSlideIndex]);
+  }, [categoriesFetched, categories.length, slideIndex, maxSlideIndex]);
 
   const handleCategoryFilter = (categoryId: number) => {
     setCategoryFilter(categoryId);

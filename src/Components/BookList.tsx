@@ -29,7 +29,7 @@ import 'Styles/BookList.css';
 
 const BookList: React.FC = () => {
   const { title } = useParams<{ title: string }>();
-  const { getCategories, createBookmark, deleteBookmark } = ServerApi();
+  const { createBookmark, deleteBookmark } = ServerApi();
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
@@ -40,7 +40,6 @@ const BookList: React.FC = () => {
     language,
     allBooks,
     categories,
-    setCategories,
     categoryFilter,
     setCategoryFilter,
     bookmarkedBooks,
@@ -49,8 +48,6 @@ const BookList: React.FC = () => {
   } = context;
 
   const [showSidebar, setShowSidebar] = useState(false);
-  const [fetchedCategories, setFetchedCategories] = useState(false);
-
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [viewSetting, setViewSetting] = useState<string>('grid');
   const [filterSetting, setFilterSetting] = useState<string>('title-asc');
@@ -130,18 +127,6 @@ const BookList: React.FC = () => {
     if (event.button !== 0) return;
     event.preventDefault();
     event.stopPropagation();
-
-    if (!fetchedCategories) {
-      getCategories().then((result) => {
-        if (result.success) {
-          setCategories(result.data);
-          setFetchedCategories(true);
-        } else {
-          console.error('Failed to fetch categories');
-          setFetchedCategories(true);
-        }
-      });
-    }
 
     setShowSidebar(!showSidebar);
   };

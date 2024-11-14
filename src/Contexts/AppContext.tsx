@@ -202,8 +202,6 @@ interface AppContextType {
   setCategoryFilter: (categoryFilter: number | null) => void;
   fetchError: boolean;
   setFetchError: (value: boolean) => void;
-  isFetched: boolean;
-  setIsFetched: (value: boolean) => void;
   clearAuthToken: () => void;
   clearAuthUser: () => void;
   handleLanguageChange: (
@@ -327,7 +325,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [categoryFilter, setCategoryFilter] = useState<number | null>(null);
 
   const [fetchError, setFetchError] = useState(false);
-  const [isFetched, setIsFetched] = useState(false);
 
   const clearAuthToken = () => {
     setAuthToken(null);
@@ -513,8 +510,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setCategoryFilter,
         fetchError,
         setFetchError,
-        isFetched,
-        setIsFetched,
         clearAuthToken,
         clearAuthUser,
         handleLanguageChange,

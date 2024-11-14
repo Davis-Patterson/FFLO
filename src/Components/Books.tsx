@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import ServerApi from 'Utilities/ServerApi';
 import TitleFlair from 'Svgs/TitleFlair';
 import GearIcon from 'Svgs/GearIcon';
 import BookList from 'Components/BookList';
@@ -9,7 +8,6 @@ import 'Styles/Books.css';
 type IconProps = React.SVGProps<SVGSVGElement>;
 
 const Books: React.FC = () => {
-  const { getCategories } = ServerApi();
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
@@ -19,17 +17,16 @@ const Books: React.FC = () => {
     setShowCategoryEditWindow,
     language,
     categories,
-    setCategories,
+    categoriesFetched,
     categoryFilter,
     setCategoryFilter,
     allBooks,
     fetchError,
-    isFetched,
+    booksFetched,
     categoryIconOptions,
     categoryColorOptions,
   } = context;
 
-  const [fetchedCategories, setFetchedCategories] = useState(false);
   const [slideIndex, setSlideIndex] = useState(0);
   const [translateValue, setTranslateValue] = useState(0);
 
@@ -57,21 +54,7 @@ const Books: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!fetchedCategories) {
-      getCategories().then((result) => {
-        if (result.success) {
-          setCategories(result.data);
-          setFetchedCategories(true);
-        } else {
-          console.error('Failed to fetch categories');
-          setFetchedCategories(true);
-        }
-      });
-    }
-  }, [categories, getCategories, context]);
-
-  useEffect(() => {
-    if (fetchedCategories && categories.length > 0) {
+    if (categoriesFetched && categories.length > 0) {
       if (slideIndex > maxSlideIndex) {
         setSlideIndex(maxSlideIndex);
         setTranslateValue(calculateTranslateValue(maxSlideIndex));
@@ -79,7 +62,7 @@ const Books: React.FC = () => {
         setTranslateValue(calculateTranslateValue(slideIndex));
       }
     }
-  }, [fetchedCategories, categories.length, slideIndex, maxSlideIndex]);
+  }, [categoriesFetched, categories.length, slideIndex, maxSlideIndex]);
 
   const handleCategoryFilter = (
     event: React.MouseEvent,
@@ -228,7 +211,7 @@ const Books: React.FC = () => {
         <div className='categories-books-container'>
           {fetchError ? (
             <p>Error fetching books. Please try again later.</p>
-          ) : isFetched && allBooks.length === 0 ? (
+          ) : booksFetched && allBooks.length === 0 ? (
             <p>No books available.</p>
           ) : (
             <BookList />

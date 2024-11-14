@@ -26,7 +26,6 @@ import 'Styles/Utils/EditCategories.css';
 
 const EditCategories: React.FC = () => {
   const {
-    getCategories,
     createCategory,
     deleteCategory,
     updateCategory,
@@ -80,7 +79,6 @@ const EditCategories: React.FC = () => {
   const [showEditCategoryButtonActive, setShowEditCategoryButtonActive] =
     useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [categoriesLoading, setCategoriesLoading] = useState(false);
   const [categoryAddLoading, setCategoryAddLoading] = useState(false);
   const [categoryEditLoading, setCategoryEditLoading] = useState(false);
   const [showDeletes, setShowDeletes] = useState(false);
@@ -136,23 +134,6 @@ const EditCategories: React.FC = () => {
       }, 3000);
     }
   }, [errorMessage]);
-
-  useEffect(() => {
-    if (showCategoryEditWindow) {
-      setCategoriesLoading(true);
-      const fetchCategories = async () => {
-        const result = await getCategories();
-        if (result.success) {
-          setCategories(result.data);
-        } else {
-          console.error('Failed to load categories');
-        }
-        setCategoriesLoading(false);
-      };
-
-      fetchCategories();
-    }
-  }, [showCategoryEditWindow]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -662,7 +643,7 @@ const EditCategories: React.FC = () => {
                         )}
                       </div>
                     </div>
-                    {categoriesLoading ? (
+                    {!categories ? (
                       <LinearProgress color='inherit' />
                     ) : (
                       <>

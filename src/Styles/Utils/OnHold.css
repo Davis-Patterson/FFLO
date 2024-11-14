@@ -317,16 +317,16 @@
 
 .remove-hold-button {
   font-family: 'Lato', sans-serif;
-  font-size: 0.8em;
+  font-size: 0.75em;
   line-height: 1;
   font-weight: 400;
-  height: 30px;
-  padding: 0.5rem;
-  background-color: var(--clr-text-blue);
-  color: var(--clr-light);
-  border: none;
+  height: 28px;
+  padding: 0.4rem;
+  background-color: var(--clr-light);
+  color: var(--clr-icon);
+  border: 1px solid var(--clr-icon);
   cursor: pointer;
-  max-width: 160px;
+  max-width: 130px;
   transition: all 0.15s ease-in-out;
   margin: 4px 0px 0px 0px;
 }
@@ -334,5 +334,6 @@
   width: 100%;
 }
 .remove-hold-button:hover {
-  background-color: var(--clr-text-blue-hover);
+  color: var(--clr-error);
+  border: 1px solid var(--clr-error);
 }
