@@ -1,5 +1,12 @@
-.home-header {
+.home-container {
   max-width: 950px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-header {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -155,6 +162,14 @@
 }
 .home-header-subtext.orange {
   color: var(--clr-orange);
+}
+
+.home-introduction-container,
+.home-reviews-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .home-content-header {
@@ -379,7 +394,7 @@
   border: 1px solid var(--clr-light);
 }
 
-.home-introduction-container {
+.home-introduction-row-container {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -521,7 +536,7 @@
   border: 1px solid var(--clr-text-blue);
 }
 
-.home-reviews-container {
+.home-reviews-navigation-container {
   display: flex;
   flex-direction: row;
   justify-content: center;

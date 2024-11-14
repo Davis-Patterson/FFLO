@@ -686,7 +686,7 @@ const AddBook: React.FC = () => {
   return (
     <>
       {showAddBookWindow && authToken && (
-        <div className='book-create-overlay'>
+        <main className='book-create-overlay'>
           <section
             ref={showAddBookWindowContainerRef}
             className={`book-create-container ${
@@ -737,42 +737,42 @@ const AddBook: React.FC = () => {
             </div>
             {showAddBook && (
               <>
-                <div className='book-create-header'>
+                <header className='book-create-header'>
                   <TitleFlair className='book-create-flair-left' />
                   <p className='book-create-header-text'>
                     {bookCreateHeaderText}
                   </p>
                   <TitleFlair className='book-create-flair-right' />
-                </div>
+                </header>
                 <p className='book-create-header-subtext'>
                   {bookCreateSubtext}
                 </p>
               </>
             )}
             {showListCategories && (
-              <div className='book-create-header'>
+              <header className='book-create-header'>
                 <TitleFlair className='book-create-flair-left' />
                 <p className='book-create-header-text'>
                   {categoryAddHeaderText}
                 </p>
                 <TitleFlair className='book-create-flair-right' />
-              </div>
+              </header>
             )}
             {showAddCategory && (
-              <div className='book-create-header'>
+              <header className='book-create-header'>
                 <TitleFlair className='book-create-flair-left' />
                 <p className='book-create-header-text'>{newCategoryText}</p>
                 <TitleFlair className='book-create-flair-right' />
-              </div>
+              </header>
             )}
             {showEditCategory && (
-              <div className='book-create-header'>
+              <header className='book-create-header'>
                 <TitleFlair className='book-create-flair-left' />
                 <p className='book-create-header-text'>
                   {categoryEditHeaderText}
                 </p>
                 <TitleFlair className='book-create-flair-right' />
-              </div>
+              </header>
             )}
             <div className='scrollable-container'>
               {showAddBook && (
@@ -1326,7 +1326,7 @@ const AddBook: React.FC = () => {
               )}
             </div>
           </section>
-        </div>
+        </main>
       )}
     </>
   );

@@ -161,235 +161,249 @@ const Home: React.FC = () => {
   return (
     <>
       <main className='page-container'>
-        <header className='home-header'>
-          <div className='home-header-image-container'>
-            <div
-              className='home-header-image-wrapper blur-load'
-              style={{
-                backgroundImage: `url(${libraryShelfSmall})`,
-              }}
-            >
-              <img
-                src={libraryShelfImg}
-                alt='library shelf image'
-                className='home-header-image'
-                onLoad={(e) => {
-                  const imgElement = e.target as HTMLImageElement;
-                  imgElement.parentElement?.classList.add('loaded');
-                }}
-              />
-            </div>
-            <div className='home-header-text-container'>
-              <p className='home-header-pretext'>{welcomeText}</p>
-              <div className='home-header-title-container'>
-                <div className='home-header-title-text-container'>
-                  <p className='home-header-title-text'>{ffloText}</p>
-                  <p className='home-header-title-subtext'>{headerText}</p>
-                </div>
-              </div>
-              <div className='home-header-subtext-container'>
-                <p className='home-header-subtext blue'>{readText}</p>
-                <p className='home-header-subtext light-blue'>{learnText}</p>
-                <p className='home-header-subtext orange'>{growText}</p>
-              </div>
-            </div>
-          </div>
-        </header>
-        <svg className='home-line-divider'>
-          <line x1='0' y1='50%' x2='100%' y2='50%' />
-        </svg>
-
-        {categories && categories.length > 0 && (
-          <>
-            <div className='home-content-header'>
-              <p className='home-header-pretext'>{libraryText}</p>
-              <div className='home-content-header-title'>
-                <TitleFlair className='home-title-flair-left' />
-                <h1 className='home-content-title-text'>{categoriesText}</h1>
-                <TitleFlair className='home-title-flair-right' />
-              </div>
-            </div>
-
-            <div className='home-categories-container'>
-              <div className='home-categories-navigation'>
-                {slideIndex > 0 && (
-                  <div className='prev-slide' onClick={handlePrevSlide}>
-                    &lt;
-                  </div>
-                )}
-                <div
-                  className='home-categories-map-container'
-                  style={{
-                    transform: `translateX(-${translateValue}px)`,
-                  }}
-                >
-                  {sortedCategories.map((category) => {
-                    const IconComponent: React.ComponentType<IconProps> =
-                      categoryIconOptions[category.icon];
-                    const backgroundColor =
-                      categoryColorOptions[category.color];
-                    const className = 'home-category-card';
-                    return (
-                      <div
-                        key={category.id}
-                        className={className}
-                        style={{ backgroundColor }}
-                      >
-                        {category.flair && (
-                          <div className='home-category-card-flair-container'>
-                            <p className='home-category-card-flair'>
-                              {category.flair}
-                            </p>
-                          </div>
-                        )}
-                        <div className='home-category-card-header'>
-                          {IconComponent && (
-                            <IconComponent className='home-category-card-icon' />
-                          )}
-                          <p className='home-category-card-header-text'>
-                            {category.name}
-                          </p>
-                        </div>
-                        <div className='home-category-card-subtext-container'>
-                          <p className='home-category-card-subtext'>
-                            {category.description}
-                          </p>
-                        </div>
-                        <Link
-                          to='/library'
-                          className='home-category-button-link'
-                        >
-                          <button
-                            className='home-category-button'
-                            style={{ backgroundColor }}
-                            onClick={() => handleCategoryFilter(category.id)}
-                          >
-                            {categoryButtonText}
-                          </button>
-                        </Link>
-                      </div>
-                    );
-                  })}
-                </div>
-                {slideIndex < maxSlideIndex && (
-                  <div className='next-slide' onClick={handleNextSlide}>
-                    &gt;
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <svg className='home-line-divider'>
-              <line x1='0' y1='50%' x2='100%' y2='50%' />
-            </svg>
-          </>
-        )}
-
-        <div className='home-content-header'>
-          <p className='home-header-pretext'>{aboutPretext}</p>
-          <div className='home-content-header-title'>
-            <TitleFlair className='home-title-flair-left' />
-            <h1 className='home-content-title-text'>{aboutHeaderText}</h1>
-            <TitleFlair className='home-title-flair-right' />
-          </div>
-        </div>
-
-        <section className='home-introduction-container'>
-          <div className='home-introduction-image'>
-            <div className='home-intro-image-container'>
+        <section className='home-container'>
+          <header className='home-header'>
+            <div className='home-header-image-container'>
               <div
-                className='home-intro-image-wrapper blur-load'
+                className='home-header-image-wrapper blur-load'
                 style={{
-                  backgroundImage: `url(${introImgSmall})`,
+                  backgroundImage: `url(${libraryShelfSmall})`,
                 }}
               >
                 <img
-                  src={introImg}
+                  src={libraryShelfImg}
                   alt='library shelf image'
-                  className='home-intro-image'
+                  className='home-header-image'
                   onLoad={(e) => {
                     const imgElement = e.target as HTMLImageElement;
                     imgElement.parentElement?.classList.add('loaded');
                   }}
                 />
               </div>
-            </div>
-          </div>
-          <div className='home-intro-content'>
-            <div className='home-intro-icon right'>
-              {renderIcon(iconIndices[0])}
-            </div>
-            <div className='home-intro-text-container'>
-              <p className='home-intro-header-text'>{introText}</p>
-              <div className='home-intro-paragraph'>
-                <p className='home-intro-paragraph-text'>{introParagraph}</p>
-              </div>
-              <Link to='/about' className='home-submit-button-link'>
-                <button className='home-submit-button'>{viewMoreText}</button>
-              </Link>
-            </div>
-            <div className='home-intro-icon left'>
-              {renderIcon(iconIndices[1])}
-            </div>
-          </div>
-        </section>
-
-        {reviews && reviews.length > 0 && (
-          <>
-            <svg className='home-line-divider'>
-              <line x1='0' y1='50%' x2='100%' y2='50%' />
-            </svg>
-
-            <div className='home-content-header'>
-              <p className='home-header-pretext'>{reviewsPretext}</p>
-              <div className='home-content-header-title'>
-                <TitleFlair className='home-title-flair-left' />
-                <h1 className='home-content-title-text'>{reviewsHeaderText}</h1>
-                <TitleFlair className='home-title-flair-right' />
-              </div>
-            </div>
-
-            <section className='home-reviews-container'>
-              <div className='home-reviews-prev-container'>
-                <ChevronRight
-                  className='home-reviews-prev'
-                  onClick={handlePrevReview}
-                />
-              </div>
-
-              <div className='home-reviews-content-wrapper'>
-                <div className='home-reviews-content-container'>
-                  <div className='home-reviews-icon top'>
-                    {renderIcon(iconIndices[2])}
+              <div className='home-header-text-container'>
+                <p className='home-header-pretext'>{welcomeText}</p>
+                <div className='home-header-title-container'>
+                  <div className='home-header-title-text-container'>
+                    <p className='home-header-title-text'>{ffloText}</p>
+                    <p className='home-header-title-subtext'>{headerText}</p>
                   </div>
-                  {reviews.length > 0 && (
-                    <div className={`home-reviews-review ${animateClass}`}>
-                      <p className='home-reviews-review-text'>
-                        {reviews[reviewIndex].message}
-                      </p>
-                      <div className='home-reviews-review-name-container'>
-                        <p className='home-reviews-review-dash'>—</p>
-                        <p className='home-reviews-review-name'>
-                          {reviews[reviewIndex].name}
-                        </p>
-                      </div>
+                </div>
+                <div className='home-header-subtext-container'>
+                  <p className='home-header-subtext blue'>{readText}</p>
+                  <p className='home-header-subtext light-blue'>{learnText}</p>
+                  <p className='home-header-subtext orange'>{growText}</p>
+                </div>
+              </div>
+            </div>
+          </header>
+          <svg className='home-line-divider'>
+            <line x1='0' y1='50%' x2='100%' y2='50%' />
+          </svg>
+
+          {categories && categories.length > 0 && (
+            <>
+              <section className='home-categories-container'>
+                <header className='home-content-header'>
+                  <p className='home-header-pretext'>{libraryText}</p>
+                  <div className='home-content-header-title'>
+                    <TitleFlair className='home-title-flair-left' />
+                    <h1 className='home-content-title-text'>
+                      {categoriesText}
+                    </h1>
+                    <TitleFlair className='home-title-flair-right' />
+                  </div>
+                </header>
+
+                <div className='home-categories-navigation'>
+                  {slideIndex > 0 && (
+                    <div className='prev-slide' onClick={handlePrevSlide}>
+                      &lt;
                     </div>
                   )}
-                  <div className='home-reviews-icon bottom'>
-                    {renderIcon(iconIndices[3])}
+                  <div
+                    className='home-categories-map-container'
+                    style={{
+                      transform: `translateX(-${translateValue}px)`,
+                    }}
+                  >
+                    {sortedCategories.map((category) => {
+                      const IconComponent: React.ComponentType<IconProps> =
+                        categoryIconOptions[category.icon];
+                      const backgroundColor =
+                        categoryColorOptions[category.color];
+                      const className = 'home-category-card';
+                      return (
+                        <div
+                          key={category.id}
+                          className={className}
+                          style={{ backgroundColor }}
+                        >
+                          {category.flair && (
+                            <div className='home-category-card-flair-container'>
+                              <p className='home-category-card-flair'>
+                                {category.flair}
+                              </p>
+                            </div>
+                          )}
+                          <div className='home-category-card-header'>
+                            {IconComponent && (
+                              <IconComponent className='home-category-card-icon' />
+                            )}
+                            <p className='home-category-card-header-text'>
+                              {category.name}
+                            </p>
+                          </div>
+                          <div className='home-category-card-subtext-container'>
+                            <p className='home-category-card-subtext'>
+                              {category.description}
+                            </p>
+                          </div>
+                          <Link
+                            to='/library'
+                            className='home-category-button-link'
+                          >
+                            <button
+                              className='home-category-button'
+                              style={{ backgroundColor }}
+                              onClick={() => handleCategoryFilter(category.id)}
+                            >
+                              {categoryButtonText}
+                            </button>
+                          </Link>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {slideIndex < maxSlideIndex && (
+                    <div className='next-slide' onClick={handleNextSlide}>
+                      &gt;
+                    </div>
+                  )}
+                </div>
+              </section>
+
+              <svg className='home-line-divider'>
+                <line x1='0' y1='50%' x2='100%' y2='50%' />
+              </svg>
+            </>
+          )}
+
+          <section className='home-introduction-container'>
+            <header className='home-content-header'>
+              <p className='home-header-pretext'>{aboutPretext}</p>
+              <div className='home-content-header-title'>
+                <TitleFlair className='home-title-flair-left' />
+                <h1 className='home-content-title-text'>{aboutHeaderText}</h1>
+                <TitleFlair className='home-title-flair-right' />
+              </div>
+            </header>
+
+            <div className='home-introduction-row-container'>
+              <div className='home-introduction-image'>
+                <div className='home-intro-image-container'>
+                  <div
+                    className='home-intro-image-wrapper blur-load'
+                    style={{
+                      backgroundImage: `url(${introImgSmall})`,
+                    }}
+                  >
+                    <img
+                      src={introImg}
+                      alt='library shelf image'
+                      className='home-intro-image'
+                      onLoad={(e) => {
+                        const imgElement = e.target as HTMLImageElement;
+                        imgElement.parentElement?.classList.add('loaded');
+                      }}
+                    />
                   </div>
                 </div>
               </div>
-
-              <div className='home-reviews-next-container'>
-                <ChevronRight
-                  className='home-reviews-next'
-                  onClick={handleNextReview}
-                />
+              <div className='home-intro-content'>
+                <div className='home-intro-icon right'>
+                  {renderIcon(iconIndices[0])}
+                </div>
+                <div className='home-intro-text-container'>
+                  <p className='home-intro-header-text'>{introText}</p>
+                  <div className='home-intro-paragraph'>
+                    <p className='home-intro-paragraph-text'>
+                      {introParagraph}
+                    </p>
+                  </div>
+                  <Link to='/about' className='home-submit-button-link'>
+                    <button className='home-submit-button'>
+                      {viewMoreText}
+                    </button>
+                  </Link>
+                </div>
+                <div className='home-intro-icon left'>
+                  {renderIcon(iconIndices[1])}
+                </div>
               </div>
-            </section>
-          </>
-        )}
+            </div>
+          </section>
+
+          {reviews && reviews.length > 0 && (
+            <>
+              <svg className='home-line-divider'>
+                <line x1='0' y1='50%' x2='100%' y2='50%' />
+              </svg>
+
+              <section className='home-reviews-container'>
+                <header className='home-content-header'>
+                  <p className='home-header-pretext'>{reviewsPretext}</p>
+                  <div className='home-content-header-title'>
+                    <TitleFlair className='home-title-flair-left' />
+                    <h1 className='home-content-title-text'>
+                      {reviewsHeaderText}
+                    </h1>
+                    <TitleFlair className='home-title-flair-right' />
+                  </div>
+                </header>
+
+                <div className='home-reviews-navigation-container'>
+                  <div className='home-reviews-prev-container'>
+                    <ChevronRight
+                      className='home-reviews-prev'
+                      onClick={handlePrevReview}
+                    />
+                  </div>
+
+                  <div className='home-reviews-content-wrapper'>
+                    <div className='home-reviews-content-container'>
+                      <div className='home-reviews-icon top'>
+                        {renderIcon(iconIndices[2])}
+                      </div>
+                      {reviews.length > 0 && (
+                        <div className={`home-reviews-review ${animateClass}`}>
+                          <p className='home-reviews-review-text'>
+                            {reviews[reviewIndex].message}
+                          </p>
+                          <div className='home-reviews-review-name-container'>
+                            <p className='home-reviews-review-dash'>—</p>
+                            <p className='home-reviews-review-name'>
+                              {reviews[reviewIndex].name}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                      <div className='home-reviews-icon bottom'>
+                        {renderIcon(iconIndices[3])}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='home-reviews-next-container'>
+                    <ChevronRight
+                      className='home-reviews-next'
+                      onClick={handleNextReview}
+                    />
+                  </div>
+                </div>
+              </section>
+            </>
+          )}
+        </section>
       </main>
     </>
   );

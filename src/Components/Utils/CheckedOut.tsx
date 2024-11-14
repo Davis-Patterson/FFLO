@@ -106,10 +106,12 @@ const CheckedOut: React.FC = () => {
 
   return (
     <>
-      <div className='checked-out-container'>
+      <section className='checked-out-container'>
         <div className='checked-out-info-icons-container'>
           <div className='checked-out-info-container'>
-            <p className='checked-out-header-text'>{currentReservationText}</p>
+            <header className='checked-out-header-text'>
+              {currentReservationText}
+            </header>
             <div className='checked-out-book-container'>
               <div className='checked-out-book-image-container'>
                 <Link to={bookUrl}>
@@ -207,7 +209,7 @@ const CheckedOut: React.FC = () => {
             <RulerIcon className='ruler-icon' />
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

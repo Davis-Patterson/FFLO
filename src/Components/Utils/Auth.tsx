@@ -245,7 +245,7 @@ const Auth: React.FC = () => {
   return (
     <>
       {showAuth && (
-        <div className='auth-overlay'>
+        <main className='auth-overlay'>
           <section
             ref={authContainerRef}
             className={`auth-container ${showAuth ? 'fade-in' : 'fade-out'}`}
@@ -274,11 +274,11 @@ const Auth: React.FC = () => {
             </div>
             {authToken && (
               <>
-                <div className='login-header'>
+                <header className='login-header'>
                   <TitleFlair className='auth-flair-left' />
                   <h1 className='auth-header-text'>{logoutHeader}</h1>
                   <TitleFlair className='auth-flair-right' />
-                </div>
+                </header>
                 <button className='submit-button' onClick={handleLogout}>
                   {isLoading ? <LinearProgress color='inherit' /> : logoutText}
                 </button>
@@ -286,11 +286,11 @@ const Auth: React.FC = () => {
             )}
             {!authToken && showLogin && (
               <>
-                <div className='login-header'>
+                <header className='login-header'>
                   <TitleFlair className='auth-flair-left' />
                   <p className='auth-header-text'>{loginText}</p>
                   <TitleFlair className='auth-flair-right' />
-                </div>
+                </header>
                 <p className='auth-header-subtext'>{signInText}</p>
                 <form onSubmit={handleLogin}>
                   <div>
@@ -345,11 +345,11 @@ const Auth: React.FC = () => {
             )}
             {!authToken && showRegister && (
               <>
-                <div className='login-header'>
+                <header className='login-header'>
                   <TitleFlair className='auth-flair-left' />
                   <p className='auth-header-text'>{registerText}</p>
                   <TitleFlair className='auth-flair-right' />
-                </div>
+                </header>
                 <p className='auth-header-subtext'>{signUpText}</p>
                 <form onSubmit={handleRegister}>
                   <div className='auth-name-inputs'>
@@ -446,11 +446,11 @@ const Auth: React.FC = () => {
             )}
             {!authToken && showForgot && (
               <>
-                <div className='login-header'>
+                <header className='login-header'>
                   <TitleFlair className='auth-flair-left' />
                   <p className='auth-header-text'>{loginText}</p>
                   <TitleFlair className='auth-flair-right' />
-                </div>
+                </header>
                 <p className='auth-header-subtext'>{forgotDescText}</p>
                 <form onSubmit={handleForgot}>
                   <div>
@@ -494,7 +494,7 @@ const Auth: React.FC = () => {
               </>
             )}
           </section>
-        </div>
+        </main>
       )}
     </>
   );

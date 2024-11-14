@@ -71,129 +71,133 @@ const About: React.FC = () => {
   return (
     <>
       <main className='page-container'>
-        <header className='about-header'>
-          <div className='about-header-image-container'>
-            <div
-              className='about-header-image-wrapper blur-load'
-              style={{
-                backgroundImage: `url(${aboutImgSmall})`,
-              }}
-            >
-              <img
-                src={aboutImg}
-                alt='library shelf image'
-                className='about-header-image'
-                onLoad={(e) => {
-                  const imgElement = e.target as HTMLImageElement;
-                  imgElement.parentElement?.classList.add('loaded');
-                }}
-              />
-            </div>
-            <div className='about-header-text-container'>
-              <p className='about-header-pretext'>{headerPretext}</p>
-              <div className='about-header-title'>
-                <TitleFlair className='about-title-flair-left' />
-                <h1 className='about-header-title-text'>{headerText}</h1>
-                <TitleFlair className='about-title-flair-right' />
-              </div>
-              <div className='about-header-subtext-container'>
-                <p className='about-header-subtext blue'>{readText}</p>
-                <p className='about-header-subtext light-blue'>{learnText}</p>
-                <p className='about-header-subtext orange'>{growText}</p>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <svg className='about-line-divider'>
-          <line x1='0' y1='50%' x2='100%' y2='50%' />
-        </svg>
-
-        <section className='about-introduction-container'>
-          <div className='about-introduction-image'>
-            <div className='about-intro-image-container'>
+        <section className='about-container'>
+          <header className='about-header'>
+            <div className='about-header-image-container'>
               <div
-                className='about-intro-image-wrapper blur-load'
+                className='about-header-image-wrapper blur-load'
                 style={{
-                  backgroundImage: `url(${introImgSmall})`,
+                  backgroundImage: `url(${aboutImgSmall})`,
                 }}
               >
                 <img
-                  src={introImg}
+                  src={aboutImg}
                   alt='library shelf image'
-                  className='about-intro-image'
+                  className='about-header-image'
                   onLoad={(e) => {
                     const imgElement = e.target as HTMLImageElement;
                     imgElement.parentElement?.classList.add('loaded');
                   }}
                 />
               </div>
-            </div>
-          </div>
-          <div className='about-intro-content'>
-            <div className='about-intro-icon right'>
-              {renderIcon(iconIndices[0])}
-            </div>
-            <div className='about-intro-text-container'>
-              <p className='about-intro-header-text'>{introText}</p>
-              <div className='about-intro-paragraph'>
-                <p className='about-intro-paragraph-text'>{introParagraph}</p>
+              <div className='about-header-text-container'>
+                <p className='about-header-pretext'>{headerPretext}</p>
+                <div className='about-header-title'>
+                  <TitleFlair className='about-title-flair-left' />
+                  <h1 className='about-header-title-text'>{headerText}</h1>
+                  <TitleFlair className='about-title-flair-right' />
+                </div>
+                <div className='about-header-subtext-container'>
+                  <p className='about-header-subtext blue'>{readText}</p>
+                  <p className='about-header-subtext light-blue'>{learnText}</p>
+                  <p className='about-header-subtext orange'>{growText}</p>
+                </div>
               </div>
             </div>
-            <div className='about-intro-icon left'>
-              {renderIcon(iconIndices[1])}
-            </div>
-          </div>
-        </section>
+          </header>
 
-        <svg className='about-line-divider'>
-          <line x1='0' y1='50%' x2='100%' y2='50%' />
-        </svg>
+          <svg className='about-line-divider'>
+            <line x1='0' y1='50%' x2='100%' y2='50%' />
+          </svg>
 
-        <section className='about-membership-container'>
-          <div className='about-member-content'>
-            <div className='about-member-icon left'>
-              {renderIcon(iconIndices[2])}
-            </div>
-            <div className='about-member-text-container'>
-              <p className='about-member-header-text'>{memberText}</p>
-              <div className='about-member-paragraph'>
-                <p className='about-member-paragraph-text'>{memberParagraph}</p>
-              </div>
-            </div>
-            <div className='about-member-icon right'>
-              {renderIcon(iconIndices[3])}
-            </div>
-          </div>
-          <div className='about-membership-image'>
-            <div className='about-member-image-container'>
-              <div
-                className='about-member-image-wrapper blur-load'
-                style={{
-                  backgroundImage: `url(${membershipImgSmall})`,
-                }}
-              >
-                <img
-                  src={membershipImg}
-                  alt='library shelf image'
-                  className='about-member-image'
-                  onLoad={(e) => {
-                    const imgElement = e.target as HTMLImageElement;
-                    imgElement.parentElement?.classList.add('loaded');
+          <section className='about-introduction-container'>
+            <div className='about-introduction-image'>
+              <div className='about-intro-image-container'>
+                <div
+                  className='about-intro-image-wrapper blur-load'
+                  style={{
+                    backgroundImage: `url(${introImgSmall})`,
                   }}
-                />
+                >
+                  <img
+                    src={introImg}
+                    alt='library shelf image'
+                    className='about-intro-image'
+                    onLoad={(e) => {
+                      const imgElement = e.target as HTMLImageElement;
+                      imgElement.parentElement?.classList.add('loaded');
+                    }}
+                  />
+                </div>
               </div>
             </div>
+            <div className='about-intro-content'>
+              <div className='about-intro-icon right'>
+                {renderIcon(iconIndices[0])}
+              </div>
+              <header className='about-intro-text-container'>
+                <p className='about-intro-header-text'>{introText}</p>
+                <div className='about-intro-paragraph'>
+                  <p className='about-intro-paragraph-text'>{introParagraph}</p>
+                </div>
+              </header>
+              <div className='about-intro-icon left'>
+                {renderIcon(iconIndices[1])}
+              </div>
+            </div>
+          </section>
+
+          <svg className='about-line-divider'>
+            <line x1='0' y1='50%' x2='100%' y2='50%' />
+          </svg>
+
+          <section className='about-membership-container'>
+            <div className='about-member-content'>
+              <div className='about-member-icon left'>
+                {renderIcon(iconIndices[2])}
+              </div>
+              <header className='about-member-text-container'>
+                <p className='about-member-header-text'>{memberText}</p>
+                <div className='about-member-paragraph'>
+                  <p className='about-member-paragraph-text'>
+                    {memberParagraph}
+                  </p>
+                </div>
+              </header>
+              <div className='about-member-icon right'>
+                {renderIcon(iconIndices[3])}
+              </div>
+            </div>
+            <div className='about-membership-image'>
+              <div className='about-member-image-container'>
+                <div
+                  className='about-member-image-wrapper blur-load'
+                  style={{
+                    backgroundImage: `url(${membershipImgSmall})`,
+                  }}
+                >
+                  <img
+                    src={membershipImg}
+                    alt='library shelf image'
+                    className='about-member-image'
+                    onLoad={(e) => {
+                      const imgElement = e.target as HTMLImageElement;
+                      imgElement.parentElement?.classList.add('loaded');
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <svg className='about-line-divider'>
+            <line x1='0' y1='50%' x2='100%' y2='50%' />
+          </svg>
+
+          <div className='about-letter-container'>
+            <Letter />
           </div>
         </section>
-
-        <svg className='about-line-divider'>
-          <line x1='0' y1='50%' x2='100%' y2='50%' />
-        </svg>
-
-        <div className='about-letter-container'>
-          <Letter />
-        </div>
       </main>
     </>
   );

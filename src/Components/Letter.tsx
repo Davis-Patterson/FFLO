@@ -43,7 +43,7 @@ const Letter: React.FC = () => {
   }, []);
 
   return (
-    <main className='page-container'>
+    <>
       <div className='letter-wrapper'>
         <section className='letter-details'>
           <header className='letter-header'>
@@ -88,7 +88,7 @@ const Letter: React.FC = () => {
           </div>
         </section>
       </div>
-    </main>
+    </>
   );
 };
 

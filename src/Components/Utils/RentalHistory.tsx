@@ -99,7 +99,7 @@ const RentalHistory: React.FC = () => {
   if (!authUser || !authUser.book_history) {
     return (
       <section className='rental-history-container'>
-        <div className='rental-history-header'>
+        <header className='rental-history-header'>
           <h3 className='rental-history-header-text'>
             {language === 'EN' ? 'Rental History' : 'Historique de location'}
           </h3>
@@ -122,7 +122,7 @@ const RentalHistory: React.FC = () => {
               </select>
             </div>
           </div>
-        </div>
+        </header>
 
         <div className='book-grid-view'>
           <div className='no-books-message'>
@@ -174,7 +174,7 @@ const RentalHistory: React.FC = () => {
   if (authUser.book_history.length === 0) {
     return (
       <section className='rental-history-container'>
-        <div className='rental-history-header'>
+        <header className='rental-history-header'>
           <h3 className='rental-history-header-text'>
             {language === 'EN' ? 'Rental History' : 'Historique de location'}
           </h3>
@@ -197,7 +197,7 @@ const RentalHistory: React.FC = () => {
               </select>
             </div>
           </div>
-        </div>
+        </header>
 
         <div className='book-grid-view'>
           <div className='no-books-message'>
@@ -220,7 +220,7 @@ const RentalHistory: React.FC = () => {
 
   return (
     <section className='rental-history-container'>
-      <div className='rental-history-header'>
+      <header className='rental-history-header'>
         <h3 className='rental-history-header-text'>
           {language === 'EN' ? 'Rental History' : 'Historique de location'}
         </h3>
@@ -243,7 +243,7 @@ const RentalHistory: React.FC = () => {
             </select>
           </div>
         </div>
-      </div>
+      </header>
 
       {filteredHistory.length === 0 && searchQuery ? (
         <div className='book-grid-view'>

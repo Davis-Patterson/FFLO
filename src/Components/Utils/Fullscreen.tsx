@@ -12,19 +12,22 @@ const Fullscreen: React.FC = () => {
   const { fullscreenData, fullscreenClose } = context;
 
   return (
-    <div className='fullscreen-overlay' onClick={fullscreenClose}>
-      <div className='fullscreen-content' onClick={(e) => e.stopPropagation()}>
+    <main className='fullscreen-overlay' onClick={fullscreenClose}>
+      <section
+        className='fullscreen-content'
+        onClick={(e) => e.stopPropagation()}
+      >
         <img
           src={fullscreenData.src}
           alt={fullscreenData.alt}
           className='fullscreen-image'
         />
-        <div className='fullscreen-details'>
+        <header className='fullscreen-details'>
           <h2>{fullscreenData.title}</h2>
           <p>{fullscreenData.author}</p>
-        </div>
-      </div>
-    </div>
+        </header>
+      </section>
+    </main>
   );
 };
 

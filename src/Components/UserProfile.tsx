@@ -329,7 +329,7 @@ const UserProfile: React.FC = () => {
 
   return (
     <main className='page-container'>
-      <div className='user-profile-container'>
+      <section className='user-profile-container'>
         <header className='user-profile-header'>
           <h2 className='user-profile-header-pretext'>{headerPretext}</h2>
           <div className='user-profile-header-title'>
@@ -343,7 +343,7 @@ const UserProfile: React.FC = () => {
           <line x1='0' y1='50%' x2='100%' y2='50%' />
         </svg>
 
-        <section className='user-profile-main'>
+        <div className='user-profile-main'>
           <div className='user-profile-info-container'>
             {authUser ? renderUserInfo() : renderPlaceholders()}
           </div>
@@ -456,8 +456,8 @@ const UserProfile: React.FC = () => {
               </div>
             </>
           )}
-        </section>
-      </div>
+        </div>
+      </section>
     </main>
   );
 };

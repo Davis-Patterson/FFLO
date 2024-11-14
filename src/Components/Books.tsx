@@ -114,109 +114,115 @@ const Books: React.FC = () => {
   return (
     <>
       <main className='page-container'>
-        <header className='categories-header'>
-          <h2 className='categories-header-pretext'>{headerPretext}</h2>
-          <div className='categories-header-title'>
-            <TitleFlair className='categories-title-flair-left' />
-            <h1 className='categories-header-title-text'>{headerText}</h1>
-            <TitleFlair className='categories-title-flair-right' />
-          </div>
-        </header>
-
-        <svg className='categories-line-divider'>
-          <line x1='0' y1='50%' x2='100%' y2='50%' />
-        </svg>
-
-        <div className='categories-container'>
-          {authUser?.is_staff && (
-            <div className='edit-categories-toggle-container'>
-              <p
-                className='edit-categories-toggle-text'
-                onMouseDown={(e) => handleShowEditCategories(e)}
-              >
-                {editCategoriesToggleText}
-              </p>
-              <GearIcon
-                className='gear-icon'
-                onMouseDown={(e) => handleShowEditCategories(e)}
-              />
+        <section className='categories-container'>
+          <header className='categories-header'>
+            <h2 className='categories-header-pretext'>{headerPretext}</h2>
+            <div className='categories-header-title'>
+              <TitleFlair className='categories-title-flair-left' />
+              <h1 className='categories-header-title-text'>{headerText}</h1>
+              <TitleFlair className='categories-title-flair-right' />
             </div>
-          )}
-          <div className='categories-navigation'>
-            {slideIndex > 0 && (
-              <div className='prev-slide' onClick={handlePrevSlide}>
-                &lt;
+          </header>
+
+          <svg className='categories-line-divider'>
+            <line x1='0' y1='50%' x2='100%' y2='50%' />
+          </svg>
+
+          <div className='categories-content-container'>
+            {authUser?.is_staff && (
+              <div className='edit-categories-toggle-container'>
+                <p
+                  className='edit-categories-toggle-text'
+                  onMouseDown={(e) => handleShowEditCategories(e)}
+                >
+                  {editCategoriesToggleText}
+                </p>
+                <GearIcon
+                  className='gear-icon'
+                  onMouseDown={(e) => handleShowEditCategories(e)}
+                />
               </div>
             )}
-            <div
-              className='categories-map-container'
-              style={{
-                transform: `translateX(-${translateValue}px)`,
-              }}
-            >
-              {sortedCategories.map((category) => {
-                const IconComponent: React.ComponentType<IconProps> =
-                  categoryIconOptions[category.icon];
-                const backgroundColor = categoryColorOptions[category.color];
-                const isSelected = categoryFilter === category.id;
-                const className = `${
-                  categoryFilter === null
-                    ? 'category-card'
-                    : isSelected
-                    ? 'category-card'
-                    : 'category-card category-inactive'
-                }`;
-                return (
-                  <div
-                    key={category.id}
-                    className={className}
-                    style={{ backgroundColor }}
-                  >
-                    {category.flair && (
-                      <div className='category-card-flair-container'>
-                        <p className='category-card-flair'>{category.flair}</p>
-                      </div>
-                    )}
-                    <div className='category-card-header'>
-                      {IconComponent && (
-                        <IconComponent className='category-card-icon' />
-                      )}
-                      <p className='category-card-header-text'>
-                        {category.name}
-                      </p>
-                    </div>
-                    <div className='category-card-subtext-container'>
-                      <p className='category-card-subtext'>
-                        {category.description}
-                      </p>
-                    </div>
-                    <button
-                      className='category-button'
-                      onMouseDown={(e) => handleCategoryFilter(e, category.id)}
+            <div className='categories-navigation'>
+              {slideIndex > 0 && (
+                <div className='prev-slide' onClick={handlePrevSlide}>
+                  &lt;
+                </div>
+              )}
+              <div
+                className='categories-map-container'
+                style={{
+                  transform: `translateX(-${translateValue}px)`,
+                }}
+              >
+                {sortedCategories.map((category) => {
+                  const IconComponent: React.ComponentType<IconProps> =
+                    categoryIconOptions[category.icon];
+                  const backgroundColor = categoryColorOptions[category.color];
+                  const isSelected = categoryFilter === category.id;
+                  const className = `${
+                    categoryFilter === null
+                      ? 'category-card'
+                      : isSelected
+                      ? 'category-card'
+                      : 'category-card category-inactive'
+                  }`;
+                  return (
+                    <div
+                      key={category.id}
+                      className={className}
                       style={{ backgroundColor }}
                     >
-                      {isSelected ? allBooksText : categoryButtonText}
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-            {slideIndex < maxSlideIndex && (
-              <div className='next-slide' onClick={handleNextSlide}>
-                &gt;
+                      {category.flair && (
+                        <div className='category-card-flair-container'>
+                          <p className='category-card-flair'>
+                            {category.flair}
+                          </p>
+                        </div>
+                      )}
+                      <div className='category-card-header'>
+                        {IconComponent && (
+                          <IconComponent className='category-card-icon' />
+                        )}
+                        <p className='category-card-header-text'>
+                          {category.name}
+                        </p>
+                      </div>
+                      <div className='category-card-subtext-container'>
+                        <p className='category-card-subtext'>
+                          {category.description}
+                        </p>
+                      </div>
+                      <button
+                        className='category-button'
+                        onMouseDown={(e) =>
+                          handleCategoryFilter(e, category.id)
+                        }
+                        style={{ backgroundColor }}
+                      >
+                        {isSelected ? allBooksText : categoryButtonText}
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
+              {slideIndex < maxSlideIndex && (
+                <div className='next-slide' onClick={handleNextSlide}>
+                  &gt;
+                </div>
+              )}
+            </div>
+          </div>
+          <div className='categories-books-container'>
+            {fetchError ? (
+              <p>Error fetching books. Please try again later.</p>
+            ) : booksFetched && allBooks.length === 0 ? (
+              <p>No books available.</p>
+            ) : (
+              <BookList />
             )}
           </div>
-        </div>
-        <div className='categories-books-container'>
-          {fetchError ? (
-            <p>Error fetching books. Please try again later.</p>
-          ) : booksFetched && allBooks.length === 0 ? (
-            <p>No books available.</p>
-          ) : (
-            <BookList />
-          )}
-        </div>
+        </section>
       </main>
     </>
   );

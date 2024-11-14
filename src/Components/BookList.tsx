@@ -296,7 +296,7 @@ const BookList: React.FC = () => {
 
   return (
     <section className='book-list-container'>
-      <div className='page-toggles-container'>
+      <header className='page-toggles-container'>
         <div className='sidebar-toggle-container'>
           {showSidebar ? (
             <SidebarClose
@@ -356,7 +356,7 @@ const BookList: React.FC = () => {
             </div>
           )}
         </div>
-      </div>
+      </header>
       <div className='books-main-container'>
         <div
           className='sidebar-wrapper'

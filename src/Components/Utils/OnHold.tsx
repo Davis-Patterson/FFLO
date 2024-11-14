@@ -100,10 +100,10 @@ const OnHold: React.FC = () => {
 
   return (
     <>
-      <div className='on-hold-container'>
+      <section className='on-hold-container'>
         <div className='on-hold-info-icons-container'>
           <div className='on-hold-info-container'>
-            <p className='on-hold-header-text'>{currentOnHoldText}</p>
+            <header className='on-hold-header-text'>{currentOnHoldText}</header>
             <div className='on-hold-book-container'>
               <div className='on-hold-book-image-container'>
                 <Link to={bookUrl}>
@@ -193,7 +193,7 @@ const OnHold: React.FC = () => {
             <RulerIcon className='ruler-icon' />
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

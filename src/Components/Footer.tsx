@@ -41,8 +41,8 @@ const Footer: React.FC = () => {
 
   return (
     <div className='footer-wrapper'>
-      <footer className='footer-container'>
-        <section className='footer-header'>
+      <section className='footer-container'>
+        <header className='footer-header'>
           <div className='footer-flowers-left'>
             <Flowers1 className='flowers-icon' />
             <FlowerDots className='flower-dots-left' />
@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
             <FlowerDots className='flower-dots-right' />
             <Flowers3 className='flowers-icon' />
           </div>
-        </section>
+        </header>
         <section className='footer-footer-container'>
           <div className='footer-attribution-bar'>
             <div className='footer-attribution-text-container'>
@@ -87,7 +87,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
         </section>
-      </footer>
+      </section>
     </div>
   );
 };

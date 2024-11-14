@@ -1,0 +1,92 @@
+.announcement-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0px;
+  background-color: var(--clr-background);
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+.announcement-banner {
+  width: 100%;
+  display: flex;
+  padding: 10px 25px;
+  background-color: var(--clr-text-blue);
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+}
+.announcement-banner.slide-in {
+  transition: top 0.4s ease-in-out;
+  top: 20px;
+}
+.announcement-banner.slide-out {
+  transition: top 0.4s ease-in-out;
+  top: -40px;
+}
+
+.announcement-banner-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.announcement-banner-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+}
+
+.announcement-banner-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+
+.announcement-banner-announcement-icon {
+  fill: var(--clr-light);
+  width: 20px;
+  height: 20px;
+  margin: -4px 0px;
+}
+
+.announcement-banner-text {
+  font-family: 'Merriweather', serif;
+  font-size: 0.9em;
+  line-height: 1.2;
+  font-weight: 400;
+  color: var(--clr-light);
+  transform: scaleY(90%);
+  margin: -2px 15px;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+.announcement-banner-text:hover {
+  color: var(--clr-light-highlight);
+}
+
+.announcement-banner-x-icon {
+  fill: var(--clr-light);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+.announcement-banner-x-icon:hover {
+  transform: scale(110%);
+}
+.announcement-banner-x-icon:active {
+  transform: scale(95%);
+}

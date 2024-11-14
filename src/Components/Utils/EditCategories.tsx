@@ -552,7 +552,7 @@ const EditCategories: React.FC = () => {
   return (
     <>
       {showCategoryEditWindow && authToken && (
-        <div className='categories-create-overlay'>
+        <main className='categories-create-overlay'>
           <section
             ref={showCategoryEditWindowContainerRef}
             className={`categories-create-container ${
@@ -596,31 +596,31 @@ const EditCategories: React.FC = () => {
               )}
             </div>
             {showListCategories && (
-              <div className='categories-create-header'>
+              <header className='categories-create-header'>
                 <TitleFlair className='categories-create-flair-left' />
                 <p className='categories-create-header-text'>
                   {categoryAddHeaderText}
                 </p>
                 <TitleFlair className='categories-create-flair-right' />
-              </div>
+              </header>
             )}
             {showAddCategory && (
-              <div className='categories-create-header'>
+              <header className='categories-create-header'>
                 <TitleFlair className='categories-create-flair-left' />
                 <p className='categories-create-header-text'>
                   {newCategoryText}
                 </p>
                 <TitleFlair className='categories-create-flair-right' />
-              </div>
+              </header>
             )}
             {showEditCategory && (
-              <div className='categories-create-header'>
+              <header className='categories-create-header'>
                 <TitleFlair className='categories-create-flair-left' />
                 <p className='categories-create-header-text'>
                   {categoryEditHeaderText}
                 </p>
                 <TitleFlair className='categories-create-flair-right' />
-              </div>
+              </header>
             )}
             <div className='scrollable-container'>
               {showListCategories && (
@@ -939,7 +939,7 @@ const EditCategories: React.FC = () => {
               )}
             </div>
           </section>
-        </div>
+        </main>
       )}
     </>
   );

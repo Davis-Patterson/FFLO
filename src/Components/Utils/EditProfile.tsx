@@ -245,7 +245,7 @@ const EditProfile: React.FC = () => {
   return (
     <>
       {showEdit && (
-        <div className='edit-overlay'>
+        <main className='edit-overlay'>
           <section
             ref={editContainerRef}
             className={`edit-profile-container ${
@@ -276,11 +276,11 @@ const EditProfile: React.FC = () => {
             </div>
             {authToken && (
               <>
-                <div className='edit-header'>
+                <header className='edit-header'>
                   <TitleFlair className='edit-flair-left' />
                   <p className='edit-header-text'>{editProfileText}</p>
                   <TitleFlair className='edit-flair-right' />
-                </div>
+                </header>
                 <p className='edit-header-subtext'>{editSubtext}</p>
                 <form onSubmit={handleUpdateProfile}>
                   <div className='user-edit-input'>
@@ -422,7 +422,7 @@ const EditProfile: React.FC = () => {
               </>
             )}
           </section>
-        </div>
+        </main>
       )}
     </>
   );

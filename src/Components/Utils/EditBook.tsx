@@ -937,7 +937,7 @@ const EditBook: React.FC = () => {
   return (
     <>
       {showBookEditWindow && authToken && (
-        <div className='book-edit-overlay'>
+        <main className='book-edit-overlay'>
           <section
             ref={showBookEditWindowContainerRef}
             className={`${
@@ -1006,38 +1006,38 @@ const EditBook: React.FC = () => {
             </div>
             {showEditBook && (
               <>
-                <div className='book-edit-header'>
+                <header className='book-edit-header'>
                   <TitleFlair className='book-edit-flair-left' />
                   <p className='book-edit-header-text'>{bookEditHeaderText}</p>
                   <TitleFlair className='book-edit-flair-right' />
-                </div>
+                </header>
                 <p className='book-edit-header-subtext'>{bookCreateSubtext}</p>
               </>
             )}
             {showListCategories && (
-              <div className='book-edit-header'>
+              <header className='book-edit-header'>
                 <TitleFlair className='book-edit-flair-left' />
                 <p className='book-edit-header-text'>{categoryAddHeaderText}</p>
                 <TitleFlair className='book-edit-flair-right' />
-              </div>
+              </header>
             )}
             {showAddCategory && (
-              <div className='categories-create-header'>
+              <header className='categories-create-header'>
                 <TitleFlair className='categories-create-flair-left' />
                 <p className='categories-create-header-text'>
                   {newCategoryText}
                 </p>
                 <TitleFlair className='categories-create-flair-right' />
-              </div>
+              </header>
             )}
             {showEditCategory && (
-              <div className='book-edit-header'>
+              <header className='book-edit-header'>
                 <TitleFlair className='book-edit-flair-left' />
                 <p className='book-edit-header-text'>
                   {categoryEditHeaderText}
                 </p>
                 <TitleFlair className='book-edit-flair-right' />
-              </div>
+              </header>
             )}
             <div className='scrollable-container'>
               {showEditBook && (
@@ -1046,30 +1046,26 @@ const EditBook: React.FC = () => {
                     <div className='book-edit-split-container'>
                       <div className='book-edit-input-container'>
                         <div className='book-edit-title-author-container'>
-                          <div>
-                            <input
-                              type='text'
-                              name='title'
-                              value={title}
-                              required
-                              maxLength={255}
-                              onChange={(e) => setTitle(e.target.value)}
-                              placeholder={bookTitlePlaceholder}
-                              className='book-edit-title-input'
-                            />
-                          </div>
-                          <div>
-                            <input
-                              type='text'
-                              name='author'
-                              value={author}
-                              required
-                              maxLength={255}
-                              onChange={(e) => setAuthor(e.target.value)}
-                              placeholder={bookAuthorPlaceholder}
-                              className='book-edit-author-input'
-                            />
-                          </div>
+                          <input
+                            type='text'
+                            name='title'
+                            value={title}
+                            required
+                            maxLength={255}
+                            onChange={(e) => setTitle(e.target.value)}
+                            placeholder={bookTitlePlaceholder}
+                            className='book-edit-title-input'
+                          />
+                          <input
+                            type='text'
+                            name='author'
+                            value={author}
+                            required
+                            maxLength={255}
+                            onChange={(e) => setAuthor(e.target.value)}
+                            placeholder={bookAuthorPlaceholder}
+                            className='book-edit-author-input'
+                          />
                         </div>
                         <div>
                           <textarea
@@ -1082,27 +1078,23 @@ const EditBook: React.FC = () => {
                           />
                         </div>
                         <div className='book-edit-flair-quantity-container'>
-                          <div>
-                            <input
-                              type='text'
-                              name='flair'
-                              value={flair}
-                              maxLength={10}
-                              onChange={(e) => setFlair(e.target.value)}
-                              placeholder={bookFlairPlaceholder}
-                              className='book-edit-flair-input'
-                            />
-                          </div>
-                          <div>
-                            <input
-                              type='number'
-                              name='quantity'
-                              value={quantity}
-                              onChange={(e) => setQuantity(e.target.value)}
-                              placeholder={`${bookQuantityPlaceholder} 1`}
-                              className='book-edit-quantity-input'
-                            />
-                          </div>
+                          <input
+                            type='text'
+                            name='flair'
+                            value={flair}
+                            maxLength={10}
+                            onChange={(e) => setFlair(e.target.value)}
+                            placeholder={bookFlairPlaceholder}
+                            className='book-edit-flair-input'
+                          />
+                          <input
+                            type='number'
+                            name='quantity'
+                            value={quantity}
+                            onChange={(e) => setQuantity(e.target.value)}
+                            placeholder={`${bookQuantityPlaceholder} 1`}
+                            className='book-edit-quantity-input'
+                          />
                         </div>
                         <p className='book-create-label-text'>{`${languageText}${
                           bookLanguage ? '' : '*'
@@ -1819,7 +1811,7 @@ const EditBook: React.FC = () => {
               )}
             </div>
           </section>
-        </div>
+        </main>
       )}
     </>
   );

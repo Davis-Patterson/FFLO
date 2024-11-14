@@ -102,7 +102,7 @@ const Contact: React.FC = () => {
   return (
     <>
       <main className='page-container'>
-        <main className='contact-container'>
+        <section className='contact-container'>
           <header className='contact-header'>
             <div className='contact-header-title'>
               <TitleFlair className='contact-title-flair-left' />
@@ -114,7 +114,7 @@ const Contact: React.FC = () => {
           <svg className='contact-line-divider'>
             <line x1='0' y1='50%' x2='100%' y2='50%' />
           </svg>
-          <section className='contact-content-container'>
+          <div className='contact-content-container'>
             <div className='contact-social-icon-location-container'>
               <div className='contact-online-section'>
                 <div className='contact-section-header'>
@@ -219,8 +219,8 @@ const Contact: React.FC = () => {
                 </button>
               </form>
             </div>
-          </section>
-        </main>
+          </div>
+        </section>
       </main>
     </>
   );

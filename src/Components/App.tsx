@@ -16,6 +16,7 @@ import AddBook from 'Utils/AddBook';
 import EditBook from 'Utils/EditBook';
 import EditCategories from 'Utils/EditCategories';
 import PolicyPanel from 'Utils/PolicyPanel';
+import AnnouncementBanner from 'Utils/AnnouncementBanner';
 import Nav from 'Components/Nav';
 import NotFound from 'Tools/NotFound';
 import BookNotFound from 'Tools/BookNotFound';
@@ -215,6 +216,7 @@ const App: React.FC = () => {
       <EditCategories />
       <PolicyPanel />
       <>
+        <AnnouncementBanner />
         <Nav />
         <Routes>
           <Route

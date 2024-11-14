@@ -1,10 +1,17 @@
+.about-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin: 20px 0px 0px 0px;
+}
+
 .about-header {
   display: flex;
   flex-direction: column;
   width: 100%;
   position: relative;
   align-items: center;
-  margin: 20px 0px 0px 0px;
 }
 
 .about-line-divider {
@@ -163,6 +170,8 @@
 
 .about-letter-container {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .about-introduction-container {

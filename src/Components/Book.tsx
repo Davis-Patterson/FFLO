@@ -499,206 +499,211 @@ const Book: React.FC = () => {
   return (
     <>
       <main className='page-container'>
-        <header className='book-header'>
-          <h2 className='book-header-pretext'>{headerPretext}</h2>
-          <div className='book-header-title'>
-            <TitleFlair className='title-flair-left' />
-            <h1 className='book-title-text'>{headerText}</h1>
-            <TitleFlair className='title-flair-right' />
-          </div>
-        </header>
-        <svg className='book-line-divider'>
-          <line x1='0' y1='50%' x2='100%' y2='50%' />
-        </svg>
-        <section className='book-details'>
-          <div className='book-details-header'>
-            <div className='book-detail-image-container'>
-              {book.flair && (
-                <div className='book-detail-flair-container'>
-                  <p className='book-detail-flair'>{book.flair}</p>
-                </div>
-              )}
-              {book.images.length > 0 && book.images[0].image_url ? (
-                <div
-                  className={`book-detail-image-wrapper ${
-                    !book.available ? 'inactive' : hasImage ? 'blur-load' : ''
-                  }`}
-                  style={{
-                    backgroundImage: `url(${book.images[0]?.image_small})`,
-                  }}
-                >
-                  <img
-                    key={`${book.id}-${
-                      isBookReserved ? 'reserved' : 'available'
-                    }-${isBookOnHold ? 'on hold' : 'available'}`}
-                    src={book.images[0].image_url}
-                    alt={book.title}
-                    className={`book-detail-image ${
-                      !book.available ? 'inactive' : ''
+        <section className='book-container'>
+          <header className='book-header'>
+            <h2 className='book-header-pretext'>{headerPretext}</h2>
+            <div className='book-header-title'>
+              <TitleFlair className='title-flair-left' />
+              <h1 className='book-title-text'>{headerText}</h1>
+              <TitleFlair className='title-flair-right' />
+            </div>
+          </header>
+          <svg className='book-line-divider'>
+            <line x1='0' y1='50%' x2='100%' y2='50%' />
+          </svg>
+          <section className='book-details'>
+            <div className='book-details-header'>
+              <div className='book-detail-image-container'>
+                {book.flair && (
+                  <div className='book-detail-flair-container'>
+                    <p className='book-detail-flair'>{book.flair}</p>
+                  </div>
+                )}
+                {book.images.length > 0 && book.images[0].image_url ? (
+                  <div
+                    className={`book-detail-image-wrapper ${
+                      !book.available ? 'inactive' : hasImage ? 'blur-load' : ''
                     }`}
-                    onLoad={(e) => {
-                      const imgElement = e.target as HTMLImageElement;
-                      imgElement.parentElement?.classList.add('loaded');
+                    style={{
+                      backgroundImage: `url(${book.images[0]?.image_small})`,
                     }}
-                    onClick={(e) =>
-                      handleShowFullscreen(
-                        e,
-                        book.images[0].image_url || '',
-                        book.title,
-                        book.title,
-                        book.author,
-                        book.description
-                      )
-                    }
-                  />
-                </div>
-              ) : (
-                getBookIcon()
-              )}
-            </div>
-            <div className='book-detail-info-container'>
-              <div className='book-detail-info-header'>
-                <h2 className='book-detail-title-text'>{book.title}</h2>
-                <p className='book-detail-author-text'>{book.author}</p>
-                {book.available ? (
-                  <p className='book-detail-available'>{availableText}</p>
+                  >
+                    <img
+                      key={`${book.id}-${
+                        isBookReserved ? 'reserved' : 'available'
+                      }-${isBookOnHold ? 'on hold' : 'available'}`}
+                      src={book.images[0].image_url}
+                      alt={book.title}
+                      className={`book-detail-image ${
+                        !book.available ? 'inactive' : ''
+                      }`}
+                      onLoad={(e) => {
+                        const imgElement = e.target as HTMLImageElement;
+                        imgElement.parentElement?.classList.add('loaded');
+                      }}
+                      onClick={(e) =>
+                        handleShowFullscreen(
+                          e,
+                          book.images[0].image_url || '',
+                          book.title,
+                          book.title,
+                          book.author,
+                          book.description
+                        )
+                      }
+                    />
+                  </div>
                 ) : (
-                  <p className='book-detail-unavailable'>{unavailableText}</p>
+                  getBookIcon()
                 )}
               </div>
-              <div className='book-detail-checkout-container'>
-                <BookRating bookId={book.id} ratings={book.ratings || []} />
-                {renderSubmitButton()}
+              <div className='book-detail-info-container'>
+                <div className='book-detail-info-header'>
+                  <h2 className='book-detail-title-text'>{book.title}</h2>
+                  <p className='book-detail-author-text'>{book.author}</p>
+                  {book.available ? (
+                    <p className='book-detail-available'>{availableText}</p>
+                  ) : (
+                    <p className='book-detail-unavailable'>{unavailableText}</p>
+                  )}
+                </div>
+                <div className='book-detail-checkout-container'>
+                  <BookRating bookId={book.id} ratings={book.ratings || []} />
+                  {renderSubmitButton()}
+                </div>
+              </div>
+              <div className='book-bookmark-toggle-container'>
+                {isBookmarked ? (
+                  <BookmarkSolid
+                    className='bookmark-icon'
+                    onClick={(e) => handleRemoveBookmark(e, book.id)}
+                  />
+                ) : (
+                  <BookmarkOutline
+                    className='bookmark-icon'
+                    onClick={(e) => handleAddBookmark(e, book.id)}
+                  />
+                )}
               </div>
             </div>
-            <div className='book-bookmark-toggle-container'>
-              {isBookmarked ? (
-                <BookmarkSolid
-                  className='bookmark-icon'
-                  onClick={(e) => handleRemoveBookmark(e, book.id)}
-                />
-              ) : (
-                <BookmarkOutline
-                  className='bookmark-icon'
-                  onClick={(e) => handleAddBookmark(e, book.id)}
-                />
+            <div className='book-details-info-container'>
+              {book.description && (
+                <div className='book-details-column-container'>
+                  <p className='book-details-label-text'>
+                    {bookDescriptionHeader}
+                  </p>
+                  <p className='book-details-description'>{book.description}</p>
+                </div>
               )}
-            </div>
-          </div>
-          <div className='book-details-info-container'>
-            {book.description && (
               <div className='book-details-column-container'>
-                <p className='book-details-label-text'>
-                  {bookDescriptionHeader}
-                </p>
-                <p className='book-details-description'>{book.description}</p>
+                <p className='book-details-label-text'>{bookLanguageHeader}</p>
+                <div className='book-details-multi-item'>
+                  <p className='book-details-text'>{book.language}</p>
+                  {getLanguageIcon(book.language)}
+                </div>
               </div>
-            )}
-            <div className='book-details-column-container'>
-              <p className='book-details-label-text'>{bookLanguageHeader}</p>
-              <div className='book-details-multi-item'>
-                <p className='book-details-text'>{book.language}</p>
-                {getLanguageIcon(book.language)}
-              </div>
-            </div>
-            <div className='book-details-column-container'>
-              <p className='book-details-label-text'>{bookRatingHeader}</p>
-              <div className='book-details-multi-item'>
-                {!book.rating && (
-                  <>
-                    <p className='book-details-no-rating-text'>
-                      {noRatingText}
-                    </p>
-                    <StarGrey className='book-details-star-icon' />
-                  </>
-                )}
-                {book.rating && (
-                  <>
-                    <p className='book-details-number-text'>
-                      {book.rating.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
-                      })}
-                    </p>
-                    <StarColor className='book-details-star-icon' />
-                  </>
-                )}
-              </div>
-            </div>
-            <div className='book-details-column-container'>
-              <p className='book-details-label-text'>{availableText}:</p>
-              <div className='book-details-multi-item'>
-                <p className='book-details-number-text'>{book.available}</p>
-                <BookOpenIcon className='book-details-book-open-icon' />
-              </div>
-            </div>
-            {bookCategories.length > 0 && (
               <div className='book-details-column-container'>
-                <p className='book-details-label-text'>{categoriesText}</p>
-                <div className='book-details-category-list'>
-                  {bookCategories.map((category) => {
-                    const IconComponent = categoryIconOptions[
-                      category.icon
-                    ] as React.FC<IconProps>;
-                    const categoryColor = categoryColorOptions[category.color];
-                    return (
-                      <div
-                        className='book-details-multi-item'
-                        key={category.id}
-                      >
+                <p className='book-details-label-text'>{bookRatingHeader}</p>
+                <div className='book-details-multi-item'>
+                  {!book.rating && (
+                    <>
+                      <p className='book-details-no-rating-text'>
+                        {noRatingText}
+                      </p>
+                      <StarGrey className='book-details-star-icon' />
+                    </>
+                  )}
+                  {book.rating && (
+                    <>
+                      <p className='book-details-number-text'>
+                        {book.rating.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </p>
+                      <StarColor className='book-details-star-icon' />
+                    </>
+                  )}
+                </div>
+              </div>
+              <div className='book-details-column-container'>
+                <p className='book-details-label-text'>{availableText}:</p>
+                <div className='book-details-multi-item'>
+                  <p className='book-details-number-text'>{book.available}</p>
+                  <BookOpenIcon className='book-details-book-open-icon' />
+                </div>
+              </div>
+              {bookCategories.length > 0 && (
+                <div className='book-details-column-container'>
+                  <p className='book-details-label-text'>{categoriesText}</p>
+                  <div className='book-details-category-list'>
+                    {bookCategories.map((category) => {
+                      const IconComponent = categoryIconOptions[
+                        category.icon
+                      ] as React.FC<IconProps>;
+                      const categoryColor =
+                        categoryColorOptions[category.color];
+                      return (
                         <div
-                          className='book-details-category-wrapper'
-                          onMouseEnter={() => setHoveredCategoryId(category.id)}
-                          onMouseLeave={() => setHoveredCategoryId(null)}
-                          onMouseDown={(e) =>
-                            handleCategoryClick(e, category.id)
-                          }
-                          style={{
-                            border:
-                              hoveredCategoryId === category.id
-                                ? `1px solid ${categoryColor}`
-                                : `1px solid var(--clr-transparent)`,
-                            backgroundColor:
-                              hoveredCategoryId === category.id
-                                ? categoryColor
-                                : undefined,
-                          }}
+                          className='book-details-multi-item'
+                          key={category.id}
                         >
-                          <IconComponent className='book-details-category-icon' />
-                          <p
-                            className='book-details-category-text'
+                          <div
+                            className='book-details-category-wrapper'
+                            onMouseEnter={() =>
+                              setHoveredCategoryId(category.id)
+                            }
+                            onMouseLeave={() => setHoveredCategoryId(null)}
+                            onMouseDown={(e) =>
+                              handleCategoryClick(e, category.id)
+                            }
                             style={{
-                              color:
+                              border:
                                 hoveredCategoryId === category.id
-                                  ? 'var(--clr-light)'
-                                  : categoryColor,
+                                  ? `1px solid ${categoryColor}`
+                                  : `1px solid var(--clr-transparent)`,
+                              backgroundColor:
+                                hoveredCategoryId === category.id
+                                  ? categoryColor
+                                  : undefined,
                             }}
                           >
-                            {category.name}
-                          </p>
+                            <IconComponent className='book-details-category-icon' />
+                            <p
+                              className='book-details-category-text'
+                              style={{
+                                color:
+                                  hoveredCategoryId === category.id
+                                    ? 'var(--clr-light)'
+                                    : categoryColor,
+                              }}
+                            >
+                              {category.name}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-          <div className='book-details-policy-button'>
-            <button
-              className='policy-button'
-              onMouseDown={(e) => handleShowPolicyWindow(e)}
-            >
-              {bookPolicyButtonText}
-            </button>
-          </div>
-        </section>
-        <section className='more-books-container'>
-          <div className='more-books-header-title'>
-            <TitleFlair className='more-books-title-flair-left' />
-            <h1 className='more-books-title-text'>{moreBooksText}</h1>
-            <TitleFlair className='more-books-title-flair-right' />
-          </div>
-          <BookList />
+              )}
+            </div>
+            <div className='book-details-policy-button'>
+              <button
+                className='policy-button'
+                onMouseDown={(e) => handleShowPolicyWindow(e)}
+              >
+                {bookPolicyButtonText}
+              </button>
+            </div>
+          </section>
+          <section className='more-books-container'>
+            <div className='more-books-header-title'>
+              <TitleFlair className='more-books-title-flair-left' />
+              <h1 className='more-books-title-text'>{moreBooksText}</h1>
+              <TitleFlair className='more-books-title-flair-right' />
+            </div>
+            <BookList />
+          </section>
         </section>
       </main>
     </>
