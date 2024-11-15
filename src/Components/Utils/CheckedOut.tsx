@@ -59,8 +59,6 @@ const CheckedOut: React.FC = () => {
     try {
       const result = await cancelReservation(checkedOutBook.id);
       if (result.success && result.data) {
-        console.log('Reservation canceled successfully');
-
         setAuthUser(result.data.user);
         updateSingleBook(result.data.book);
       } else {

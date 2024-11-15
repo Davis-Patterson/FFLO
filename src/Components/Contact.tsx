@@ -91,6 +91,9 @@ const Contact: React.FC = () => {
         if (authUser.last_name) {
           setLastName(authUser.last_name);
         }
+      } else {
+        setFirstName('');
+        setLastName('');
       }
       setMessage('');
     }, 1000);

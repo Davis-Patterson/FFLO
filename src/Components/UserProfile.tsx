@@ -15,13 +15,12 @@ import GlueIcon from 'Svgs/GlueIcon';
 import Paperclip1 from 'Svgs/Paperclip1';
 import Paperclip2 from 'Svgs/Paperclip2';
 import PointingIcon from 'Svgs/PointingIcon';
-import LinearProgress from '@mui/material/LinearProgress';
-import 'Styles/UserProfile.css';
 import StaffIcon from 'Svgs/StaffIcon';
 import BookAddIcon from 'Svgs/BookAddIcon';
 import CategoriesIcon from 'Svgs/CategoriesIcon';
 import RentalsIcon from 'Svgs/RentalsIcon';
 import MembersIcon from 'Svgs/MembersIcon';
+import 'Styles/UserProfile.css';
 
 const UserProfile: React.FC = () => {
   const context = useContext(AppContext);
@@ -38,7 +37,6 @@ const UserProfile: React.FC = () => {
     language,
   } = context;
 
-  const [isAdminLoading, setIsAdminLoading] = useState(false);
   const [token, setToken] = useState('');
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
@@ -100,18 +98,6 @@ const UserProfile: React.FC = () => {
     event.stopPropagation();
 
     setShowAuth(true);
-  };
-
-  const handleAdmin = (event: React.MouseEvent) => {
-    if (event.button !== 0) return;
-    event.preventDefault();
-    event.stopPropagation();
-
-    setIsAdminLoading(true);
-    setTimeout(() => {
-      console.log('Handle Cancel.');
-      setIsAdminLoading(false);
-    }, 1000);
   };
 
   const handleBooksLink = (event: React.MouseEvent) => {
@@ -264,22 +250,13 @@ const UserProfile: React.FC = () => {
                 </div>
                 <div className='user-profile-logout-container'>
                   {authUser?.is_staff && (
-                    <Link
-                      to='/admin'
-                      className='admin-button'
-                      onMouseDown={(e) => handleAdmin(e)}
-                    >
-                      {isAdminLoading ? (
-                        <LinearProgress color='inherit' />
-                      ) : (
-                        staffText
-                      )}
+                    <Link to='/admin' className='admin-button'>
+                      {staffText}
                     </Link>
                   )}
                   <button
                     className='logout-button'
                     onMouseDown={(e) => handleLogout(e)}
-                    style={{ width: `{}` }}
                   >
                     {logoutText}
                   </button>
@@ -364,7 +341,8 @@ const UserProfile: React.FC = () => {
             <>
               <div className='staff-options-container'>
                 <div className='staff-options-row'>
-                  <div
+                  <Link
+                    to={'/admin'}
                     className={`staff-option-card ${
                       hoveredCard === 'staff'
                         ? 'active'
@@ -377,7 +355,7 @@ const UserProfile: React.FC = () => {
                   >
                     <StaffIcon className='staff-option-icon' />
                     <p className='staff-option-text'>{staffButtonText}</p>
-                  </div>
+                  </Link>
                   <div
                     onMouseDown={(e) => handleAddBook(e)}
                     className={`staff-option-card ${

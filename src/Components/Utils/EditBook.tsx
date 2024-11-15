@@ -137,8 +137,6 @@ const EditBook: React.FC = () => {
     null
   );
 
-  console.log('images to remove, ', imagesToRemove);
-
   const [categoryOrder, setCategoryOrder] = useState<number[]>([]);
 
   const showBookEditWindowContainerRef = useRef<HTMLDivElement>(null);
@@ -208,7 +206,6 @@ const EditBook: React.FC = () => {
   useEffect(() => {
     if (errorMessage) {
       setTimeout(() => {
-        console.log('Clearing Error Message.');
         setErrorMessage('');
       }, 3000);
     }

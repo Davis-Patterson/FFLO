@@ -54,8 +54,6 @@ const BookRating = ({ bookId, ratings }: BookRatingProps) => {
     try {
       const response = await submitRating(bookId, newRating);
       if (response.success && response.data) {
-        console.log('Rating submitted:', response.data);
-
         updateSingleBook(response.data.book);
       } else {
         console.error('Failed to submit rating:', response.error);
@@ -65,7 +63,6 @@ const BookRating = ({ bookId, ratings }: BookRatingProps) => {
     }
 
     setTimeout(() => {
-      console.log(`Just clicked rating ${index}`);
       setJustClickedRating(null);
     }, 1000);
   };

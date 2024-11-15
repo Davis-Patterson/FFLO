@@ -11,14 +11,7 @@ const AuthApi = () => {
     throw new Error('No Context');
   }
 
-  const {
-    authToken,
-    setAuthToken,
-    setAuthUser,
-    setBookmarkedBooks,
-    clearAuthToken,
-    clearAuthUser,
-  } = context;
+  const { authToken, clearAuthToken, clearAuthUser } = context;
 
   const axiosInstance = axios.create({
     baseURL: BASE_URL,
@@ -120,19 +113,16 @@ const AuthApi = () => {
   const login = async (
     email: string,
     password: string
-  ): Promise<{ success: boolean; token?: string }> => {
+  ): Promise<{ success: boolean; data?: { token: string; user: any } }> => {
     try {
       const response: AxiosResponse<{ token: string; user: any }> =
         await axiosInstance.post('/auth/login/', { email, password });
 
       if (response.status === 200 && response.data.token) {
-        setAuthToken(response.data.token);
-        setAuthUser(response.data.user);
-        setBookmarkedBooks(response.data.user.bookmarked_books);
-
-        console.log('User info retrieved:', response.data.user);
-
-        return { success: true, token: response.data.token };
+        return {
+          success: true,
+          data: { token: response.data.token, user: response.data.user },
+        };
       } else {
         return { success: false };
       }
@@ -168,7 +158,7 @@ const AuthApi = () => {
     email: string,
     password: string,
     password2: string
-  ): Promise<void> => {
+  ): Promise<{ success: boolean; data?: { token: string; user: any } }> => {
     try {
       const response: AxiosResponse = await axiosInstance.post(
         '/auth/register/',
@@ -180,9 +170,19 @@ const AuthApi = () => {
           password2,
         }
       );
+
       console.log('Registration successful:', response.data);
+
+      const loginResponse = await login(email, password);
+
+      if (loginResponse.success && loginResponse.data) {
+        return { success: true, data: loginResponse.data };
+      } else {
+        return { success: false };
+      }
     } catch (error) {
       console.error('Registration failed:', error);
+      return { success: false };
     }
   };
 
@@ -200,20 +200,6 @@ const AuthApi = () => {
       } else {
         console.error('Password reset request failed:', error);
       }
-    }
-  };
-
-  const userInfo = async (): Promise<void> => {
-    try {
-      const response: AxiosResponse = await axiosInstance.get(
-        '/auth/users/me/'
-      );
-      if (response.status === 200) {
-        setAuthUser(response.data);
-        console.log('User info retrieved:', response.data);
-      }
-    } catch (error) {
-      console.error('Failed to fetch user info:', error);
     }
   };
 
@@ -248,8 +234,6 @@ const AuthApi = () => {
 
       if (response.status === 200) {
         console.log('Profile updated successfully:', response.data);
-        setAuthUser(response.data);
-
         return { success: true, data: response.data };
       } else {
         return { success: false };
@@ -267,7 +251,6 @@ const AuthApi = () => {
     logout,
     register,
     forgot,
-    userInfo,
     updateProfile,
   };
 };

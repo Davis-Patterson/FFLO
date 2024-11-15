@@ -168,7 +168,6 @@ const AddBook: React.FC = () => {
   useEffect(() => {
     if (errorMessage) {
       setTimeout(() => {
-        console.log('Clearing Error Message.');
         setErrorMessage('');
       }, 3000);
     }

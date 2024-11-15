@@ -20,6 +20,7 @@ const Auth: React.FC = () => {
     authToken,
     setAuthToken,
     setAuthUser,
+    setBookmarkedBooks,
     showAuth,
     setShowAuth,
     language,
@@ -91,7 +92,6 @@ const Auth: React.FC = () => {
   useEffect(() => {
     if (errorMessage) {
       setTimeout(() => {
-        console.log('Clearing Error Message.');
         setErrorMessage('');
       }, 3000);
     }
@@ -129,7 +129,8 @@ const Auth: React.FC = () => {
       !firstName.trim() ||
       !email.trim() ||
       !password.trim() ||
-      !password2.trim();
+      !password2.trim() ||
+      password !== password2;
     setRegisterButtonActive(!isRegisterFormEmpty);
 
     const isForgotFormEmpty = !email.trim();
@@ -139,9 +140,16 @@ const Auth: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+
     try {
       const response = await login(email, password);
-      if (response && response.success) {
+      if (response && response.success && response.data) {
+        const { token, user } = response.data;
+
+        setAuthToken(token);
+        setAuthUser(user);
+        setBookmarkedBooks(user.bookmarked_books);
+
         setShowAuth(false);
       } else {
         setErrorMessage(loginFailedText);
@@ -156,15 +164,32 @@ const Auth: React.FC = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+
     try {
-      await register(firstName, lastName, email, password, password2);
-      setShowRegister(false);
-      setShowLogin(true);
-      await login(email, password);
-      setShowAuth(false);
+      const registerResponse = await register(
+        firstName,
+        lastName,
+        email,
+        password,
+        password2
+      );
+
+      if (registerResponse.success && registerResponse.data) {
+        const { token, user } = registerResponse.data;
+
+        setAuthToken(token);
+        setAuthUser(user);
+        setBookmarkedBooks(user.bookmarked_books);
+
+        setShowRegister(false);
+        setShowAuth(false);
+      } else {
+        setErrorMessage(loginFailedText);
+      }
     } catch (error) {
       setErrorMessage(registrationFailedText);
     }
+
     setIsLoading(false);
   };
 

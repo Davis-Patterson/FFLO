@@ -20,7 +20,7 @@ import AnnouncementBanner from 'Utils/AnnouncementBanner';
 import Nav from 'Components/Nav';
 import NotFound from 'Tools/NotFound';
 import BookNotFound from 'Tools/BookNotFound';
-import Footer from 'Components/Footer';
+import Footer from 'Components/Utils/Footer';
 import ProtectedRoute from 'Tools/ProtectedRoute';
 import AdminRoute from 'Tools/AdminRoute';
 import Construction from 'Tools/Construction';
@@ -255,11 +255,9 @@ const App: React.FC = () => {
           <Route
             path='/contact'
             element={
-              <ProtectedRoute>
-                <Suspense fallback={<ContactFallback />}>
-                  <Contact />
-                </Suspense>
-              </ProtectedRoute>
+              <Suspense fallback={<ContactFallback />}>
+                <Contact />
+              </Suspense>
             }
           />
           <Route

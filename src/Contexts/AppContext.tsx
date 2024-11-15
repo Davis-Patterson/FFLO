@@ -180,6 +180,10 @@ interface AppContextType {
   setBookmarkedBooks: (books: Book[]) => void;
   selectedBook: Book | null;
   setSelectedBook: (book: Book | null) => void;
+
+  membershipBannerDismissed: boolean;
+  setMembershipBannerDismissed: (value: boolean) => void;
+
   showFullscreen: boolean;
   setShowFullscreen: (value: boolean) => void;
   fullscreenData: FullscreenData;
@@ -196,6 +200,7 @@ interface AppContextType {
   setShowCategoryEditWindow: (value: boolean) => void;
   showPolicyWindow: boolean;
   setShowPolicyWindow: (value: boolean) => void;
+
   language: string;
   setLanguage: (language: string) => void;
   categoryFilter: number | null;
@@ -302,6 +307,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [bookmarkedBooks, setBookmarkedBooks] = useState<Book[]>([]);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
+  const [membershipBannerDismissed, setMembershipBannerDismissed] =
+    useState(false);
   const [showFullscreen, setShowFullscreen] = useState<boolean>(false);
   const [fullscreenData, setFullscreenData] = useState({
     src: '',
@@ -488,6 +495,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setBookmarkedBooks,
         selectedBook,
         setSelectedBook,
+        membershipBannerDismissed,
+        setMembershipBannerDismissed,
         showFullscreen,
         setShowFullscreen,
         fullscreenData,

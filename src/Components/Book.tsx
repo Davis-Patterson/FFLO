@@ -17,6 +17,7 @@ import FrenchFlag from 'Svgs/FrenchFlag';
 import StarColor from 'Svgs/StarColor';
 import StarGrey from 'Svgs/StarGrey';
 import BookOpenIcon from 'Svgs/BookOpenIcon';
+import BookFallback from 'Tools/BookFallback';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Book.css';
 
@@ -58,6 +59,7 @@ const Book: React.FC = () => {
   const [hoveredCategoryId, setHoveredCategoryId] = useState<number | null>(
     null
   );
+  const [isLoadingBooks, setIsLoadingBooks] = useState(true);
 
   const navigate = useNavigate();
 
@@ -147,6 +149,18 @@ const Book: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [book]);
+
+  useEffect(() => {
+    if (allBooks.length > 0) {
+      setIsLoadingBooks(false);
+    }
+  }, [allBooks]);
+
+  useEffect(() => {
+    if (!isLoadingBooks && !book) {
+      navigate('/library/not_found');
+    }
+  }, [isLoadingBooks, book, navigate]);
 
   const handleHoldBook = async (event: React.MouseEvent) => {
     if (event.button !== 0) return;
@@ -250,7 +264,20 @@ const Book: React.FC = () => {
       console.log('Show auth');
       setShowAuth(true);
       setIsLoading(false);
-    }, 1000);
+    }, 200);
+  };
+
+  const handleShowMembership = async (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setIsLoading(true);
+    setTimeout(() => {
+      console.log('Show membership');
+      navigate('/membership');
+      setIsLoading(false);
+    }, 200);
   };
 
   const handleShowBookEditWindow = (event: React.MouseEvent) => {
@@ -339,9 +366,15 @@ const Book: React.FC = () => {
     navigate('/library');
   };
 
-  if (!book) {
-    navigate('/library/not_found');
+  if (isLoadingBooks) {
+    return (
+      <>
+        <BookFallback />
+      </>
+    );
+  }
 
+  if (!book) {
     return (
       <>
         <BookNotFound />
@@ -365,7 +398,7 @@ const Book: React.FC = () => {
           className='submit-button'
           onMouseDown={(e) => handleShowAuth(e)}
         >
-          {reserveBookText}
+          {isLoading ? <LinearProgress color='inherit' /> : reserveBookText}
         </button>
       );
     }
@@ -425,13 +458,12 @@ const Book: React.FC = () => {
 
     if (
       !authUser.is_staff &&
-      authUser.membership &&
-      !authUser.membership.active
+      (!authUser.membership || !authUser.membership.active)
     ) {
       return (
         <button
           className='submit-button'
-          onMouseDown={(e) => handleShowAuth(e)}
+          onMouseDown={(e) => handleShowMembership(e)}
         >
           {isLoading ? <LinearProgress color='inherit' /> : reserveBookText}
         </button>

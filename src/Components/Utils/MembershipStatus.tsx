@@ -49,7 +49,6 @@ const MembershipStatus: React.FC = () => {
 
     setIsLoading(true);
     setTimeout(() => {
-      console.log('Handle Cancel.');
       setIsLoading(false);
     }, 1000);
   };

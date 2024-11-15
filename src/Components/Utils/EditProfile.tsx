@@ -21,6 +21,7 @@ const EditProfile: React.FC = () => {
   }
   const {
     authUser,
+    setAuthUser,
     authToken,
     showEdit,
     setShowEdit,
@@ -68,7 +69,6 @@ const EditProfile: React.FC = () => {
   useEffect(() => {
     if (errorMessage) {
       setTimeout(() => {
-        console.log('Clearing Error Message.');
         setErrorMessage('');
       }, 3000);
     }
@@ -146,11 +146,14 @@ const EditProfile: React.FC = () => {
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!firstName.trim()) {
       setErrorMessage('First name is required.');
       return;
     }
+
     setIsLoading(true);
+
     try {
       const result = await updateProfile(
         firstName,
@@ -159,14 +162,19 @@ const EditProfile: React.FC = () => {
         imageFile,
         removeImage
       );
-      if (result.success) {
+
+      if (result.success && result.data) {
+        setAuthUser(result.data);
+
         console.log('Profile updated successfully');
         setShowEdit(false);
+
         setInitialUserData({
           initialFirstName: firstName,
           initialLastName: lastName,
           initialPhone: phone,
         });
+
         setLoaded(false);
       } else {
         setErrorMessage('Failed to update profile');
