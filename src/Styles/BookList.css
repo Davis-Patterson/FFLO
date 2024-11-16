@@ -304,9 +304,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.book-title-unavailable {
-  text-decoration: line-through;
-}
 
 .book-author {
   font-family: 'Lato', sans-serif;
