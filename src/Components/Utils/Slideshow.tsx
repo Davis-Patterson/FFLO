@@ -91,7 +91,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ data }) => {
       setProgress((prevProgress) =>
         isPaused || prevProgress >= 100 ? prevProgress : prevProgress + 1
       );
-    }, 100);
+    }, 40);
 
     if (progress === 100 && !isPaused) {
       autoProgress();

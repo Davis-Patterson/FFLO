@@ -140,6 +140,22 @@ const Sidebar: React.FC<SidebarProps> = ({
     setVisibleBooks(10);
   };
 
+  const handleViewSettingChange = (
+    event: React.MouseEvent,
+    viewSetting: string
+  ) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (viewSetting === 'grid') {
+      setViewSetting('list');
+    }
+    if (viewSetting === 'list') {
+      setViewSetting('grid');
+    }
+  };
+
   const handleToggleUnavailable = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
     event.preventDefault();
@@ -370,7 +386,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                         ? 'sidebar-content-item-selected'
                         : 'sidebar-content-item-deselected'
                     }`}
-                    onMouseDown={() => setViewSetting('grid')}
+                    onMouseDown={(e) => handleViewSettingChange(e, 'grid')}
                   >
                     {gridViewTextView}
                   </p>
@@ -380,7 +396,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                         ? 'sidebar-content-item-selected'
                         : 'sidebar-content-item-deselected'
                     }`}
-                    onMouseDown={() => setViewSetting('list')}
+                    onMouseDown={(e) => handleViewSettingChange(e, 'list')}
                   >
                     {listViewTextView}
                   </p>

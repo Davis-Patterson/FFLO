@@ -12,9 +12,15 @@ import 'Styles/Utils/BookImage.css';
 interface BookImageProps {
   book: Book;
   viewSetting: string;
+  hovered: number | null;
+  setHovered: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-const BookImage: React.FC<BookImageProps> = ({ book, viewSetting }) => {
+const BookImage: React.FC<BookImageProps> = ({
+  book,
+  viewSetting,
+  hovered,
+}) => {
   const { createBookmark, deleteBookmark } = ServerApi();
   const context = useContext(AppContext);
   if (!context) {
@@ -25,9 +31,10 @@ const BookImage: React.FC<BookImageProps> = ({ book, viewSetting }) => {
   const [imgIndex, setImgIndex] = useState(1);
   const [nextIndex, setNextIndex] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+  const transitionTime = 300;
 
   const isBookmarked = bookmarkedBooks.some((b) => b.id === book.id);
-
   const hasImage = book.images && book.images.length > 0;
 
   const getBookIcon = (book: Book) => {
@@ -82,22 +89,35 @@ const BookImage: React.FC<BookImageProps> = ({ book, viewSetting }) => {
 
   const cycleImages = () => {
     setIsTransitioning(true);
+    if (!hasStarted) {
+      setImgIndex(nextIndex);
+      setNextIndex((nextIndex + 1) % book.images.length);
+      setIsTransitioning(false);
+      setHasStarted(true);
+    }
 
     setTimeout(() => {
-      setImgIndex(nextIndex); // Set the next image as the current image
-      setNextIndex((nextIndex + 1) % book.images.length); // Update the next index
+      setImgIndex(nextIndex);
+      setNextIndex((nextIndex + 1) % book.images.length);
       setIsTransitioning(false);
-    }, 500); // Matches the CSS transition duration
+    }, transitionTime);
   };
 
   useEffect(() => {
-    if (book.images.length > 1) {
-      const interval = setInterval(() => {
+    let interval: NodeJS.Timeout | null = null;
+    if (hovered === book.id && book.images.length > 1) {
+      interval = setInterval(() => {
         cycleImages();
-      }, 2000); // Cycle every 2 seconds
-      return () => clearInterval(interval);
+      }, transitionTime * 1.2);
+    } else {
+      setImgIndex(0);
+      setNextIndex(1);
     }
-  }, [book.images.length, nextIndex]);
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [hovered, book.images.length, nextIndex]);
 
   return (
     <>
@@ -144,7 +164,7 @@ const BookImage: React.FC<BookImageProps> = ({ book, viewSetting }) => {
                       src={image.image_url || ''}
                       alt={`${book.title} - Image ${index + 1}`}
                       className={`book-slide-image ${
-                        isTransitioning ? 'blur-transition' : 'visible'
+                        isTransitioning ? 'fade' : ''
                       }`}
                       onLoad={(e) => {
                         const imgElement = e.target as HTMLImageElement;
@@ -153,21 +173,24 @@ const BookImage: React.FC<BookImageProps> = ({ book, viewSetting }) => {
                     />
                   )
               )}
-              {book.images.map(
-                (image, index) =>
-                  nextIndex === index && (
-                    <img
-                      key={index}
-                      src={image.image_url || ''}
-                      alt={`${book.title} - Image ${index + 1}`}
-                      className='book-slide-image fade-in'
-                      onLoad={(e) => {
-                        const imgElement = e.target as HTMLImageElement;
-                        imgElement.parentElement?.classList.add('loaded');
-                      }}
-                    />
-                  )
-              )}
+              {hovered === book.id &&
+                book.images.map(
+                  (image, index) =>
+                    nextIndex === index && (
+                      <img
+                        key={index}
+                        src={image.image_url || ''}
+                        alt={`${book.title} - Image ${index + 1}`}
+                        className={`book-slide-next-image ${
+                          isTransitioning ? 'fade' : ''
+                        }`}
+                        onLoad={(e) => {
+                          const imgElement = e.target as HTMLImageElement;
+                          imgElement.parentElement?.classList.add('loaded');
+                        }}
+                      />
+                    )
+                )}
             </>
           ) : (
             <img

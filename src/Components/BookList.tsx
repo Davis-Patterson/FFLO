@@ -37,6 +37,7 @@ const BookList: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showBookmarks, setShowBookmarks] = useState(false);
   const [showUnavailable, setShowUnavailable] = useState(false);
+  const [hovered, setHovered] = useState<number | null>(null);
 
   // translations
   const gridViewText = language === 'EN' ? 'Grid' : 'Grille';
@@ -256,8 +257,15 @@ const BookList: React.FC = () => {
                             ? 'book-card-unavailable'
                             : 'book-card'
                         }`}
+                        onMouseEnter={() => setHovered(book.id)}
+                        onMouseLeave={() => setHovered(null)}
                       >
-                        <BookImage book={book} viewSetting={viewSetting} />
+                        <BookImage
+                          book={book}
+                          viewSetting={viewSetting}
+                          hovered={hovered}
+                          setHovered={setHovered}
+                        />
                         <div className='book-info'>
                           <h3
                             className={`${
@@ -319,7 +327,12 @@ const BookList: React.FC = () => {
                             : 'book-card-list'
                         }`}
                       >
-                        <BookImage book={book} viewSetting={viewSetting} />
+                        <BookImage
+                          book={book}
+                          viewSetting={viewSetting}
+                          hovered={hovered}
+                          setHovered={setHovered}
+                        />
                         <div className='book-list-info'>
                           <div className='book-list-title-author'>
                             <h3
