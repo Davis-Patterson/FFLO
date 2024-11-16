@@ -85,7 +85,7 @@
   transition: all 0.15s ease-in-out;
 }
 .announcement-banner-text:hover {
-  color: var(--clr-light-highlight);
+  color: var(--clr-light-hover);
 }
 
 .announcement-banner-x-icon {
@@ -96,8 +96,8 @@
   transition: all 0.15s ease-in-out;
 }
 .announcement-banner-x-icon:hover {
-  fill: var(--clr-light-highlight);
+  fill: var(--clr-light-hover);
 }
 .announcement-banner-x-icon:active {
-  fill: var(--clr-light-highlight);
+  fill: var(--clr-light-hover);
 }

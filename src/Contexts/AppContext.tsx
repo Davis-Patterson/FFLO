@@ -188,6 +188,11 @@ interface AppContextType {
   setShowFullscreen: (value: boolean) => void;
   fullscreenData: FullscreenData;
   setFullscreenData: (data: FullscreenData) => void;
+  isPaused: boolean;
+  setIsPaused: (value: boolean) => void;
+  wasPaused: boolean;
+  setWasPaused: (value: boolean) => void;
+
   showAuth: boolean;
   setShowAuth: (value: boolean) => void;
   showEdit: boolean;
@@ -317,6 +322,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     author: '',
     desc: '',
   });
+  const [isPaused, setIsPaused] = useState(false);
+  const [wasPaused, setWasPaused] = useState(false);
 
   const [showAuth, setShowAuth] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -403,6 +410,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
   const fullscreenClose = () => {
     setShowFullscreen(false);
+    setIsPaused(wasPaused);
     setFullscreenData({
       src: '',
       alt: '',
@@ -501,6 +509,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setShowFullscreen,
         fullscreenData,
         setFullscreenData,
+        isPaused,
+        setIsPaused,
+        wasPaused,
+        setWasPaused,
         showAuth,
         setShowAuth,
         showEdit,

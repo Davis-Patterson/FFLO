@@ -115,7 +115,7 @@ const Books: React.FC = () => {
     <>
       <main className='page-container'>
         <section className='categories-container'>
-          <header className='categories-header'>
+          {/* <header className='categories-header'>
             <h2 className='categories-header-pretext'>{headerPretext}</h2>
             <div className='categories-header-title'>
               <TitleFlair className='categories-title-flair-left' />
@@ -212,7 +212,7 @@ const Books: React.FC = () => {
                 </div>
               )}
             </div>
-          </div>
+          </div> */}
           <div className='categories-books-container'>
             {fetchError ? (
               <p>Error fetching books. Please try again later.</p>

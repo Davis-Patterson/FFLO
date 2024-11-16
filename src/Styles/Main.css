@@ -37,8 +37,11 @@
   --clr-dark: #292929;
   --clr-black: #000000;
   --clr-outline: #ccc;
-  --clr-light-highlight: #d1d1d1;
+  --clr-light-hover: #d1d1d1;
+  --clr-screen: #292929b2;
+  --clr-screen-hover: #1b1b1bcc;
   --clr-divider: #acacac;
+  --clr-progress: #acacacbd;
   --clr-break: #acacac;
   --clr-background: #fff5ed;
   --clr-icon: #808080;
@@ -70,6 +73,8 @@
   --clr-success: #00ff00;
   --clr-member-green: #00b900;
   --clr-transparent: #ffffff00;
+  --clr-gradient-start: #ffffff00;
+  --clr-gradient-end: #ffffff;
   --clr-star-color-outline: #223a6f;
   --clr-star-color-1: #fda71e;
   --clr-star-color-2: #fed82d;
@@ -83,38 +88,7 @@
 }
 
 .darkMode {
-  --clr-light: #080808;
-  --clr-white: #ffffff;
-  --clr-dark: #d0d0d0;
-  --clr-black: #000000;
-  --clr-outline: #ccc;
-  --clr-divider: #3b3b3b;
-  --clr-break: #979797;
-  --clr-background: #fff5ed;
-  --clr-icon: #808080;
-  --clr-text-blue: #213472;
-  --clr-text-blue-hover: #1c2b5f;
-  --clr-text-grey: #414141;
-  --clr-toute: #008080;
-  --clr-toute-hover: #006161;
-  --clr-petite: #f1a56f;
-  --clr-petite-hover: #df935d;
-  --clr-moyenne: #ba4727;
-  --clr-moyenne-hover: #973a20;
-  --clr-goldenrod: #dea90e;
-  --clr-celadon: #a9e5bb;
-  --clr-lavender: #d4adcf;
-  --clr-flowers: #ed957d;
-  --clr-dots: #d8f4e1;
-  --clr-grass: #acc9b8;
-  --clr-butterfly: #0e9893;
-  --clr-footer: #ffab7f;
-  --clr-light-blue: #4692d8;
-  --clr-orange: #f97338;
-  --clr-title-flair: #f3c535;
-  --clr-error: #ff0000;
-  --clr-success: #00ff00;
-  --clr-transparent: #ffffff00;
+  color: null;
 }
 
 svg {

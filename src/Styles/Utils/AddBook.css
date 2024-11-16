@@ -114,17 +114,15 @@
 
 .book-create-flair-input,
 .book-create-quantity-input {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85em;
+  line-height: 1;
+  font-weight: 300;
   padding: 0.75rem;
   border: 1px solid var(--clr-outline);
   border-radius: 4px;
   background-color: var(--clr-light);
   color: var(--clr-dark);
-}
-.book-create-flair-input {
-  width: 100%;
-  height: 45px;
-}
-.book-create-quantity-input {
   width: 100%;
   height: 45px;
 }

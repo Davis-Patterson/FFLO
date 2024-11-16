@@ -69,7 +69,9 @@ const AnnouncementBanner: React.FC = () => {
         </Link>
       ),
       shouldShow: () =>
-        (!authUser || !authUser?.membership?.active || !authUser.is_staff) &&
+        (authUser === null ||
+          (!authUser.is_staff &&
+            (!authUser.membership || authUser.membership.active === false))) &&
         location.pathname !== '/membership' &&
         location.pathname !== '/construction',
       timeout: null,

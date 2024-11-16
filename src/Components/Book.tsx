@@ -3,6 +3,7 @@ import { AppContext } from 'Contexts/AppContext';
 import { useParams, useNavigate } from 'react-router-dom';
 import ServerApi from 'Utilities/ServerApi';
 import ReservationApi from 'Utilities/ReservationApi';
+import Slideshow from 'Utils/Slideshow';
 import BookList from 'Components/BookList';
 import BookNotFound from 'Tools/BookNotFound';
 import BookRating from 'Utils/BookRating';
@@ -20,8 +21,6 @@ import BookOpenIcon from 'Svgs/BookOpenIcon';
 import BookFallback from 'Tools/BookFallback';
 import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Book.css';
-
-('https://www.npmjs.com/package/react-simple-image-slider');
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 
@@ -60,6 +59,7 @@ const Book: React.FC = () => {
     null
   );
   const [isLoadingBooks, setIsLoadingBooks] = useState(true);
+  const [currentBookId, setCurrentBookId] = useState<number | null>(null);
 
   const navigate = useNavigate();
 
@@ -147,8 +147,11 @@ const Book: React.FC = () => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [book]);
+    if (book?.id !== currentBookId) {
+      window.scrollTo(0, 0);
+      setCurrentBookId(book?.id || null);
+    }
+  }, [book, currentBookId]);
 
   useEffect(() => {
     if (allBooks.length > 0) {
@@ -551,20 +554,22 @@ const Book: React.FC = () => {
                     <p className='book-detail-flair'>{book.flair}</p>
                   </div>
                 )}
-                {book.images.length > 0 && book.images[0].image_url ? (
+                {book.images.length === 0 ? (
+                  getBookIcon()
+                ) : book.images.length === 1 ? (
                   <div
                     className={`book-detail-image-wrapper ${
                       !book.available ? 'inactive' : hasImage ? 'blur-load' : ''
                     }`}
                     style={{
-                      backgroundImage: `url(${book.images[0]?.image_small})`,
+                      backgroundImage: `url(${book.images[0].image_small})`,
                     }}
                   >
                     <img
                       key={`${book.id}-${
                         isBookReserved ? 'reserved' : 'available'
                       }-${isBookOnHold ? 'on hold' : 'available'}`}
-                      src={book.images[0].image_url}
+                      src={book.images[0].image_url || ''}
                       alt={book.title}
                       className={`book-detail-image ${
                         !book.available ? 'inactive' : ''
@@ -586,7 +591,7 @@ const Book: React.FC = () => {
                     />
                   </div>
                 ) : (
-                  getBookIcon()
+                  <Slideshow data={book} />
                 )}
               </div>
               <div className='book-detail-info-container'>
