@@ -89,7 +89,7 @@
   position: relative;
   border-radius: 4px;
 }
-.book-image-container,
+.book-image-container:hover .book-image-wrapper,
 .book-image-list-container:hover .book-image-wrapper {
   transition: transform 0.3s ease-in-out;
   transform: scale(1.04);
