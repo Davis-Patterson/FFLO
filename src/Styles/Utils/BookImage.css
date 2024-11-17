@@ -1,3 +1,27 @@
+@keyframes fadeOutImg {
+  0% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(100%);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(5px);
+    transform: scale(105%);
+  }
+}
+
+@keyframes fadeInImg {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
 .book-image-container,
 .book-image-list-container {
   width: 100%;
@@ -6,6 +30,7 @@
   z-index: 3;
   display: flex;
   overflow: hidden;
+  border-radius: 5px;
 }
 
 .book-image-list-container {
@@ -103,6 +128,7 @@
   opacity: 0;
   z-index: 1;
   border-radius: 4px;
+  overflow: hidden;
 }
 .book-image.loaded {
   opacity: 1;
@@ -123,28 +149,6 @@
 }
 .book-slide-next-image {
   z-index: 1;
-}
-
-@keyframes fadeOutImg {
-  0% {
-    opacity: 1;
-    filter: blur(0px);
-  }
-  100% {
-    opacity: 0;
-    filter: blur(5px);
-  }
-}
-
-@keyframes fadeInImg {
-  0% {
-    opacity: 0;
-    filter: blur(5px);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0px);
-  }
 }
 
 .book-slide-image.fade {

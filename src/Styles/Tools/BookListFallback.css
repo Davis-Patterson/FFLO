@@ -5,7 +5,7 @@
   align-items: center;
 }
 
-.page-toggles-container {
+.page-toggles-container-fallback {
   display: flex;
   align-items: center;
   gap: 20px;

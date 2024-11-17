@@ -9,7 +9,7 @@ const BookListFallback: React.FC = () => {
 
   return (
     <section className='book-fallback-list-container'>
-      <div className='page-toggles-container'>
+      <div className='page-toggles-container-fallback'>
         <Skeleton
           variant='rectangular'
           animation='wave'

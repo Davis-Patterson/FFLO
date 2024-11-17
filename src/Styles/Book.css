@@ -93,7 +93,7 @@
   width: 235px;
   height: 300px;
   position: relative;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
   z-index: 0;
   cursor: pointer;
@@ -105,7 +105,7 @@
   right: 0px;
   background-color: var(--clr-light);
   border: 1px solid var(--clr-break);
-  border-top-right-radius: 4px;
+  border-top-right-radius: 6px;
   padding: 14px 14px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 100px;

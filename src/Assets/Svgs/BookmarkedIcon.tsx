@@ -2,9 +2,9 @@ import React from 'react';
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const BookmarkSolid: React.FC<IconProps> = (props) => (
+const BookmarkedIcon: React.FC<IconProps> = (props) => (
   <svg
-    id='BookmarkSolid'
+    id='BookmarkedIcon'
     data-name='Layer 4 Image'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 92.18 112.73'
@@ -14,4 +14,4 @@ const BookmarkSolid: React.FC<IconProps> = (props) => (
   </svg>
 );
 
-export default BookmarkSolid;
+export default BookmarkedIcon;

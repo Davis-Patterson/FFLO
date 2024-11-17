@@ -18,6 +18,10 @@
   width: 25px;
 }
 
+#ButterflyIcon {
+  fill: var(--clr-toute);
+}
+
 .submit-button,
 .submit-half-button {
   font-family: 'Lato', sans-serif;

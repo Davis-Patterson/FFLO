@@ -11,6 +11,8 @@ import AuthApi from 'Utilities/AuthApi';
 import ServerApi from 'Utilities/ServerApi';
 import Fullscreen from 'Utils/Fullscreen';
 import Auth from 'Components/Utils/Auth';
+import Membership from 'Components/Membership';
+import AdminPanel from 'Admin/AdminPanel';
 import EditProfile from 'Utils/EditProfile';
 import AddBook from 'Utils/AddBook';
 import EditBook from 'Utils/EditBook';
@@ -24,7 +26,6 @@ import Footer from 'Components/Utils/Footer';
 import ProtectedRoute from 'Tools/ProtectedRoute';
 import AdminRoute from 'Tools/AdminRoute';
 import Construction from 'Tools/Construction';
-import Fallback from 'Tools/Fallback';
 import BookFallback from 'Tools/BookFallback';
 import BooksFallback from 'Tools/BooksFallback';
 import HomeFallback from 'Tools/HomeFallback';
@@ -40,8 +41,6 @@ const Categories = lazy(() => import('Components/Categories'));
 const About = lazy(() => import('Components/About'));
 const Contact = lazy(() => import('Components/Contact'));
 const UserProfile = lazy(() => import('Components/UserProfile'));
-const Membership = lazy(() => import('Components/Membership'));
-const AdminPanel = lazy(() => import('Admin/AdminPanel'));
 
 let isVerificationRunning = false;
 let areBooksFetching = false;
@@ -264,9 +263,7 @@ const App: React.FC = () => {
             path='/membership'
             element={
               <ProtectedRoute>
-                <Suspense fallback={<Fallback />}>
-                  <Membership />
-                </Suspense>
+                <Membership />
               </ProtectedRoute>
             }
           />
@@ -284,9 +281,7 @@ const App: React.FC = () => {
             path='/admin/*'
             element={
               <AdminRoute>
-                <Suspense fallback={<Fallback />}>
-                  <AdminPanel />
-                </Suspense>
+                <AdminPanel />
               </AdminRoute>
             }
           />

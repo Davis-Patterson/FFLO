@@ -11,8 +11,8 @@ import TitleFlair from 'Svgs/TitleFlair';
 import FrenchBookIcon from 'Svgs/FrenchBookIcon';
 import EnglishBookIcon from 'Svgs/EnglishBookIcon';
 import DefaultBookIcon from 'Svgs/DefaultBookIcon';
-import BookmarkOutline from 'Svgs/BookmarkOutline';
-import BookmarkSolid from 'Svgs/BookmarkSolid';
+import BookmarkIcon from 'Svgs/BookmarkIcon';
+import BookmarkedIcon from 'Svgs/BookmarkedIcon';
 import UKFlag from 'Svgs/UKFlag';
 import FrenchFlag from 'Svgs/FrenchFlag';
 import StarColor from 'Svgs/StarColor';
@@ -737,12 +737,12 @@ const Book: React.FC = () => {
               </div>
               <div className='book-bookmark-toggle-container'>
                 {isBookmarked ? (
-                  <BookmarkSolid
+                  <BookmarkedIcon
                     className='bookmark-icon'
                     onClick={(e) => handleRemoveBookmark(e, book.id)}
                   />
                 ) : (
-                  <BookmarkOutline
+                  <BookmarkIcon
                     className='bookmark-icon'
                     onClick={(e) => handleAddBookmark(e, book.id)}
                   />

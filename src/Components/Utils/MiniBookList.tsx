@@ -5,7 +5,7 @@ import { Book } from 'Contexts/AppContext';
 import ServerApi from 'Utilities/ServerApi';
 import ChevronRight from 'Svgs/ChevronRight';
 import FrenchBookIcon from 'Svgs/FrenchBookIcon';
-import BookmarkSolid from 'Svgs/BookmarkSolid';
+import BookmarkedOutline from 'Svgs/BookmarkedOutline';
 import BookmarkOutline from 'Svgs/BookmarkOutline';
 import LinearProgress from '@mui/material/LinearProgress';
 import EnglishBookIcon from 'Svgs/EnglishBookIcon';
@@ -185,7 +185,7 @@ const MiniBookList: React.FC = () => {
                   <div className='mini-list-image-container'>
                     <div className='mini-list-bookmark-toggle-container'>
                       {isBookmarked ? (
-                        <BookmarkSolid
+                        <BookmarkedOutline
                           className='mini-list-bookmark-icon-bookmarked'
                           onClick={(e) => handleRemoveBookmark(e, book.id)}
                         />

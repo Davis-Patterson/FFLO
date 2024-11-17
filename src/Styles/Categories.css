@@ -120,6 +120,40 @@
   overflow: hidden;
 }
 
+.categories-container-header-text-icons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 50%;
+  margin: 0px 0px 20px 0px;
+}
+
+.categories-container-header-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.categories-nature-icon {
+  width: 35px;
+  height: 35px;
+}
+
+.categories-container-header-text {
+  font-family: 'Merriweather', sans-serif;
+  font-size: 1.4em;
+  line-height: 1;
+  font-weight: 200;
+  text-underline-offset: 3px;
+  text-decoration: underline;
+  color: var(--clr-text-blue);
+  width: auto;
+  text-align: center;
+}
+
 .categories-navigation {
   position: relative;
   top: 0;

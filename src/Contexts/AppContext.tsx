@@ -478,7 +478,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     6: 'var(--clr-lavender)',
   };
 
-  const natureIcons: { [key: number]: React.FC } = {
+  const natureIcons: {
+    [key: number]: React.FC<React.SVGProps<SVGSVGElement>>;
+  } = {
     1: BeanstalkIcon,
     2: BerryBranch1,
     3: BerryBranch2,

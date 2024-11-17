@@ -5,7 +5,7 @@ import ServerApi from 'Utilities/ServerApi';
 import FrenchBookIcon from 'Svgs/FrenchBookIcon';
 import EnglishBookIcon from 'Svgs/EnglishBookIcon';
 import DefaultBookIcon from 'Svgs/DefaultBookIcon';
-import BookmarkSolid from 'Svgs/BookmarkSolid';
+import BookmarkedOutline from 'Svgs/BookmarkedOutline';
 import BookmarkOutline from 'Svgs/BookmarkOutline';
 import 'Styles/Utils/BookImage.css';
 
@@ -123,7 +123,7 @@ const BookImage: React.FC<BookImageProps> = ({
       >
         <div className='book-list-bookmark-toggle-container'>
           {isBookmarked ? (
-            <BookmarkSolid
+            <BookmarkedOutline
               className='book-list-bookmark-icon-bookmarked'
               onClick={(e) => handleRemoveBookmark(e, book.id)}
             />
