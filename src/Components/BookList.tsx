@@ -326,6 +326,8 @@ const BookList: React.FC = () => {
                             ? 'book-card-list-unavailable'
                             : 'book-card-list'
                         }`}
+                        onMouseEnter={() => setHovered(book.id)}
+                        onMouseLeave={() => setHovered(null)}
                       >
                         <BookImage
                           book={book}

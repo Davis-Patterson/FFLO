@@ -1,4 +1,5 @@
-.book-image-container {
+.book-image-container,
+.book-image-list-container {
   width: 100%;
   height: 200px;
   position: relative;
@@ -88,7 +89,8 @@
   position: relative;
   border-radius: 4px;
 }
-.book-image-container:hover .book-image-wrapper {
+.book-image-container,
+.book-image-list-container:hover .book-image-wrapper {
   transition: transform 0.3s ease-in-out;
   transform: scale(1.04);
 }
