@@ -22,6 +22,7 @@ const Home: React.FC = () => {
     categoriesFetched,
     reviews,
     setCategoryFilter,
+    visibleCategories,
     categoryIconOptions,
     categoryColorOptions,
     natureIcons,
@@ -30,7 +31,6 @@ const Home: React.FC = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [translateValue, setTranslateValue] = useState(0);
 
-  const visibleCategories = 4;
   const cardWidth = 190;
   const maxSlideIndex = Math.max(0, categories.length - visibleCategories);
 
@@ -158,6 +158,8 @@ const Home: React.FC = () => {
     .slice()
     .sort((a, b) => a.sort_order - b.sort_order);
 
+  console.log('visibleCategories: ', visibleCategories);
+
   return (
     <>
       <main className='page-container'>
@@ -214,7 +216,23 @@ const Home: React.FC = () => {
                   </div>
                 </header>
 
-                <div className='home-categories-navigation'>
+                <div
+                  className='home-categories-navigation'
+                  style={{
+                    maxWidth:
+                      visibleCategories === 2
+                        ? '420px'
+                        : visibleCategories === 3
+                        ? '610px'
+                        : visibleCategories === 4
+                        ? '800px'
+                        : visibleCategories === 5
+                        ? '990px'
+                        : visibleCategories === 6
+                        ? '1180px'
+                        : 'none',
+                  }}
+                >
                   {slideIndex > 0 && (
                     <div className='prev-slide' onClick={handlePrevSlide}>
                       &lt;

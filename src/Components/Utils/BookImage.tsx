@@ -31,7 +31,6 @@ const BookImage: React.FC<BookImageProps> = ({
   const [imgIndex, setImgIndex] = useState(1);
   const [nextIndex, setNextIndex] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
   const transitionTime = 300;
 
   const isBookmarked = bookmarkedBooks.some((b) => b.id === book.id);
@@ -89,12 +88,6 @@ const BookImage: React.FC<BookImageProps> = ({
 
   const cycleImages = () => {
     setIsTransitioning(true);
-    if (!hasStarted) {
-      setImgIndex(nextIndex);
-      setNextIndex((nextIndex + 1) % book.images.length);
-      setIsTransitioning(false);
-      setHasStarted(true);
-    }
 
     setTimeout(() => {
       setImgIndex(nextIndex);

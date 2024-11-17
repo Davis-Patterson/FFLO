@@ -36,7 +36,7 @@ import 'Styles/App.css';
 
 const Home = lazy(() => import('Components/Home'));
 const Book = lazy(() => import('Components/Book'));
-const Books = lazy(() => import('Components/Books'));
+const Categories = lazy(() => import('Components/Categories'));
 const About = lazy(() => import('Components/About'));
 const Contact = lazy(() => import('Components/Contact'));
 const UserProfile = lazy(() => import('Components/UserProfile'));
@@ -231,7 +231,7 @@ const App: React.FC = () => {
             path='/library'
             element={
               <Suspense fallback={<BooksFallback />}>
-                <Books />
+                <Categories />
               </Suspense>
             }
           />

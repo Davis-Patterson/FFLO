@@ -3,11 +3,11 @@ import { AppContext } from 'Contexts/AppContext';
 import TitleFlair from 'Svgs/TitleFlair';
 import GearIcon from 'Svgs/GearIcon';
 import BookList from 'Components/BookList';
-import 'Styles/Books.css';
+import 'Styles/Categories.css';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 
-const Books: React.FC = () => {
+const Categories: React.FC = () => {
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('No Context');
@@ -21,8 +21,9 @@ const Books: React.FC = () => {
     categoryFilter,
     setCategoryFilter,
     allBooks,
-    fetchError,
     booksFetched,
+    fetchError,
+    visibleCategories,
     categoryIconOptions,
     categoryColorOptions,
   } = context;
@@ -30,7 +31,6 @@ const Books: React.FC = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [translateValue, setTranslateValue] = useState(0);
 
-  const visibleCategories = 4;
   const cardWidth = 190;
   const maxSlideIndex = Math.max(0, categories.length - visibleCategories);
 
@@ -115,7 +115,7 @@ const Books: React.FC = () => {
     <>
       <main className='page-container'>
         <section className='categories-container'>
-          {/* <header className='categories-header'>
+          <header className='categories-header'>
             <h2 className='categories-header-pretext'>{headerPretext}</h2>
             <div className='categories-header-title'>
               <TitleFlair className='categories-title-flair-left' />
@@ -143,7 +143,23 @@ const Books: React.FC = () => {
                 />
               </div>
             )}
-            <div className='categories-navigation'>
+            <div
+              className='categories-navigation'
+              style={{
+                maxWidth:
+                  visibleCategories === 2
+                    ? '420px'
+                    : visibleCategories === 3
+                    ? '610px'
+                    : visibleCategories === 4
+                    ? '800px'
+                    : visibleCategories === 5
+                    ? '990px'
+                    : visibleCategories === 6
+                    ? '1180px'
+                    : 'none',
+              }}
+            >
               {slideIndex > 0 && (
                 <div className='prev-slide' onClick={handlePrevSlide}>
                   &lt;
@@ -212,7 +228,7 @@ const Books: React.FC = () => {
                 </div>
               )}
             </div>
-          </div> */}
+          </div>
           <div className='categories-books-container'>
             {fetchError ? (
               <p>Error fetching books. Please try again later.</p>
@@ -228,4 +244,4 @@ const Books: React.FC = () => {
   );
 };
 
-export default Books;
+export default Categories;

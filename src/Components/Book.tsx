@@ -90,6 +90,8 @@ const Book: React.FC = () => {
   const removeHoldText = language === 'EN' ? 'Remove Hold' : 'Livre de retour';
   const anotherBookOnHoldText =
     language === 'EN' ? 'Another Hold Active' : 'Une autre attente';
+  const bookUnavailableText =
+    language === 'EN' ? 'Book Unavailable' : 'Livre indisponible';
   const editBookText = language === 'EN' ? 'Edit book' : 'Modifier le livre';
   const bookPolicyButtonText =
     language === 'EN' ? 'Book Policies' : 'Politiques du livre';
@@ -395,6 +397,130 @@ const Book: React.FC = () => {
     .sort((a, b) => a.sort_order - b.sort_order);
 
   const renderSubmitButton = () => {
+    if (book?.available === 0) {
+      if (!authToken || !authUser) {
+        return (
+          <button className='inactive-button' disabled>
+            {bookUnavailableText}
+          </button>
+        );
+      }
+
+      if (
+        !authUser.is_staff &&
+        (!authUser.membership || !authUser.membership.active)
+      ) {
+        return (
+          <button className='inactive-button' disabled>
+            {bookUnavailableText}
+          </button>
+        );
+      }
+
+      if (
+        !authUser.is_staff &&
+        authUser.membership &&
+        authUser.checked_out.length === 0
+      ) {
+        return (
+          <button className='inactive-button' disabled>
+            {bookUnavailableText}
+          </button>
+        );
+      }
+
+      if (!authUser.is_staff && authUser.checked_out.length > 0) {
+        const checkedOutBook = authUser.checked_out[0];
+
+        if (checkedOutBook.book.id !== book?.id) {
+          return (
+            <button className='inactive-button' disabled>
+              {anotherReservationActiveText}
+            </button>
+          );
+        }
+
+        if (checkedOutBook.book.id === book?.id) {
+          if (!checkedOutBook.is_active && checkedOutBook.reserved) {
+            return (
+              <button
+                className='submit-button'
+                onMouseDown={(e) => handleCancelReservation(e)}
+              >
+                {isLoading ? (
+                  <LinearProgress color='inherit' />
+                ) : (
+                  cancelReservationText
+                )}
+              </button>
+            );
+          } else if (checkedOutBook.is_active) {
+            return (
+              <button className='inactive-button' disabled>
+                {returnBookFirstText}
+              </button>
+            );
+          }
+        }
+      }
+
+      if (
+        authUser.is_staff &&
+        (!authUser.on_hold || authUser.on_hold.length === 0)
+      ) {
+        return (
+          <button className='inactive-button' disabled>
+            {bookUnavailableText}
+          </button>
+        );
+      }
+
+      if (authUser.is_staff && authUser.on_hold.length > 0) {
+        const onHoldBook = authUser.on_hold[0];
+        if (onHoldBook.book.id === book?.id) {
+          return (
+            <div className='staff-book-buttons'>
+              <button
+                className='edit-button'
+                onMouseDown={(e) => handleShowBookEditWindow(e)}
+              >
+                {editBookText}
+              </button>
+              <button
+                className='submit-half-button'
+                onMouseDown={(e) => handleRemoveHold(e)}
+              >
+                {isLoading ? (
+                  <LinearProgress color='inherit' />
+                ) : (
+                  removeHoldText
+                )}
+              </button>
+            </div>
+          );
+        } else {
+          return (
+            <div className='staff-book-buttons'>
+              <button
+                className='edit-button'
+                onMouseDown={(e) => handleShowBookEditWindow(e)}
+              >
+                {editBookText}
+              </button>
+              <button className='inactive-half-button' disabled>
+                {anotherBookOnHoldText}
+              </button>
+            </div>
+          );
+        }
+      }
+      return (
+        <button className='inactive-button' disabled>
+          {bookUnavailableText}
+        </button>
+      );
+    }
+
     if (!authToken || !authUser) {
       return (
         <button

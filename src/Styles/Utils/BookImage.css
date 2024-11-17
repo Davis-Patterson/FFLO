@@ -86,6 +86,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  border-radius: 4px;
 }
 .book-image-container:hover .book-image-wrapper {
   transition: transform 0.3s ease-in-out;
@@ -99,6 +100,7 @@
   transition: opacity 0.5s ease-in-out;
   opacity: 0;
   z-index: 1;
+  border-radius: 4px;
 }
 .book-image.loaded {
   opacity: 1;
@@ -144,11 +146,11 @@
 }
 
 .book-slide-image.fade {
-  animation: fadeOutImg 0.6s forwards;
+  animation: fadeOutImg 0.4s forwards;
 }
 
 .book-slide-next-image.fade {
-  animation: fadeInImg 0.6s forwards;
+  animation: fadeInImg 0.4s forwards;
 }
 
 .book-slide-image.loaded {

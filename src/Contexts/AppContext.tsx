@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useState, useEffect } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 import BunnyIcon from 'Svgs/BunnyIcon';
 import ChickenIcon from 'Svgs/ChickenIcon';
@@ -212,6 +212,9 @@ interface AppContextType {
   setCategoryFilter: (categoryFilter: number | null) => void;
   fetchError: boolean;
   setFetchError: (value: boolean) => void;
+
+  visibleCategories: number;
+
   clearAuthToken: () => void;
   clearAuthUser: () => void;
   handleLanguageChange: (
@@ -339,6 +342,37 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [categoryFilter, setCategoryFilter] = useState<number | null>(null);
 
   const [fetchError, setFetchError] = useState(false);
+
+  const [visibleCategories, setVisibleCategories] = useState<number>(4);
+
+  const determineCategoryItems = (): void => {
+    if (window.innerWidth <= 649) {
+      setVisibleCategories(2);
+    }
+    if (window.innerWidth >= 650 && window.innerWidth <= 950) {
+      setVisibleCategories(3);
+    }
+    if (window.innerWidth >= 851 && window.innerWidth <= 1050) {
+      setVisibleCategories(4);
+    }
+    if (window.innerWidth >= 1051 && window.innerWidth <= 1250) {
+      setVisibleCategories(5);
+    }
+    if (window.innerWidth > 1251) {
+      setVisibleCategories(6);
+    }
+  };
+
+  useEffect(() => {
+    determineCategoryItems();
+
+    const handleResize = () => determineCategoryItems();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const clearAuthToken = () => {
     setAuthToken(null);
@@ -531,6 +565,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setCategoryFilter,
         fetchError,
         setFetchError,
+        visibleCategories,
         clearAuthToken,
         clearAuthUser,
         handleLanguageChange,
