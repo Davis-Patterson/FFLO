@@ -1,0 +1,54 @@
+.bookmarked-books-container {
+  background-color: var(--clr-light);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.bookmarked-books-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bookmarked-books-header-text {
+  font-family: 'Merriweather', sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--clr-text-blue);
+  margin: 8px 0px 6px 0px;
+  cursor: default;
+  transform: scaleY(90%);
+}
+
+.bookmarked-books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  justify-content: center;
+  gap: 10px;
+}
+
+.bookmarked-book-card,
+.bookmarked-book-card-unavailable {
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid var(--clr-transparent);
+  border-radius: 4px;
+  padding: 10px 10px 5px 10px;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.bookmarked-book-card-unavailable {
+  opacity: 0.3;
+}
+
+.bookmarked-book-card:hover,
+.bookmarked-book-card-unavailable:hover {
+  border: 1px solid var(--clr-break);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}

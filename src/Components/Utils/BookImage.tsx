@@ -13,7 +13,6 @@ interface BookImageProps {
   book: Book;
   viewSetting: string;
   hovered: number | null;
-  setHovered: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 const BookImage: React.FC<BookImageProps> = ({

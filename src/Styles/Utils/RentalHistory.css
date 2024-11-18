@@ -14,12 +14,13 @@
 }
 
 .rental-history-header-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.25rem;
+  font-family: 'Merriweather', sans-serif;
+  font-size: 1.2rem;
   font-weight: bold;
-  color: var(--clr-text-grey);
+  color: var(--clr-text-blue);
   margin: 8px 0px 6px 0px;
   cursor: default;
+  transform: scaleY(90%);
 }
 
 .history-search-container {

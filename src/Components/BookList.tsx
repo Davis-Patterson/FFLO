@@ -336,7 +336,6 @@ const BookList: React.FC = () => {
                               book={book}
                               viewSetting={viewSetting}
                               hovered={hovered}
-                              setHovered={setHovered}
                             />
                             <div className='book-info'>
                               <h3
@@ -415,7 +414,6 @@ const BookList: React.FC = () => {
                           book={book}
                           viewSetting={viewSetting}
                           hovered={hovered}
-                          setHovered={setHovered}
                         />
                         <div className='book-list-info'>
                           <div className='book-list-title-author'>

@@ -37,6 +37,8 @@ const RentalHistory: React.FC = () => {
     setShuffledIcons(shuffled);
   }, [natureIcons]);
 
+  const rentalHistoryText =
+    language === 'EN' ? 'Rental History' : 'Historique de location';
   const noBooksFoundText =
     language === 'EN'
       ? 'No books match your search.'
@@ -100,9 +102,7 @@ const RentalHistory: React.FC = () => {
     return (
       <section className='rental-history-container'>
         <header className='rental-history-header'>
-          <h3 className='rental-history-header-text'>
-            {language === 'EN' ? 'Rental History' : 'Historique de location'}
-          </h3>
+          <h3 className='rental-history-header-text'>{rentalHistoryText}</h3>
           <div className='history-search-container'>
             <input
               type='text'
@@ -221,9 +221,7 @@ const RentalHistory: React.FC = () => {
   return (
     <section className='rental-history-container'>
       <header className='rental-history-header'>
-        <h3 className='rental-history-header-text'>
-          {language === 'EN' ? 'Rental History' : 'Historique de location'}
-        </h3>
+        <h3 className='rental-history-header-text'>{rentalHistoryText}</h3>
         <div className='history-search-container'>
           <input
             type='text'

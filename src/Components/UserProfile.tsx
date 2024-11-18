@@ -5,6 +5,7 @@ import MiniBookList from 'Components/Utils/MiniBookList';
 import MembershipStatus from 'Utils/MembershipStatus';
 import OnHold from 'Utils/OnHold';
 import CheckedOut from 'Utils/CheckedOut';
+import BookmarkedBooks from 'Utils/BookmarkedBooks';
 import RentalHistory from 'Utils/RentalHistory';
 import UserIcon from 'Svgs/UserIcon';
 import Leaf1 from 'Svgs/Leaf1';
@@ -34,6 +35,7 @@ const UserProfile: React.FC = () => {
     setShowAuth,
     setShowEdit,
     setShowAddBookWindow,
+    setShowCategoryEditWindow,
     language,
   } = context;
 
@@ -71,6 +73,8 @@ const UserProfile: React.FC = () => {
     language === 'EN'
       ? 'Memberships Information'
       : 'Informations sur les adhésions';
+  const rentalHistoryText =
+    language === 'EN' ? 'Staff Options' : 'Options du personnel';
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -90,6 +94,14 @@ const UserProfile: React.FC = () => {
     event.stopPropagation();
 
     setShowAddBookWindow(true);
+  };
+
+  const handleEditCategories = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setShowCategoryEditWindow(true);
   };
 
   const handleLogout = (event: React.MouseEvent) => {
@@ -325,21 +337,19 @@ const UserProfile: React.FC = () => {
             {authUser ? renderUserInfo() : renderPlaceholders()}
           </div>
 
-          {!authUser?.is_staff && (
+          {authUser?.is_staff && (
             <>
               <svg className='profile-line-divider'>
                 <line x1='0' y1='50%' x2='100%' y2='50%' />
               </svg>
 
-              <div className='user-profile-history'>
-                <RentalHistory />
-              </div>
-            </>
-          )}
+              <section className='staff-options-container'>
+                <header className='staff-options-header'>
+                  <h3 className='staff-options-header-text'>
+                    {rentalHistoryText}
+                  </h3>
+                </header>
 
-          {authUser?.is_staff && (
-            <>
-              <div className='staff-options-container'>
                 <div className='staff-options-row'>
                   <Link
                     to={'/admin'}
@@ -372,6 +382,7 @@ const UserProfile: React.FC = () => {
                     <p className='staff-option-text'>{newBookText}</p>
                   </div>
                   <div
+                    onMouseDown={(e) => handleEditCategories(e)}
                     className={`staff-option-card ${
                       hoveredCard === 'categories'
                         ? 'active'
@@ -431,6 +442,26 @@ const UserProfile: React.FC = () => {
                     </div>
                   </div>
                 </div>
+              </section>
+            </>
+          )}
+
+          <svg className='profile-line-divider'>
+            <line x1='0' y1='50%' x2='100%' y2='50%' />
+          </svg>
+
+          <div className='user-bookmarked-books-container'>
+            <BookmarkedBooks />
+          </div>
+
+          {!authUser?.is_staff && (
+            <>
+              <svg className='profile-line-divider'>
+                <line x1='0' y1='50%' x2='100%' y2='50%' />
+              </svg>
+
+              <div className='user-profile-history'>
+                <RentalHistory />
               </div>
             </>
           )}
