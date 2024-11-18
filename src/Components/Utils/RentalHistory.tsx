@@ -8,7 +8,7 @@ import UKFlag from 'Svgs/UKFlag';
 import FrenchBookIcon from 'Svgs/FrenchBookIcon';
 import EnglishBookIcon from 'Svgs/EnglishBookIcon';
 import DefaultBookIcon from 'Svgs/DefaultBookIcon';
-import BookStack from 'Svgs/BookStack';
+import BookStackClipart1 from 'Svgs/BookStackClipart1';
 import 'Styles/Utils/RentalHistory.css';
 import HistoryIcon from 'Svgs/HistoryIcon';
 
@@ -20,8 +20,14 @@ const RentalHistory: React.FC = () => {
     throw new Error('No Context');
   }
 
-  const { authUser, language, formatTitleForURL, formatDate, natureIcons } =
-    context;
+  const {
+    authToken,
+    authUser,
+    language,
+    formatTitleForURL,
+    formatDate,
+    natureIcons,
+  } = context;
   const [visibleCount, setVisibleCount] = useState(3);
   const [shuffledIcons, setShuffledIcons] = useState<React.FC[]>([]);
   const [filterSetting, setFilterSetting] = useState<string>('newest');
@@ -56,6 +62,10 @@ const RentalHistory: React.FC = () => {
     language === 'EN'
       ? 'We did not find any rental history for your account. Please try again.'
       : "Nous n'avons trouvé aucun historique de location pour votre compte. Veuillez réessayer.";
+  const loginHistoryText =
+    language === 'EN'
+      ? 'Create an account or login to view your rental history.'
+      : 'Créez un compte ou connectez-vous pour consulter votre historique de location.';
   const activeText = language === 'EN' ? 'Active' : 'Active';
   const reservedText = language === 'EN' ? 'Reserved' : 'Réservée';
   const lateText = language === 'EN' ? 'Late' : 'En retard';
@@ -99,7 +109,7 @@ const RentalHistory: React.FC = () => {
     setFilterSetting(event.target.value);
   };
 
-  if (!authUser || !authUser.book_history) {
+  if (!authToken || !authUser) {
     return (
       <section className='rental-history-container'>
         <header className='rental-history-header'>
@@ -121,6 +131,7 @@ const RentalHistory: React.FC = () => {
                 value={filterSetting}
                 onChange={handleFilterChange}
                 className='history-filter-dropdown'
+                disabled={true}
               >
                 <option value='newest'>-</option>
               </select>
@@ -132,14 +143,14 @@ const RentalHistory: React.FC = () => {
           <div className='no-books-message'>
             <div className='book-image-list-container'>
               <div className='book-image-wrapper'>
-                <BookStack className='book-list-cover-icon' />
+                <BookStackClipart1 className='book-list-cover-icon' />
               </div>
             </div>
             <div className='no-book-info'>
               <p className='no-book-info-text-header'>
                 {noRentalHistoryHeader}
               </p>
-              <p className='no-book-info-subtext'>{noRentalHistoryFound}</p>
+              <p className='no-book-info-subtext'>{loginHistoryText}</p>
             </div>
           </div>
         </div>
@@ -197,6 +208,7 @@ const RentalHistory: React.FC = () => {
                 value={filterSetting}
                 onChange={handleFilterChange}
                 className='history-filter-dropdown'
+                disabled={true}
               >
                 <option value='newest'>-</option>
               </select>
@@ -208,7 +220,7 @@ const RentalHistory: React.FC = () => {
           <div className='no-books-message'>
             <div className='book-image-list-container'>
               <div className='book-image-wrapper'>
-                <BookStack className='book-list-cover-icon' />
+                <BookStackClipart1 className='book-list-cover-icon' />
               </div>
             </div>
             <div className='no-book-info'>
@@ -256,7 +268,7 @@ const RentalHistory: React.FC = () => {
           <div className='no-books-message'>
             <div className='book-image-list-container'>
               <div className='book-image-wrapper'>
-                <BookStack className='book-list-cover-icon' />
+                <BookStackClipart1 className='book-list-cover-icon' />
               </div>
             </div>
             <div className='no-book-info'>

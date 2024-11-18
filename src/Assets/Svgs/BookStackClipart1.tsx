@@ -2,9 +2,9 @@ import React from 'react';
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
-const BookStack: React.FC<IconProps> = (props) => (
+const BookStackClipart1: React.FC<IconProps> = (props) => (
   <svg
-    id='BookStack'
+    id='BookStackClipart1'
     data-name='Layer 4 Image'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 348.65 369.21'
@@ -6289,4 +6289,4 @@ const BookStack: React.FC<IconProps> = (props) => (
   </svg>
 );
 
-export default BookStack;
+export default BookStackClipart1;

@@ -31,7 +31,7 @@
 }
 
 .rental-history-icon {
-  fill: var(--clr-divider);
+  fill: var(--clr-icon);
   width: 25px;
   height: 25px;
 }
@@ -193,10 +193,10 @@
 .history-book-title {
   font-family: 'Merriweather', sans-serif;
   font-size: 1.15em;
-  line-height: 1.15;
+  line-height: 1.2;
   font-weight: bold;
   color: var(--clr-text-blue);
-  margin: 4px 0px 0px 0px;
+  margin: 4px 0px -2px 0px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   line-clamp: 1;
@@ -212,7 +212,7 @@
 .history-book-author {
   font-family: 'Patrick Hand', sans-serif;
   font-size: 1.1em;
-  line-height: 1;
+  line-height: 1.25;
   color: var(--clr-text-grey);
   margin: 6px 0px 4px 0px;
   transform: scaleY(90%);

@@ -562,8 +562,6 @@
   max-width: 260px;
   transition: all 0.13s ease-in-out;
   margin: 25px 0px 0px 0px;
-}
-.view-more-button {
   width: 100%;
 }
 .view-more-button:hover {

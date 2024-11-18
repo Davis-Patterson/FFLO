@@ -13,12 +13,14 @@ interface BookImageProps {
   book: Book;
   viewSetting: string;
   hovered: number | null;
+  setHovered: (id: number | null) => void;
 }
 
 const BookImage: React.FC<BookImageProps> = ({
   book,
   viewSetting,
   hovered,
+  setHovered,
 }) => {
   const { createBookmark, deleteBookmark } = ServerApi();
   const context = useContext(AppContext);
@@ -43,11 +45,35 @@ const BookImage: React.FC<BookImageProps> = ({
 
   const getBookIcon = (book: Book) => {
     if (book?.language === 'French') {
-      return <FrenchBookIcon className='book-list-cover-icon' />;
+      return (
+        <FrenchBookIcon
+          className={
+            viewSetting === 'bookmarked'
+              ? 'bookmarked-list-cover-icon'
+              : 'book-list-cover-icon'
+          }
+        />
+      );
     } else if (book?.language === 'English') {
-      return <EnglishBookIcon className='book-list-cover-icon' />;
+      return (
+        <EnglishBookIcon
+          className={
+            viewSetting === 'bookmarked'
+              ? 'bookmarked-list-cover-icon'
+              : 'book-list-cover-icon'
+          }
+        />
+      );
     } else {
-      return <DefaultBookIcon className='book-list-cover-icon' />;
+      return (
+        <DefaultBookIcon
+          className={
+            viewSetting === 'bookmarked'
+              ? 'bookmarked-list-cover-icon'
+              : 'book-list-cover-icon'
+          }
+        />
+      );
     }
   };
 
@@ -87,6 +113,7 @@ const BookImage: React.FC<BookImageProps> = ({
       const result = await deleteBookmark(bookId);
       if (result.success && result.data) {
         setBookmarkedBooks(result.data.bookmarks);
+        setHovered(null);
       } else {
         console.error(result.error || 'Failed to remove bookmark');
       }
@@ -127,6 +154,8 @@ const BookImage: React.FC<BookImageProps> = ({
         className={
           viewSetting === 'grid'
             ? 'book-image-container'
+            : viewSetting === 'bookmarked'
+            ? 'book-image-bookmarked-container'
             : 'book-image-list-container'
         }
       >
@@ -143,21 +172,22 @@ const BookImage: React.FC<BookImageProps> = ({
             />
           )}
         </div>
-        {book.flair && (
+        {book.flair && viewSetting !== 'bookmarked' && (
           <div className='book-flair-container'>
             <p className='book-flair'>{book.flair}</p>
           </div>
         )}
-        <div
-          className={`book-image-wrapper ${hasImage ? 'blur-load' : ''}`}
-          style={{
-            backgroundImage: `url(${book.images[0]?.image_small})`,
-          }}
-        >
-          {!hasImage ? (
-            getBookIcon(book)
-          ) : book.images.length > 1 ? (
-            <>
+
+        {!hasImage ? (
+          getBookIcon(book)
+        ) : book.images.length > 1 ? (
+          <>
+            <div
+              className={`book-image-wrapper ${hasImage ? 'blur-load' : ''}`}
+              style={{
+                backgroundImage: `url(${book.images[0]?.image_small})`,
+              }}
+            >
               {book.images.map(
                 (image, index) =>
                   imgIndex === index && (
@@ -193,19 +223,28 @@ const BookImage: React.FC<BookImageProps> = ({
                       />
                     )
                 )}
-            </>
-          ) : (
-            <img
-              src={book.images[0]?.image_url ?? undefined}
-              alt={book.title}
-              className='book-image'
-              onLoad={(e) => {
-                const imgElement = e.target as HTMLImageElement;
-                imgElement.parentElement?.classList.add('loaded');
+            </div>
+          </>
+        ) : (
+          <>
+            <div
+              className={`book-image-wrapper ${hasImage ? 'blur-load' : ''}`}
+              style={{
+                backgroundImage: `url(${book.images[0]?.image_small})`,
               }}
-            />
-          )}
-        </div>
+            >
+              <img
+                src={book.images[0]?.image_url ?? undefined}
+                alt={book.title}
+                className='book-image'
+                onLoad={(e) => {
+                  const imgElement = e.target as HTMLImageElement;
+                  imgElement.parentElement?.classList.add('loaded');
+                }}
+              />
+            </div>
+          </>
+        )}
       </div>
     </>
   );

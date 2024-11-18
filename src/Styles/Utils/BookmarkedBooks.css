@@ -3,7 +3,6 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .bookmarked-books-header {
@@ -36,32 +35,267 @@
   height: 22px;
 }
 
-.bookmarked-books-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  justify-content: center;
-  gap: 10px;
+.bookmarked-search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--clr-divider);
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: var(--clr-light);
+  transition: border-color 0.3s;
+  width: 100%;
+  max-width: 130px;
+}
+.bookmarked-search-container:focus-within {
+  border-color: var(--clr-highlight);
 }
 
-.bookmarked-book-card,
-.bookmarked-book-card-unavailable {
-  width: 180px;
+.bookmarked-filter-dropdown {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  font-weight: 400;
+  padding: 6px 8px;
+  color: var(--clr-icon);
+  background-color: var(--clr-light);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.bookmarked-books-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+}
+
+.bookmarked-book-item {
+  border: 1px solid var(--clr-transparent);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px;
+  transition: all 0.3s ease-in-out;
+  width: 170px;
+  cursor: pointer;
+}
+.bookmarked-item-placeholder {
+  width: 170px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   border: 1px solid var(--clr-transparent);
+  background-color: var(--clr-transparent);
   border-radius: 4px;
   padding: 10px 10px 5px 10px;
   transition: all 0.15s ease-in-out;
-  cursor: pointer;
-}
-.bookmarked-book-card-unavailable {
-  opacity: 0.3;
+  cursor: default;
 }
 
-.bookmarked-book-card:hover,
-.bookmarked-book-card-unavailable:hover {
-  border: 1px solid var(--clr-break);
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.bookmarked-book-item.hovered {
+  border: 1px solid var(--clr-divider);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bookmarked-book-item.inactive {
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.bookmarked-book-image-container {
+  width: 120px;
+  height: 150px;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.bookmarked-book-image-wrapper {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  border-radius: 4px;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 4px;
+}
+
+.bookmarked-book-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+  z-index: 1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bookmarked-book-image-wrapper.loaded img {
+  opacity: 1;
+}
+
+.bookmarked-book-info {
+  margin-top: 12px;
+}
+
+.bookmarked-book-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.05em;
+  font-weight: 600;
+  line-height: 1;
+  transform: scaleY(95%);
+  color: var(--clr-text-blue);
+  margin: 10px 0px 2px 0px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.15s ease-in-out;
+}
+.bookmarked-book-title:hover {
+  color: var(--clr-moyenne);
+}
+
+.bookmarked-book-author {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  font-weight: 400;
+  line-height: 1;
+  transform: scaleY(90%);
+  font-style: italic;
+  color: var(--clr-text-grey);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bookmarked-item-language-rating-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 0px 0px 0px;
+}
+
+.bookmarked-item-language,
+.bookmarked-book-grid-rating {
+  font-family: 'Lato', sans-serif;
+  text-align: left;
+  font-size: 0.9em;
+  font-weight: 400;
+  line-height: 1.1;
+  transform: scaleY(90%);
+  font-style: italic;
+  color: var(--clr-icon);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bookmarked-item-rating {
+  margin: 0px 0px 0px 2px;
+}
+
+.bookmarked-item-language-flag {
+  width: 16px;
+  margin: 1px 0px 0px 5px;
+}
+
+.bookmarked-pipe-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+}
+
+.bookmarked-rating-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.bookmarked-item-rating {
+  font-family: 'Lato', sans-serif;
+  text-align: left;
+  font-size: 0.9em;
+  font-weight: 400;
+  line-height: 1;
+  transform: scaleY(90%);
+  font-style: italic;
+  color: var(--clr-text-grey);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0px 0px 0px 2px;
+}
+
+.bookmarked-pipe-icon {
+  font-family: 'Lato', sans-serif;
+  text-align: left;
+  font-size: 0.9em;
+  font-weight: 400;
+  color: var(--clr-icon);
+  width: 10px;
+  height: auto;
+  margin: 0px 2px 2px 3px;
+  text-align: center;
+}
+
+.bookmarked-item-star-icon {
+  width: 12px;
+  margin: 0px 0px 1px 0px;
+}
+
+.bookmarked-view-more-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.bookmarked-view-more-button {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  line-height: 1;
+  font-weight: 400;
+  height: 40px;
+  padding: 0.75rem;
+  background-color: var(--clr-light);
+  color: var(--clr-text-blue);
+  border: 1px solid var(--clr-text-blue);
+  cursor: pointer;
+  max-width: 260px;
+  transition: all 0.13s ease-in-out;
+  margin: 5px 0px 0px 0px;
+  width: 100%;
+}
+.bookmarked-view-more-button:hover {
+  background-color: var(--clr-text-blue);
+  color: var(--clr-light);
+  border: 1px solid var(--clr-text-blue);
 }
