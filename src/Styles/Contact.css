@@ -266,6 +266,7 @@
   background-color: var(--clr-icon);
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
 }
 .contact-message-input::-webkit-scrollbar-thumb:hover {
   background-color: var(--clr-dark);

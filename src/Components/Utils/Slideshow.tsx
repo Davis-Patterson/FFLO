@@ -100,6 +100,69 @@ const Slideshow: React.FC<SlideshowProps> = ({ data }) => {
     return () => clearInterval(progressTimer);
   }, [progress, isPaused, autoProgress]);
 
+  const renderToggleDots = () => {
+    const totalImages = images.length;
+    const maxDots = 8;
+    const [currentPlacement, setCurrentPlacement] = useState(1);
+    const [previousIndex, setPreviousIndex] = useState(0);
+
+    useEffect(() => {
+      if (totalImages <= maxDots) {
+        setCurrentPlacement(imgIndex + 1);
+        setPreviousIndex(imgIndex);
+        return;
+      }
+
+      const isMovingForward = imgIndex > previousIndex;
+      const isAdjacentMove = Math.abs(imgIndex - previousIndex) === 1;
+
+      if (imgIndex === 0) {
+        setCurrentPlacement(1);
+      } else if (imgIndex === totalImages - 1) {
+        setCurrentPlacement(maxDots);
+      } else if (isMovingForward) {
+        if (imgIndex >= totalImages - (maxDots - 1)) {
+          setCurrentPlacement(maxDots - (totalImages - 1 - imgIndex));
+        } else if (isAdjacentMove) {
+          setCurrentPlacement(Math.min(currentPlacement + 1, maxDots - 1));
+        }
+      } else {
+        if (imgIndex <= maxDots - 2) {
+          setCurrentPlacement(imgIndex + 1);
+        } else if (isAdjacentMove) {
+          setCurrentPlacement(Math.max(currentPlacement - 1, 2));
+        }
+      }
+
+      setPreviousIndex(imgIndex);
+    }, [imgIndex, previousIndex, totalImages, currentPlacement, maxDots]);
+
+    const start =
+      totalImages <= maxDots
+        ? 0
+        : Math.max(
+            0,
+            Math.min(imgIndex - (currentPlacement - 1), totalImages - maxDots)
+          );
+    const end = start + Math.min(maxDots, totalImages);
+
+    return Array.from({ length: end - start }, (_, i) => {
+      const dotIndex = start + i;
+
+      return (
+        <ToggleDot
+          key={dotIndex}
+          onMouseDown={(e) => handleSetImgIndex(e, dotIndex)}
+          className={`${
+            imgIndex === dotIndex
+              ? 'slideshow-toggle-dot-active'
+              : 'slideshow-toggle-dot-inactive'
+          }`}
+        />
+      );
+    });
+  };
+
   if (!images || images.length === 0) {
     return (
       <div className='slideshow-pics-container'>
@@ -164,19 +227,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ data }) => {
             <ArrowBigRight className='slideshow-arrow' />
           </div>
         </div>
-        <div className='slideshow-pic-toggles'>
-          {images.map((_, index) => (
-            <ToggleDot
-              key={index}
-              onMouseDown={(e) => handleSetImgIndex(e, index)}
-              className={`${
-                imgIndex === index
-                  ? 'slideshow-toggle-dot-active'
-                  : 'slideshow-toggle-dot-inactive'
-              }`}
-            />
-          ))}
-        </div>
+        <div className='slideshow-toggle-dots'>{renderToggleDots()}</div>
         <div className='progress-bar'>
           <div
             className='progress-bar-fill'

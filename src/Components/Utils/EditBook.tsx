@@ -825,7 +825,7 @@ const EditBook: React.FC = () => {
   };
 
   const handleDeleteBookImage = (
-    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    e: React.MouseEvent<SVGSVGElement | HTMLDivElement, MouseEvent>,
     imageId: number
   ) => {
     if (e.button !== 0) return;
@@ -1266,29 +1266,25 @@ const EditBook: React.FC = () => {
                                         isSelected ? 'selected' : ''
                                       }`}
                                     />
-                                    <div
-                                      className={
-                                        isSelected
-                                          ? 'book-edit-image-x-container'
-                                          : 'book-edit-image-trash-container'
-                                      }
-                                    >
-                                      {isSelected ? (
-                                        <BackArrow
-                                          className='book-edit-trash-x'
-                                          onMouseDown={(e) =>
-                                            handleDeleteBookImage(e, image.id)
-                                          }
-                                        />
-                                      ) : (
-                                        <TrashIcon
-                                          className='book-edit-trash-icon'
-                                          onMouseDown={(e) =>
-                                            handleDeleteBookImage(e, image.id)
-                                          }
-                                        />
-                                      )}
-                                    </div>
+                                    {isSelected ? (
+                                      <div
+                                        className='book-edit-image-x-container'
+                                        onMouseDown={(e) =>
+                                          handleDeleteBookImage(e, image.id)
+                                        }
+                                      >
+                                        <BackArrow className='book-edit-trash-x' />
+                                      </div>
+                                    ) : (
+                                      <div
+                                        className='book-edit-image-trash-container'
+                                        onMouseDown={(e) =>
+                                          handleDeleteBookImage(e, image.id)
+                                        }
+                                      >
+                                        <TrashIcon className='book-edit-trash-icon' />
+                                      </div>
+                                    )}
                                     <div
                                       className={`book-detail-image-wrapper ${
                                         hasImage ? 'blur-load' : ''

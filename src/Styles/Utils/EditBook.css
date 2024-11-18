@@ -261,6 +261,7 @@
   background-color: var(--clr-icon);
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
 }
 
 .category-book-edit-scoll::-webkit-scrollbar-thumb:hover {
@@ -379,6 +380,7 @@
   background-color: var(--clr-icon);
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
 }
 
 .book-edit-desc-input::-webkit-scrollbar-thumb:hover,
@@ -491,6 +493,7 @@
   background-color: var(--clr-icon);
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
 }
 
 .scrollable-container::-webkit-scrollbar-thumb:hover {
@@ -541,6 +544,7 @@
   font-weight: 300;
   color: var(--clr-dark);
   width: 330px;
+  height: 100%;
   padding: 0.75rem;
   margin-bottom: 0.5rem;
   margin-left: 0.5rem;
@@ -554,8 +558,9 @@
 
 .book-edit-old-images {
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
+  height: 100%;
+  flex-grow: 1;
 }
 
 .no-images-text-container {
@@ -573,10 +578,34 @@
 
 .book-edit-image-thumbnails {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   flex-direction: row;
-  height: 80%;
   width: 100%;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 5px;
+  justify-content: space-between;
+}
+
+.book-edit-image-thumbnails::-webkit-scrollbar {
+  width: 8px;
+}
+
+.book-edit-image-thumbnails::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.book-edit-image-thumbnails::-webkit-scrollbar-thumb {
+  background-color: var(--clr-icon);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.book-edit-image-thumbnails::-webkit-scrollbar-thumb:hover {
+  background-color: var(--clr-dark);
 }
 
 .book-edit-new-image-container {
@@ -585,6 +614,7 @@
   height: 20%;
   width: 100%;
   justify-content: space-between;
+  margin: 15px 0px 0px 0px;
 }
 
 .book-edit-new-image-text {
@@ -595,6 +625,7 @@
   color: var(--clr-dark);
   font-style: italic;
   transform: scaleY(90%);
+  margin: 0px 0px 5px 0px;
 }
 
 .book-detail-image-wrapper {
@@ -616,8 +647,8 @@
 .book-icon-thumbnail,
 .image-thumbnail {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 85px;
+  height: 85px;
   border: 1px solid var(--clr-transparent);
   transition: all 0.15s ease-in-out;
 }
@@ -635,6 +666,7 @@
   border: 1px solid var(--clr-break);
   z-index: 5;
   transition: all 0.15s ease-in-out;
+  cursor: pointer;
 }
 .book-edit-image-x-container {
   opacity: 1;
@@ -649,13 +681,15 @@
 .book-edit-trash-icon,
 .book-edit-trash-x {
   width: 12px;
+  height: 14px;
   fill: var(--clr-icon);
   cursor: pointer;
+  transition: all 0.15s ease-in-out;
 }
-.book-edit-trash-icon:hover {
+.book-edit-image-trash-container:hover .book-edit-trash-icon {
   fill: var(--clr-error);
 }
-.book-edit-trash-x:hover {
+.book-edit-image-x-container:hover .book-edit-trash-x {
   fill: var(--clr-dark);
 }
 

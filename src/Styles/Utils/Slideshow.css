@@ -175,7 +175,7 @@
   stroke: var(--clr-light);
 }
 
-.slideshow-pic-toggles {
+.slideshow-toggle-dots {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -186,7 +186,7 @@
   pointer-events: auto;
   opacity: 0;
 }
-.slideshow-pics-container:hover .slideshow-pic-toggles {
+.slideshow-pics-container:hover .slideshow-toggle-dots {
   opacity: 1;
 }
 
