@@ -52,6 +52,7 @@
   color: var(--clr-text-blue);
   width: auto;
   text-align: center;
+  cursor: default;
 }
 
 .plane-container {
@@ -92,6 +93,7 @@
   line-height: 1.35;
   font-weight: 500;
   color: var(--clr-text-grey);
+  cursor: default;
 }
 
 .letter-signature-title-container {
@@ -110,6 +112,7 @@
   width: 100%;
   text-align: left;
   margin: 0px 0px 0px 0px;
+  cursor: default;
 }
 .letter-content-signature {
   font-size: 1.8em;

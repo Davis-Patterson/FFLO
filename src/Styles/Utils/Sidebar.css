@@ -5,7 +5,7 @@
 }
 
 .books-sidebar-container {
-  width: 100%;
+  width: 169px;
   padding: 20px 20px 0px 10px;
   border-right: 1px solid var(--clr-divider);
   height: 100%;
@@ -13,6 +13,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 5;
 }
 
 .sidebar-content {
@@ -30,6 +31,7 @@
   transform: scaleY(90%);
   color: var(--clr-dark);
   margin: 10px 0px 15px 0px;
+  cursor: default;
 }
 .sidebar-content-header-text {
   font-size: 1.25em;

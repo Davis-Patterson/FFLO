@@ -38,6 +38,7 @@
   width: auto;
   display: flex;
   justify-content: center;
+  cursor: default;
 }
 
 .construction-alert-left,
@@ -76,6 +77,7 @@
   width: 100%;
   text-align: center;
   margin: 0px 0px 5px 0px;
+  cursor: default;
 }
 
 .construction-content-container {
@@ -110,6 +112,7 @@
   color: var(--clr-text-grey);
   margin: 0px 0px 5px 0px;
   letter-spacing: 0.5px;
+  cursor: default;
 }
 
 .construction-content-links {

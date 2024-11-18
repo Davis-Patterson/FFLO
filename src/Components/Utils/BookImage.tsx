@@ -26,7 +26,13 @@ const BookImage: React.FC<BookImageProps> = ({
   if (!context) {
     throw new Error('No Context');
   }
-  const { bookmarkedBooks, setBookmarkedBooks } = context;
+  const {
+    authToken,
+    authUser,
+    bookmarkedBooks,
+    setBookmarkedBooks,
+    setShowAuth,
+  } = context;
 
   const [imgIndex, setImgIndex] = useState(1);
   const [nextIndex, setNextIndex] = useState(1);
@@ -54,15 +60,19 @@ const BookImage: React.FC<BookImageProps> = ({
     e.preventDefault();
     e.stopPropagation();
 
-    try {
-      const result = await createBookmark(bookId);
-      if (result.success) {
-        setBookmarkedBooks(result.data.bookmarks);
-      } else {
-        console.error(result.error || 'Failed to add bookmark');
+    if (!authToken || !authUser) {
+      setShowAuth(true);
+    } else {
+      try {
+        const result = await createBookmark(bookId);
+        if (result.success) {
+          setBookmarkedBooks(result.data.bookmarks);
+        } else {
+          console.error(result.error || 'Failed to add bookmark');
+        }
+      } catch (error) {
+        console.error('Error in handleAddBookmark:', error);
       }
-    } catch (error) {
-      console.error('Error in handleAddBookmark:', error);
     }
   };
 

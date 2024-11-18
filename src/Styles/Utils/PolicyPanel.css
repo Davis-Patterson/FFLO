@@ -83,6 +83,7 @@
   color: var(--clr-text-blue);
   width: auto;
   text-align: center;
+  cursor: default;
 }
 
 .policy-header-subtext {
@@ -94,6 +95,7 @@
   width: 100%;
   text-align: center;
   margin: 0px 0px 5px 0px;
+  cursor: default;
 }
 
 .policy-flair-left,
@@ -125,6 +127,7 @@
   font-weight: 600;
   color: var(--clr-text-blue);
   margin: 5px 0px 0px 0px;
+  cursor: default;
 }
 
 .policy-list-container {

@@ -24,6 +24,7 @@ const Categories: React.FC = () => {
     booksFetched,
     fetchError,
     visibleCategories,
+    setBookRows,
     categoryIconOptions,
     categoryColorOptions,
   } = context;
@@ -76,6 +77,7 @@ const Categories: React.FC = () => {
       setCategoryFilter(null);
     } else {
       setCategoryFilter(categoryId);
+      setBookRows(2);
     }
   };
 
@@ -169,6 +171,7 @@ const Categories: React.FC = () => {
                 className='categories-map-container'
                 style={{
                   transform: `translateX(-${translateValue}px)`,
+                  gap: categories.length < visibleCategories ? '20px' : '0px',
                 }}
               >
                 {sortedCategories.map((category) => {

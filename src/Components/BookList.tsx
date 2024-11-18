@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { AppContext } from 'Contexts/AppContext';
 import { Book } from 'Contexts/AppContext';
@@ -26,6 +26,9 @@ const BookList: React.FC = () => {
     allBooks,
     categoryFilter,
     bookmarkedBooks,
+    visibleBooks,
+    bookRows,
+    setBookRows,
     formatTitleForURL,
   } = context;
 
@@ -33,11 +36,13 @@ const BookList: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [viewSetting, setViewSetting] = useState<string>('grid');
   const [filterSetting, setFilterSetting] = useState<string>('title-asc');
-  const [visibleBooks, setVisibleBooks] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
   const [showBookmarks, setShowBookmarks] = useState(false);
   const [showUnavailable, setShowUnavailable] = useState(false);
   const [hovered, setHovered] = useState<number | null>(null);
+
+  const [updatedVisibleBooks, setUpdatedVisibleBooks] = useState(2);
+  const [visibleListBooks, setVisibleListBooks] = useState(10);
 
   // translations
   const gridViewText = language === 'EN' ? 'Grid' : 'Grille';
@@ -55,6 +60,24 @@ const BookList: React.FC = () => {
       ? 'Your search did not match the title or author of any book. Please try again.'
       : "Votre recherche ne correspond au titre ou à l'auteur d'aucun livre. Veuillez réessayer.";
 
+  useEffect(() => {
+    setBookRows(2);
+  }, []);
+
+  useEffect(() => {
+    if (window.innerWidth < 660) {
+      setViewSetting('grid');
+    }
+  });
+
+  useEffect(() => {
+    if (showSidebar) {
+      setUpdatedVisibleBooks(visibleBooks - 1);
+    } else {
+      setUpdatedVisibleBooks(visibleBooks);
+    }
+  }, [visibleBooks]);
+
   const handleToggleViewSetting = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
     event.preventDefault();
@@ -62,27 +85,48 @@ const BookList: React.FC = () => {
 
     if (viewSetting === 'grid') {
       setViewSetting('list');
+      setVisibleListBooks(10);
     }
     if (viewSetting === 'list') {
       setViewSetting('grid');
+      setVisibleListBooks(10);
     }
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
-    setVisibleBooks(10);
+    setVisibleListBooks(10);
+    setBookRows(2);
+  };
+
+  const handleViewMoreList = () => {
+    setVisibleListBooks((prev) => prev + 10);
   };
 
   const handleViewMore = () => {
-    setVisibleBooks((prev) => prev + 10);
+    setBookRows(bookRows + 2);
   };
 
-  const handleShowSidebar = (event: React.MouseEvent) => {
+  const handleOpenSidebar = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
     event.preventDefault();
     event.stopPropagation();
 
-    setShowSidebar(!showSidebar);
+    setShowSidebar(true);
+    setTimeout(() => {
+      setUpdatedVisibleBooks((prev) => prev - 1);
+    }, 300);
+  };
+
+  const handleCloseSidebar = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setShowSidebar(false);
+    setTimeout(() => {
+      setUpdatedVisibleBooks((prev) => prev + 1);
+    }, 700);
   };
 
   const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -143,10 +187,33 @@ const BookList: React.FC = () => {
       return 0;
     });
 
+  const listDisplayedBooks =
+    filterSetting === 'random'
+      ? shuffleArray(filteredBookList).slice(0, visibleListBooks)
+      : filteredBookList.slice(0, visibleListBooks);
+
   const displayedBooks =
     filterSetting === 'random'
-      ? shuffleArray(filteredBookList).slice(0, visibleBooks)
-      : filteredBookList.slice(0, visibleBooks);
+      ? shuffleArray(filteredBookList)
+      : filteredBookList;
+
+  const calculateBookRows = () => {
+    const rows: { books: Book[]; placeholders: number }[] = [];
+
+    for (let i = 0; i < bookRows; i++) {
+      const start = i * updatedVisibleBooks;
+      const end = start + updatedVisibleBooks;
+      const rowBooks = displayedBooks.slice(start, end);
+
+      const placeholders = Math.max(0, updatedVisibleBooks - rowBooks.length);
+
+      rows.push({ books: rowBooks, placeholders });
+    }
+
+    return rows;
+  };
+
+  const bookRowsData = calculateBookRows();
 
   return (
     <section className='book-list-container'>
@@ -155,12 +222,12 @@ const BookList: React.FC = () => {
           {showSidebar ? (
             <SidebarClose
               className='close-sidebar-icon'
-              onMouseDown={(e) => handleShowSidebar(e)}
+              onMouseDown={(e) => handleCloseSidebar(e)}
             />
           ) : (
             <SidebarOpen
               className='open-sidebar-icon'
-              onMouseDown={(e) => handleShowSidebar(e)}
+              onMouseDown={(e) => handleOpenSidebar(e)}
             />
           )}
         </div>
@@ -221,11 +288,12 @@ const BookList: React.FC = () => {
           setViewSetting={setViewSetting}
           filterSetting={filterSetting}
           setFilterSetting={setFilterSetting}
-          setVisibleBooks={setVisibleBooks}
+          setVisibleListBooks={setVisibleListBooks}
           showBookmarks={showBookmarks}
           setShowBookmarks={setShowBookmarks}
           showUnavailable={showUnavailable}
           setShowUnavailable={setShowUnavailable}
+          setUpdatedVisibleBooks={setUpdatedVisibleBooks}
         />
         {filteredBookList.length === 0 ? (
           <div className='book-grid-view'>
@@ -246,61 +314,75 @@ const BookList: React.FC = () => {
             {viewSetting === 'grid' && (
               <div className='book-list-submit-container'>
                 <div className='book-grid-view'>
-                  {displayedBooks.map((book: Book) => {
-                    const bookUrl = `/library/${formatTitleForURL(book.title)}`;
-                    return (
-                      <Link
-                        key={book.id}
-                        to={bookUrl}
-                        className={`${
-                          book.available < 1
-                            ? 'book-card-unavailable'
-                            : 'book-card'
-                        }`}
-                        onMouseEnter={() => setHovered(book.id)}
-                        onMouseLeave={() => setHovered(null)}
-                      >
-                        <BookImage
-                          book={book}
-                          viewSetting={viewSetting}
-                          hovered={hovered}
-                          setHovered={setHovered}
-                        />
-                        <div className='book-info'>
-                          <h3
+                  {bookRowsData.map((row, rowIndex) => (
+                    <div key={rowIndex} className='book-grid-row'>
+                      {row.books.map((book: Book) => {
+                        const bookUrl = `/library/${formatTitleForURL(
+                          book.title
+                        )}`;
+                        return (
+                          <Link
+                            key={book.id}
+                            to={bookUrl}
                             className={`${
                               book.available < 1
-                                ? 'book-title-unavailable'
-                                : 'book-title'
+                                ? 'book-card-unavailable'
+                                : 'book-card'
                             }`}
+                            onMouseEnter={() => setHovered(book.id)}
+                            onMouseLeave={() => setHovered(null)}
                           >
-                            {book.title}
-                          </h3>
-                          <p className='book-author'>{book.author}</p>
-                          <div className='book-language-rating-container'>
-                            <p className='book-language'>{book.language}</p>
-                            {getLanguageIcon(book.language)}
-                            <p className='pipe-icon'>|</p>
-                            <div className='rating-container'>
-                              {!book.rating && (
-                                <StarGrey className='book-grid-star-icon' />
-                              )}
-                              {book.rating && (
-                                <>
-                                  <StarColor className='book-grid-star-icon' />
-                                  <p className='book-grid-rating'>
-                                    {book.rating}
-                                  </p>
-                                </>
-                              )}
+                            <BookImage
+                              book={book}
+                              viewSetting={viewSetting}
+                              hovered={hovered}
+                              setHovered={setHovered}
+                            />
+                            <div className='book-info'>
+                              <h3
+                                className={`${
+                                  book.available < 1
+                                    ? 'book-title-unavailable'
+                                    : 'book-title'
+                                }`}
+                              >
+                                {book.title}
+                              </h3>
+                              <p className='book-author'>{book.author}</p>
+                              <div className='book-language-rating-container'>
+                                <p className='book-language'>{book.language}</p>
+                                {getLanguageIcon(book.language)}
+                                <p className='pipe-icon'>|</p>
+                                <div className='rating-container'>
+                                  {!book.rating && (
+                                    <StarGrey className='book-grid-star-icon' />
+                                  )}
+                                  {book.rating && (
+                                    <>
+                                      <StarColor className='book-grid-star-icon' />
+                                      <p className='book-grid-rating'>
+                                        {book.rating}
+                                      </p>
+                                    </>
+                                  )}
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </Link>
-                    );
-                  })}
+                          </Link>
+                        );
+                      })}
+                      {Array.from({ length: row.placeholders }).map(
+                        (_, index) => (
+                          <div
+                            key={`placeholder-${rowIndex}-${index}`}
+                            className='book-card-placeholder'
+                          />
+                        )
+                      )}
+                    </div>
+                  ))}
                 </div>
-                {visibleBooks < filteredBookList.length && (
+                {bookRows * updatedVisibleBooks < filteredBookList.length && (
                   <div className='view-more-button-container'>
                     <button
                       onClick={handleViewMore}
@@ -315,7 +397,7 @@ const BookList: React.FC = () => {
             {viewSetting === 'list' && (
               <div className='book-list-submit-container'>
                 <div className='book-list-view'>
-                  {displayedBooks.map((book: Book) => {
+                  {listDisplayedBooks.map((book: Book) => {
                     const bookUrl = `/library/${formatTitleForURL(book.title)}`;
                     return (
                       <Link
@@ -384,10 +466,10 @@ const BookList: React.FC = () => {
                     );
                   })}
                 </div>
-                {visibleBooks < filteredBookList.length && (
+                {visibleListBooks < filteredBookList.length && (
                   <div className='view-more-button-container'>
                     <button
-                      onClick={handleViewMore}
+                      onClick={handleViewMoreList}
                       className='view-more-button'
                     >
                       View More

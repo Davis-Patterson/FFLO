@@ -87,6 +87,7 @@
   color: var(--clr-text-blue);
   width: auto;
   text-align: center;
+  cursor: default;
 }
 
 .about-header-title-container {
@@ -131,6 +132,7 @@
   color: var(--clr-text-blue);
   width: auto;
   text-align: center;
+  cursor: default;
 }
 
 .about-header-title-subtext {
@@ -141,6 +143,7 @@
   color: var(--clr-text-blue);
   width: auto;
   text-align: center;
+  cursor: default;
 }
 
 .about-header-subtext-container {
@@ -157,6 +160,7 @@
   font-weight: 600;
   line-height: 1.2;
   transform: scaleY(90%);
+  cursor: default;
 }
 .about-header-subtext.blue {
   color: var(--clr-text-blue);

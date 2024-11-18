@@ -19,6 +19,7 @@
   font-weight: bold;
   color: var(--clr-text-grey);
   margin: 8px 0px 6px 0px;
+  cursor: default;
 }
 
 .history-search-container {

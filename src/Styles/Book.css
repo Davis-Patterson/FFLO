@@ -59,6 +59,7 @@
   width: auto;
   text-align: center;
   margin: 0px 0px 20px 0px;
+  cursor: default;
 }
 
 .book-title-text {
@@ -69,6 +70,7 @@
   color: var(--clr-text-blue);
   width: auto;
   text-align: center;
+  cursor: default;
 }
 
 .book-details {
@@ -129,6 +131,7 @@
   font-weight: bold;
   text-transform: uppercase;
   z-index: 1;
+  cursor: default;
 }
 
 .book-detail-image-wrapper,
@@ -218,6 +221,7 @@
   transform: scaleY(95%);
   color: var(--clr-text-blue);
   margin: 0px 0px 5px 0px;
+  cursor: default;
 }
 
 .book-detail-author-text {
@@ -228,6 +232,7 @@
   transform: scaleY(95%);
   color: var(--clr-text-grey);
   margin: 0;
+  cursor: default;
 }
 
 .book-detail-available {
@@ -243,6 +248,7 @@
   text-align: center;
   padding: 3px 1px 3px 1px;
   border-radius: 8px;
+  cursor: default;
 }
 
 .book-detail-unavailable {
@@ -258,6 +264,7 @@
   text-align: center;
   padding: 3px 1px 3px 1px;
   border-radius: 8px;
+  cursor: default;
 }
 
 .book-detail-quantity {

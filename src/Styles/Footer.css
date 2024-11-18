@@ -76,6 +76,7 @@
   color: var(--clr-text-blue);
   width: auto;
   text-align: center;
+  cursor: default;
 }
 
 .FFLO-footer-subtext {
@@ -87,6 +88,7 @@
   width: auto;
   text-align: center;
   margin-top: 10px;
+  cursor: default;
 }
 
 .footer-address-container {
@@ -134,6 +136,7 @@
   width: auto;
   text-align: left;
   margin: 20px;
+  cursor: default;
 }
 
 .social-media-container {

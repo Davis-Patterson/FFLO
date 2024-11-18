@@ -19,10 +19,12 @@ const MiniBookList: React.FC = () => {
     throw new Error('No Context');
   }
   const {
+    authToken,
     authUser,
     allBooks,
     bookmarkedBooks,
     setBookmarkedBooks,
+    setShowAuth,
     formatTitleForURL,
   } = context;
 
@@ -62,15 +64,19 @@ const MiniBookList: React.FC = () => {
     e.preventDefault();
     e.stopPropagation();
 
-    try {
-      const result = await createBookmark(bookId);
-      if (result.success) {
-        setBookmarkedBooks(result.data.bookmarks);
-      } else {
-        console.error(result.error || 'Failed to add bookmark');
+    if (!authToken || !authUser) {
+      setShowAuth(true);
+    } else {
+      try {
+        const result = await createBookmark(bookId);
+        if (result.success) {
+          setBookmarkedBooks(result.data.bookmarks);
+        } else {
+          console.error(result.error || 'Failed to add bookmark');
+        }
+      } catch (error) {
+        console.error('Error in handleAddBookmark:', error);
       }
-    } catch (error) {
-      console.error('Error in handleAddBookmark:', error);
     }
   };
 

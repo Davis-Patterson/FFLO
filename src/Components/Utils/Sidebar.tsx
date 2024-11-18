@@ -19,11 +19,12 @@ interface SidebarProps {
   setViewSetting: React.Dispatch<React.SetStateAction<string>>;
   filterSetting: string;
   setFilterSetting: React.Dispatch<React.SetStateAction<string>>;
-  setVisibleBooks: React.Dispatch<React.SetStateAction<number>>;
+  setVisibleListBooks: React.Dispatch<React.SetStateAction<number>>;
   showBookmarks: boolean;
   setShowBookmarks: React.Dispatch<React.SetStateAction<boolean>>;
   showUnavailable: boolean;
   setShowUnavailable: React.Dispatch<React.SetStateAction<boolean>>;
+  setUpdatedVisibleBooks: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -35,11 +36,12 @@ const Sidebar: React.FC<SidebarProps> = ({
   setViewSetting,
   filterSetting,
   setFilterSetting,
-  setVisibleBooks,
+  setVisibleListBooks,
   showBookmarks,
   setShowBookmarks,
   showUnavailable,
   setShowUnavailable,
+  setUpdatedVisibleBooks,
 }) => {
   const context = useContext(AppContext);
   if (!context) {
@@ -53,6 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     categories,
     categoryFilter,
     setCategoryFilter,
+    setBookRows,
   } = context;
 
   const uniqueLanguages = Array.from(
@@ -80,12 +83,15 @@ const Sidebar: React.FC<SidebarProps> = ({
     language === 'EN' ? 'View Settings' : 'Afficher les paramètres';
   const unavailableText = language === 'EN' ? 'Unavailable' : 'Indisponible';
 
-  const handleShowSidebar = (event: React.MouseEvent) => {
+  const handleCloseSidebar = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
     event.preventDefault();
     event.stopPropagation();
 
-    setShowSidebar(!showSidebar);
+    setShowSidebar(false);
+    setTimeout(() => {
+      setUpdatedVisibleBooks((prev) => prev + 1);
+    }, 700);
   };
 
   const handleCategoryFilter = (
@@ -101,6 +107,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       setCategoryFilter(null);
     } else {
       setCategoryFilter(categoryId);
+      setBookRows(2);
     }
   };
 
@@ -129,15 +136,18 @@ const Sidebar: React.FC<SidebarProps> = ({
     if (showBookmarks) {
       setCategoryFilter(null);
       setShowBookmarks(false);
+      setBookRows(2);
     } else {
       setCategoryFilter(null);
       setShowBookmarks(true);
+      setBookRows(2);
     }
   };
 
   const handleLanguageFilter = (language: string | null) => {
     setSelectedLanguage(language);
-    setVisibleBooks(10);
+    setVisibleListBooks(10);
+    setBookRows(2);
   };
 
   const handleViewSettingChange = (
@@ -202,36 +212,39 @@ const Sidebar: React.FC<SidebarProps> = ({
                 >
                   {bookmarksText}
                 </p>
-                {categories.map((category) => {
-                  const isSelected = categoryFilter === category.id;
-                  const className = `${
-                    categoryFilter === null
-                      ? 'sidebar-content-item'
-                      : isSelected
-                      ? 'sidebar-content-item-selected'
-                      : 'sidebar-content-item-deselected'
-                  }`;
-                  return (
-                    <div
-                      key={category.id}
-                      className='sidebar-content-item-container'
-                    >
-                      <p
-                        className={className}
-                        onMouseDown={(e) =>
-                          handleCategoryFilter(e, category.id)
-                        }
+                {categories
+                  .slice()
+                  .sort((a, b) => a.sort_order - b.sort_order)
+                  .map((category) => {
+                    const isSelected = categoryFilter === category.id;
+                    const className = `${
+                      categoryFilter === null
+                        ? 'sidebar-content-item'
+                        : isSelected
+                        ? 'sidebar-content-item-selected'
+                        : 'sidebar-content-item-deselected'
+                    }`;
+                    return (
+                      <div
+                        key={category.id}
+                        className='sidebar-content-item-container'
                       >
-                        {category.name}
-                      </p>
-                      {category.flair && (
-                        <p className='sidebar-category-flair'>
-                          {category.flair}
+                        <p
+                          className={className}
+                          onMouseDown={(e) =>
+                            handleCategoryFilter(e, category.id)
+                          }
+                        >
+                          {category.name}
                         </p>
-                      )}
-                    </div>
-                  );
-                })}
+                        {category.flair && (
+                          <p className='sidebar-category-flair'>
+                            {category.flair}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
               </div>
               {authUser?.is_staff && (
                 <div className='edit-categories-sidebar-toggle-container'>
@@ -409,7 +422,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </div>
           <div
             className='close-sidebar-container'
-            onMouseDown={(e) => handleShowSidebar(e)}
+            onMouseDown={(e) => handleCloseSidebar(e)}
             style={{
               transform: showSidebar ? 'translateX(0%)' : 'translateX(-100%)',
             }}

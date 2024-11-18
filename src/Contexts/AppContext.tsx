@@ -214,6 +214,9 @@ interface AppContextType {
   setFetchError: (value: boolean) => void;
 
   visibleCategories: number;
+  visibleBooks: number;
+  bookRows: number;
+  setBookRows: (bookRows: number) => void;
 
   clearAuthToken: () => void;
   clearAuthUser: () => void;
@@ -307,10 +310,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     );
   };
 
-  const [tokenVerified, setTokenVerified] = useState(false);
-  const [booksFetched, setBooksFetched] = useState(false);
-  const [categoriesFetched, setCategoriesFetched] = useState(false);
-  const [reviewsFetched, setReviewsFetched] = useState(false);
+  const [tokenVerified, setTokenVerified] = useState<boolean>(false);
+  const [booksFetched, setBooksFetched] = useState<boolean>(false);
+  const [categoriesFetched, setCategoriesFetched] = useState<boolean>(false);
+  const [reviewsFetched, setReviewsFetched] = useState<boolean>(false);
 
   const [bookmarkedBooks, setBookmarkedBooks] = useState<Book[]>([]);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
@@ -325,8 +328,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     author: '',
     desc: '',
   });
-  const [isPaused, setIsPaused] = useState(false);
-  const [wasPaused, setWasPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [wasPaused, setWasPaused] = useState<boolean>(false);
 
   const [showAuth, setShowAuth] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -341,32 +344,74 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   });
   const [categoryFilter, setCategoryFilter] = useState<number | null>(null);
 
-  const [fetchError, setFetchError] = useState(false);
+  const [fetchError, setFetchError] = useState<boolean>(false);
 
   const [visibleCategories, setVisibleCategories] = useState<number>(4);
+  const [visibleBooks, setVisibleBooks] = useState<number>(4);
+  const [bookRows, setBookRows] = useState<number>(2);
 
   const determineCategoryItems = (): void => {
     if (window.innerWidth <= 649) {
       setVisibleCategories(2);
     }
-    if (window.innerWidth >= 650 && window.innerWidth <= 950) {
+    if (window.innerWidth >= 650 && window.innerWidth <= 849) {
       setVisibleCategories(3);
     }
-    if (window.innerWidth >= 851 && window.innerWidth <= 1050) {
+    if (window.innerWidth >= 850 && window.innerWidth <= 1049) {
       setVisibleCategories(4);
     }
-    if (window.innerWidth >= 1051 && window.innerWidth <= 1250) {
+    if (window.innerWidth >= 1050 && window.innerWidth <= 1249) {
       setVisibleCategories(5);
     }
-    if (window.innerWidth > 1251) {
+    if (window.innerWidth >= 1250 && window.innerWidth <= 1449) {
       setVisibleCategories(6);
+    }
+    if (window.innerWidth > 1450) {
+      setVisibleCategories(7);
+    }
+  };
+
+  const determineBookItems = (): void => {
+    if (window.innerWidth <= 499) {
+      setVisibleBooks(1);
+    }
+    if (window.innerWidth >= 500 && window.innerWidth <= 699) {
+      setVisibleBooks(2);
+    }
+    if (window.innerWidth >= 700 && window.innerWidth <= 879) {
+      setVisibleBooks(3);
+    }
+    if (window.innerWidth >= 880 && window.innerWidth <= 1059) {
+      setVisibleBooks(4);
+    }
+    if (window.innerWidth >= 1060 && window.innerWidth <= 1249) {
+      setVisibleBooks(5);
+    }
+    if (window.innerWidth >= 1250 && window.innerWidth <= 1439) {
+      setVisibleBooks(6);
+    }
+    if (window.innerWidth >= 1440 && window.innerWidth <= 1629) {
+      setVisibleBooks(7);
+    }
+    if (window.innerWidth >= 1630 && window.innerWidth <= 1819) {
+      setVisibleBooks(8);
+    }
+    if (window.innerWidth >= 1820 && window.innerWidth <= 2009) {
+      setVisibleBooks(9);
+    }
+    if (window.innerWidth > 2010) {
+      setVisibleBooks(10);
     }
   };
 
   useEffect(() => {
-    determineCategoryItems();
+    const handleResize = () => {
+      determineCategoryItems();
+      determineBookItems();
+    };
 
-    const handleResize = () => determineCategoryItems();
+    handleResize();
+
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -568,6 +613,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         fetchError,
         setFetchError,
         visibleCategories,
+        visibleBooks,
+        bookRows,
+        setBookRows,
         clearAuthToken,
         clearAuthUser,
         handleLanguageChange,

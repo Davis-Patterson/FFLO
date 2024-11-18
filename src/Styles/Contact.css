@@ -58,6 +58,7 @@
   color: var(--clr-text-blue);
   width: auto;
   text-align: center;
+  cursor: default;
 }
 
 .contact-title-subtext {
@@ -69,6 +70,7 @@
   width: 100%;
   text-align: center;
   margin: 15px 0px 15px 0px;
+  cursor: default;
 }
 
 .contact-content-container {
@@ -139,6 +141,7 @@
   width: 100%;
   text-align: center;
   transform: scaleY(90%);
+  cursor: default;
 }
 
 .contact-socials-container {

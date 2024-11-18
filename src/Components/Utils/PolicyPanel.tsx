@@ -13,7 +13,6 @@ const PolicyPanel: React.FC = () => {
     throw new Error('No Context');
   }
   const {
-    authToken,
     showPolicyWindow,
     setShowPolicyWindow,
     language,
@@ -117,49 +116,41 @@ const PolicyPanel: React.FC = () => {
                 onMouseDown={(e) => handleClose(e)}
               />
             </div>
-            {authToken && (
-              <>
-                <div className='policy-header'>
-                  <TitleFlair className='policy-flair-left' />
-                  <p className='policy-header-text'>
-                    {lostBookPolicyHeaderText}
+            <div className='policy-header'>
+              <TitleFlair className='policy-flair-left' />
+              <p className='policy-header-text'>{lostBookPolicyHeaderText}</p>
+              <TitleFlair className='policy-flair-right' />
+            </div>
+            <p className='policy-header-subtext'>
+              {lostBookPolicyHeaderSubtext}
+            </p>
+            <div className='policy-main-container'>
+              <p className='policy-main-text'>{policyMainText}</p>
+              <ol className='policy-list-container'>
+                <li className='policy-secondary-text'>
+                  {lostBooksText}
+                  <p className='policy-secondary-subtext'>{lostBooksPolicy}</p>
+                </li>
+                <li className='policy-secondary-text'>
+                  {unreturnedBooksText}
+                  <p className='policy-secondary-subtext'>
+                    {unreturnedBooksPolicy}
                   </p>
-                  <TitleFlair className='policy-flair-right' />
-                </div>
-                <p className='policy-header-subtext'>
-                  {lostBookPolicyHeaderSubtext}
-                </p>
-                <div className='policy-main-container'>
-                  <p className='policy-main-text'>{policyMainText}</p>
-                  <ol className='policy-list-container'>
-                    <li className='policy-secondary-text'>
-                      {lostBooksText}
-                      <p className='policy-secondary-subtext'>
-                        {lostBooksPolicy}
-                      </p>
-                    </li>
-                    <li className='policy-secondary-text'>
-                      {unreturnedBooksText}
-                      <p className='policy-secondary-subtext'>
-                        {unreturnedBooksPolicy}
-                      </p>
-                    </li>
-                    <li className='policy-secondary-text'>
-                      {replacementCostText}
-                      <p className='policy-secondary-subtext'>
-                        {replacementCostPolicy}
-                      </p>
-                    </li>
-                    <li className='policy-secondary-text'>
-                      {communicationText}
-                      <p className='policy-secondary-subtext'>
-                        {communicationPolicy}
-                      </p>
-                    </li>
-                  </ol>
-                </div>
-              </>
-            )}
+                </li>
+                <li className='policy-secondary-text'>
+                  {replacementCostText}
+                  <p className='policy-secondary-subtext'>
+                    {replacementCostPolicy}
+                  </p>
+                </li>
+                <li className='policy-secondary-text'>
+                  {communicationText}
+                  <p className='policy-secondary-subtext'>
+                    {communicationPolicy}
+                  </p>
+                </li>
+              </ol>
+            </div>
           </section>
         </div>
       )}

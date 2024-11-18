@@ -257,6 +257,7 @@
   color: var(--clr-text-blue);
   width: auto;
   text-align: center;
+  cursor: default;
 }
 
 .edit-header-subtext {
@@ -268,6 +269,7 @@
   width: 100%;
   text-align: center;
   margin: 0px 0px 5px 0px;
+  cursor: default;
 }
 
 .edit-flair-left,

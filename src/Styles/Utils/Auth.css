@@ -117,6 +117,7 @@
   line-height: 1;
   font-weight: 300;
   color: var(--clr-text-blue);
+  cursor: default;
 }
 
 .auth-header-subtext {
@@ -128,6 +129,7 @@
   width: 100%;
   text-align: center;
   margin: 0px 0px 5px 0px;
+  cursor: default;
 }
 
 .auth-flair-left,

@@ -242,6 +242,8 @@ const Home: React.FC = () => {
                     className='home-categories-map-container'
                     style={{
                       transform: `translateX(-${translateValue}px)`,
+                      gap:
+                        categories.length < visibleCategories ? '20px' : '0px',
                     }}
                   >
                     {sortedCategories.map((category) => {
