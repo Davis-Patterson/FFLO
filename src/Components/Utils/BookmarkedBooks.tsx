@@ -7,6 +7,7 @@ import StarGrey from 'Svgs/StarGrey';
 import FrenchFlag from 'Svgs/FrenchFlag';
 import UKFlag from 'Svgs/UKFlag';
 import 'Styles/Utils/BookmarkedBooks.css';
+import BookmarkedIcon from 'Svgs/BookmarkedIcon';
 
 const BookmarkedBooks: React.FC = () => {
   const context = useContext(AppContext);
@@ -56,7 +57,10 @@ const BookmarkedBooks: React.FC = () => {
   return (
     <section className='bookmarked-books-container'>
       <header className='bookmarked-books-header'>
-        <h3 className='bookmarked-books-header-text'>{headerText}</h3>
+        <div className='bookmarked-books-header-text-icon'>
+          <h3 className='bookmarked-books-header-text'>{headerText}</h3>
+          <BookmarkedIcon className='bookmarked-books-icon' />
+        </div>
       </header>
       <div className='bookmarked-books-grid'>
         {bookmarkedBooks.map((book) => {

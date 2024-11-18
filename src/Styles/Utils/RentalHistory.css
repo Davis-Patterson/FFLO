@@ -13,6 +13,13 @@
   justify-content: space-between;
 }
 
+.rental-history-header-text-icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
 .rental-history-header-text {
   font-family: 'Merriweather', sans-serif;
   font-size: 1.2rem;
@@ -21,6 +28,12 @@
   margin: 8px 0px 6px 0px;
   cursor: default;
   transform: scaleY(90%);
+}
+
+.rental-history-icon {
+  fill: var(--clr-divider);
+  width: 25px;
+  height: 25px;
 }
 
 .history-search-container {

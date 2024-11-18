@@ -10,6 +10,7 @@ import EnglishBookIcon from 'Svgs/EnglishBookIcon';
 import DefaultBookIcon from 'Svgs/DefaultBookIcon';
 import BookStack from 'Svgs/BookStack';
 import 'Styles/Utils/RentalHistory.css';
+import HistoryIcon from 'Svgs/HistoryIcon';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 
@@ -102,7 +103,10 @@ const RentalHistory: React.FC = () => {
     return (
       <section className='rental-history-container'>
         <header className='rental-history-header'>
-          <h3 className='rental-history-header-text'>{rentalHistoryText}</h3>
+          <div className='rental-history-header-text-icon'>
+            <h3 className='rental-history-header-text'>{rentalHistoryText}</h3>
+            <HistoryIcon className='rental-history-icon' />
+          </div>
           <div className='history-search-container'>
             <input
               type='text'
@@ -175,9 +179,10 @@ const RentalHistory: React.FC = () => {
     return (
       <section className='rental-history-container'>
         <header className='rental-history-header'>
-          <h3 className='rental-history-header-text'>
-            {language === 'EN' ? 'Rental History' : 'Historique de location'}
-          </h3>
+          <div className='rental-history-header-text-icon'>
+            <h3 className='rental-history-header-text'>{rentalHistoryText}</h3>
+            <HistoryIcon className='rental-history-icon' />
+          </div>
           <div className='history-search-container'>
             <input
               type='text'
@@ -221,7 +226,10 @@ const RentalHistory: React.FC = () => {
   return (
     <section className='rental-history-container'>
       <header className='rental-history-header'>
-        <h3 className='rental-history-header-text'>{rentalHistoryText}</h3>
+        <div className='rental-history-header-text-icon'>
+          <h3 className='rental-history-header-text'>{rentalHistoryText}</h3>
+          <HistoryIcon className='rental-history-icon' />
+        </div>
         <div className='history-search-container'>
           <input
             type='text'
