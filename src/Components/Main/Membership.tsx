@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { useNavigate } from 'react-router-dom';
 import TitleFlair from 'Svgs/TitleFlair';
-import 'Styles/Membership.css';
+import 'Styles/Main/Membership.css';
 
 const Membership: React.FC = () => {
   const context = useContext(AppContext);

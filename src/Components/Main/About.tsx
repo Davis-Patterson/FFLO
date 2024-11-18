@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import Letter from 'Components/Letter';
+import Letter from 'Components/Main/Letter';
 import TitleFlair from 'Svgs/TitleFlair';
 import aboutImg from 'FFLO/book_pile.webp';
 import aboutImgSmall from 'FFLO/book_pile_small.webp';
@@ -8,7 +8,7 @@ import introImg from 'FFLO/books.webp';
 import introImgSmall from 'FFLO/books_small.webp';
 import membershipImg from 'FFLO/book_spread.webp';
 import membershipImgSmall from 'FFLO/book_spread_small.webp';
-import 'Styles/About.css';
+import 'Styles/Main/About.css';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 

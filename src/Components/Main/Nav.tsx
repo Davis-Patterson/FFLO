@@ -1,10 +1,10 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Link, useLocation } from 'react-router-dom';
 import ffloLogo from 'Assets/Logos/fflo-logo.webp';
 import LinkIcon from 'Svgs/LinkIcon';
-import 'Styles/Nav.css';
+import 'Styles/Main/Nav.css';
+import ListIcon from 'Svgs/ListIcon';
 
 const Nav: React.FC = () => {
   const context = useContext(AppContext);
@@ -12,16 +12,12 @@ const Nav: React.FC = () => {
     throw new Error('No Context');
   }
 
-  const { setShowAuth, authUser, language, handleLanguageChange } = context;
+  const { setShowMenu, setShowAuth, authUser, language, handleLanguageChange } =
+    context;
+
+  const [mobileWidth, setMobileWidth] = useState(false);
 
   const location = useLocation();
-
-  const handleLogin = (event: React.MouseEvent) => {
-    if (event.button !== 0) return;
-    event.preventDefault();
-    event.stopPropagation();
-    setShowAuth(true);
-  };
 
   // translations
   const loginText = language === 'EN' ? 'Login' : 'Se Connecter';
@@ -31,6 +27,44 @@ const Nav: React.FC = () => {
   const contactText = language === 'EN' ? 'Contact' : 'Contact';
   const ffloMainText = language === 'EN' ? 'FFLO' : 'Contact';
   const flairText = language === 'EN' ? 'NEW' : 'NEW';
+
+  const handleLogin = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setShowAuth(true);
+  };
+
+  const handleMenuOpen = (event: React.MouseEvent) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+
+    setShowMenu(true);
+  };
+
+  const determineScreenWidth = (): void => {
+    if (window.innerWidth < 580) {
+      setMobileWidth(true);
+    } else {
+      setMobileWidth(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      determineScreenWidth();
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -57,13 +91,21 @@ const Nav: React.FC = () => {
               <img src={ffloLogo} alt='FFLO Logo' className='logo-img' />
             </Link>
           </div>
-          <div className='nav-profile'>
-            {!authUser && (
+          {mobileWidth ? (
+            <div className='nav-menu-toggle-container'>
+              <ListIcon
+                className='nav-menu-toggle'
+                onMouseDown={(e) => handleMenuOpen(e)}
+              />
+            </div>
+          ) : !authUser ? (
+            <div className='nav-profile'>
               <p className='login-text' onMouseDown={(e) => handleLogin(e)}>
                 {loginText}
               </p>
-            )}
-            {authUser && (
+            </div>
+          ) : (
+            <div className='nav-profile'>
               <Link to='/profile'>
                 {authUser.image && authUser.image.image_small ? (
                   <div className='nav-user-image-container'>
@@ -84,8 +126,8 @@ const Nav: React.FC = () => {
                   </div>
                 )}
               </Link>
-            )}
-          </div>
+            </div>
+          )}
         </header>
         <div className='nav-links'>
           <Link to='/'>

@@ -5,7 +5,7 @@ import AlertIcon from 'Svgs/AlertIcon';
 import PointingIcon from 'Svgs/PointingIcon';
 import BulletPoint from 'Svgs/BulletPoint';
 import SadBookIcon from 'Svgs/SadBookIcon';
-import BookList from 'Components/BookList';
+import BookList from 'Components/Main/BookList';
 import 'Styles/Tools/BookNotFound.css';
 
 const BookNotFound: React.FC = () => {

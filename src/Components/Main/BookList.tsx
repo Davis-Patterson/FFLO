@@ -13,7 +13,7 @@ import FrenchFlag from 'Svgs/FrenchFlag';
 import UKFlag from 'Svgs/UKFlag';
 import StarColor from 'Svgs/StarColor';
 import StarGrey from 'Svgs/StarGrey';
-import 'Styles/BookList.css';
+import 'Styles/Main/BookList.css';
 
 const BookList: React.FC = () => {
   const { title } = useParams<{ title: string }>();

@@ -193,6 +193,8 @@ interface AppContextType {
   wasPaused: boolean;
   setWasPaused: (value: boolean) => void;
 
+  showMenu: boolean;
+  setShowMenu: (value: boolean) => void;
   showAuth: boolean;
   setShowAuth: (value: boolean) => void;
   showEdit: boolean;
@@ -331,6 +333,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [wasPaused, setWasPaused] = useState<boolean>(false);
 
+  const [showMenu, setShowMenu] = useState(true);
   const [showAuth, setShowAuth] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [showAddBookWindow, setShowAddBookWindow] = useState<boolean>(false);
@@ -572,6 +575,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setReviews,
         updateSingleReview,
         deleteSingleReview,
+
         tokenVerified,
         setTokenVerified,
         booksFetched,
@@ -580,12 +584,15 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setCategoriesFetched,
         reviewsFetched,
         setReviewsFetched,
+
         bookmarkedBooks,
         setBookmarkedBooks,
         selectedBook,
         setSelectedBook,
+
         membershipBannerDismissed,
         setMembershipBannerDismissed,
+
         showFullscreen,
         setShowFullscreen,
         fullscreenData,
@@ -594,6 +601,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setIsPaused,
         wasPaused,
         setWasPaused,
+
+        showMenu,
+        setShowMenu,
         showAuth,
         setShowAuth,
         showEdit,
@@ -606,16 +616,19 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setShowCategoryEditWindow,
         showPolicyWindow,
         setShowPolicyWindow,
+
         language,
         setLanguage,
         categoryFilter,
         setCategoryFilter,
         fetchError,
         setFetchError,
+
         visibleCategories,
         visibleBooks,
         bookRows,
         setBookRows,
+
         clearAuthToken,
         clearAuthUser,
         handleLanguageChange,

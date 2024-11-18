@@ -6,8 +6,8 @@ import libraryShelfImg from 'FFLO/library_shelf.webp';
 import libraryShelfSmall from 'FFLO/library_shelf_small.webp';
 import introImg from 'FFLO/book_pile.webp';
 import introImgSmall from 'FFLO/book_pile_small.webp';
-import 'Styles/Home.css';
 import ChevronRight from 'Svgs/ChevronRight';
+import 'Styles/Main/Home.css';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 

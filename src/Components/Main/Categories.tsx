@@ -2,8 +2,8 @@ import { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import TitleFlair from 'Svgs/TitleFlair';
 import GearIcon from 'Svgs/GearIcon';
-import BookList from 'Components/BookList';
-import 'Styles/Categories.css';
+import BookList from 'Components/Main/BookList';
+import 'Styles/Main/Categories.css';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 

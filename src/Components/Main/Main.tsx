@@ -2,8 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { AppProvider } from 'Contexts/AppContext.jsx';
-import App from 'Components/App.tsx';
-import 'Styles/Main.css';
+import App from 'Components/Main/App';
+import 'Styles/Main/Main.css';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

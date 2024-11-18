@@ -10,8 +10,8 @@ import { Routes, Route } from 'react-router-dom';
 import AuthApi from 'Utilities/AuthApi';
 import ServerApi from 'Utilities/ServerApi';
 import Fullscreen from 'Utils/Fullscreen';
-import Auth from 'Components/Utils/Auth';
-import Membership from 'Components/Membership';
+import Auth from 'Utils/Auth';
+import Membership from 'Components/Main/Membership';
 import AdminPanel from 'Admin/AdminPanel';
 import EditProfile from 'Utils/EditProfile';
 import AddBook from 'Utils/AddBook';
@@ -19,10 +19,11 @@ import EditBook from 'Utils/EditBook';
 import EditCategories from 'Utils/EditCategories';
 import PolicyPanel from 'Utils/PolicyPanel';
 import AnnouncementBanner from 'Utils/AnnouncementBanner';
-import Nav from 'Components/Nav';
+import Nav from 'Components/Main/Nav';
+import Menu from 'Components/Main/Menu';
 import NotFound from 'Tools/NotFound';
 import BookNotFound from 'Tools/BookNotFound';
-import Footer from 'Components/Utils/Footer';
+import Footer from 'Utils/Footer';
 import ProtectedRoute from 'Tools/ProtectedRoute';
 import AdminRoute from 'Tools/AdminRoute';
 import Construction from 'Tools/Construction';
@@ -33,14 +34,14 @@ import AboutFallback from 'Tools/AboutFallback';
 import ContactFallback from 'Tools/ContactFallback';
 import UserProfileFallback from 'Tools/UserProfileFallback';
 import Restricted from 'Tools/Restricted';
-import 'Styles/App.css';
+import 'Styles/Main/App.css';
 
-const Home = lazy(() => import('Components/Home'));
-const Book = lazy(() => import('Components/Book'));
-const Categories = lazy(() => import('Components/Categories'));
-const About = lazy(() => import('Components/About'));
-const Contact = lazy(() => import('Components/Contact'));
-const UserProfile = lazy(() => import('Components/UserProfile'));
+const Home = lazy(() => import('Components/Main/Home'));
+const Book = lazy(() => import('Components/Main/Book'));
+const Categories = lazy(() => import('Components/Main/Categories'));
+const About = lazy(() => import('Components/Main/About'));
+const Contact = lazy(() => import('Components/Main/Contact'));
+const UserProfile = lazy(() => import('Components/Main/UserProfile'));
 
 let isVerificationRunning = false;
 let areBooksFetching = false;
@@ -208,6 +209,7 @@ const App: React.FC = () => {
   return (
     <>
       {showFullscreen && <Fullscreen />}
+      <Menu />
       <Auth />
       <EditProfile />
       <AddBook />

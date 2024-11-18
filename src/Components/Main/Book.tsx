@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ServerApi from 'Utilities/ServerApi';
 import ReservationApi from 'Utilities/ReservationApi';
 import Slideshow from 'Utils/Slideshow';
-import BookList from 'Components/BookList';
+import BookList from 'Components/Main/BookList';
 import BookNotFound from 'Tools/BookNotFound';
 import BookRating from 'Utils/BookRating';
 import TitleFlair from 'Svgs/TitleFlair';
@@ -20,7 +20,7 @@ import StarGrey from 'Svgs/StarGrey';
 import BookOpenIcon from 'Svgs/BookOpenIcon';
 import BookFallback from 'Tools/BookFallback';
 import LinearProgress from '@mui/material/LinearProgress';
-import 'Styles/Book.css';
+import 'Styles/Main/Book.css';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 

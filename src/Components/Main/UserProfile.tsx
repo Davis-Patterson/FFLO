@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Link, useNavigate } from 'react-router-dom';
-import MiniBookList from 'Components/Utils/MiniBookList';
+import MiniBookList from 'Utils/MiniBookList';
 import MembershipStatus from 'Utils/MembershipStatus';
 import OnHold from 'Utils/OnHold';
 import CheckedOut from 'Utils/CheckedOut';
@@ -21,7 +21,7 @@ import BookAddIcon from 'Svgs/BookAddIcon';
 import CategoriesIcon from 'Svgs/CategoriesIcon';
 import RentalsIcon from 'Svgs/RentalsIcon';
 import MembersIcon from 'Svgs/MembersIcon';
-import 'Styles/UserProfile.css';
+import 'Styles/Main/UserProfile.css';
 
 const UserProfile: React.FC = () => {
   const context = useContext(AppContext);

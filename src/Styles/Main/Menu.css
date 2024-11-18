@@ -1,0 +1,104 @@
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 20;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.menu-container {
+  background-color: var(--clr-background);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  z-index: 1001;
+  transition: opacity 0.5s ease-in;
+  position: relative;
+  min-width: 300px;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.menu-portal-top-toggles {
+  width: 100%;
+  justify-content: space-between;
+  margin: 0px 0px 10px 0px;
+}
+
+.menu-language-toggle {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+}
+
+.menu-x-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  fill: var(--clr-break);
+}
+.menu-x-icon:hover {
+  fill: var(--clr-dark);
+}
+
+.menu-header {
+  display: flex;
+  justify-content: center;
+  margin: 0px 0px 20px 0px;
+  width: 100%;
+  min-width: 299px;
+}
+
+.menu-header-text {
+  font-family: 'Sacramento', sans-serif;
+  font-size: 2.5em;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--clr-text-blue);
+  cursor: default;
+}
+
+.menu-header-subtext {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--clr-dark);
+  width: 100%;
+  text-align: center;
+  margin: 0px 0px 5px 0px;
+  cursor: default;
+}
+
+.menu-flair-left,
+.menu-flair-right {
+  fill: var(--clr-title-flair);
+  width: 35px;
+  height: 35px;
+}
+.menu-flair-left {
+  margin: 0px 20px 0px 0px;
+}
+.menu-flair-right {
+  transform: scaleX(-1);
+  margin: 0px 0px 0px 20px;
+}

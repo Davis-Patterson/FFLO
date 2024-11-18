@@ -5,7 +5,7 @@ import AlertIcon from 'Svgs/AlertIcon';
 import PointingIcon from 'Svgs/PointingIcon';
 import BulletPoint from 'Svgs/BulletPoint';
 import StopClipart from 'Svgs/StopClipart';
-import BookList from 'Components/BookList';
+import BookList from 'Components/Main/BookList';
 import 'Styles/Tools/Restricted.css';
 
 const Restricted: React.FC = () => {

@@ -5,7 +5,7 @@ import ConeIcon from 'Svgs/ConeIcon';
 import PointingIcon from 'Svgs/PointingIcon';
 import BulletPoint from 'Svgs/BulletPoint';
 import CraneClipart from 'Svgs/CraneClipart';
-import BookList from 'Components/BookList';
+import BookList from 'Components/Main/BookList';
 import 'Styles/Tools/Construction.css';
 
 const Construction: React.FC = () => {
