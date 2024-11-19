@@ -165,9 +165,6 @@
   gap: 5px;
   transition: all 0.15s ease-in-out;
 }
-.menu-link-text-container.hovered {
-  gap: 15px;
-}
 
 .menu-link-icons-text-container {
   display: flex;
@@ -217,6 +214,7 @@
   height: 16px;
   fill: var(--clr-divider);
   margin: 0px 0px 3px 0px;
+  transition: all 0.15s ease-in-out;
 }
 .menu-link-icon.hovered {
   fill: var(--clr-moyenne);
@@ -227,7 +225,7 @@
   flex-direction: row;
   align-items: center;
   gap: 5px;
-  background-color: var(--clr-light);
+  background-color: var(--clr-background);
   border: 1px solid var(--clr-divider);
   padding: 6px 8px;
   border-radius: 8px;
