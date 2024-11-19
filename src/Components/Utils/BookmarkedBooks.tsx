@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
+import { Link } from 'react-router-dom';
 import BookmarkedIcon from 'Svgs/BookmarkedIcon';
 import BookStackClipart2 from 'Svgs/BookStackClipart2';
 import 'Styles/Utils/BookmarkedBooks.css';
@@ -15,7 +16,8 @@ const BookmarkedBooks: React.FC = () => {
     throw new Error('No Context');
   }
 
-  const { authToken, authUser, language, bookmarkedBooks } = context;
+  const { authToken, authUser, language, bookmarkedBooks, formatTitleForURL } =
+    context;
 
   const [filterSetting, setFilterSetting] = useState<string>('title-asc');
   const [hovered, setHovered] = useState<number | null>(null);
@@ -197,55 +199,61 @@ const BookmarkedBooks: React.FC = () => {
       <div className='bookmarked-books-content'>
         {bookRowsData.map((row, rowIndex) => (
           <div key={rowIndex} className='book-grid-row'>
-            {row.books.map((book) => (
-              <div
-                className={`bookmarked-book-item ${
-                  hovered === null
-                    ? ''
-                    : hovered === book.id
-                    ? 'hovered'
-                    : 'inactive'
-                }`}
-                key={book.id}
-                onMouseEnter={() => setHovered(book.id)}
-                onMouseLeave={() => setHovered(null)}
-              >
-                <BookImage
-                  book={book}
-                  viewSetting='bookmarked'
-                  hovered={hovered}
-                  setHovered={setHovered}
-                />
-                <div className='bookmarked-book-info'>
-                  <h4 className='bookmarked-book-title'>{book.title}</h4>
-                  <p className='bookmarked-book-author'>{book.author}</p>
-                  <div className='bookmarked-item-language-rating-container'>
-                    <p className='bookmarked-item-language'>{book.language}</p>
-                    {(book.language.toLowerCase() === 'french' ||
-                      book.language.toLowerCase() === 'français') && (
-                      <FrenchFlag className='bookmarked-item-language-flag' />
-                    )}
-                    {book.language.toLowerCase() === 'english' && (
-                      <UKFlag className='bookmarked-item-language-flag' />
-                    )}
-                    <p className='bookmarked-pipe-icon'>|</p>
-                    <div className='bookmarked-rating-container'>
-                      {!book.rating && (
-                        <StarGrey className='bookmarked-item-star-icon' />
+            {row.books.map((book) => {
+              const bookUrl = `/library/${formatTitleForURL(book.title)}`;
+              return (
+                <Link
+                  to={bookUrl}
+                  className={`bookmarked-book-item ${
+                    hovered === null
+                      ? ''
+                      : hovered === book.id
+                      ? 'hovered'
+                      : 'inactive'
+                  }`}
+                  key={book.id}
+                  onMouseEnter={() => setHovered(book.id)}
+                  onMouseLeave={() => setHovered(null)}
+                >
+                  <BookImage
+                    book={book}
+                    viewSetting='bookmarked'
+                    hovered={hovered}
+                    setHovered={setHovered}
+                  />
+                  <div className='bookmarked-book-info'>
+                    <h4 className='bookmarked-book-title'>{book.title}</h4>
+                    <p className='bookmarked-book-author'>{book.author}</p>
+                    <div className='bookmarked-item-language-rating-container'>
+                      <p className='bookmarked-item-language'>
+                        {book.language}
+                      </p>
+                      {(book.language.toLowerCase() === 'french' ||
+                        book.language.toLowerCase() === 'français') && (
+                        <FrenchFlag className='bookmarked-item-language-flag' />
                       )}
-                      {book.rating && (
-                        <>
-                          <StarColor className='bookmarked-item-star-icon' />
-                          <p className='bookmarked-item-rating'>
-                            {book.rating}
-                          </p>
-                        </>
+                      {book.language.toLowerCase() === 'english' && (
+                        <UKFlag className='bookmarked-item-language-flag' />
                       )}
+                      <p className='bookmarked-pipe-icon'>|</p>
+                      <div className='bookmarked-rating-container'>
+                        {!book.rating && (
+                          <StarGrey className='bookmarked-item-star-icon' />
+                        )}
+                        {book.rating && (
+                          <>
+                            <StarColor className='bookmarked-item-star-icon' />
+                            <p className='bookmarked-item-rating'>
+                              {book.rating}
+                            </p>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                </Link>
+              );
+            })}
             {Array.from({ length: row.placeholders }).map((_, index) => (
               <div
                 key={`placeholder-${rowIndex}-${index}`}

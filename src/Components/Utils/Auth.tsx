@@ -27,6 +27,7 @@ const Auth: React.FC = () => {
     handleLanguageChange,
   } = context;
 
+  const [renderContainer, setRenderContainer] = useState(false);
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -98,6 +99,12 @@ const Auth: React.FC = () => {
   }, [errorMessage]);
 
   useEffect(() => {
+    if (showAuth) {
+      setRenderContainer(true);
+    }
+  }, [showAuth]);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         authContainerRef.current &&
@@ -107,6 +114,9 @@ const Auth: React.FC = () => {
         setShowRegister(false);
         setShowForgot(false);
         setShowLogin(true);
+        setTimeout(() => {
+          setRenderContainer(false);
+        }, 400);
       }
     };
 
@@ -265,12 +275,15 @@ const Auth: React.FC = () => {
     setShowLogin(true);
     setShowRegister(false);
     setShowForgot(false);
+    setTimeout(() => {
+      setRenderContainer(false);
+    }, 400);
   };
 
   return (
     <>
-      {showAuth && (
-        <main className='auth-overlay'>
+      {renderContainer && (
+        <main className={`auth-overlay ${showAuth ? 'fade-in' : 'fade-out'}`}>
           <section
             ref={authContainerRef}
             className={`auth-container ${showAuth ? 'fade-in' : 'fade-out'}`}
@@ -304,7 +317,7 @@ const Auth: React.FC = () => {
                   <h1 className='auth-header-text'>{logoutHeader}</h1>
                   <TitleFlair className='auth-flair-right' />
                 </header>
-                <button className='submit-button' onClick={handleLogout}>
+                <button className='logout-button' onClick={handleLogout}>
                   {isLoading ? <LinearProgress color='inherit' /> : logoutText}
                 </button>
               </>

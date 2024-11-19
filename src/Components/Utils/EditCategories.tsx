@@ -37,7 +37,6 @@ const EditCategories: React.FC = () => {
     throw new Error('No Context');
   }
   const {
-    authToken,
     showCategoryEditWindow,
     setShowCategoryEditWindow,
     language,
@@ -64,6 +63,7 @@ const EditCategories: React.FC = () => {
     initialCategoryFlair: '',
   });
 
+  const [renderContainer, setRenderContainer] = useState(false);
   const [showListCategories, setShowListCategories] = useState(true);
   const [showAddCategory, setShowAddCategory] = useState(false);
   const [showEditCategory, setShowEditCategory] = useState(false);
@@ -135,6 +135,12 @@ const EditCategories: React.FC = () => {
   }, [errorMessage]);
 
   useEffect(() => {
+    if (showCategoryEditWindow) {
+      setRenderContainer(true);
+    }
+  }, [showCategoryEditWindow]);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         showCategoryEditWindowContainerRef.current &&
@@ -157,6 +163,9 @@ const EditCategories: React.FC = () => {
         setEditCategoryFlair('');
         setEditCategoryIcon(null);
         setEditCategoryColor(null);
+        setTimeout(() => {
+          setRenderContainer(false);
+        }, 400);
       }
     };
 
@@ -373,6 +382,9 @@ const EditCategories: React.FC = () => {
     setShowEditCategory(false);
     setShowDeletes(false);
     setShowListCategories(true);
+    setTimeout(() => {
+      setRenderContainer(false);
+    }, 400);
   };
 
   const handleShowDeletes = (
@@ -550,8 +562,12 @@ const EditCategories: React.FC = () => {
 
   return (
     <>
-      {showCategoryEditWindow && authToken && (
-        <main className='categories-create-overlay'>
+      {renderContainer && (
+        <main
+          className={`categories-create-overlay ${
+            showCategoryEditWindow ? 'fade-in' : 'fade-out'
+          }`}
+        >
           <section
             ref={showCategoryEditWindowContainerRef}
             className={`categories-create-container ${

@@ -38,7 +38,6 @@ const AddBook: React.FC = () => {
     throw new Error('No Context');
   }
   const {
-    authToken,
     showAddBookWindow,
     setShowAddBookWindow,
     language,
@@ -66,6 +65,7 @@ const AddBook: React.FC = () => {
     initialCategoryFlair: '',
   });
 
+  const [renderContainer, setRenderContainer] = useState(false);
   const [showAddBook, setShowAddBook] = useState(true);
   const [showListCategories, setShowListCategories] = useState(false);
   const [showAddCategory, setShowAddCategory] = useState(false);
@@ -166,6 +166,12 @@ const AddBook: React.FC = () => {
   };
 
   useEffect(() => {
+    if (showAddBookWindow) {
+      setRenderContainer(true);
+    }
+  }, [showAddBookWindow]);
+
+  useEffect(() => {
     if (errorMessage) {
       setTimeout(() => {
         setErrorMessage('');
@@ -202,6 +208,9 @@ const AddBook: React.FC = () => {
         setEditCategoryFlair('');
         setEditCategoryIcon(null);
         setEditCategoryColor(null);
+        setTimeout(() => {
+          setRenderContainer(false);
+        }, 400);
       }
     };
 
@@ -505,6 +514,9 @@ const AddBook: React.FC = () => {
     setShowAddCategory(false);
     setShowDeletes(false);
     setShowAddBook(true);
+    setTimeout(() => {
+      setRenderContainer(false);
+    }, 400);
   };
 
   const handleShowDeletes = (
@@ -684,8 +696,12 @@ const AddBook: React.FC = () => {
 
   return (
     <>
-      {showAddBookWindow && authToken && (
-        <main className='book-create-overlay'>
+      {renderContainer && (
+        <main
+          className={`book-create-overlay ${
+            showAddBookWindow ? 'fade-in' : 'fade-out'
+          }`}
+        >
           <section
             ref={showAddBookWindowContainerRef}
             className={`book-create-container ${

@@ -1,26 +1,26 @@
-@keyframes fadeOutBlur {
+@keyframes reviewFadeIn {
   0% {
-    opacity: 1;
-    filter: blur(0px);
-    transform: scale(1);
-  }
-  100% {
     opacity: 0;
     filter: blur(5px);
     transform: scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
   }
 }
 
-@keyframes fadeInBlur {
+@keyframes reviewFadeOut {
   0% {
-    opacity: 0;
-    filter: blur(5px);
-    transform: scale(0.99);
-  }
-  100% {
     opacity: 1;
     filter: blur(0px);
     transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(5px);
+    transform: scale(0.99);
   }
 }
 
@@ -643,10 +643,10 @@
   padding: 0px 30px;
 }
 .home-reviews-review.fade-out {
-  animation: fadeOutBlur 0.3s forwards;
+  animation: reviewFadeOut 0.3s forwards;
 }
 .home-reviews-review.fade-in {
-  animation: fadeInBlur 0.3s forwards;
+  animation: reviewFadeIn 0.3s forwards;
 }
 
 .home-reviews-review-text {
@@ -1306,10 +1306,10 @@
     padding: 0px 30px;
   }
   .home-reviews-review.fade-out {
-    animation: fadeOutBlur 0.3s forwards;
+    animation: reviewFadeOut 0.3s forwards;
   }
   .home-reviews-review.fade-in {
-    animation: fadeInBlur 0.3s forwards;
+    animation: reviewFadeIn 0.3s forwards;
   }
 
   .home-reviews-review-text {

@@ -333,7 +333,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [wasPaused, setWasPaused] = useState<boolean>(false);
 
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
   const [showAuth, setShowAuth] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [showAddBookWindow, setShowAddBookWindow] = useState<boolean>(false);

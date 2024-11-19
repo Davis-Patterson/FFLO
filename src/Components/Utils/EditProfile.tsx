@@ -39,6 +39,7 @@ const EditProfile: React.FC = () => {
     initialPhone: '',
   });
 
+  const [renderContainer, setRenderContainer] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -75,6 +76,12 @@ const EditProfile: React.FC = () => {
   }, [errorMessage]);
 
   useEffect(() => {
+    if (showEdit) {
+      setRenderContainer(true);
+    }
+  }, [showEdit]);
+
+  useEffect(() => {
     if (authUser && showEdit) {
       setInitialUserData({
         initialFirstName: authUser.first_name || '',
@@ -108,6 +115,9 @@ const EditProfile: React.FC = () => {
         setRemoveImage(false);
         setLoaded(false);
         setShowEdit(false);
+        setTimeout(() => {
+          setRenderContainer(false);
+        }, 400);
       }
     };
 
@@ -203,6 +213,9 @@ const EditProfile: React.FC = () => {
     setRemoveImage(false);
     setLoaded(false);
     setShowEdit(false);
+    setTimeout(() => {
+      setRenderContainer(false);
+    }, 400);
   };
 
   const handleDeleteBookImage = (
@@ -252,8 +265,8 @@ const EditProfile: React.FC = () => {
 
   return (
     <>
-      {showEdit && (
-        <main className='edit-overlay'>
+      {renderContainer && (
+        <main className={`edit-overlay ${showEdit ? 'fade-in' : 'fade-out'}`}>
           <section
             ref={editContainerRef}
             className={`edit-profile-container ${

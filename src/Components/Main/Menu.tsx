@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import { useContext } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import TitleFlair from 'Svgs/TitleFlair';
 import XIcon from 'Svgs/XIcon';
@@ -14,10 +13,18 @@ const Menu: React.FC = () => {
   }
   const { showMenu, setShowMenu, language, handleLanguageChange } = context;
 
+  const [renderContainer, setRenderContainer] = useState(false);
+
   const authContainerRef = useRef<HTMLDivElement>(null);
 
   // Translations
   const logoutHeader = language === 'EN' ? 'Menu' : 'Menu';
+
+  useEffect(() => {
+    if (showMenu) {
+      setRenderContainer(true);
+    }
+  }, [showMenu]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -26,6 +33,9 @@ const Menu: React.FC = () => {
         !authContainerRef.current.contains(event.target as Node)
       ) {
         setShowMenu(false);
+        setTimeout(() => {
+          setRenderContainer(false);
+        }, 400);
       }
     };
 
@@ -46,12 +56,15 @@ const Menu: React.FC = () => {
     event.stopPropagation();
 
     setShowMenu(false);
+    setTimeout(() => {
+      setRenderContainer(false);
+    }, 400);
   };
 
   return (
     <>
-      {showMenu && (
-        <main className='menu-overlay'>
+      {renderContainer && (
+        <main className={`menu-overlay ${showMenu ? 'fade-in' : 'fade-out'}`}>
           <section
             ref={authContainerRef}
             className={`menu-container ${showMenu ? 'fade-in' : 'fade-out'}`}

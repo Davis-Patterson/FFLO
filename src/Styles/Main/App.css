@@ -1,3 +1,51 @@
+@keyframes overlayFadeIn {
+  0% {
+    backdrop-filter: blur(0px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    backdrop-filter: blur(6px);
+  }
+}
+
+@keyframes overlayFadeOut {
+  0% {
+    opacity: 1;
+    backdrop-filter: blur(6px);
+  }
+  100% {
+    backdrop-filter: blur(0px);
+    opacity: 0;
+  }
+}
+
+@keyframes containerFadeIn {
+  0% {
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transform: scale(115%);
+  }
+  100% {
+    opacity: 1;
+    backdrop-filter: blur(0px);
+    transform: scale(100%);
+  }
+}
+
+@keyframes containerFadeOut {
+  0% {
+    opacity: 1;
+    backdrop-filter: blur(0px);
+    transform: scale(100%);
+  }
+  100% {
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transform: scale(115%);
+  }
+}
+
 .gap {
   height: 60px;
 }
@@ -46,6 +94,27 @@
 .submit-button:hover,
 .submit-half-button:hover {
   background-color: var(--clr-text-blue-hover);
+}
+
+.logout-button {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  line-height: 1;
+  font-weight: 400;
+  height: 40px;
+  padding: 0.75rem;
+  background-color: var(--clr-background);
+  color: var(--clr-error);
+  border: 1px solid var(--clr-error);
+  cursor: pointer;
+  max-width: 360px;
+  width: 100%;
+  transition: all 0.15s ease-in-out;
+}
+.logout-button:hover {
+  background-color: var(--clr-error);
+  color: var(--clr-light);
+  border: 1px solid var(--clr-error);
 }
 
 .archive-button,

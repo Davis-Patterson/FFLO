@@ -10,7 +10,13 @@
   backdrop-filter: blur(6px);
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 20;
-  transition: opacity 0.5s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+.menu-overlay.fade-in {
+  animation: overlayFadeIn 0.3s forwards;
+}
+.menu-overlay.fade-out {
+  animation: overlayFadeOut 0.3s forwards;
 }
 
 .menu-container {
@@ -25,13 +31,11 @@
   position: relative;
   min-width: 300px;
 }
-
-.fade-in {
-  opacity: 1;
+.menu-container.fade-in {
+  animation: containerFadeIn 0.3s forwards;
 }
-
-.fade-out {
-  opacity: 0;
+.menu-container.fade-out {
+  animation: containerFadeOut 0.3s forwards;
 }
 
 .menu-portal-top-toggles {

@@ -3,8 +3,8 @@ import { AppContext } from 'Contexts/AppContext';
 import { Link, useLocation } from 'react-router-dom';
 import ffloLogo from 'Assets/Logos/fflo-logo.webp';
 import LinkIcon from 'Svgs/LinkIcon';
+import MenuIcon from 'Svgs/MenuIcon';
 import 'Styles/Main/Nav.css';
-import ListIcon from 'Svgs/ListIcon';
 
 const Nav: React.FC = () => {
   const context = useContext(AppContext);
@@ -45,7 +45,7 @@ const Nav: React.FC = () => {
   };
 
   const determineScreenWidth = (): void => {
-    if (window.innerWidth < 580) {
+    if (window.innerWidth <= 580) {
       setMobileWidth(true);
     } else {
       setMobileWidth(false);
@@ -93,7 +93,7 @@ const Nav: React.FC = () => {
           </div>
           {mobileWidth ? (
             <div className='nav-menu-toggle-container'>
-              <ListIcon
+              <MenuIcon
                 className='nav-menu-toggle'
                 onMouseDown={(e) => handleMenuOpen(e)}
               />
@@ -129,71 +129,73 @@ const Nav: React.FC = () => {
             </div>
           )}
         </header>
-        <div className='nav-links'>
-          <Link to='/'>
-            <div className='nav-link'>
-              <p
-                className={`${
-                  location.pathname === '/'
-                    ? 'nav-link-text-current'
-                    : 'nav-link-text'
-                }`}
-              >
-                {homeText}
-              </p>
-            </div>
-          </Link>
-          <Link to='/library'>
-            <div className='nav-link'>
-              <p
-                className={`${
-                  location.pathname === '/library'
-                    ? 'nav-link-text-current'
-                    : 'nav-link-text'
-                }`}
-              >
-                {libraryText}
-              </p>
-              <p className='nav-link-flair'>{flairText}</p>
-            </div>
-          </Link>
-          <Link to='/about'>
-            <div className='nav-link'>
-              <p
-                className={`${
-                  location.pathname === '/about'
-                    ? 'nav-link-text-current'
-                    : 'nav-link-text'
-                }`}
-              >
-                {aboutText}
-              </p>
-            </div>
-          </Link>
-          <Link to='/contact'>
-            <div className='nav-link'>
-              <p
-                className={`${
-                  location.pathname === '/contact'
-                    ? 'nav-link-text-current'
-                    : 'nav-link-text'
-                }`}
-              >
-                {contactText}
-              </p>
-            </div>
-          </Link>
-          <a
-            href='https://www.frenchforlittleones.com/'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <div className='nav-link'>
-              <p className='nav-link-text'>{ffloMainText}</p>
-              <LinkIcon className='nav-link-icon' />
-            </div>
-          </a>
-        </div>
+        {!mobileWidth && (
+          <div className='nav-links'>
+            <Link to='/'>
+              <div className='nav-link'>
+                <p
+                  className={`${
+                    location.pathname === '/'
+                      ? 'nav-link-text-current'
+                      : 'nav-link-text'
+                  }`}
+                >
+                  {homeText}
+                </p>
+              </div>
+            </Link>
+            <Link to='/library'>
+              <div className='nav-link'>
+                <p
+                  className={`${
+                    location.pathname === '/library'
+                      ? 'nav-link-text-current'
+                      : 'nav-link-text'
+                  }`}
+                >
+                  {libraryText}
+                </p>
+                <p className='nav-link-flair'>{flairText}</p>
+              </div>
+            </Link>
+            <Link to='/about'>
+              <div className='nav-link'>
+                <p
+                  className={`${
+                    location.pathname === '/about'
+                      ? 'nav-link-text-current'
+                      : 'nav-link-text'
+                  }`}
+                >
+                  {aboutText}
+                </p>
+              </div>
+            </Link>
+            <Link to='/contact'>
+              <div className='nav-link'>
+                <p
+                  className={`${
+                    location.pathname === '/contact'
+                      ? 'nav-link-text-current'
+                      : 'nav-link-text'
+                  }`}
+                >
+                  {contactText}
+                </p>
+              </div>
+            </Link>
+            <a
+              href='https://www.frenchforlittleones.com/'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <div className='nav-link'>
+                <p className='nav-link-text'>{ffloMainText}</p>
+                <LinkIcon className='nav-link-icon' />
+              </div>
+            </a>
+          </div>
+        )}
       </section>
     </>
   );

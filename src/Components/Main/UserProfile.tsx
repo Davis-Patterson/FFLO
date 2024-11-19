@@ -267,7 +267,7 @@ const UserProfile: React.FC = () => {
                     </Link>
                   )}
                   <button
-                    className='logout-button'
+                    className='user-profile-logout-button'
                     onMouseDown={(e) => handleLogout(e)}
                   >
                     {logoutText}

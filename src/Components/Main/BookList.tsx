@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { AppContext, Book } from 'Contexts/AppContext';
 import { Link, useParams } from 'react-router-dom';
-import { AppContext } from 'Contexts/AppContext';
-import { Book } from 'Contexts/AppContext';
 import Sidebar from 'Utils/Sidebar';
 import BookImage from 'Utils/BookImage';
 import GridIcon from 'Svgs/GridIcon';

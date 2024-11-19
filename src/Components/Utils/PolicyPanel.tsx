@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import TitleFlair from 'Svgs/TitleFlair';
@@ -18,6 +18,8 @@ const PolicyPanel: React.FC = () => {
     language,
     handleLanguageChange,
   } = context;
+
+  const [renderContainer, setRenderContainer] = useState(false);
 
   const policyContainerRef = useRef<HTMLDivElement>(null);
 
@@ -56,12 +58,21 @@ const PolicyPanel: React.FC = () => {
       : 'Nous encourageons une communication ouverte. Si un parent éprouve des difficultés à retourner un livre ou si un livre a été accidentellement perdu, nous lui demandons de nous contacter dans les plus brefs délais pour discuter de la situation.';
 
   useEffect(() => {
+    if (showPolicyWindow) {
+      setRenderContainer(true);
+    }
+  }, [showPolicyWindow]);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         policyContainerRef.current &&
         !policyContainerRef.current.contains(event.target as Node)
       ) {
         setShowPolicyWindow(false);
+        setTimeout(() => {
+          setRenderContainer(false);
+        }, 400);
       }
     };
 
@@ -82,12 +93,19 @@ const PolicyPanel: React.FC = () => {
     event.stopPropagation();
 
     setShowPolicyWindow(false);
+    setTimeout(() => {
+      setRenderContainer(false);
+    }, 400);
   };
 
   return (
     <>
-      {showPolicyWindow && (
-        <div className='policy-overlay'>
+      {renderContainer && (
+        <div
+          className={`policy-overlay ${
+            showPolicyWindow ? 'fade-in' : 'fade-out'
+          }`}
+        >
           <section
             ref={policyContainerRef}
             className={`policy-container ${

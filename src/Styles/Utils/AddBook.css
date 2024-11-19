@@ -12,6 +12,12 @@
   z-index: 20;
   transition: opacity 0.5s ease-in-out;
 }
+.book-create-overlay.fade-in {
+  animation: overlayFadeIn 0.3s forwards;
+}
+.book-create-overlay.fade-out {
+  animation: overlayFadeOut 0.3s forwards;
+}
 
 .book-create-container {
   background-color: var(--clr-background);
@@ -25,13 +31,11 @@
   position: relative;
   min-width: 300px;
 }
-
-.fade-in {
-  opacity: 1;
+.book-create-container.fade-in {
+  animation: containerFadeIn 0.3s forwards;
 }
-
-.fade-out {
-  opacity: 0;
+.book-create-container.fade-out {
+  animation: containerFadeOut 0.3s forwards;
 }
 
 .portal-top-toggles {
