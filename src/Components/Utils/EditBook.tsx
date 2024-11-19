@@ -272,7 +272,7 @@ const EditBook: React.FC = () => {
         setEditCategoryColor(null);
         setTimeout(() => {
           setRenderContainer(false);
-        }, 400);
+        }, 350);
       }
     };
 

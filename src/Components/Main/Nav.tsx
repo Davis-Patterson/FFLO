@@ -73,13 +73,17 @@ const Nav: React.FC = () => {
           <div className='nav-language'>
             <div className='language-toggle'>
               <p
-                className={`en-toggle ${language === 'EN' ? 'active' : ''}`}
+                className={`en-toggle ${
+                  language === 'EN' ? 'language-active' : ''
+                }`}
                 onMouseDown={(e) => handleLanguageChange(e, 'EN')}
               >
                 EN
               </p>
               <p
-                className={`fr-toggle ${language === 'FR' ? 'active' : ''}`}
+                className={`fr-toggle ${
+                  language === 'FR' ? 'language-active' : ''
+                }`}
                 onMouseDown={(e) => handleLanguageChange(e, 'FR')}
               >
                 FR

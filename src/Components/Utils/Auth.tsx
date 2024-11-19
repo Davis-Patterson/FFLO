@@ -116,7 +116,7 @@ const Auth: React.FC = () => {
         setShowLogin(true);
         setTimeout(() => {
           setRenderContainer(false);
-        }, 400);
+        }, 350);
       }
     };
 

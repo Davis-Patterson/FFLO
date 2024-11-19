@@ -53,7 +53,7 @@
   background-color: var(--clr-break);
 }
 
-.active {
+.language-active {
   background-color: var(--clr-text-blue);
   color: var(--clr-background);
   border-radius: 3px;

@@ -72,7 +72,7 @@ const PolicyPanel: React.FC = () => {
         setShowPolicyWindow(false);
         setTimeout(() => {
           setRenderContainer(false);
-        }, 400);
+        }, 350);
       }
     };
 

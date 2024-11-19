@@ -117,7 +117,7 @@ const EditProfile: React.FC = () => {
         setShowEdit(false);
         setTimeout(() => {
           setRenderContainer(false);
-        }, 400);
+        }, 350);
       }
     };
 
