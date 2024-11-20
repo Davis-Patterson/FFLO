@@ -42,6 +42,7 @@ const Menu: React.FC = () => {
   const aboutText = language === 'EN' ? 'About' : 'À propos';
   const contactText = language === 'EN' ? 'Contact' : 'Contact';
   const ffloMainText = language === 'EN' ? 'FFLO' : 'FFLO';
+  const staffMemberText = language === 'EN' ? 'Staff Member' : 'Personnelle';
   const activeMembership =
     language === 'EN' ? 'Active Member' : 'Adhésion active';
   const expiringMembership = language === 'EN' ? 'Expiring' : 'Expiration';
@@ -116,6 +117,10 @@ const Menu: React.FC = () => {
   const renderMembershipStatus = () => {
     if (!authUser || !authUser.membership) {
       return <div className='menu-membership-none'>No Membership</div>;
+    }
+
+    if (authUser.is_staff) {
+      return <div className='menu-user-staff'>{staffMemberText}</div>;
     }
 
     const { active, end_date } = authUser.membership;

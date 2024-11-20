@@ -142,6 +142,17 @@ const BookList: React.FC = () => {
     return null;
   };
 
+  const getLanguageText = (language: string) => {
+    const normalizedLanguage = language.toLowerCase();
+    if (normalizedLanguage === 'french' || normalizedLanguage === 'français') {
+      return 'Fr';
+    } else if (normalizedLanguage === 'english') {
+      return 'En';
+    } else {
+      return language;
+    }
+  };
+
   const baseBooks = showBookmarks ? bookmarkedBooks : allBooks;
   const availableBooks = showUnavailable
     ? baseBooks
@@ -349,7 +360,9 @@ const BookList: React.FC = () => {
                               </h3>
                               <p className='book-author'>{book.author}</p>
                               <div className='book-language-rating-container'>
-                                <p className='book-language'>{book.language}</p>
+                                <p className='book-language'>
+                                  {getLanguageText(book.language)}
+                                </p>
                                 {getLanguageIcon(book.language)}
                                 <p className='pipe-icon'>|</p>
                                 <div className='rating-container'>

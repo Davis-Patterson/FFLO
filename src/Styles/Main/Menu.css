@@ -345,6 +345,7 @@
   margin: 2px 0px 0px 0px;
 }
 
+.menu-user-staff,
 .menu-membership-active,
 .menu-membership-expiring,
 .menu-membership-none {
@@ -357,6 +358,10 @@
   border-radius: 8px;
   width: auto;
   text-align: center;
+}
+.menu-user-staff {
+  border: 1px solid var(--clr-text-blue);
+  color: var(--clr-text-blue);
 }
 .menu-membership-active {
   border: 1px solid var(--clr-member-green);
