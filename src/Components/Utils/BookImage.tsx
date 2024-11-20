@@ -38,7 +38,7 @@ const BookImage: React.FC<BookImageProps> = ({
   const [imgIndex, setImgIndex] = useState(1);
   const [nextIndex, setNextIndex] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const transitionTime = 250;
+  const transitionTime = 300;
 
   const isBookmarked = bookmarkedBooks.some((b) => b.id === book.id);
   const hasImage = book.images && book.images.length > 0;
