@@ -77,7 +77,6 @@ const App: React.FC = () => {
     reviews,
     setReviews,
     setShowAuth,
-    showFullscreen,
     allBooks,
     setAllBooks,
     categories,
@@ -208,7 +207,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      {showFullscreen && <Fullscreen />}
+      <Fullscreen />
       <Menu />
       <Auth />
       <EditProfile />

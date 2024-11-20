@@ -4,22 +4,49 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(8px);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 60;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  background-color: var(--clr-screen);
+  z-index: 20;
+  transition: opacity 0.5s ease-in-out;
+}
+.fullscreen-overlay.fade-in {
+  animation: overlayFadeIn 0.3s forwards;
+}
+.fullscreen-overlay.fade-out {
+  animation: overlayFadeOut 0.3s forwards;
 }
 
 .fullscreen-content {
   position: relative;
   background-color: var(--clr-light);
   padding: 25px 45px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
   text-align: center;
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 98%;
+  max-height: 98%;
+}
+.fullscreen-content.fade-in {
+  animation: containerFadeIn 0.3s forwards;
+}
+.fullscreen-content.fade-out {
+  animation: containerFadeOut 0.3s forwards;
+}
+
+.fullscreen-x-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  fill: var(--clr-break);
+}
+.fullscreen-x-icon:hover {
+  fill: var(--clr-dark);
 }
 
 .fullscreen-image {

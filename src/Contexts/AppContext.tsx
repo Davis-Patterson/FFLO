@@ -235,7 +235,7 @@ interface AppContextType {
     author?: string,
     desc?: string
   ) => void;
-  fullscreenClose: (event: React.MouseEvent) => void;
+  fullscreenClose: () => void;
   categoryIconOptions: { [key: number]: React.FC };
   categoryColorOptions: { [key: number]: string };
   natureIcons: { [key: number]: React.FC };
@@ -493,13 +493,15 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const fullscreenClose = () => {
     setShowFullscreen(false);
     setIsPaused(wasPaused);
-    setFullscreenData({
-      src: '',
-      alt: '',
-      title: '',
-      author: '',
-      desc: '',
-    });
+    setTimeout(() => {
+      setFullscreenData({
+        src: '',
+        alt: '',
+        title: '',
+        author: '',
+        desc: '',
+      });
+    }, 350);
   };
 
   const categoryIconOptions: { [key: number]: React.FC<IconProps> } = {
