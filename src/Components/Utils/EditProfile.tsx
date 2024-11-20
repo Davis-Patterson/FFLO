@@ -178,6 +178,9 @@ const EditProfile: React.FC = () => {
 
         console.log('Profile updated successfully');
         setShowEdit(false);
+        setTimeout(() => {
+          setRenderContainer(false);
+        }, 350);
 
         setInitialUserData({
           initialFirstName: firstName,
