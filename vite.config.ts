@@ -33,6 +33,16 @@ export default defineConfig({
   ],
   build: {
     outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          dndkit: ['@dnd-kit/core', '@dnd-kit/modifiers', '@dnd-kit/sortable'],
+          mui: ['@mui/material'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
   },
   server: {
     host: '0.0.0.0',
