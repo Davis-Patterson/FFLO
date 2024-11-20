@@ -69,7 +69,7 @@
 .announcement-banner-text {
   font-family: 'Merriweather', serif;
   font-size: 0.9em;
-  line-height: 1.2;
+  line-height: 1.25;
   font-weight: 400;
   color: var(--clr-light);
   transform: scaleY(90%);

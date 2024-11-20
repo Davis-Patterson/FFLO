@@ -298,6 +298,9 @@ const AddBook: React.FC = () => {
       setSelectedCategories([]);
       setFlair('');
       setBookLanguage('');
+      setTimeout(() => {
+        setRenderContainer(false);
+      }, 350);
     }
 
     setIsLoading(false);

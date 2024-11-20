@@ -161,11 +161,11 @@
 }
 
 .book-slide-image.fade {
-  animation: fadeOutImg 0.4s forwards;
+  animation: fadeOutImg 0.3s forwards;
 }
 
 .book-slide-next-image.fade {
-  animation: fadeInImg 0.4s forwards;
+  animation: fadeInImg 0.3s forwards;
 }
 
 .book-slide-image.loaded {

@@ -45,7 +45,7 @@ const Nav: React.FC = () => {
   };
 
   const determineScreenWidth = (): void => {
-    if (window.innerWidth <= 580) {
+    if (window.innerWidth <= 620) {
       setMobileWidth(true);
     } else {
       setMobileWidth(false);

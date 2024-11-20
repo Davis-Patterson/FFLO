@@ -396,6 +396,9 @@ const EditBook: React.FC = () => {
 
       setShowBookEditWindow(false);
       setShowDeletes(false);
+      setTimeout(() => {
+        setRenderContainer(false);
+      }, 350);
     } else {
       setErrorMessage('Failed to update book');
     }
@@ -431,6 +434,9 @@ const EditBook: React.FC = () => {
       deleteSingleBook(selectedBook.id);
 
       setShowBookEditWindow(false);
+      setTimeout(() => {
+        setRenderContainer(false);
+      }, 350);
     } else {
       setErrorMessage('Failed to archive/unarchive the book');
     }
@@ -441,6 +447,9 @@ const EditBook: React.FC = () => {
     setShowArchiveBook(false);
     setShowBookEditWindow(false);
     setShowEditBook(true);
+    setTimeout(() => {
+      setRenderContainer(false);
+    }, 350);
   };
 
   const handleBookDelete = async (e: React.FormEvent) => {
@@ -460,6 +469,9 @@ const EditBook: React.FC = () => {
       deleteSingleBook(selectedBook.id);
 
       setShowBookEditWindow(false);
+      setTimeout(() => {
+        setRenderContainer(false);
+      }, 350);
     } else {
       setErrorMessage('Failed to delete the book');
     }
@@ -470,6 +482,9 @@ const EditBook: React.FC = () => {
     setShowDeleteBook(false);
     setShowBookEditWindow(false);
     setShowEditBook(true);
+    setTimeout(() => {
+      setRenderContainer(false);
+    }, 350);
   };
 
   const handleCategoryCreate = async (e: React.FormEvent) => {
