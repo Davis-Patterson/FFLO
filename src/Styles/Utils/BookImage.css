@@ -24,6 +24,7 @@
 
 .book-image-container,
 .book-image-list-container,
+.book-image-mobile-container,
 .book-image-bookmarked-container {
   position: relative;
   z-index: 3;
@@ -35,6 +36,10 @@
 .book-image-list-container {
   width: 100%;
   height: 200px;
+}
+.book-image-mobile-container {
+  width: 110px;
+  height: 150px;
 }
 .book-image-bookmarked-container {
   width: 110px;
@@ -183,4 +188,10 @@
 .bookmarked-list-cover-icon {
   height: 150px;
   transform: scaleX(102%);
+}
+
+@media screen and (max-width: 1000px) {
+  .book-list-bookmark-icon {
+    opacity: 0.6;
+  }
 }

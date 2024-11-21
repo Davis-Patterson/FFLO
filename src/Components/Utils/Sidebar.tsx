@@ -178,7 +178,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     <>
       <div
         className='sidebar-wrapper'
-        style={{ width: showSidebar ? '200px' : '0px' }}
+        style={{ width: showSidebar ? '180px' : '0px' }}
       >
         <div
           className='books-sidebar-container'
@@ -431,6 +431,11 @@ const Sidebar: React.FC<SidebarProps> = ({
             <XIcon className='sidebar-close-icon' />
           </div>
         </div>
+        <svg
+          className={`sidebar-line-divider ${showSidebar ? 'shown' : 'hidden'}`}
+        >
+          <line x1='0.5' y1='0' x2='0.5' y2='100%' strokeWidth='1' />
+        </svg>
       </div>
     </>
   );

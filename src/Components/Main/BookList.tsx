@@ -25,6 +25,7 @@ const BookList: React.FC = () => {
     allBooks,
     categoryFilter,
     bookmarkedBooks,
+    mobileWidth,
     visibleBooks,
     bookRows,
     setBookRows,
@@ -42,6 +43,9 @@ const BookList: React.FC = () => {
 
   const [updatedVisibleBooks, setUpdatedVisibleBooks] = useState(2);
   const [visibleListBooks, setVisibleListBooks] = useState(10);
+
+  const [previousViewSetting, setPreviousViewSetting] =
+    useState<string>('grid');
 
   // translations
   const gridViewText = language === 'EN' ? 'Grid' : 'Grille';
@@ -64,10 +68,15 @@ const BookList: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (window.innerWidth < 660) {
-      setViewSetting('grid');
+    if (mobileWidth) {
+      if (viewSetting !== 'mobile') {
+        setPreviousViewSetting(viewSetting);
+      }
+      setViewSetting('mobile');
+    } else if (viewSetting === 'mobile') {
+      setViewSetting(previousViewSetting || 'grid');
     }
-  });
+  }, [mobileWidth]);
 
   useEffect(() => {
     if (showSidebar) {
@@ -82,11 +91,14 @@ const BookList: React.FC = () => {
     event.preventDefault();
     event.stopPropagation();
 
+    if (viewSetting !== 'mobile') {
+      setPreviousViewSetting(viewSetting);
+    }
+
     if (viewSetting === 'grid') {
       setViewSetting('list');
       setVisibleListBooks(10);
-    }
-    if (viewSetting === 'list') {
+    } else if (viewSetting === 'list') {
       setViewSetting('grid');
       setVisibleListBooks(10);
     }
@@ -321,8 +333,14 @@ const BookList: React.FC = () => {
           </div>
         ) : (
           <>
-            {viewSetting === 'grid' && (
-              <div className='book-list-submit-container'>
+            {(viewSetting === 'grid' || viewSetting === 'mobile') && (
+              <div
+                className='book-list-submit-container'
+                style={{
+                  padding: showSidebar ? '0px 0px 0px 5px' : '0px 0px 0px 0px',
+                  width: showSidebar ? 'calc(100% - 200px)' : '100%',
+                }}
+              >
                 <div className='book-grid-view'>
                   {bookRowsData.map((row, rowIndex) => (
                     <div key={rowIndex} className='book-grid-row'>
@@ -407,7 +425,10 @@ const BookList: React.FC = () => {
               </div>
             )}
             {viewSetting === 'list' && (
-              <div className='book-list-submit-container'>
+              <div
+                className='book-list-submit-container'
+                style={{ width: showSidebar ? 'calc(100% - 200px)' : '100%' }}
+              >
                 <div className='book-list-view'>
                   {listDisplayedBooks.map((book: Book) => {
                     const bookUrl = `/library/${formatTitleForURL(book.title)}`;

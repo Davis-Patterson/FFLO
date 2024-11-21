@@ -156,7 +156,9 @@ const BookImage: React.FC<BookImageProps> = ({
             ? 'book-image-container'
             : viewSetting === 'bookmarked'
             ? 'book-image-bookmarked-container'
-            : 'book-image-list-container'
+            : viewSetting === 'list'
+            ? 'book-image-list-container'
+            : 'book-image-mobile-container'
         }
       >
         <div className='book-list-bookmark-toggle-container'>

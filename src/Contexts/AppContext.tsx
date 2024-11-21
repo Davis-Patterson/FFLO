@@ -215,6 +215,7 @@ interface AppContextType {
   fetchError: boolean;
   setFetchError: (value: boolean) => void;
 
+  mobileWidth: boolean;
   visibleCategories: number;
   visibleBooks: number;
   bookRows: number;
@@ -349,9 +350,18 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
   const [fetchError, setFetchError] = useState<boolean>(false);
 
+  const [mobileWidth, setMobileWidth] = useState(false);
   const [visibleCategories, setVisibleCategories] = useState<number>(4);
   const [visibleBooks, setVisibleBooks] = useState<number>(4);
   const [bookRows, setBookRows] = useState<number>(2);
+
+  const determineScreenWidth = (): void => {
+    if (window.innerWidth <= 620) {
+      setMobileWidth(true);
+    } else {
+      setMobileWidth(false);
+    }
+  };
 
   const determineCategoryItems = (): void => {
     if (window.innerWidth <= 649) {
@@ -375,10 +385,13 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   };
 
   const determineBookItems = (): void => {
-    if (window.innerWidth <= 499) {
-      setVisibleBooks(1);
+    if (window.innerWidth <= 549) {
+      setVisibleBooks(2);
     }
-    if (window.innerWidth >= 500 && window.innerWidth <= 699) {
+    if (window.innerWidth >= 550 && window.innerWidth <= 620) {
+      setVisibleBooks(3);
+    }
+    if (window.innerWidth >= 621 && window.innerWidth <= 699) {
       setVisibleBooks(2);
     }
     if (window.innerWidth >= 700 && window.innerWidth <= 879) {
@@ -409,6 +422,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
   useEffect(() => {
     const handleResize = () => {
+      determineScreenWidth();
       determineCategoryItems();
       determineBookItems();
     };
@@ -626,6 +640,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         fetchError,
         setFetchError,
 
+        mobileWidth,
         visibleCategories,
         visibleBooks,
         bookRows,

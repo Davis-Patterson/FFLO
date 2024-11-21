@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import { Link, useLocation } from 'react-router-dom';
 import ffloLogo from 'Assets/Logos/fflo-logo.webp';
@@ -12,10 +12,14 @@ const Nav: React.FC = () => {
     throw new Error('No Context');
   }
 
-  const { setShowMenu, setShowAuth, authUser, language, handleLanguageChange } =
-    context;
-
-  const [mobileWidth, setMobileWidth] = useState(false);
+  const {
+    setShowMenu,
+    setShowAuth,
+    authUser,
+    language,
+    handleLanguageChange,
+    mobileWidth,
+  } = context;
 
   const location = useLocation();
 
@@ -43,28 +47,6 @@ const Nav: React.FC = () => {
 
     setShowMenu(true);
   };
-
-  const determineScreenWidth = (): void => {
-    if (window.innerWidth <= 620) {
-      setMobileWidth(true);
-    } else {
-      setMobileWidth(false);
-    }
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      determineScreenWidth();
-    };
-
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
     <>
