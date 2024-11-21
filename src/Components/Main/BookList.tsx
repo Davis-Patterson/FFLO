@@ -318,16 +318,24 @@ const BookList: React.FC = () => {
           setUpdatedVisibleBooks={setUpdatedVisibleBooks}
         />
         {filteredBookList.length === 0 ? (
-          <div className='book-grid-view'>
-            <div className='no-books-message'>
-              <div className='book-image-list-container'>
-                <div className='book-image-wrapper'>
-                  <BookClipart className='book-list-cover-icon' />
+          <div
+            className='book-list-submit-container'
+            style={{
+              padding: showSidebar ? '0px 0px 0px 5px' : '0px 0px 0px 0px',
+              width: showSidebar ? 'calc(100% - 200px)' : '100%',
+            }}
+          >
+            <div className='book-grid-view' style={{ alignItems: 'center' }}>
+              <div className='no-books-message'>
+                <div className='book-image-list-container'>
+                  <div className='book-image-wrapper'>
+                    <BookClipart className='book-list-cover-icon' />
+                  </div>
                 </div>
-              </div>
-              <div className='no-book-info'>
-                <p className='no-book-info-text-header'>{noBooksFoundText}</p>
-                <p className='no-book-info-subtext'>{noBooksFoundSubtext}</p>
+                <div className='no-book-info'>
+                  <p className='no-book-info-text-header'>{noBooksFoundText}</p>
+                  <p className='no-book-info-subtext'>{noBooksFoundSubtext}</p>
+                </div>
               </div>
             </div>
           </div>

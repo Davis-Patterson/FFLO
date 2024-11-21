@@ -153,12 +153,22 @@
   justify-content: space-evenly;
 }
 
+.book-list-alignment {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  transition: all 0.5s ease-in-out;
+  width: auto;
+}
+
 .book-list-submit-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: 100%;
   transition: all 0.5s ease-in-out;
+  align-items: center;
 }
 
 .book-grid-view {
