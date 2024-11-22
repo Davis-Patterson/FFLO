@@ -178,7 +178,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     <>
       <div
         className='sidebar-wrapper'
-        style={{ width: showSidebar ? '180px' : '0px' }}
+        style={{ width: showSidebar ? '160px' : '0px' }}
       >
         <div
           className='books-sidebar-container'

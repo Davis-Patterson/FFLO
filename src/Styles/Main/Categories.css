@@ -621,17 +621,21 @@
     justify-content: right;
     align-items: center;
     margin: 0px 0px 5px 0px;
+    pointer-events: auto;
   }
   .categories-navigation {
     width: 100%;
     flex-direction: column;
   }
-
+  .categories-content-container {
+    pointer-events: none;
+  }
   .mobile-prev-slide,
   .mobile-next-slide {
     width: 100%;
     display: flex;
     justify-content: center;
+    pointer-events: none;
   }
   .mobile-prev-slide {
     margin: 0px 0px 10px 0px;
@@ -646,6 +650,7 @@
     fill: var(--clr-divider);
     cursor: pointer;
     transition: all 0.15s ease-in-out;
+    pointer-events: auto;
   }
   .up-icon:hover {
     fill: var(--clr-icon);

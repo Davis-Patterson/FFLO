@@ -346,11 +346,7 @@ const BookList: React.FC = () => {
                 className='book-list-submit-container'
                 style={{
                   padding: showSidebar ? '0px 0px 0px 5px' : '0px 0px 0px 0px',
-                  width: !showSidebar
-                    ? '100%'
-                    : mobileWidth
-                    ? 'calc(100% - 160px)'
-                    : 'calc(100% - 200px)',
+                  width: !showSidebar ? '100%' : 'calc(100% - 160px)',
                 }}
               >
                 <div className='book-grid-view'>
@@ -439,7 +435,7 @@ const BookList: React.FC = () => {
             {viewSetting === 'list' && (
               <div
                 className='book-list-submit-container'
-                style={{ width: showSidebar ? 'calc(100% - 200px)' : '100%' }}
+                style={{ width: showSidebar ? 'calc(100% - 160px)' : '100%' }}
               >
                 <div className='book-list-view'>
                   {listDisplayedBooks.map((book: Book) => {

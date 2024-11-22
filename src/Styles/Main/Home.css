@@ -1581,6 +1581,7 @@
   .home-categories-navigation {
     width: 100%;
     flex-direction: column;
+    pointer-events: none;
   }
 
   .home-mobile-prev-slide,
@@ -1588,6 +1589,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    pointer-events: none;
   }
   .home-mobile-prev-slide {
     margin: 0px 0px 10px 0px;
@@ -1602,6 +1604,7 @@
     fill: var(--clr-divider);
     cursor: pointer;
     transition: all 0.15s ease-in-out;
+    pointer-events: auto;
   }
   .home-up-icon:hover {
     fill: var(--clr-icon);
