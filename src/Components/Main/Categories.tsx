@@ -330,17 +330,17 @@ const Categories: React.FC = () => {
               </>
             )}
           </div>
-
-          <div className='categories-books-container'>
-            {fetchError ? (
-              <p>Error fetching books. Please try again later.</p>
-            ) : booksFetched && allBooks.length === 0 ? (
-              <p>No books available.</p>
-            ) : (
-              <BookList />
-            )}
-          </div>
         </section>
+
+        <div className='categories-books-container'>
+          {fetchError ? (
+            <p>Error fetching books. Please try again later.</p>
+          ) : booksFetched && allBooks.length === 0 ? (
+            <p>No books available.</p>
+          ) : (
+            <BookList />
+          )}
+        </div>
       </main>
     </>
   );
