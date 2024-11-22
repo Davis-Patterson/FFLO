@@ -8,6 +8,7 @@ import introImg from 'FFLO/book_pile.webp';
 import introImgSmall from 'FFLO/book_pile_small.webp';
 import ChevronRight from 'Svgs/ChevronRight';
 import 'Styles/Main/Home.css';
+import UpIcon from 'Svgs/UpIcon';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 
@@ -22,6 +23,7 @@ const Home: React.FC = () => {
     categoriesFetched,
     reviews,
     setCategoryFilter,
+    mobileWidth,
     visibleCategories,
     categoryIconOptions,
     categoryColorOptions,
@@ -158,8 +160,6 @@ const Home: React.FC = () => {
     .slice()
     .sort((a, b) => a.sort_order - b.sort_order);
 
-  console.log('visibleCategories: ', visibleCategories);
-
   return (
     <>
       <main className='page-container'>
@@ -216,90 +216,179 @@ const Home: React.FC = () => {
                   </div>
                 </header>
 
-                <div
-                  className='home-categories-navigation'
-                  style={{
-                    maxWidth:
-                      visibleCategories === 2
-                        ? '420px'
-                        : visibleCategories === 3
-                        ? '610px'
-                        : visibleCategories === 4
-                        ? '800px'
-                        : visibleCategories === 5
-                        ? '990px'
-                        : visibleCategories === 6
-                        ? '1180px'
-                        : 'none',
-                  }}
-                >
-                  {slideIndex > 0 && (
-                    <div className='prev-slide' onClick={handlePrevSlide}>
-                      &lt;
-                    </div>
-                  )}
-                  <div
-                    className='home-categories-map-container'
-                    style={{
-                      transform: `translateX(-${translateValue}px)`,
-                      gap:
-                        categories.length < visibleCategories ? '20px' : '0px',
-                    }}
-                  >
-                    {sortedCategories.map((category) => {
-                      const IconComponent: React.ComponentType<IconProps> =
-                        categoryIconOptions[category.icon];
-                      const backgroundColor =
-                        categoryColorOptions[category.color];
-                      const className = 'home-category-card';
-                      return (
-                        <div
-                          key={category.id}
-                          className={className}
-                          style={{ backgroundColor }}
-                        >
-                          {category.flair && (
-                            <div className='home-category-card-flair-container'>
-                              <p className='home-category-card-flair'>
-                                {category.flair}
-                              </p>
-                            </div>
-                          )}
-                          <div className='home-category-card-header'>
-                            {IconComponent && (
-                              <IconComponent className='home-category-card-icon' />
-                            )}
-                            <p className='home-category-card-header-text'>
-                              {category.name}
-                            </p>
-                          </div>
-                          <div className='home-category-card-subtext-container'>
-                            <p className='home-category-card-subtext'>
-                              {category.description}
-                            </p>
-                          </div>
-                          <Link
-                            to='/library'
-                            className='home-category-button-link'
-                          >
-                            <button
-                              className='home-category-button'
+                {!mobileWidth && (
+                  <>
+                    <div
+                      className='home-categories-navigation'
+                      style={{
+                        maxWidth:
+                          visibleCategories === 2
+                            ? '420px'
+                            : visibleCategories === 3
+                            ? '610px'
+                            : visibleCategories === 4
+                            ? '800px'
+                            : visibleCategories === 5
+                            ? '990px'
+                            : visibleCategories === 6
+                            ? '1180px'
+                            : 'none',
+                      }}
+                    >
+                      {slideIndex > 0 && (
+                        <div className='prev-slide' onClick={handlePrevSlide}>
+                          &lt;
+                        </div>
+                      )}
+                      <div
+                        className='home-categories-map-container'
+                        style={{
+                          transform: `translateX(-${translateValue}px)`,
+                          gap:
+                            categories.length < visibleCategories
+                              ? '20px'
+                              : '0px',
+                        }}
+                      >
+                        {sortedCategories.map((category) => {
+                          const IconComponent: React.ComponentType<IconProps> =
+                            categoryIconOptions[category.icon];
+                          const backgroundColor =
+                            categoryColorOptions[category.color];
+                          const className = 'home-category-card';
+                          return (
+                            <Link
+                              to='/library'
+                              key={category.id}
+                              className={className}
                               style={{ backgroundColor }}
                               onClick={() => handleCategoryFilter(category.id)}
                             >
-                              {categoryButtonText}
-                            </button>
-                          </Link>
+                              {category.flair && (
+                                <div className='home-category-card-flair-container'>
+                                  <p className='home-category-card-flair'>
+                                    {category.flair}
+                                  </p>
+                                </div>
+                              )}
+                              <div className='home-category-card-header'>
+                                {IconComponent && (
+                                  <IconComponent className='home-category-card-icon' />
+                                )}
+                                <p className='home-category-card-header-text'>
+                                  {category.name}
+                                </p>
+                              </div>
+                              <div className='home-category-card-subtext-container'>
+                                <p className='home-category-card-subtext'>
+                                  {category.description}
+                                </p>
+                              </div>
+                              <Link
+                                to='/library'
+                                className='home-category-button-link'
+                              >
+                                <button
+                                  className='home-category-button'
+                                  style={{ backgroundColor }}
+                                  onClick={() =>
+                                    handleCategoryFilter(category.id)
+                                  }
+                                >
+                                  {categoryButtonText}
+                                </button>
+                              </Link>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                      {slideIndex < maxSlideIndex && (
+                        <div className='next-slide' onClick={handleNextSlide}>
+                          &gt;
                         </div>
-                      );
-                    })}
-                  </div>
-                  {slideIndex < maxSlideIndex && (
-                    <div className='next-slide' onClick={handleNextSlide}>
-                      &gt;
+                      )}
                     </div>
-                  )}
-                </div>
+                  </>
+                )}
+
+                {mobileWidth && (
+                  <>
+                    <div
+                      className='home-categories-navigation'
+                      style={{
+                        maxWidth: '100%',
+                      }}
+                    >
+                      <div
+                        className='home-mobile-prev-slide'
+                        onClick={handlePrevSlide}
+                      >
+                        <UpIcon
+                          className={`home-up-icon ${
+                            slideIndex === 0 ? 'inactive' : ''
+                          }`}
+                        />
+                      </div>
+                      <div className='home-categories-mobile-container'>
+                        <div
+                          className='home-categories-mobile-map-container'
+                          style={{
+                            transform: `translateY(-${translateValue}px)`,
+                          }}
+                        >
+                          {sortedCategories.map((category) => {
+                            const IconComponent: React.ComponentType<IconProps> =
+                              categoryIconOptions[category.icon];
+                            const backgroundColor =
+                              categoryColorOptions[category.color];
+                            return (
+                              <Link
+                                to='/library'
+                                key={category.id}
+                                className='home-category-card'
+                                style={{ backgroundColor }}
+                                onClick={() =>
+                                  handleCategoryFilter(category.id)
+                                }
+                              >
+                                {category.flair && (
+                                  <div className='home-category-card-flair-container'>
+                                    <p className='home-category-card-flair'>
+                                      {category.flair}
+                                    </p>
+                                  </div>
+                                )}
+                                <div className='home-category-card-header'>
+                                  {IconComponent && (
+                                    <IconComponent className='home-category-card-icon' />
+                                  )}
+                                  <p className='home-category-card-header-text'>
+                                    {category.name}
+                                  </p>
+                                </div>
+                                <div className='home-category-card-subtext-container'>
+                                  <p className='home-category-card-subtext'>
+                                    {category.description}
+                                  </p>
+                                </div>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                      <div
+                        className='home-mobile-next-slide'
+                        onClick={handleNextSlide}
+                      >
+                        <UpIcon
+                          className={`home-up-icon down ${
+                            slideIndex === maxSlideIndex ? 'inactive' : ''
+                          }`}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
               </section>
 
               <svg className='home-line-divider'>

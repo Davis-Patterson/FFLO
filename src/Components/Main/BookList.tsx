@@ -346,7 +346,11 @@ const BookList: React.FC = () => {
                 className='book-list-submit-container'
                 style={{
                   padding: showSidebar ? '0px 0px 0px 5px' : '0px 0px 0px 0px',
-                  width: showSidebar ? 'calc(100% - 200px)' : '100%',
+                  width: !showSidebar
+                    ? '100%'
+                    : mobileWidth
+                    ? 'calc(100% - 160px)'
+                    : 'calc(100% - 200px)',
                 }}
               >
                 <div className='book-grid-view'>

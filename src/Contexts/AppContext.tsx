@@ -364,7 +364,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   };
 
   const determineCategoryItems = (): void => {
-    if (window.innerWidth <= 649) {
+    if (window.innerWidth <= 620) {
+      setVisibleCategories(2);
+    }
+    if (window.innerWidth >= 621 && window.innerWidth <= 649) {
       setVisibleCategories(2);
     }
     if (window.innerWidth >= 650 && window.innerWidth <= 849) {

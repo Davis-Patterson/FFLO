@@ -4,6 +4,7 @@ import TitleFlair from 'Svgs/TitleFlair';
 import GearIcon from 'Svgs/GearIcon';
 import BookList from 'Components/Main/BookList';
 import 'Styles/Main/Categories.css';
+import UpIcon from 'Svgs/UpIcon';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 
@@ -23,6 +24,7 @@ const Categories: React.FC = () => {
     allBooks,
     booksFetched,
     fetchError,
+    mobileWidth,
     visibleCategories,
     setBookRows,
     categoryIconOptions,
@@ -31,6 +33,7 @@ const Categories: React.FC = () => {
 
   const [slideIndex, setSlideIndex] = useState(0);
   const [translateValue, setTranslateValue] = useState(0);
+  const [hovered, setHovered] = useState<number | null>(null);
 
   const cardWidth = 190;
   const maxSlideIndex = Math.max(0, categories.length - visibleCategories);
@@ -113,6 +116,22 @@ const Categories: React.FC = () => {
     .slice()
     .sort((a, b) => a.sort_order - b.sort_order);
 
+  const determineClassName = (categoryId: number) => {
+    const baseClassName = 'category-card';
+
+    if (categoryFilter && categoryFilter !== categoryId && !hovered) {
+      return baseClassName + ' ' + 'category-inactive';
+    } else if (categoryFilter && hovered && hovered === categoryId) {
+      return baseClassName + ' ' + 'category-hovered';
+    } else if (categoryFilter && hovered && hovered !== categoryId) {
+      return baseClassName + ' ' + 'category-unhovered';
+    } else if (categoryFilter && categoryFilter === categoryId && !hovered) {
+      return baseClassName;
+    } else {
+      return baseClassName;
+    }
+  };
+
   return (
     <>
       <main className='page-container'>
@@ -145,93 +164,173 @@ const Categories: React.FC = () => {
                 />
               </div>
             )}
-            <div
-              className='categories-navigation'
-              style={{
-                maxWidth:
-                  visibleCategories === 2
-                    ? '420px'
-                    : visibleCategories === 3
-                    ? '610px'
-                    : visibleCategories === 4
-                    ? '800px'
-                    : visibleCategories === 5
-                    ? '990px'
-                    : visibleCategories === 6
-                    ? '1180px'
-                    : 'none',
-              }}
-            >
-              {slideIndex > 0 && (
-                <div className='prev-slide' onClick={handlePrevSlide}>
-                  &lt;
-                </div>
-              )}
-              <div
-                className='categories-map-container'
-                style={{
-                  transform: `translateX(-${translateValue}px)`,
-                  gap: categories.length < visibleCategories ? '20px' : '0px',
-                }}
-              >
-                {sortedCategories.map((category) => {
-                  const IconComponent: React.ComponentType<IconProps> =
-                    categoryIconOptions[category.icon];
-                  const backgroundColor = categoryColorOptions[category.color];
-                  const isSelected = categoryFilter === category.id;
-                  const className = `${
-                    categoryFilter === null
-                      ? 'category-card'
-                      : isSelected
-                      ? 'category-card'
-                      : 'category-card category-inactive'
-                  }`;
-                  return (
-                    <div
-                      key={category.id}
-                      className={className}
-                      style={{ backgroundColor }}
-                    >
-                      {category.flair && (
-                        <div className='category-card-flair-container'>
-                          <p className='category-card-flair'>
-                            {category.flair}
-                          </p>
-                        </div>
-                      )}
-                      <div className='category-card-header'>
-                        {IconComponent && (
-                          <IconComponent className='category-card-icon' />
-                        )}
-                        <p className='category-card-header-text'>
-                          {category.name}
-                        </p>
-                      </div>
-                      <div className='category-card-subtext-container'>
-                        <p className='category-card-subtext'>
-                          {category.description}
-                        </p>
-                      </div>
-                      <button
-                        className='category-button'
-                        onMouseDown={(e) =>
-                          handleCategoryFilter(e, category.id)
-                        }
-                        style={{ backgroundColor }}
-                      >
-                        {isSelected ? allBooksText : categoryButtonText}
-                      </button>
+
+            {!mobileWidth && (
+              <>
+                <div
+                  className='categories-navigation'
+                  style={{
+                    maxWidth:
+                      visibleCategories === 2
+                        ? '420px'
+                        : visibleCategories === 3
+                        ? '610px'
+                        : visibleCategories === 4
+                        ? '800px'
+                        : visibleCategories === 5
+                        ? '990px'
+                        : visibleCategories === 6
+                        ? '1180px'
+                        : 'none',
+                  }}
+                >
+                  {slideIndex > 0 && (
+                    <div className='prev-slide' onClick={handlePrevSlide}>
+                      &lt;
                     </div>
-                  );
-                })}
-              </div>
-              {slideIndex < maxSlideIndex && (
-                <div className='next-slide' onClick={handleNextSlide}>
-                  &gt;
+                  )}
+                  <div
+                    className='categories-map-container'
+                    style={{
+                      transform: `translateX(-${translateValue}px)`,
+                      gap:
+                        categories.length < visibleCategories ? '20px' : '0px',
+                    }}
+                  >
+                    {sortedCategories.map((category) => {
+                      const IconComponent: React.ComponentType<IconProps> =
+                        categoryIconOptions[category.icon];
+                      const backgroundColor =
+                        categoryColorOptions[category.color];
+                      const isSelected = categoryFilter === category.id;
+                      return (
+                        <div
+                          key={category.id}
+                          className={determineClassName(category.id)}
+                          style={{ backgroundColor }}
+                          onMouseEnter={() => setHovered(category.id)}
+                          onMouseLeave={() => setHovered(null)}
+                          onMouseDown={(e) =>
+                            handleCategoryFilter(e, category.id)
+                          }
+                        >
+                          {category.flair && (
+                            <div className='category-card-flair-container'>
+                              <p className='category-card-flair'>
+                                {category.flair}
+                              </p>
+                            </div>
+                          )}
+                          <div className='category-card-header'>
+                            {IconComponent && (
+                              <IconComponent className='category-card-icon' />
+                            )}
+                            <p className='category-card-header-text'>
+                              {category.name}
+                            </p>
+                          </div>
+                          <div className='category-card-subtext-container'>
+                            <p className='category-card-subtext'>
+                              {category.description}
+                            </p>
+                          </div>
+                          <button
+                            className='category-button'
+                            onMouseDown={(e) =>
+                              handleCategoryFilter(e, category.id)
+                            }
+                            style={{ backgroundColor }}
+                          >
+                            {isSelected ? allBooksText : categoryButtonText}
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {slideIndex < maxSlideIndex && (
+                    <div className='next-slide' onClick={handleNextSlide}>
+                      &gt;
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+              </>
+            )}
+
+            {mobileWidth && (
+              <>
+                <div
+                  className='categories-navigation'
+                  style={{
+                    maxWidth: '100%',
+                  }}
+                >
+                  <div className='mobile-prev-slide' onClick={handlePrevSlide}>
+                    <UpIcon
+                      className={`up-icon ${
+                        slideIndex === 0 ? 'inactive' : ''
+                      }`}
+                    />
+                  </div>
+                  <div className='categories-mobile-container'>
+                    <div
+                      className='categories-mobile-map-container'
+                      style={{
+                        transform: `translateY(-${translateValue}px)`,
+                      }}
+                    >
+                      {sortedCategories.map((category) => {
+                        const IconComponent: React.ComponentType<IconProps> =
+                          categoryIconOptions[category.icon];
+                        const backgroundColor =
+                          categoryColorOptions[category.color];
+                        return (
+                          <div
+                            key={category.id}
+                            className={determineClassName(category.id)}
+                            style={{ backgroundColor }}
+                            onMouseEnter={() => setHovered(category.id)}
+                            onMouseLeave={() => setHovered(null)}
+                            onMouseDown={(e) =>
+                              handleCategoryFilter(e, category.id)
+                            }
+                          >
+                            {category.flair && (
+                              <div className='category-card-flair-container'>
+                                <p className='category-card-flair'>
+                                  {category.flair}
+                                </p>
+                              </div>
+                            )}
+                            <div className='category-card-header'>
+                              {IconComponent && (
+                                <IconComponent className='category-card-icon' />
+                              )}
+                              <p className='category-card-header-text'>
+                                {category.name}
+                              </p>
+                            </div>
+                            <div className='category-card-subtext-container'>
+                              <p className='category-card-subtext'>
+                                {category.description}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className='mobile-next-slide' onClick={handleNextSlide}>
+                    <UpIcon
+                      className={`up-icon down ${
+                        slideIndex === maxSlideIndex ? 'inactive' : ''
+                      }`}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
+
           <div className='categories-books-container'>
             {fetchError ? (
               <p>Error fetching books. Please try again later.</p>
