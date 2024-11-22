@@ -15,7 +15,7 @@
 }
 
 .book-rating-stars-container {
-  width: 150px;
+  width: 175px;
 }
 
 .book-rating-stars {
@@ -64,21 +64,6 @@
 .star-icon-path-4 {
   fill: var(--clr-star-grey-4);
 }
-/* #StarIcon:hover .star-icon-path-outline {
-  fill: var(--clr-star-color-outline);
-}
-#StarIcon:hover .star-icon-path-1 {
-  fill: var(--clr-star-color-1);
-}
-#StarIcon:hover .star-icon-path-2 {
-  fill: var(--clr-star-color-2);
-}
-#StarIcon:hover .star-icon-path-3 {
-  fill: var(--clr-star-color-3);
-}
-#StarIcon:hover .star-icon-path-4 {
-  fill: var(--clr-star-color-4);
-} */
 .star-icon-path-outline-filled {
   fill: var(--clr-star-color-outline);
 }

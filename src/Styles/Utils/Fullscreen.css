@@ -55,13 +55,13 @@
 }
 
 .fullscreen-details {
-  margin-top: 15px;
+  margin-top: 10px;
   color: var(--clr-dark);
 }
 
 .fullscreen-details h2 {
   font-family: 'Lato', sans-serif;
-  font-size: 1.25em;
+  font-size: 1.1em;
   line-height: 1.35;
   font-weight: 600;
   padding: 0px 20px;
@@ -75,8 +75,8 @@
 
 .fullscreen-details p {
   font-family: 'Lato', sans-serif;
-  font-size: 1.1em;
-  line-height: 1.15;
+  font-size: 1em;
+  line-height: 1.2;
   font-weight: 500;
   font-style: italic;
   margin: 5px 0;
@@ -87,4 +87,5 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: -3px 0px 0px 0px;
 }

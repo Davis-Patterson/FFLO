@@ -491,7 +491,7 @@ const Book: React.FC = () => {
                 {editBookText}
               </button>
               <button
-                className='submit-half-button'
+                className='hold-button'
                 onMouseDown={(e) => handleRemoveHold(e)}
               >
                 {isLoading ? (
@@ -553,7 +553,7 @@ const Book: React.FC = () => {
             <div className='staff-book-buttons'>
               {staffButtons}
               <button
-                className='submit-half-button'
+                className='hold-button'
                 onMouseDown={(e) => handleRemoveHold(e)}
               >
                 {isLoading ? (
@@ -579,7 +579,7 @@ const Book: React.FC = () => {
           <div className='staff-book-buttons'>
             {staffButtons}
             <button
-              className='submit-half-button'
+              className='hold-button'
               onMouseDown={(e) => handleHoldBook(e)}
             >
               {isLoading ? <LinearProgress color='inherit' /> : holdBookText}

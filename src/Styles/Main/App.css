@@ -70,8 +70,7 @@
   fill: var(--clr-toute);
 }
 
-.submit-button,
-.submit-half-button {
+.submit-button {
   font-family: 'Lato', sans-serif;
   font-size: 0.9em;
   line-height: 1;
@@ -88,11 +87,7 @@
 .submit-button {
   width: 100%;
 }
-.submit-half-button {
-  width: 49%;
-}
-.submit-button:hover,
-.submit-half-button:hover {
+.submit-button:hover {
   background-color: var(--clr-text-blue-hover);
 }
 
