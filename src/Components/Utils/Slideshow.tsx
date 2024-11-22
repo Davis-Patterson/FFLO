@@ -87,6 +87,61 @@ const Slideshow: React.FC<SlideshowProps> = ({ data }) => {
   };
 
   useEffect(() => {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartTime = 0;
+    const swipeThreshold = 20;
+    const timeThreshold = 100;
+
+    const handleTouchStart = (event: TouchEvent) => {
+      touchStartX = event.touches[0].clientX;
+      touchEndX = touchStartX;
+      touchStartTime = Date.now();
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      touchEndX = event.touches[0].clientX;
+    };
+
+    const handleTouchEnd = (event: TouchEvent) => {
+      const touchDuration = Date.now() - touchStartTime;
+      const touchDistance = Math.abs(touchStartX - touchEndX);
+
+      if (touchDuration < timeThreshold && touchDistance < swipeThreshold) {
+        return;
+      }
+
+      if (!canClick) return;
+
+      if (event.cancelable) {
+        event.preventDefault();
+      }
+
+      if (touchStartX - touchEndX > swipeThreshold) {
+        handleNext(event as unknown as React.MouseEvent);
+      } else if (touchEndX - touchStartX > swipeThreshold) {
+        handlePrev(event as unknown as React.MouseEvent);
+      }
+    };
+
+    const slideshowElement = slideshowRef.current;
+
+    if (slideshowElement) {
+      slideshowElement.addEventListener('touchstart', handleTouchStart);
+      slideshowElement.addEventListener('touchmove', handleTouchMove);
+      slideshowElement.addEventListener('touchend', handleTouchEnd);
+    }
+
+    return () => {
+      if (slideshowElement) {
+        slideshowElement.removeEventListener('touchstart', handleTouchStart);
+        slideshowElement.removeEventListener('touchmove', handleTouchMove);
+        slideshowElement.removeEventListener('touchend', handleTouchEnd);
+      }
+    };
+  }, [imgIndex, canClick]);
+
+  useEffect(() => {
     const progressTimer = setInterval(() => {
       setProgress((prevProgress) =>
         isPaused || prevProgress >= 100 ? prevProgress : prevProgress + 1
