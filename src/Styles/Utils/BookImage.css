@@ -190,7 +190,7 @@
   transform: scaleX(102%);
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 620px) {
   .book-list-bookmark-icon {
     opacity: 0.6;
   }
