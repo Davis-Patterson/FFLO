@@ -448,7 +448,7 @@ const Book: React.FC = () => {
           if (!checkedOutBook.is_active && checkedOutBook.reserved) {
             return (
               <button
-                className='submit-button'
+                className='reserve-button'
                 onMouseDown={(e) => handleCancelReservation(e)}
               >
                 {isLoading ? (
@@ -528,7 +528,7 @@ const Book: React.FC = () => {
     if (!authToken || !authUser) {
       return (
         <button
-          className='submit-button'
+          className='reserve-button'
           onMouseDown={(e) => handleShowAuth(e)}
         >
           {isLoading ? <LinearProgress color='inherit' /> : reserveBookText}
@@ -595,7 +595,7 @@ const Book: React.FC = () => {
     ) {
       return (
         <button
-          className='submit-button'
+          className='reserve-button'
           onMouseDown={(e) => handleShowMembership(e)}
         >
           {isLoading ? <LinearProgress color='inherit' /> : reserveBookText}
@@ -618,7 +618,7 @@ const Book: React.FC = () => {
         if (!checkedOutBook.is_active && checkedOutBook.reserved) {
           return (
             <button
-              className='submit-button'
+              className='reserve-button'
               onMouseDown={(e) => handleCancelReservation(e)}
             >
               {isLoading ? (
@@ -653,7 +653,7 @@ const Book: React.FC = () => {
 
     return (
       <button
-        className='submit-button'
+        className='reserve-button'
         onMouseDown={(e) => handleReserveBook(e)}
       >
         {isLoading ? <LinearProgress color='inherit' /> : reserveBookText}
