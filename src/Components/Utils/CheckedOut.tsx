@@ -75,9 +75,9 @@ const CheckedOut: React.FC = () => {
         <BookClipart className='book-clipart' />
         <p className='no-checked-out-header-text'>{noBookText}</p>
         <div className='no-checked-out-header-icons'>
-          <Pencil2 className='pencil-icon' />
-          <TapeIcon className='tape-icon' />
-          <RulerIcon className='ruler-icon' />
+          <Pencil2 className='checked-out-pencil-icon' />
+          <TapeIcon className='checked-out-tape-icon' />
+          <RulerIcon className='checked-out-ruler-icon' />
         </div>
       </div>
     );
@@ -202,9 +202,9 @@ const CheckedOut: React.FC = () => {
             </div>
           </div>
           <div className='checked-out-icons-container'>
-            <Pencil2 className='pencil-icon' />
-            <TapeIcon className='tape-icon' />
-            <RulerIcon className='ruler-icon' />
+            <Pencil2 className='checked-out-pencil-icon' />
+            <TapeIcon className='checked-out-tape-icon' />
+            <RulerIcon className='checked-out-ruler-icon' />
           </div>
         </div>
       </section>

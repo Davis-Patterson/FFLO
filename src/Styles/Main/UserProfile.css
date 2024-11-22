@@ -12,7 +12,6 @@
   z-index: 1;
   padding: 0px 25px;
   margin: 0px 0px 35px 0px;
-  max-width: 850px;
 }
 
 .user-profile-line-divider line {
@@ -351,6 +350,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  height: 111px;
   margin: 5px 0px 0px 0px;
 }
 
@@ -420,7 +420,7 @@
 }
 
 .input-token-input {
-  width: 400px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -552,4 +552,88 @@
 }
 .staff-option-card.inactive .staff-option-text {
   color: var(--clr-divider);
+}
+
+@media screen and (max-width: 970px) {
+  .user-profile-container {
+    width: 100%;
+  }
+  .user-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .tacks-icon {
+    margin: -12px 0px 0px 0px;
+  }
+  .user-info-membership-container {
+    flex-direction: column;
+    width: 100%;
+    border-right: 1px solid var(--clr-transparent);
+    border-bottom: 1px solid var(--clr-divider);
+    margin: 0px 0px 20px 0px;
+    padding: 0px 0px 20px 0px;
+    overflow: hidden;
+  }
+  .staff-options-row {
+    flex-wrap: wrap;
+  }
+  .user-checked-out-container {
+    width: 100%;
+  }
+  .no-on-hold-header-text {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .user-profile-container {
+    width: 100%;
+  }
+  .user-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .tacks-icon {
+    margin: -12px 0px 0px 0px;
+  }
+  .user-info-membership-container {
+    flex-direction: column;
+    width: 100%;
+    border-right: 1px solid var(--clr-transparent);
+    border-bottom: 1px solid var(--clr-divider);
+    margin: 0px 0px 20px 0px;
+    padding: 0px 0px 20px 0px;
+    overflow: hidden;
+  }
+  .staff-options-row {
+    flex-wrap: wrap;
+  }
+  .user-checked-out-container {
+    width: 100%;
+  }
+  .no-on-hold-header-text {
+    width: 100%;
+  }
+  .mini-list-books-link-text {
+    font-size: 1.15em;
+  }
+  .pointing-icon {
+    width: 28px;
+    height: 22px;
+    margin: 0px 0px 2px 10px;
+    fill: var(--clr-icon);
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+  }
+  .pointing-icon:hover {
+    width: 30px;
+    fill: var(--clr-text-blue);
+  }
+  .mini-list-books-link-text:hover + .pointing-icon {
+    width: 30px;
+    margin: 0px 0px 2px 15px;
+    fill: var(--clr-text-blue);
+  }
 }

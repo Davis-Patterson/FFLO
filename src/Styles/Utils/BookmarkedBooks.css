@@ -299,3 +299,12 @@
   color: var(--clr-light);
   border: 1px solid var(--clr-text-blue);
 }
+
+@media screen and (max-width: 430px) {
+  .bookmarked-books-content {
+    padding: 15px 0px;
+  }
+  .bookmarked-books-header-text {
+    font-size: 1em;
+  }
+}

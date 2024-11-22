@@ -50,15 +50,15 @@
   gap: 10px;
   justify-content: space-between;
 }
-.ruler-icon {
+.on-hold-ruler-icon {
   width: 80px;
 }
-.tape-icon {
+.on-hold-tape-icon {
   width: 60px;
 }
 
 .marker-icon,
-.pencil-icon,
+.on-hold-pencil-icon,
 .pen-icon {
   width: 60px;
   height: 50px;
@@ -338,4 +338,30 @@
 .remove-hold-button:hover {
   color: var(--clr-error);
   border: 1px solid var(--clr-error);
+}
+
+@media screen and (max-width: 970px) {
+  .no-on-hold-header-text {
+    width: unset;
+    padding: 0px 10px 0px 10px;
+  }
+  .on-hold-book-container {
+    padding: 10px 0px;
+    margin: 0px 0px 25px 0px;
+  }
+  .on-hold-icons-container {
+    gap: 5px;
+    justify-content: space-evenly;
+  }
+  .on-hold-pencil-icon,
+  .on-hold-tape-icon {
+    width: 50px;
+  }
+  .on-hold-ruler-icon {
+    width: 60px;
+  }
+  .on-hold-book-date-text,
+  .on-hold-book-due-date-text {
+    font-size: 0.9em;
+  }
 }

@@ -291,8 +291,8 @@ const RentalHistory: React.FC = () => {
             if (!IconComponent) return null;
 
             return (
-              <React.Fragment key={index}>
-                <div className='rental-history-item'>
+              <>
+                <div className='rental-history-item' key={index}>
                   <div className='history-book-info'>
                     <Link to={bookUrl}>
                       <div className='history-book-image-container'>
@@ -403,7 +403,7 @@ const RentalHistory: React.FC = () => {
                     <line x1='0' y1='50%' x2='100%' y2='50%' />
                   </svg>
                 )}
-              </React.Fragment>
+              </>
             );
           })}
 

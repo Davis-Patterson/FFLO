@@ -411,9 +411,55 @@
   border: 1px solid var(--clr-text-blue);
   color: var(--clr-text-blue);
   transition: all 0.15s ease-in-out;
+  margin: 10px 0px 0px 0px;
 }
 .load-more-button:hover {
   background-color: var(--clr-text-blue);
   border: 1px solid var(--clr-text-blue);
   color: var(--clr-light);
+}
+
+@media screen and (max-width: 879px) {
+  .history-icons-container {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .rental-history-header-text {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .history-book-details {
+    width: 150px;
+  }
+  .history-search-container {
+    min-width: 100px;
+    max-width: 180px;
+  }
+  .history-filter-dropdown {
+    width: 80px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .history-date-label,
+  .history-date-value {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .history-book-details {
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .rental-history-container {
+    padding: 15px 5px;
+    gap: 20px;
+  }
 }

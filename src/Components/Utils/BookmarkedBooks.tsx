@@ -16,14 +16,18 @@ const BookmarkedBooks: React.FC = () => {
     throw new Error('No Context');
   }
 
-  const { authToken, authUser, language, bookmarkedBooks, formatTitleForURL } =
-    context;
+  const {
+    authToken,
+    authUser,
+    language,
+    bookmarkedBooks,
+    visibleBookmarkedBooks,
+    formatTitleForURL,
+  } = context;
 
   const [filterSetting, setFilterSetting] = useState<string>('title-asc');
   const [hovered, setHovered] = useState<number | null>(null);
   const [bookRows, setLocalBookRows] = useState(1);
-
-  const visibleBooks = 4;
 
   // translations
   const headerText = language === 'EN' ? 'Bookmarked Books' : 'Livres favoris';
@@ -77,11 +81,14 @@ const BookmarkedBooks: React.FC = () => {
     const rows: { books: typeof bookmarkedBooks; placeholders: number }[] = [];
 
     for (let i = 0; i < bookRows; i++) {
-      const start = i * visibleBooks;
-      const end = start + visibleBooks;
+      const start = i * visibleBookmarkedBooks;
+      const end = start + visibleBookmarkedBooks;
       const rowBooks = filteredBooks.slice(start, end);
 
-      const placeholders = Math.max(0, visibleBooks - rowBooks.length);
+      const placeholders = Math.max(
+        0,
+        visibleBookmarkedBooks - rowBooks.length
+      );
 
       rows.push({ books: rowBooks, placeholders });
     }
@@ -263,7 +270,7 @@ const BookmarkedBooks: React.FC = () => {
           </div>
         ))}
       </div>
-      {bookRows * visibleBooks < bookmarkedBooks.length && (
+      {bookRows * visibleBookmarkedBooks < bookmarkedBooks.length && (
         <div className='bookmarked-view-more-button-container'>
           <button
             onClick={handleViewMore}

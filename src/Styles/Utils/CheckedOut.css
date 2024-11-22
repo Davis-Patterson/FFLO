@@ -38,7 +38,6 @@
   transform: scaleY(85%);
   margin: 0px 0px 45px 0px;
   padding: 0px 10px 0px 0px;
-  width: 300px;
   cursor: default;
 }
 
@@ -50,16 +49,14 @@
   gap: 10px;
   justify-content: space-between;
 }
-.ruler-icon {
+.checked-out-ruler-icon {
   width: 80px;
 }
-.tape-icon {
+.checked-out-tape-icon {
   width: 60px;
 }
 
-.marker-icon,
-.pencil-icon,
-.pen-icon {
+.checked-out-pencil-icon {
   width: 60px;
   height: 50px;
 }
@@ -314,4 +311,36 @@
   margin: 1px 0px 0px 0px;
   color: var(--clr-icon);
   transform: scaleY(90%);
+}
+
+@media screen and (max-width: 970px) {
+  .checked-out-header,
+  .no-checked-out-header {
+    width: unset;
+  }
+  .no-checked-out-header-text {
+    width: unset;
+    font-size: 1.4em;
+    padding: 0px 10px 0px 10px;
+  }
+  .checked-out-book-container {
+    padding: 10px 0px;
+    margin: 0px 0px 25px 0px;
+  }
+  .no-checked-out-icons-container,
+  .checked-out-icons-container {
+    gap: 5px;
+    justify-content: space-evenly;
+  }
+  .checked-out-pencil-icon,
+  .checked-out-tape-icon {
+    width: 50px;
+  }
+  .checked-out-ruler-icon {
+    width: 60px;
+  }
+  .checked-out-book-date-text,
+  .checked-out-book-due-date-text {
+    font-size: 0.9em;
+  }
 }

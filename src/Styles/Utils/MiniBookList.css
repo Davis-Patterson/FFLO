@@ -1,5 +1,12 @@
+.mini-list-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .mini-list-container {
-  width: 480px;
+  width: 100%;
   height: 140px;
   display: flex;
   flex-direction: row;
@@ -71,7 +78,8 @@
 }
 
 .mini-list-book-card {
-  width: 120px;
+  width: 110px;
+  height: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,4 +195,34 @@
 
 .mini-list-image.loaded {
   opacity: 1;
+}
+
+@media screen and (max-width: 970px) {
+  .mini-list-container {
+    width: 600px;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .mini-list-container {
+    width: 550px;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .mini-list-container {
+    width: 490px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .mini-list-container {
+    width: 360px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .mini-list-container {
+    width: 342px;
+  }
 }

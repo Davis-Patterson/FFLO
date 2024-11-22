@@ -101,6 +101,12 @@ const Auth: React.FC = () => {
   useEffect(() => {
     if (showAuth) {
       setRenderContainer(true);
+    } else {
+      const timer = setTimeout(() => {
+        setRenderContainer(false);
+      }, 350);
+
+      return () => clearTimeout(timer);
     }
   }, [showAuth]);
 
@@ -114,9 +120,6 @@ const Auth: React.FC = () => {
         setShowRegister(false);
         setShowForgot(false);
         setShowLogin(true);
-        setTimeout(() => {
-          setRenderContainer(false);
-        }, 350);
       }
     };
 
@@ -227,6 +230,7 @@ const Auth: React.FC = () => {
     }
     setAuthToken('');
     setAuthUser(null);
+    setShowAuth(false);
     setIsLoading(false);
   };
 
@@ -275,9 +279,6 @@ const Auth: React.FC = () => {
     setShowLogin(true);
     setShowRegister(false);
     setShowForgot(false);
-    setTimeout(() => {
-      setRenderContainer(false);
-    }, 400);
   };
 
   return (

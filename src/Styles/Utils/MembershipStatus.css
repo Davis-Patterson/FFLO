@@ -1,7 +1,7 @@
 .membership-status {
   display: flex;
   flex-direction: row;
-  width: 80%;
+  width: 220px;
   padding: 10px 5px;
   border: 1px solid var(--clr-divider);
   background-color: var(--clr-light);
@@ -89,11 +89,11 @@
   font-family: 'Lato', sans-serif;
   line-height: 1;
   font-weight: 800;
-  margin: 0px 0px 5px 0px;
+  margin: 0px 0px 2px 0px;
   text-align: center;
 }
 .membership-books-count {
-  font-size: 4.5rem;
+  font-size: 4.2rem;
   transform: scaleY(115%);
 }
 .no-membership-books-count {

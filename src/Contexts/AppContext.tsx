@@ -218,8 +218,10 @@ interface AppContextType {
   mobileWidth: boolean;
   visibleCategories: number;
   visibleBooks: number;
+  visibleBookmarkedBooks: number;
   bookRows: number;
   setBookRows: (bookRows: number) => void;
+  miniVisibleBooks: number;
 
   clearAuthToken: () => void;
   clearAuthUser: () => void;
@@ -353,7 +355,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [mobileWidth, setMobileWidth] = useState(false);
   const [visibleCategories, setVisibleCategories] = useState<number>(4);
   const [visibleBooks, setVisibleBooks] = useState<number>(4);
+  const [visibleBookmarkedBooks, setVisibleBookmarkedBooks] =
+    useState<number>(4);
   const [bookRows, setBookRows] = useState<number>(2);
+  const [miniVisibleBooks, setMiniVisibleBooks] = useState<number>(4);
 
   const determineScreenWidth = (): void => {
     if (window.innerWidth <= 620) {
@@ -423,11 +428,61 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     }
   };
 
+  const determineBookmarkedItems = (): void => {
+    if (window.innerWidth <= 699) {
+      setVisibleBookmarkedBooks(2);
+    }
+    if (window.innerWidth >= 700 && window.innerWidth <= 879) {
+      setVisibleBookmarkedBooks(3);
+    }
+    if (window.innerWidth >= 880 && window.innerWidth <= 1059) {
+      setVisibleBookmarkedBooks(4);
+    }
+    if (window.innerWidth >= 1060 && window.innerWidth <= 1249) {
+      setVisibleBookmarkedBooks(5);
+    }
+    if (window.innerWidth >= 1250 && window.innerWidth <= 1439) {
+      setVisibleBookmarkedBooks(6);
+    }
+    if (window.innerWidth >= 1440 && window.innerWidth <= 1629) {
+      setVisibleBookmarkedBooks(7);
+    }
+    if (window.innerWidth >= 1630 && window.innerWidth <= 1819) {
+      setVisibleBookmarkedBooks(8);
+    }
+    if (window.innerWidth >= 1820 && window.innerWidth <= 2009) {
+      setVisibleBookmarkedBooks(9);
+    }
+    if (window.innerWidth > 2010) {
+      setVisibleBookmarkedBooks(10);
+    }
+  };
+
+  const determineMiniVisibleBooks = (): void => {
+    if (window.innerWidth <= 550) {
+      setMiniVisibleBooks(3);
+    }
+    if (window.innerWidth >= 551 && window.innerWidth <= 799) {
+      setMiniVisibleBooks(4);
+    }
+    if (window.innerWidth >= 800 && window.innerWidth <= 970) {
+      setMiniVisibleBooks(5);
+    }
+    if (window.innerWidth >= 971 && window.innerWidth <= 1249) {
+      setMiniVisibleBooks(4);
+    }
+    if (window.innerWidth >= 1250 && window.innerWidth <= 1400) {
+      setMiniVisibleBooks(5);
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => {
       determineScreenWidth();
       determineCategoryItems();
       determineBookItems();
+      determineBookmarkedItems();
+      determineMiniVisibleBooks();
     };
 
     handleResize();
@@ -646,8 +701,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         mobileWidth,
         visibleCategories,
         visibleBooks,
+        visibleBookmarkedBooks,
         bookRows,
         setBookRows,
+        miniVisibleBooks,
 
         clearAuthToken,
         clearAuthUser,

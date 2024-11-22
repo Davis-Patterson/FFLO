@@ -85,9 +85,9 @@ const OnHold: React.FC = () => {
         <BookClipart className='book-clipart' />
         <p className='no-on-hold-header-text'>{noBookText}</p>
         <div className='no-on-hold-header-icons'>
-          <Pencil2 className='pencil-icon' />
-          <TapeIcon className='tape-icon' />
-          <RulerIcon className='ruler-icon' />
+          <Pencil2 className='on-hold-pencil-icon' />
+          <TapeIcon className='on-hold-tape-icon' />
+          <RulerIcon className='on-hold-ruler-icon' />
         </div>
       </div>
     );
@@ -188,9 +188,9 @@ const OnHold: React.FC = () => {
             </div>
           </div>
           <div className='on-hold-icons-container'>
-            <Pencil2 className='pencil-icon' />
-            <TapeIcon className='tape-icon' />
-            <RulerIcon className='ruler-icon' />
+            <Pencil2 className='on-hold-pencil-icon' />
+            <TapeIcon className='on-hold-tape-icon' />
+            <RulerIcon className='on-hold-ruler-icon' />
           </div>
         </div>
       </section>

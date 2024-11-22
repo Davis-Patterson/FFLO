@@ -104,7 +104,7 @@ const UserProfile: React.FC = () => {
     setShowCategoryEditWindow(true);
   };
 
-  const handleLogout = (event: React.MouseEvent) => {
+  const handleAuth = (event: React.MouseEvent) => {
     if (event.button !== 0) return;
     event.preventDefault();
     event.stopPropagation();
@@ -149,7 +149,7 @@ const UserProfile: React.FC = () => {
                 <div className='user-profile-logout-container'>
                   <button
                     className='login-button'
-                    onMouseDown={(e) => handleLogout(e)}
+                    onMouseDown={(e) => handleAuth(e)}
                     style={{ width: `{}` }}
                   >
                     {loginText}
@@ -268,7 +268,7 @@ const UserProfile: React.FC = () => {
                   )}
                   <button
                     className='user-profile-logout-button'
-                    onMouseDown={(e) => handleLogout(e)}
+                    onMouseDown={(e) => handleAuth(e)}
                   >
                     {logoutText}
                   </button>
