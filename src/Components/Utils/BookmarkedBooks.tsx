@@ -122,11 +122,7 @@ const BookmarkedBooks: React.FC = () => {
 
         <div className='book-grid-view'>
           <div className='no-books-message'>
-            <div className='book-image-list-container'>
-              <div className='book-image-wrapper'>
-                <BookStackClipart2 className='book-list-cover-icon' />
-              </div>
-            </div>
+            <BookStackClipart2 className='no-bookmarked-books-icon' />
             <div className='no-book-info'>
               <p className='no-book-info-text-header'>
                 {noBookmarkedBookHeader}
@@ -163,11 +159,7 @@ const BookmarkedBooks: React.FC = () => {
 
         <div className='book-grid-view'>
           <div className='no-books-message'>
-            <div className='book-image-list-container'>
-              <div className='book-image-wrapper'>
-                <BookStackClipart2 className='book-list-cover-icon' />
-              </div>
-            </div>
+            <BookStackClipart2 className='no-bookmarked-books-icon' />
             <div className='no-book-info'>
               <p className='no-book-info-text-header'>
                 {noBookmarkedBookHeader}

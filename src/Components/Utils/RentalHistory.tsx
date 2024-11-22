@@ -141,11 +141,7 @@ const RentalHistory: React.FC = () => {
 
         <div className='book-grid-view'>
           <div className='no-books-message'>
-            <div className='book-image-list-container'>
-              <div className='book-image-wrapper'>
-                <BookStackClipart1 className='book-list-cover-icon' />
-              </div>
-            </div>
+            <BookStackClipart1 className='no-history-books-icon' />
             <div className='no-book-info'>
               <p className='no-book-info-text-header'>
                 {noRentalHistoryHeader}
@@ -218,11 +214,7 @@ const RentalHistory: React.FC = () => {
 
         <div className='book-grid-view'>
           <div className='no-books-message'>
-            <div className='book-image-list-container'>
-              <div className='book-image-wrapper'>
-                <BookStackClipart1 className='book-list-cover-icon' />
-              </div>
-            </div>
+            <BookStackClipart1 className='no-history-books-icon' />
             <div className='no-book-info'>
               <p className='no-book-info-text-header'>
                 {noRentalHistoryHeader}
@@ -266,11 +258,7 @@ const RentalHistory: React.FC = () => {
       {filteredHistory.length === 0 && searchQuery ? (
         <div className='book-grid-view'>
           <div className='no-books-message'>
-            <div className='book-image-list-container'>
-              <div className='book-image-wrapper'>
-                <BookStackClipart1 className='book-list-cover-icon' />
-              </div>
-            </div>
+            <BookStackClipart1 className='no-history-books-icon' />
             <div className='no-book-info'>
               <p className='no-book-info-text-header'>{noBooksFoundText}</p>
               <p className='no-book-info-subtext'>{noBooksFoundSubtext}</p>
