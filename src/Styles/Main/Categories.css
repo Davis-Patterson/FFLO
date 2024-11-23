@@ -208,6 +208,7 @@
   transition: all 0.15s ease-in-out;
   position: relative;
   cursor: pointer;
+  pointer-events: auto;
 }
 .category-inactive {
   opacity: 0.6;

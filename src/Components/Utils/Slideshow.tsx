@@ -90,8 +90,8 @@ const Slideshow: React.FC<SlideshowProps> = ({ data }) => {
     let touchStartX = 0;
     let touchEndX = 0;
     let touchStartTime = 0;
-    const swipeThreshold = 20;
-    const timeThreshold = 100;
+    const swipeThreshold = 50;
+    const timeThreshold = 500;
 
     const handleTouchStart = (event: TouchEvent) => {
       touchStartX = event.touches[0].clientX;
@@ -105,9 +105,12 @@ const Slideshow: React.FC<SlideshowProps> = ({ data }) => {
 
     const handleTouchEnd = (event: TouchEvent) => {
       const touchDuration = Date.now() - touchStartTime;
-      const touchDistance = Math.abs(touchStartX - touchEndX);
+      const touchDistance = touchEndX - touchStartX;
 
-      if (touchDuration < timeThreshold && touchDistance < swipeThreshold) {
+      if (
+        touchDuration > timeThreshold ||
+        Math.abs(touchDistance) < swipeThreshold
+      ) {
         return;
       }
 
@@ -117,9 +120,11 @@ const Slideshow: React.FC<SlideshowProps> = ({ data }) => {
         event.preventDefault();
       }
 
-      if (touchStartX - touchEndX > swipeThreshold) {
+      if (touchDistance < 0) {
+        // Swipe left
         handleNext(event as unknown as React.MouseEvent);
-      } else if (touchEndX - touchStartX > swipeThreshold) {
+      } else if (touchDistance > 0) {
+        // Swipe right
         handlePrev(event as unknown as React.MouseEvent);
       }
     };
@@ -139,7 +144,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ data }) => {
         slideshowElement.removeEventListener('touchend', handleTouchEnd);
       }
     };
-  }, [imgIndex, canClick]);
+  }, [canClick, handleNext, handlePrev]);
 
   useEffect(() => {
     const progressTimer = setInterval(() => {

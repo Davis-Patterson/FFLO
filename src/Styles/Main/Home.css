@@ -301,6 +301,7 @@
   min-width: 190px;
   transition: all 0.15s ease-in-out;
   position: relative;
+  pointer-events: auto;
 }
 .home-category-card.toute {
   background-color: var(--clr-toute);
