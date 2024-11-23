@@ -230,7 +230,8 @@
   gap: 10px;
 }
 
-.user-profile-logout-button {
+.user-profile-logout-button,
+.user-profile-staff-logout-button {
   border: 1px solid var(--clr-icon);
   background-color: var(--clr-light);
   font-family: 'Lato', sans-serif;
@@ -240,13 +241,18 @@
   color: var(--clr-icon);
   padding: 5px 8px;
   transition: all 0.15s ease-in-out;
-  width: 200px;
   height: 26px;
   margin: 20px 0px 0px 0px;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.user-profile-logout-button {
+  width: 200px;
+}
+.user-profile-staff-logout-button {
+  width: 100px;
 }
 .user-profile-logout-button:hover {
   border: 1px solid var(--clr-error);
@@ -263,13 +269,18 @@
   color: var(--clr-light);
   padding: 5px 8px;
   transition: all 0.15s ease-in-out;
-  width: 200px;
   height: 26px;
   margin: 20px 0px 0px 0px;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.login-button {
+  width: 200px;
+}
+.admin-button {
+  width: 100px;
 }
 .login-button:hover,
 .admin-button:hover {

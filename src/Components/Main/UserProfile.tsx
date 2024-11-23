@@ -255,16 +255,26 @@ const UserProfile: React.FC = () => {
                 </div>
                 <div className='user-profile-logout-container'>
                   {authUser?.is_staff && (
-                    <Link to='/admin' className='admin-button'>
-                      {staffText}
-                    </Link>
+                    <>
+                      <Link to='/admin' className='admin-button'>
+                        {staffText}
+                      </Link>
+                      <button
+                        className='user-profile-staff-logout-button'
+                        onMouseDown={(e) => handleAuth(e)}
+                      >
+                        {logoutText}
+                      </button>
+                    </>
                   )}
-                  <button
-                    className='user-profile-logout-button'
-                    onMouseDown={(e) => handleAuth(e)}
-                  >
-                    {logoutText}
-                  </button>
+                  {!authUser?.is_staff && (
+                    <button
+                      className='user-profile-logout-button'
+                      onMouseDown={(e) => handleAuth(e)}
+                    >
+                      {logoutText}
+                    </button>
+                  )}
                 </div>
               </div>
               <div className='user-phone-edit-icons'>
