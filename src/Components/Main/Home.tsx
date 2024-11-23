@@ -284,10 +284,7 @@ const Home: React.FC = () => {
                                   {category.description}
                                 </p>
                               </div>
-                              <Link
-                                to='/library'
-                                className='home-category-button-link'
-                              >
+                              <div className='home-category-button-link'>
                                 <button
                                   className='home-category-button'
                                   style={{ backgroundColor }}
@@ -297,7 +294,7 @@ const Home: React.FC = () => {
                                 >
                                   {categoryButtonText}
                                 </button>
-                              </Link>
+                              </div>
                             </Link>
                           );
                         })}

@@ -144,6 +144,17 @@ const BookList: React.FC = () => {
     setFilterSetting(event.target.value);
   };
 
+  const handleTouchStart = (e: React.TouchEvent, bookId: number) => {
+    const touch = e.touches[0];
+    if (touch) {
+      setHovered(bookId);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setHovered(null);
+  };
+
   const getLanguageIcon = (language: string) => {
     const normalizedLanguage = language.toLowerCase();
     if (normalizedLanguage === 'french' || normalizedLanguage === 'français') {
@@ -367,6 +378,8 @@ const BookList: React.FC = () => {
                             }`}
                             onMouseEnter={() => setHovered(book.id)}
                             onMouseLeave={() => setHovered(null)}
+                            onTouchStart={(e) => handleTouchStart(e, book.id)}
+                            onTouchEnd={() => handleTouchEnd()}
                           >
                             <BookImage
                               book={book}
@@ -451,6 +464,8 @@ const BookList: React.FC = () => {
                         }`}
                         onMouseEnter={() => setHovered(book.id)}
                         onMouseLeave={() => setHovered(null)}
+                        onTouchStart={(e) => handleTouchStart(e, book.id)}
+                        onTouchEnd={() => handleTouchEnd()}
                       >
                         <BookImage
                           book={book}
