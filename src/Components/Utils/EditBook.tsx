@@ -1291,6 +1291,9 @@ const EditBook: React.FC = () => {
                                     className={`image-thumbnail ${
                                       isSelected ? 'selected' : ''
                                     }`}
+                                    onMouseDown={(e) =>
+                                      handleDeleteBookImage(e, image.id)
+                                    }
                                   >
                                     <div
                                       className={`image-thumbnail-overlay ${

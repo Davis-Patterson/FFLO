@@ -221,23 +221,21 @@ const EditProfile: React.FC = () => {
     }, 400);
   };
 
-  const handleDeleteBookImage = (
-    e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  const handleDeleteProfileImage = (
+    e: React.MouseEvent<HTMLDivElement | SVGSVGElement, MouseEvent>
   ) => {
     if (e.button !== 0) return;
     e.preventDefault();
     e.stopPropagation();
-
     setRemoveImage(true);
   };
 
-  const handleUndoDeleteBookImage = (
-    e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  const handleUndoDeleteProfileImage = (
+    e: React.MouseEvent<HTMLDivElement | SVGSVGElement, MouseEvent>
   ) => {
     if (e.button !== 0) return;
     e.preventDefault();
     e.stopPropagation();
-
     setRemoveImage(false);
     setImageFile(null);
 
@@ -314,33 +312,38 @@ const EditProfile: React.FC = () => {
                           (authUser.image?.image_url ? (
                             <div
                               className={`user-edit-image-container ${
-                                removeImage === true ? 'selected' : ''
+                                removeImage ? 'selected' : ''
                               }`}
+                              onMouseDown={
+                                removeImage
+                                  ? (e) => handleUndoDeleteProfileImage(e)
+                                  : (e) => handleDeleteProfileImage(e)
+                              }
                             >
                               <div
                                 className={`image-thumbnail-overlay ${
-                                  removeImage === true ? 'selected' : ''
+                                  removeImage ? 'selected' : ''
                                 }`}
                               />
                               <div
                                 className={
-                                  removeImage === true
+                                  removeImage
                                     ? 'user-edit-image-x-container'
                                     : 'user-edit-image-trash-container'
                                 }
                               >
-                                {removeImage === true ? (
+                                {removeImage ? (
                                   <BackArrow
                                     className='user-edit-trash-x'
                                     onMouseDown={(e) =>
-                                      handleUndoDeleteBookImage(e)
+                                      handleUndoDeleteProfileImage(e)
                                     }
                                   />
                                 ) : (
                                   <TrashIcon
                                     className='user-edit-trash-icon'
                                     onMouseDown={(e) =>
-                                      handleDeleteBookImage(e)
+                                      handleDeleteProfileImage(e)
                                     }
                                   />
                                 )}
