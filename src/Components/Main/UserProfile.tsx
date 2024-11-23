@@ -29,8 +29,6 @@ const UserProfile: React.FC = () => {
     throw new Error('No Context');
   }
   const {
-    authToken,
-    setAuthToken,
     authUser,
     setShowAuth,
     setShowEdit,
@@ -39,7 +37,6 @@ const UserProfile: React.FC = () => {
     language,
   } = context;
 
-  const [token, setToken] = useState('');
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   const navigate = useNavigate();
@@ -118,10 +115,6 @@ const UserProfile: React.FC = () => {
     event.stopPropagation();
 
     navigate('/books');
-  };
-
-  const handleTokenSet = () => {
-    setAuthToken(token);
   };
 
   const handleHover = (card: string) => {
@@ -423,23 +416,6 @@ const UserProfile: React.FC = () => {
                   >
                     <MembersIcon className='staff-option-icon' />
                     <p className='staff-option-text'>{membershipsText}</p>
-                  </div>
-                </div>
-
-                <div className='input-token-container'>
-                  <div className='input-token-input'>
-                    <input
-                      type='text'
-                      name='token'
-                      value={token}
-                      onChange={(e) => setToken(e.target.value)}
-                      required
-                      placeholder={authToken || 'token'}
-                      className='token-input'
-                    />
-                    <div className='token-button' onClick={handleTokenSet}>
-                      tkn
-                    </div>
                   </div>
                 </div>
               </section>
