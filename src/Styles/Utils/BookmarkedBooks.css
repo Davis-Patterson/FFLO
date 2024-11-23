@@ -305,6 +305,18 @@
   height: 160px;
 }
 
+.no-bookmarked-books-subtext {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1em;
+  font-weight: 400;
+  line-height: 1;
+  transform: scaleY(90%);
+  color: var(--clr-icon);
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
 @media screen and (max-width: 430px) {
   .bookmarked-books-content {
     padding: 15px 0px;

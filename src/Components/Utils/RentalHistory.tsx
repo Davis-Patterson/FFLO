@@ -146,7 +146,7 @@ const RentalHistory: React.FC = () => {
               <p className='no-book-info-text-header'>
                 {noRentalHistoryHeader}
               </p>
-              <p className='no-book-info-subtext'>{loginHistoryText}</p>
+              <p className='no-history-subtext'>{loginHistoryText}</p>
             </div>
           </div>
         </div>
@@ -219,7 +219,7 @@ const RentalHistory: React.FC = () => {
               <p className='no-book-info-text-header'>
                 {noRentalHistoryHeader}
               </p>
-              <p className='no-book-info-subtext'>{noRentalHistoryFound}</p>
+              <p className='no-history-subtext'>{noRentalHistoryFound}</p>
             </div>
           </div>
         </div>
@@ -261,7 +261,7 @@ const RentalHistory: React.FC = () => {
             <BookStackClipart1 className='no-history-books-icon' />
             <div className='no-book-info'>
               <p className='no-book-info-text-header'>{noBooksFoundText}</p>
-              <p className='no-book-info-subtext'>{noBooksFoundSubtext}</p>
+              <p className='no-history-subtext'>{noBooksFoundSubtext}</p>
             </div>
           </div>
         </div>

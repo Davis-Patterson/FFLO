@@ -127,7 +127,9 @@ const BookmarkedBooks: React.FC = () => {
               <p className='no-book-info-text-header'>
                 {noBookmarkedBookHeader}
               </p>
-              <p className='no-book-info-subtext'>{loginBookmarkedText}</p>
+              <p className='no-bookmarked-books-subtext'>
+                {loginBookmarkedText}
+              </p>
             </div>
           </div>
         </div>
@@ -164,7 +166,9 @@ const BookmarkedBooks: React.FC = () => {
               <p className='no-book-info-text-header'>
                 {noBookmarkedBookHeader}
               </p>
-              <p className='no-book-info-subtext'>{noBookmarkedBookFound}</p>
+              <p className='no-bookmarked-books-subtext'>
+                {noBookmarkedBookFound}
+              </p>
             </div>
           </div>
         </div>
