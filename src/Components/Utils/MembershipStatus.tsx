@@ -20,10 +20,7 @@ const MembershipStatus: React.FC = () => {
     language === 'EN' ? 'No Membership' : "Pas d'adhésion";
   const expiringMembershipText =
     language === 'EN' ? 'Expiring Membership' : 'Adhésion expirée';
-  const subscriptionRenewText =
-    language === 'EN'
-      ? 'Subscription Renews:'
-      : "Renouvellement de l'abonnement :";
+  const subscriptionRenewText = language === 'EN' ? 'Renews:' : 'Renouvelle :';
   const subscriptionEndText =
     language === 'EN' ? 'Subscription Ends:' : "Fin de l'abonnement :";
   const bookUsedThisMonthText =

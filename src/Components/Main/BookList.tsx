@@ -338,11 +338,7 @@ const BookList: React.FC = () => {
           >
             <div className='book-grid-view' style={{ alignItems: 'center' }}>
               <div className='no-books-message'>
-                <div className='book-image-list-container'>
-                  <div className='book-image-wrapper'>
-                    <BookClipart className='book-list-cover-icon' />
-                  </div>
-                </div>
+                <BookClipart className='no-book-found-clipart' />
                 <div className='no-book-info'>
                   <p className='no-book-info-text-header'>{noBooksFoundText}</p>
                   <p className='no-book-info-subtext'>{noBooksFoundSubtext}</p>
