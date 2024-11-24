@@ -595,6 +595,9 @@
   .no-on-hold-header-text {
     width: 100%;
   }
+  .mini-list-books-link-container {
+    margin: 25px 0px 0px 0px;
+  }
 }
 
 @media screen and (max-width: 580px) {

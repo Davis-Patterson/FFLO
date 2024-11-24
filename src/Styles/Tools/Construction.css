@@ -39,6 +39,7 @@
   display: flex;
   justify-content: center;
   cursor: default;
+  text-align: center;
 }
 
 .construction-alert-left,
@@ -174,4 +175,103 @@
 .construction-hand-icon.deselected {
   fill: var(--clr-divider);
   opacity: 0.95;
+}
+
+@media screen and (max-width: 670px) {
+  .construction-wrapper {
+    padding: 20px 0px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .construction-content {
+    flex-direction: column;
+  }
+  .construction-header {
+    margin: 10px 0px 5px 0px;
+  }
+  .construction-content {
+    margin: 0px 0px 0px 0px;
+    gap: 5px;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .construction-header-text {
+    font-size: 1.8em;
+  }
+  .construction-alert-left,
+  .construction-alert-right {
+    width: 40px;
+    height: 40px;
+  }
+  .construction-stop-clipart {
+    height: 150px;
+    width: auto;
+    margin: 10px 0px 10px 0px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .construction-text-hand {
+    font-family: 'Patrick hand', sans-serif;
+    font-size: 1.2em;
+    color: var(--clr-text-grey);
+    margin: 0px 0px 5px 0px;
+    letter-spacing: 0.5px;
+    cursor: default;
+  }
+  .construction-header-text {
+    font-size: 1.7em;
+    letter-spacing: -0.6px;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .construction-wrapper {
+    padding: 20px 0px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .construction-content {
+    flex-direction: column;
+  }
+  .construction-header {
+    margin: 10px 0px 5px 0px;
+  }
+  .construction-content {
+    margin: 0px 0px 0px 0px;
+    gap: 5px;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .construction-header-text {
+    font-size: 1.8em;
+  }
+  .construction-alert-left,
+  .construction-alert-right {
+    width: 40px;
+    height: 40px;
+  }
+  .construction-stop-clipart {
+    height: 150px;
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .construction-text-hand {
+    font-family: 'Patrick hand', sans-serif;
+    font-size: 1.2em;
+    color: var(--clr-text-grey);
+    margin: 0px 0px 5px 0px;
+    letter-spacing: 0.5px;
+    cursor: default;
+  }
+  .construction-header-text {
+    font-size: 1.7em;
+    letter-spacing: -0.6px;
+  }
 }

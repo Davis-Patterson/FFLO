@@ -38,6 +38,10 @@ const BookNotFound: React.FC = () => {
     language === 'EN'
       ? 'Visit your user profile'
       : 'Visitez votre profil utilisateur';
+  const contactText =
+    language === 'EN'
+      ? 'Contact us with questions or comments'
+      : 'Contactez-nous pour toute question ou commentaire';
   const loginText =
     language === 'EN'
       ? 'Login to visit your profile'
@@ -177,6 +181,43 @@ const BookNotFound: React.FC = () => {
                             !hoveredCategoryId
                               ? ''
                               : hoveredCategoryId === 'profile'
+                              ? 'selected'
+                              : 'deselected'
+                          }`}
+                        />
+                      </div>
+                    </Link>
+                    <Link to={'/contact'}>
+                      <div
+                        className='not-found-content-link-item'
+                        onMouseEnter={() => setHoveredCategoryId('contact')}
+                        onMouseLeave={() => setHoveredCategoryId('')}
+                      >
+                        <BulletPoint
+                          className={`not-found-bullet-point ${
+                            !hoveredCategoryId
+                              ? ''
+                              : hoveredCategoryId === 'contact'
+                              ? 'selected'
+                              : 'deselected'
+                          }`}
+                        />
+                        <p
+                          className={`not-found-content-link-text ${
+                            !hoveredCategoryId
+                              ? ''
+                              : hoveredCategoryId === 'contact'
+                              ? 'selected'
+                              : 'deselected'
+                          }`}
+                        >
+                          {contactText}
+                        </p>
+                        <PointingIcon
+                          className={`not-found-hand-icon ${
+                            !hoveredCategoryId
+                              ? ''
+                              : hoveredCategoryId === 'contact'
                               ? 'selected'
                               : 'deselected'
                           }`}

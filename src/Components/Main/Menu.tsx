@@ -14,6 +14,8 @@ import AboutIcon from 'Svgs/AboutIcon';
 import EnvelopeIcon from 'Svgs/EnvelopeIcon';
 import WebsiteIcon from 'Svgs/WebsiteIcon';
 
+type IconProps = React.SVGProps<SVGSVGElement>;
+
 const Menu: React.FC = () => {
   const context = useContext(AppContext);
   if (!context) {
@@ -27,10 +29,13 @@ const Menu: React.FC = () => {
     language,
     handleLanguageChange,
     formatDate,
+    natureIcons,
   } = context;
 
   const [renderContainer, setRenderContainer] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
+  const [shuffledIcons, setShuffledIcons] = useState<React.FC[]>([]);
+
   const authContainerRef = useRef<HTMLDivElement>(null);
 
   const location = useLocation();
@@ -53,6 +58,15 @@ const Menu: React.FC = () => {
       setRenderContainer(true);
     }
   }, [showMenu]);
+
+  useEffect(() => {
+    const shuffled = Object.values(natureIcons)
+      .map((icon) => ({ icon, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ icon }) => icon);
+
+    setShuffledIcons(shuffled);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -137,6 +151,14 @@ const Menu: React.FC = () => {
     }
 
     return <div className='menu-membership-none'>{noMembership}</div>;
+  };
+
+  const renderIcon = (index: number) => {
+    if (shuffledIcons.length === 0 || !shuffledIcons[index]) return null;
+    const IconComponent = shuffledIcons[index] as React.FC<IconProps>;
+    return IconComponent ? (
+      <IconComponent className='menu-nature-icon' />
+    ) : null;
   };
 
   return (
@@ -503,62 +525,72 @@ const Menu: React.FC = () => {
                   <line x1='0' y1='50%' x2='100%' y2='50%' />
                 </svg>
               </a>
-              {!authUser && (
-                <Link
-                  to='/profile'
-                  className={`profile-link ${
-                    hovered !== null ? 'inactive' : ''
-                  }`}
-                  onMouseDown={(e) => handleAuthClick(e)}
-                >
-                  <UserIcon className='menu-user-icon' />
-                  <div className='menu-user-info'>
-                    <p className='menu-profile-link-text'>Create an account</p>
-                    <p className='menu-profile-link-text'>or login</p>
-                    <div className='menu-profile-membership-container'>
-                      {renderMembershipStatus()}
+              <div className='menu-icons-profile-container'>
+                <div className='menu-icons-container left'>{renderIcon(0)}</div>
+                {!authUser && (
+                  <Link
+                    to='/profile'
+                    className={`profile-link ${
+                      hovered !== null ? 'inactive' : ''
+                    }`}
+                    onMouseDown={(e) => handleAuthClick(e)}
+                  >
+                    <UserIcon className='menu-user-icon' />
+                    <div className='menu-user-info'>
+                      <p className='menu-profile-link-text'>
+                        Create an account
+                      </p>
+                      <p className='menu-profile-link-text'>or login</p>
+                      <div className='menu-profile-membership-container'>
+                        {renderMembershipStatus()}
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              )}
-              {authUser && (
-                <Link
-                  to='/profile'
-                  onMouseDown={(e) => handleLinkClick(e)}
-                  className={`profile-link ${
-                    hovered !== null ? 'inactive' : ''
-                  }`}
-                >
-                  {authUser.image && authUser.image.image_small ? (
-                    <div className='menu-user-image-container'>
-                      <img
-                        src={authUser.image.image_small}
-                        alt='User'
-                        className='menu-user-image'
-                      />
+                  </Link>
+                )}
+                {authUser && (
+                  <Link
+                    to='/profile'
+                    onMouseDown={(e) => handleLinkClick(e)}
+                    className={`profile-link ${
+                      hovered !== null ? 'inactive' : ''
+                    }`}
+                  >
+                    {authUser.image && authUser.image.image_small ? (
+                      <div className='menu-user-image-container'>
+                        <img
+                          src={authUser.image.image_small}
+                          alt='User'
+                          className='menu-user-image'
+                        />
+                      </div>
+                    ) : (
+                      <div className='menu-user-image-container'>
+                        <img
+                          src={`https://robohash.org/set_set4/${authUser.email}`}
+                          alt='User'
+                          className='menu-user-image'
+                        />
+                        <div className='menu-user-image-background' />
+                      </div>
+                    )}
+                    <div className='menu-user-info'>
+                      <p className='menu-profile-link-name'>
+                        {authUser.first_name}{' '}
+                        {authUser.last_name && authUser.last_name}
+                      </p>
+                      <p className='menu-profile-link-email'>
+                        {authUser.email}
+                      </p>
+                      <div className='menu-profile-membership-container'>
+                        {renderMembershipStatus()}
+                      </div>
                     </div>
-                  ) : (
-                    <div className='menu-user-image-container'>
-                      <img
-                        src={`https://robohash.org/set_set4/${authUser.email}`}
-                        alt='User'
-                        className='menu-user-image'
-                      />
-                      <div className='menu-user-image-background' />
-                    </div>
-                  )}
-                  <div className='menu-user-info'>
-                    <p className='menu-profile-link-name'>
-                      {authUser.first_name}{' '}
-                      {authUser.last_name && authUser.last_name}
-                    </p>
-                    <p className='menu-profile-link-email'>{authUser.email}</p>
-                    <div className='menu-profile-membership-container'>
-                      {renderMembershipStatus()}
-                    </div>
-                  </div>
-                </Link>
-              )}
+                  </Link>
+                )}
+                <div className='menu-icons-container right'>
+                  {renderIcon(1)}
+                </div>
+              </div>
             </div>
           </section>
         </main>

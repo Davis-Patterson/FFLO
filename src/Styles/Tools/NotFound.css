@@ -14,7 +14,6 @@
   align-items: center;
   flex-direction: column;
   max-width: 950px;
-  min-width: 650px;
   width: 100%;
 }
 
@@ -36,6 +35,7 @@
   justify-content: center;
   width: auto;
   cursor: default;
+  text-align: center;
 }
 
 .not-found-alert-left,
@@ -170,4 +170,54 @@
 .not-found-hand-icon.deselected {
   fill: var(--clr-divider);
   opacity: 0.95;
+}
+
+@media screen and (max-width: 670px) {
+  .not-found-wrapper {
+    padding: 20px 0px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .not-found-content {
+    flex-direction: column;
+  }
+  .not-found-header {
+    margin: 10px 0px 5px 0px;
+  }
+  .not-found-content {
+    margin: 0px 0px 0px 0px;
+    gap: 5px;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .not-found-header-text {
+    font-size: 1.8em;
+  }
+  .not-found-alert-left,
+  .not-found-alert-right {
+    width: 40px;
+    height: 40px;
+  }
+  .not-found-globe-clipart {
+    height: 150px;
+    width: auto;
+    margin: 0px 0px 0px 0px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .not-found-text-hand {
+    font-family: 'Patrick hand', sans-serif;
+    font-size: 1.2em;
+    color: var(--clr-text-grey);
+    margin: 0px 0px 5px 0px;
+    letter-spacing: 0.5px;
+    cursor: default;
+  }
+  .not-found-header-text {
+    font-size: 1.7em;
+    letter-spacing: -0.6px;
+  }
 }
