@@ -14,6 +14,7 @@ const ContactFallback: React.FC = () => {
           <header className='contact-fallback-header'>
             <div className='contact-fallback-header-title'>
               <Skeleton
+                sx={{ bgcolor: '#ffffff' }}
                 variant='rectangular'
                 animation='wave'
                 width={50}
@@ -21,6 +22,7 @@ const ContactFallback: React.FC = () => {
                 className='title-flair-skeleton'
               />
               <Skeleton
+                sx={{ bgcolor: '#ffffff' }}
                 variant='rectangular'
                 animation='wave'
                 width={160}
@@ -28,6 +30,7 @@ const ContactFallback: React.FC = () => {
                 className='title-text-skeleton'
               />
               <Skeleton
+                sx={{ bgcolor: '#ffffff' }}
                 variant='rectangular'
                 animation='wave'
                 width={50}
@@ -36,6 +39,7 @@ const ContactFallback: React.FC = () => {
               />
             </div>
             <Skeleton
+              sx={{ bgcolor: '#ffffff' }}
               variant='rectangular'
               animation='wave'
               width='60%'
@@ -46,6 +50,7 @@ const ContactFallback: React.FC = () => {
 
           <div className='contact-fallback-line-divider'>
             <Skeleton
+              sx={{ bgcolor: '#fff5ed' }}
               variant='rectangular'
               animation='wave'
               width={'100%'}
@@ -57,6 +62,7 @@ const ContactFallback: React.FC = () => {
             <div className='contact-fallback-social-icon-location-container'>
               <div className='contact-fallback-online-section'>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width={80}
@@ -64,12 +70,14 @@ const ContactFallback: React.FC = () => {
                 />
                 <div className='social-icons-skeleton-container'>
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rounded'
                     animation='wave'
                     width={40}
                     height={40}
                   />
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rounded'
                     animation='wave'
                     width={40}
@@ -77,6 +85,7 @@ const ContactFallback: React.FC = () => {
                   />
                 </div>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width={120}
@@ -86,6 +95,7 @@ const ContactFallback: React.FC = () => {
               </div>
 
               <Skeleton
+                sx={{ bgcolor: '#ffffff' }}
                 variant='rectangular'
                 animation='wave'
                 width={110}
@@ -95,6 +105,7 @@ const ContactFallback: React.FC = () => {
 
               <div className='contact-fallback-location-container'>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width={100}
@@ -102,6 +113,7 @@ const ContactFallback: React.FC = () => {
                   className='section-header-skeleton'
                 />
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width={110}
@@ -110,6 +122,7 @@ const ContactFallback: React.FC = () => {
                 />
                 <div className='contact-fallback-address'>
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rectangular'
                     animation='wave'
                     width={125}
@@ -117,6 +130,7 @@ const ContactFallback: React.FC = () => {
                     className='address-text-skeleton'
                   />
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rectangular'
                     animation='wave'
                     width={145}
@@ -130,6 +144,7 @@ const ContactFallback: React.FC = () => {
             <div className='contact-fallback-message-input-wrapper'>
               <div className='contact-fallback-message-input-container'>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width={100}
@@ -137,6 +152,7 @@ const ContactFallback: React.FC = () => {
                   className='section-header-skeleton'
                 />
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='circular'
                   animation='wave'
                   width={50}
@@ -146,6 +162,7 @@ const ContactFallback: React.FC = () => {
                 <div className='contact-fallback-form-skeleton'>
                   <div className='contact-fallback-form-names'>
                     <Skeleton
+                      sx={{ bgcolor: '#ffffff' }}
                       variant='rectangular'
                       animation='wave'
                       width={'100%'}
@@ -153,6 +170,7 @@ const ContactFallback: React.FC = () => {
                       className='input-skeleton'
                     />
                     <Skeleton
+                      sx={{ bgcolor: '#ffffff' }}
                       variant='rectangular'
                       animation='wave'
                       width={'100%'}
@@ -161,6 +179,7 @@ const ContactFallback: React.FC = () => {
                     />
                   </div>
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rectangular'
                     animation='wave'
                     width='100%'
@@ -168,6 +187,7 @@ const ContactFallback: React.FC = () => {
                     className='input-skeleton'
                   />
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rectangular'
                     animation='wave'
                     width='100%'
@@ -175,6 +195,7 @@ const ContactFallback: React.FC = () => {
                     className='message-input-skeleton'
                   />
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rectangular'
                     animation='wave'
                     width='100%'

@@ -14,6 +14,7 @@ const BooksFallback: React.FC = () => {
         <header className='categories-fallback-header'>
           <h2 className='categories-fallback-header-pretext'>
             <Skeleton
+              sx={{ bgcolor: '#ffffff' }}
               variant='rectangular'
               animation='wave'
               width={90}
@@ -22,6 +23,7 @@ const BooksFallback: React.FC = () => {
           </h2>
           <div className='categories-fallback-header-title'>
             <Skeleton
+              sx={{ bgcolor: '#ffffff' }}
               variant='rectangular'
               animation='wave'
               width={50}
@@ -29,6 +31,7 @@ const BooksFallback: React.FC = () => {
             />
             <h1 className='categories-fallback-header-title-text'>
               <Skeleton
+                sx={{ bgcolor: '#ffffff' }}
                 variant='rectangular'
                 animation='wave'
                 width={200}
@@ -36,6 +39,7 @@ const BooksFallback: React.FC = () => {
               />
             </h1>
             <Skeleton
+              sx={{ bgcolor: '#ffffff' }}
               variant='rectangular'
               animation='wave'
               width={50}
@@ -46,6 +50,7 @@ const BooksFallback: React.FC = () => {
 
         <div className='categories-fallback-line-divider'>
           <Skeleton
+            sx={{ bgcolor: '#fff5ed' }}
             variant='rectangular'
             animation='wave'
             width={'100%'}
@@ -57,6 +62,7 @@ const BooksFallback: React.FC = () => {
           <div className='categories-fallback-map-container'>
             {Array.from({ length: 4 }).map((_, index) => (
               <Skeleton
+                sx={{ bgcolor: '#ffffff' }}
                 key={index}
                 variant='rectangular'
                 animation='wave'

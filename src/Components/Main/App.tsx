@@ -287,8 +287,8 @@ const App: React.FC = () => {
             }
           />
           <Route path='/construction' element={<Construction />} />
-          <Route path='/fallback' element={<HomeFallback />} />
           <Route path='/restricted' element={<Restricted />} />
+          <Route path='/fallback' element={<HomeFallback />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

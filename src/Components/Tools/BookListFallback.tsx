@@ -11,6 +11,7 @@ const BookListFallback: React.FC = () => {
     <section className='book-fallback-list-container'>
       <div className='page-toggles-container-fallback'>
         <Skeleton
+          sx={{ bgcolor: '#ffffff' }}
           variant='rectangular'
           animation='wave'
           width={60}
@@ -18,6 +19,7 @@ const BookListFallback: React.FC = () => {
           className='sidebar-icon-skeleton'
         />
         <Skeleton
+          sx={{ bgcolor: '#fff5ed' }}
           variant='rectangular'
           animation='wave'
           width='80%'
@@ -26,6 +28,7 @@ const BookListFallback: React.FC = () => {
         />
         <div className='fallback-search-container'>
           <Skeleton
+            sx={{ bgcolor: '#ffffff' }}
             variant='rectangular'
             animation='wave'
             width='80%'
@@ -33,6 +36,7 @@ const BookListFallback: React.FC = () => {
             className='search-input-skeleton'
           />
           <Skeleton
+            sx={{ bgcolor: '#ffffff' }}
             variant='rectangular'
             animation='wave'
             width='120px'
@@ -41,6 +45,7 @@ const BookListFallback: React.FC = () => {
           />
         </div>
         <Skeleton
+          sx={{ bgcolor: '#ffffff' }}
           variant='rectangular'
           animation='wave'
           width={60}
@@ -54,6 +59,7 @@ const BookListFallback: React.FC = () => {
           {Array.from({ length: 10 }).map((_, index) => (
             <div key={index} className='book-fallback-card-skeleton'>
               <Skeleton
+                sx={{ bgcolor: '#ffffff' }}
                 variant='rectangular'
                 animation='wave'
                 width={158}
@@ -62,6 +68,7 @@ const BookListFallback: React.FC = () => {
               />
               <div className='book-fallback-info-skeleton'>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width='90%'
@@ -69,6 +76,7 @@ const BookListFallback: React.FC = () => {
                   className='book-fallback-title-skeleton'
                 />
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width='75%'
@@ -77,6 +85,7 @@ const BookListFallback: React.FC = () => {
                 />
                 <div className='book-fallback-language-rating-skeleton'>
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rectangular'
                     animation='wave'
                     width={30}
@@ -84,6 +93,7 @@ const BookListFallback: React.FC = () => {
                     className='book-fallback-language-skeleton'
                   />
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rectangular'
                     animation='wave'
                     width={30}

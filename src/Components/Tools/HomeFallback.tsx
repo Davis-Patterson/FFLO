@@ -16,6 +16,7 @@ const HomeFallback: React.FC = () => {
           <header className='home-fallback-header'>
             <div className='home-fallback-header-image-container'>
               <Skeleton
+                sx={{ bgcolor: '#ffffff' }}
                 variant='rectangular'
                 animation='wave'
                 width={'100%'}
@@ -24,6 +25,7 @@ const HomeFallback: React.FC = () => {
               <div className='home-fallback-header-text-container'>
                 <div className='home-fallback-header-pretext'>
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rectangular'
                     animation='wave'
                     width={150}
@@ -32,18 +34,21 @@ const HomeFallback: React.FC = () => {
                 </div>
                 <div className='home-fallback-header-title'>
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rectangular'
                     animation='wave'
                     width={40}
                     height={40}
                   />
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rectangular'
                     animation='wave'
                     width={200}
                     height={40}
                   />
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     variant='rectangular'
                     animation='wave'
                     width={40}
@@ -53,6 +58,7 @@ const HomeFallback: React.FC = () => {
                 <div className='home-fallback-header-subtext'>
                   {Array.from({ length: 3 }).map((_, index) => (
                     <Skeleton
+                      sx={{ bgcolor: '#ffffff' }}
                       key={index}
                       variant='rectangular'
                       animation='wave'
@@ -67,6 +73,7 @@ const HomeFallback: React.FC = () => {
 
           <div className='home-fallback-line-divider'>
             <Skeleton
+              sx={{ bgcolor: '#fff5ed' }}
               variant='rectangular'
               animation='wave'
               width={'100%'}
@@ -77,6 +84,7 @@ const HomeFallback: React.FC = () => {
           <section className='home-categories-fallback-container'>
             <header className='home-categories-fallback-container-header'>
               <Skeleton
+                sx={{ bgcolor: '#ffffff' }}
                 variant='rectangular'
                 animation='wave'
                 width={100}
@@ -84,18 +92,21 @@ const HomeFallback: React.FC = () => {
               />
               <div className='home-categories-fallback-container-title'>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width={40}
                   height={40}
                 />
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width={150}
                   height={40}
                 />
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width={40}
@@ -106,6 +117,7 @@ const HomeFallback: React.FC = () => {
             <div className='home-categories-fallback-map-container'>
               {Array.from({ length: 4 }).map((_, index) => (
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   key={index}
                   variant='rectangular'
                   animation='wave'
@@ -118,6 +130,7 @@ const HomeFallback: React.FC = () => {
 
           <div className='home-fallback-line-divider'>
             <Skeleton
+              sx={{ bgcolor: '#fff5ed' }}
               variant='rectangular'
               animation='wave'
               width={'100%'}
@@ -128,6 +141,7 @@ const HomeFallback: React.FC = () => {
           <section className='home-fallback-introduction-container'>
             <div className='home-fallback-introduction-image'>
               <Skeleton
+                sx={{ bgcolor: '#ffffff' }}
                 variant='rectangular'
                 animation='wave'
                 width={350}
@@ -137,6 +151,7 @@ const HomeFallback: React.FC = () => {
             <header className='home-fallback-intro-content'>
               <div className='home-fallback-content-icon right'>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rounded'
                   animation='wave'
                   width={55}
@@ -145,6 +160,7 @@ const HomeFallback: React.FC = () => {
               </div>
               <div className='home-fallback-content-title'>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width='55%'
@@ -154,6 +170,7 @@ const HomeFallback: React.FC = () => {
               <div className='home-fallback-content-text'>
                 {Array.from({ length: 7 }).map((_, index) => (
                   <Skeleton
+                    sx={{ bgcolor: '#ffffff' }}
                     key={index}
                     variant='rectangular'
                     animation='wave'
@@ -164,6 +181,7 @@ const HomeFallback: React.FC = () => {
               </div>
               <div className='home-fallback-content-icon left'>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rounded'
                   animation='wave'
                   width={55}
@@ -175,6 +193,7 @@ const HomeFallback: React.FC = () => {
 
           <div className='home-fallback-line-divider'>
             <Skeleton
+              sx={{ bgcolor: '#fff5ed' }}
               variant='rectangular'
               animation='wave'
               width={'100%'}
@@ -185,6 +204,7 @@ const HomeFallback: React.FC = () => {
           <section className='home-fallback-reviews-container'>
             <header className='home-fallback-reviews-fallback-container-header'>
               <Skeleton
+                sx={{ bgcolor: '#ffffff' }}
                 variant='rectangular'
                 animation='wave'
                 width={100}
@@ -192,18 +212,21 @@ const HomeFallback: React.FC = () => {
               />
               <div className='home-fallback-reviews-fallback-container-title'>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width={40}
                   height={40}
                 />
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width={150}
                   height={40}
                 />
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rectangular'
                   animation='wave'
                   width={40}
@@ -215,6 +238,7 @@ const HomeFallback: React.FC = () => {
             <div className='home-fallback-reviews-fallback-content'>
               <div className='home-fallback-reviews-control-container'>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rounded'
                   animation='wave'
                   width={20}
@@ -224,6 +248,7 @@ const HomeFallback: React.FC = () => {
               <div className='home-fallback-reviews-content-container'>
                 <div className='home-fallback-reviews-content-icon top'>
                   <Skeleton
+                    sx={{ bgcolor: '#fff5ed' }}
                     variant='rounded'
                     animation='wave'
                     width={40}
@@ -234,6 +259,7 @@ const HomeFallback: React.FC = () => {
                   <div className='home-fallback-reviews-review-text'>
                     {Array.from({ length: 5 }).map((_, index) => (
                       <Skeleton
+                        sx={{ bgcolor: '#fff5ed' }}
                         key={index}
                         variant='rounded'
                         animation='wave'
@@ -244,6 +270,7 @@ const HomeFallback: React.FC = () => {
                   </div>
                   <div className='home-fallback-reviews-review-name'>
                     <Skeleton
+                      sx={{ bgcolor: '#fff5ed' }}
                       variant='rounded'
                       animation='wave'
                       width={150}
@@ -253,6 +280,7 @@ const HomeFallback: React.FC = () => {
                 </div>
                 <div className='home-fallback-reviews-content-icon bottom'>
                   <Skeleton
+                    sx={{ bgcolor: '#fff5ed' }}
                     variant='rounded'
                     animation='wave'
                     width={40}
@@ -262,6 +290,7 @@ const HomeFallback: React.FC = () => {
               </div>
               <div className='home-fallback-reviews-control-container'>
                 <Skeleton
+                  sx={{ bgcolor: '#ffffff' }}
                   variant='rounded'
                   animation='wave'
                   width={20}

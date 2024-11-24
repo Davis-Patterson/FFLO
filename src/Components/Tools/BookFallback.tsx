@@ -13,6 +13,7 @@ const BookFallback: React.FC = () => {
       <main className='page-container'>
         <header className='book-fallback-header'>
           <Skeleton
+            sx={{ bgcolor: '#ffffff' }}
             variant='rectangular'
             animation='wave'
             width={90}
@@ -21,18 +22,21 @@ const BookFallback: React.FC = () => {
           />
           <div className='book-fallback-header-title'>
             <Skeleton
+              sx={{ bgcolor: '#ffffff' }}
               variant='rectangular'
               animation='wave'
               width={50}
               height={40}
             />
             <Skeleton
+              sx={{ bgcolor: '#ffffff' }}
               variant='rectangular'
               animation='wave'
               width={250}
               height={40}
             />
             <Skeleton
+              sx={{ bgcolor: '#ffffff' }}
               variant='rectangular'
               animation='wave'
               width={50}
@@ -43,6 +47,7 @@ const BookFallback: React.FC = () => {
 
         <div className='book-fallback-line-divider'>
           <Skeleton
+            sx={{ bgcolor: '#fff5ed' }}
             variant='rectangular'
             animation='wave'
             width={'100%'}
@@ -54,6 +59,7 @@ const BookFallback: React.FC = () => {
           <div className='book-fallback-info-header'>
             <div className='book-fallback-image-container'>
               <Skeleton
+                sx={{ bgcolor: '#fff5ed' }}
                 variant='rectangular'
                 animation='wave'
                 width={250}
@@ -63,12 +69,14 @@ const BookFallback: React.FC = () => {
             <div className='book-fallback-info-container'>
               <div className='book-fallback-title-wrapper'>
                 <Skeleton
+                  sx={{ bgcolor: '#fff5ed' }}
                   variant='rectangular'
                   animation='wave'
                   width={280}
                   height={35}
                 />
                 <Skeleton
+                  sx={{ bgcolor: '#fff5ed' }}
                   variant='rectangular'
                   animation='wave'
                   width={180}
@@ -77,12 +85,14 @@ const BookFallback: React.FC = () => {
               </div>
               <div className='book-fallback-author-wrapper'>
                 <Skeleton
+                  sx={{ bgcolor: '#fff5ed' }}
                   variant='rectangular'
                   animation='wave'
                   width={160}
                   height={25}
                 />
                 <Skeleton
+                  sx={{ bgcolor: '#fff5ed' }}
                   variant='rounded'
                   animation='wave'
                   width={80}
@@ -92,6 +102,7 @@ const BookFallback: React.FC = () => {
               </div>
               <div className='book-fallback-checkout-container'>
                 <Skeleton
+                  sx={{ bgcolor: '#fff5ed' }}
                   variant='rectangular'
                   animation='wave'
                   width={60}
@@ -101,6 +112,7 @@ const BookFallback: React.FC = () => {
                 <div className='book-fallback-rating-container'>
                   {Array.from({ length: 5 }).map((_, index) => (
                     <Skeleton
+                      sx={{ bgcolor: '#fff5ed' }}
                       key={index}
                       variant='circular'
                       animation='wave'
@@ -111,6 +123,7 @@ const BookFallback: React.FC = () => {
                   ))}
                 </div>
                 <Skeleton
+                  sx={{ bgcolor: '#fff5ed' }}
                   variant='rectangular'
                   animation='wave'
                   width={'100%'}
@@ -121,6 +134,7 @@ const BookFallback: React.FC = () => {
             </div>
             <div className='book-fallback-bookmark-toggle-container'>
               <Skeleton
+                sx={{ bgcolor: '#fff5ed' }}
                 variant='rectangular'
                 animation='wave'
                 width={40}
@@ -130,6 +144,7 @@ const BookFallback: React.FC = () => {
           </div>
           <div className='book-fallback-info-divider'>
             <Skeleton
+              sx={{ bgcolor: '#fff5ed' }}
               variant='rectangular'
               animation='wave'
               width={'100%'}
@@ -139,12 +154,14 @@ const BookFallback: React.FC = () => {
           <div className='book-fallback-info-container'>
             <div className='book-fallback-column-container'>
               <Skeleton
+                sx={{ bgcolor: '#fff5ed' }}
                 variant='rectangular'
                 animation='wave'
                 width={160}
                 height={20}
               />
               <Skeleton
+                sx={{ bgcolor: '#fff5ed' }}
                 variant='rectangular'
                 animation='wave'
                 width='100%'
@@ -153,12 +170,14 @@ const BookFallback: React.FC = () => {
             </div>
             <div className='book-fallback-column-container'>
               <Skeleton
+                sx={{ bgcolor: '#fff5ed' }}
                 variant='rectangular'
                 animation='wave'
                 width={120}
                 height={20}
               />
               <Skeleton
+                sx={{ bgcolor: '#fff5ed' }}
                 variant='rectangular'
                 animation='wave'
                 width={80}
@@ -167,12 +186,14 @@ const BookFallback: React.FC = () => {
             </div>
             <div className='book-fallback-column-container'>
               <Skeleton
+                sx={{ bgcolor: '#fff5ed' }}
                 variant='rectangular'
                 animation='wave'
                 width={120}
                 height={20}
               />
               <Skeleton
+                sx={{ bgcolor: '#fff5ed' }}
                 variant='rectangular'
                 animation='wave'
                 width={80}
@@ -181,12 +202,14 @@ const BookFallback: React.FC = () => {
             </div>
             <div className='book-fallback-column-container'>
               <Skeleton
+                sx={{ bgcolor: '#fff5ed' }}
                 variant='rectangular'
                 animation='wave'
                 width={120}
                 height={20}
               />
               <Skeleton
+                sx={{ bgcolor: '#fff5ed' }}
                 variant='rectangular'
                 animation='wave'
                 width={80}
@@ -196,6 +219,7 @@ const BookFallback: React.FC = () => {
           </div>
           <div className='book-fallback-policy-button'>
             <Skeleton
+              sx={{ bgcolor: '#fff5ed' }}
               variant='rectangular'
               animation='wave'
               width={150}
@@ -206,18 +230,21 @@ const BookFallback: React.FC = () => {
         <section className='book-fallback-more-books-container'>
           <div className='book-fallback-more-books-header-title'>
             <Skeleton
+              sx={{ bgcolor: '#ffffff' }}
               variant='rectangular'
               animation='wave'
               width={40}
               height={40}
             />
             <Skeleton
+              sx={{ bgcolor: '#ffffff' }}
               variant='rectangular'
               animation='wave'
               width={200}
               height={40}
             />
             <Skeleton
+              sx={{ bgcolor: '#ffffff' }}
               variant='rectangular'
               animation='wave'
               width={40}
