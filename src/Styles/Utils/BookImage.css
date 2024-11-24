@@ -101,16 +101,16 @@
 
 .book-flair {
   font-family: 'Lato', sans-serif;
-  font-size: 1.1em;
+  font-size: 0.8em;
   font-weight: 600;
   line-height: 1;
   font-style: italic;
   transform: scaleY(90%);
   color: var(--clr-dark);
-  font-size: 0.8em;
   font-weight: bold;
   text-transform: uppercase;
   z-index: 1;
+  letter-spacing: -0.2px;
 }
 
 .book-image-wrapper {
@@ -156,7 +156,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .book-slide-image {
   z-index: 2;
@@ -193,5 +193,16 @@
 @media screen and (max-width: 620px) {
   .book-list-bookmark-icon {
     opacity: 0.6;
+  }
+  .book-flair-container {
+    padding: 5px 7px;
+    max-width: 85px;
+    max-height: 28px;
+  }
+  .book-flair {
+    font-size: 0.75em;
+    font-weight: 600;
+    line-height: 1;
+    transform: scaleY(100%);
   }
 }
