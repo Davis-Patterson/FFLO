@@ -32,7 +32,7 @@ const Restricted: React.FC = () => {
       ? 'Here are some links to help you find your way:'
       : 'Voici quelques liens pour vous aider à vous repérer :';
   const homepageText =
-    language === 'EN' ? 'Visit our homepage' : "Visitez notre page d'accueil";
+    language === 'EN' ? 'Back to the homepage' : "Retour à la page d'accueil";
   const aboutText =
     language === 'EN'
       ? 'More about FFLO Story Space'
