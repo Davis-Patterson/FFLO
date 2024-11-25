@@ -82,8 +82,10 @@ const OnHold: React.FC = () => {
   if (!authUser?.on_hold || authUser.on_hold.length === 0) {
     return (
       <div className='no-on-hold-header'>
-        <BookClipart className='book-clipart' />
-        <p className='no-on-hold-header-text'>{noBookText}</p>
+        <div className='no-on-hold-content'>
+          <BookClipart className='book-clipart' />
+          <p className='no-on-hold-header-text'>{noBookText}</p>
+        </div>
         <div className='no-on-hold-header-icons'>
           <Pencil2 className='on-hold-pencil-icon' />
           <TapeIcon className='on-hold-tape-icon' />

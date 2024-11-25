@@ -16,11 +16,18 @@
   gap: 10px;
 }
 
+.no-on-hold-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .on-hold-header,
 .no-on-hold-header {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
 .book-clipart {
