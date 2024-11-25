@@ -24,6 +24,32 @@
   }
 }
 
+@keyframes iconFadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+}
+
+@keyframes iconFadeOut {
+  0% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(5px);
+    transform: scale(0.95);
+  }
+}
+
 .home-container {
   width: 100%;
   display: flex;
@@ -635,6 +661,12 @@
 .home-reviews-icon.bottom {
   justify-content: right;
   margin: -30px 0px 0px 0px;
+}
+.home-reviews-icon.fade-out {
+  animation: iconFadeOut 0.3s forwards;
+}
+.home-reviews-icon.fade-in {
+  animation: iconFadeIn 0.3s forwards;
 }
 
 .home-reviews-review {

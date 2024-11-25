@@ -41,6 +41,8 @@ const Home: React.FC = () => {
 
   const [reviewIndex, setReviewIndex] = useState(0);
   const [animateClass, setAnimateClass] = useState('');
+  const [iconAnimationClass, setIconAnimationClass] = useState('');
+  const [currentIcons, setCurrentIcons] = useState<number[]>(iconIndices);
 
   const calculateTranslateValue = (index: number) => {
     return index === maxSlideIndex
@@ -135,24 +137,44 @@ const Home: React.FC = () => {
   const renderIcon = (index: number) => {
     if (shuffledIcons.length === 0 || !shuffledIcons[index]) return null;
     const IconComponent = shuffledIcons[index] as React.FC<IconProps>;
-    return IconComponent ? <IconComponent className='home-icon' /> : null;
+    return IconComponent ? (
+      <IconComponent className={`home-icon ${iconAnimationClass}`} />
+    ) : null;
   };
 
   const handleNextReview = () => {
     setAnimateClass('fade-out');
+    setIconAnimationClass('fade-out');
     setTimeout(() => {
       setReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+
+      const uniqueIndices = new Set<number>();
+      while (uniqueIndices.size < 4) {
+        uniqueIndices.add(Math.floor(Math.random() * shuffledIcons.length));
+      }
+      setCurrentIcons(Array.from(uniqueIndices));
+
       setAnimateClass('fade-in');
+      setIconAnimationClass('fade-in');
     }, 400);
   };
 
   const handlePrevReview = () => {
     setAnimateClass('fade-out');
+    setIconAnimationClass('fade-out');
     setTimeout(() => {
       setReviewIndex(
         (prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length
       );
+
+      const uniqueIndices = new Set<number>();
+      while (uniqueIndices.size < 4) {
+        uniqueIndices.add(Math.floor(Math.random() * shuffledIcons.length));
+      }
+      setCurrentIcons(Array.from(uniqueIndices));
+
       setAnimateClass('fade-in');
+      setIconAnimationClass('fade-in');
     }, 400);
   };
 
@@ -478,7 +500,7 @@ const Home: React.FC = () => {
                   <div className='home-reviews-content-wrapper'>
                     <div className='home-reviews-content-container'>
                       <div className='home-reviews-icon top'>
-                        {renderIcon(iconIndices[2])}
+                        {renderIcon(currentIcons[2])}
                       </div>
                       {reviews.length > 0 && (
                         <div className={`home-reviews-review ${animateClass}`}>
@@ -494,7 +516,7 @@ const Home: React.FC = () => {
                         </div>
                       )}
                       <div className='home-reviews-icon bottom'>
-                        {renderIcon(iconIndices[3])}
+                        {renderIcon(currentIcons[3])}
                       </div>
                     </div>
                   </div>
