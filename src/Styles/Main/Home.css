@@ -571,13 +571,18 @@
   align-items: center;
   width: 100%;
 }
-.home-intro-icon.left,
-.home-library-icon.left {
+.home-intro-icon.top-left {
+  justify-content: left;
+}
+.home-library-icon.bottom-left {
   justify-content: left;
   margin: -20px 0px 0px 0px;
 }
-.home-intro-icon.right,
-.home-library-icon.right {
+.home-intro-icon.bottom-right {
+  justify-content: right;
+  margin: -20px 0px 0px 0px;
+}
+.home-library-icon.top-right {
   justify-content: right;
 }
 
@@ -1234,13 +1239,6 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
-  }
-  .home-intro-icon.left {
-    justify-content: left;
-    margin: -20px 0px 0px 0px;
-  }
-  .home-intro-icon.right {
-    justify-content: right;
   }
 
   .home-icon {

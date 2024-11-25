@@ -467,7 +467,7 @@ const Home: React.FC = () => {
                     </div>
                   </div>
                   <div className='home-library-content'>
-                    <div className='home-library-icon right'>
+                    <div className='home-library-icon top-right'>
                       {renderStaticIcon(0, staticIcons)}
                     </div>
                     <div className='home-library-text-container'>
@@ -489,7 +489,7 @@ const Home: React.FC = () => {
                         </button>
                       </Link>
                     </div>
-                    <div className='home-library-icon left'>
+                    <div className='home-library-icon bottom-left'>
                       {renderStaticIcon(1, staticIcons)}
                     </div>
                   </div>
@@ -514,7 +514,7 @@ const Home: React.FC = () => {
 
             <div className='home-introduction-row-container'>
               <div className='home-intro-content'>
-                <div className='home-intro-icon right'>
+                <div className='home-intro-icon top-left'>
                   {renderStaticIcon(2, staticIcons)}
                 </div>
                 <div className='home-intro-text-container'>
@@ -530,7 +530,7 @@ const Home: React.FC = () => {
                     </button>
                   </Link>
                 </div>
-                <div className='home-intro-icon left'>
+                <div className='home-intro-icon bottom-right'>
                   {renderStaticIcon(3, staticIcons)}
                 </div>
               </div>
