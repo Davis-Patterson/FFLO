@@ -522,24 +522,40 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       .replace(/-+$/, '');
   };
 
-  const months: { [key: number]: string } = {
-    1: language === 'English' ? 'Jan' : 'Jan',
-    2: language === 'English' ? 'Feb' : 'Fév',
-    3: language === 'English' ? 'Mar' : 'Mar',
-    4: language === 'English' ? 'Apr' : 'Avr',
-    5: language === 'English' ? 'May' : 'Mai',
-    6: language === 'English' ? 'Jun' : 'Juin',
-    7: language === 'English' ? 'Jul' : 'Juil',
-    8: language === 'English' ? 'Aug' : 'Août',
-    9: language === 'English' ? 'Sep' : 'Sep',
-    10: language === 'English' ? 'Oct' : 'Oct',
-    11: language === 'English' ? 'Nov' : 'Nov',
-    12: language === 'English' ? 'Dec' : 'Déc',
+  const months: { [key: string]: { [key: number]: string } } = {
+    EN: {
+      1: 'Jan',
+      2: 'Feb',
+      3: 'Mar',
+      4: 'Apr',
+      5: 'May',
+      6: 'Jun',
+      7: 'Jul',
+      8: 'Aug',
+      9: 'Sep',
+      10: 'Oct',
+      11: 'Nov',
+      12: 'Dec',
+    },
+    FR: {
+      1: 'Jan',
+      2: 'Fév',
+      3: 'Mar',
+      4: 'Avr',
+      5: 'Mai',
+      6: 'Juin',
+      7: 'Juil',
+      8: 'Août',
+      9: 'Sep',
+      10: 'Oct',
+      11: 'Nov',
+      12: 'Déc',
+    },
   };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const month = months[date.getMonth() + 1];
+    const month = months[language.toUpperCase()][date.getMonth() + 1];
     const day = date.getDate();
     const year = date.getFullYear();
     return `${month} ${day}, ${year}`;

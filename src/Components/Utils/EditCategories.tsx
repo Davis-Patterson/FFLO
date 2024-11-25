@@ -49,6 +49,8 @@ const EditCategories: React.FC = () => {
     categoryColorOptions,
   } = context;
 
+  console.log('categories: ', categories);
+
   const [initialCategoryData, setInitialCategoryData] = useState<{
     initialCategoryName: string;
     initialCategoryDesc: string;
@@ -675,7 +677,7 @@ const EditCategories: React.FC = () => {
                             >
                               {categoryOrder.map((categoryId) => {
                                 const category = categories.find(
-                                  (cat) => cat.id === categoryId
+                                  (category) => category.id === categoryId
                                 );
                                 return category ? (
                                   <SortableCategoryItem

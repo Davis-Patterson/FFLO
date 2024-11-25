@@ -596,7 +596,7 @@
   max-height: 320px;
   overflow-y: auto;
   padding-right: 5px;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .book-edit-image-thumbnails::-webkit-scrollbar {
