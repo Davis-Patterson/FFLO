@@ -48,7 +48,7 @@ const AuthApi = () => {
       );
 
       if (response.status === 200) {
-        console.log('Token is valid. User info:', response.data.user_info);
+        console.log('Token is valid.');
         return {
           success: true,
           tokenValid: true,
