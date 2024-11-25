@@ -15,7 +15,7 @@ const BookRating = ({ bookId, ratings }: BookRatingProps) => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authUser, language, updateSingleBook } = context;
+  const { authUser, language, updateSingleBook, setShowAuth } = context;
 
   const [rating, setRating] = useState<number | null>(null);
   const [hoverRating, setHoverRating] = useState<number | null>(null);
@@ -47,6 +47,11 @@ const BookRating = ({ bookId, ratings }: BookRatingProps) => {
   };
 
   const handleClick = async (index: number) => {
+    if (!authUser) {
+      setShowAuth(true);
+      return;
+    }
+
     const newRating = index === rating ? 0 : index;
     setRating(newRating);
     setJustClickedRating(index);
