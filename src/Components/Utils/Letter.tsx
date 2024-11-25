@@ -8,7 +8,7 @@ import BeanstalkIcon from 'Svgs/BeanstalkIcon';
 import Crayon1 from 'Svgs/Crayon1';
 import Crayon2 from 'Svgs/Crayon2';
 import Flower1 from 'Svgs/Flower1';
-import 'Styles/Main/Letter.css';
+import 'Styles/Utils/Letter.css';
 
 const Letter: React.FC = () => {
   const context = useContext(AppContext);

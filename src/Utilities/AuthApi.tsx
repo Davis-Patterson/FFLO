@@ -138,7 +138,6 @@ const AuthApi = () => {
       if (response.status === 200) {
         clearAuthToken();
         clearAuthUser();
-        console.log(response.data.detail);
       }
     } catch (err) {
       const error = err as AxiosError;

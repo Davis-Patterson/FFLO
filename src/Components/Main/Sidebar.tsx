@@ -8,7 +8,7 @@ import Paperclip3 from 'Svgs/Paperclip3';
 import EyeShown from 'Svgs/EyeShown';
 import EyeHidden from 'Svgs/EyeHidden';
 import XIcon from 'Svgs/XIcon';
-import 'Styles/Utils/Sidebar.css';
+import 'Styles/Main/Sidebar.css';
 
 interface SidebarProps {
   showSidebar: boolean;

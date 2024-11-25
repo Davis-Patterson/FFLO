@@ -6,7 +6,7 @@ import Flowers3 from 'Svgs/Flowers3';
 import FlowerDots from 'Svgs/FlowerDots';
 import IgIcon from 'Svgs/IgIcon';
 import FbookIcon from 'Svgs/FbookIcon';
-import 'Styles/Utils/Footer.css';
+import 'Styles/Main/Footer.css';
 
 const Footer: React.FC = () => {
   const context = useContext(AppContext);

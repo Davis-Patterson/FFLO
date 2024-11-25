@@ -49,8 +49,6 @@ const EditCategories: React.FC = () => {
     categoryColorOptions,
   } = context;
 
-  console.log('categories: ', categories);
-
   const [initialCategoryData, setInitialCategoryData] = useState<{
     initialCategoryName: string;
     initialCategoryDesc: string;

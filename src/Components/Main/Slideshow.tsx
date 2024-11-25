@@ -2,8 +2,8 @@ import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { AppContext, Book } from 'Contexts/AppContext'; // Import Book type
 import { ArrowBigLeft, ArrowBigRight, PauseIcon, PlayIcon } from 'lucide-react';
 import CircularProgress from '@mui/material/CircularProgress';
-import 'Styles/Utils/Slideshow.css';
 import ToggleDot from 'Svgs/ToggleDot';
+import 'Styles/Main/Slideshow.css';
 
 interface SlideshowProps {
   data: Book;

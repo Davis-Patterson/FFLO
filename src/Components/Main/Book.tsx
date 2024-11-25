@@ -3,7 +3,7 @@ import { AppContext } from 'Contexts/AppContext';
 import { useParams, useNavigate } from 'react-router-dom';
 import ServerApi from 'Utilities/ServerApi';
 import ReservationApi from 'Utilities/ReservationApi';
-import Slideshow from 'Utils/Slideshow';
+import Slideshow from 'Components/Main/Slideshow';
 import BookList from 'Components/Main/BookList';
 import BookNotFound from 'Tools/BookNotFound';
 import BookRating from 'Utils/BookRating';
@@ -266,7 +266,6 @@ const Book: React.FC = () => {
 
     setIsLoading(true);
     setTimeout(() => {
-      console.log('Show auth');
       setShowAuth(true);
       setIsLoading(false);
     }, 200);

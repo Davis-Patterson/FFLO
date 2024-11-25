@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import 'Styles/Utils/Fullscreen.css';
 import XIcon from 'Svgs/XIcon';
+import 'Styles/Main/Fullscreen.css';
 
 const Fullscreen: React.FC = () => {
   const context = useContext(AppContext);

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import Letter from 'Components/Main/Letter';
+import Letter from 'Components/Utils/Letter';
 import TitleFlair from 'Svgs/TitleFlair';
 import aboutImg from 'FFLO/book_pile.webp';
 import aboutImgSmall from 'FFLO/book_pile_small.webp';

@@ -40,7 +40,6 @@ const ServerApi = () => {
       );
 
       if (response.status === 200) {
-        console.log('Categories retrieved successfully:', response.data);
         return { success: true, data: response.data };
       } else {
         return { success: false };
@@ -120,7 +119,6 @@ const ServerApi = () => {
         `/api/categories/${categoryId}/`,
         categoryData
       );
-      console.log('category data, ', categoryData);
 
       if (response.status === 200) {
         console.log(
@@ -149,7 +147,6 @@ const ServerApi = () => {
       );
 
       if (response.status === 200) {
-        console.log('Categories reordered successfully:', response.data);
         return { success: true, data: response.data };
       } else {
         return { success: false };
@@ -305,7 +302,6 @@ const ServerApi = () => {
     try {
       const response: AxiosResponse = await axiosInstance.get('/api/books/');
       if (response.status === 200) {
-        console.log('Books retrieved successfully:', response.data);
         return { success: true, data: response.data };
       } else {
         return { success: false };
@@ -449,7 +445,6 @@ const ServerApi = () => {
     try {
       const response: AxiosResponse = await axiosInstance.get('/api/reviews/');
       if (response.status === 200) {
-        console.log('Reviews retrieved successfully:', response.data);
         return { success: true, data: response.data };
       } else {
         return { success: false };
