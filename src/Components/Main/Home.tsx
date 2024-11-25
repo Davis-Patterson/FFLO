@@ -36,8 +36,12 @@ const Home: React.FC = () => {
   const cardWidth = 190;
   const maxSlideIndex = Math.max(0, categories.length - visibleCategories);
 
+  const [shuffledStaticIcons, setShuffledStaticIcons] = useState<React.FC[]>(
+    []
+  );
   const [shuffledIcons, setShuffledIcons] = useState<React.FC[]>([]);
   const [iconIndices, setIconIndices] = useState([0, 1, 2, 3]);
+  const [introIcons, setIntroIcons] = useState<number[]>([0, 1]);
 
   const [reviewIndex, setReviewIndex] = useState(0);
   const [animateClass, setAnimateClass] = useState('');
@@ -87,12 +91,25 @@ const Home: React.FC = () => {
       .map(({ icon }) => icon);
 
     setShuffledIcons(shuffled);
+    setShuffledStaticIcons(shuffled);
   }, [natureIcons]);
 
   useEffect(() => {
-    if (shuffledIcons.length >= 4) {
+    if (shuffledStaticIcons.length >= 2) {
       const uniqueIndices = new Set<number>();
-      while (uniqueIndices.size < 4) {
+      while (uniqueIndices.size < 2) {
+        uniqueIndices.add(
+          Math.floor(Math.random() * shuffledStaticIcons.length)
+        );
+      }
+      setIntroIcons(Array.from(uniqueIndices));
+    }
+  }, [shuffledStaticIcons]);
+
+  useEffect(() => {
+    if (shuffledIcons.length >= 2) {
+      const uniqueIndices = new Set<number>();
+      while (uniqueIndices.size < 2) {
         uniqueIndices.add(Math.floor(Math.random() * shuffledIcons.length));
       }
       setIconIndices(Array.from(uniqueIndices));
@@ -134,9 +151,18 @@ const Home: React.FC = () => {
     }
   };
 
-  const renderIcon = (index: number) => {
-    if (shuffledIcons.length === 0 || !shuffledIcons[index]) return null;
-    const IconComponent = shuffledIcons[index] as React.FC<IconProps>;
+  const renderStaticIcon = (index: number, icons: number[]) => {
+    if (shuffledStaticIcons.length === 0 || !shuffledStaticIcons[icons[index]])
+      return null;
+    const IconComponent = shuffledStaticIcons[
+      icons[index]
+    ] as React.FC<IconProps>;
+    return IconComponent ? <IconComponent className='home-icon' /> : null;
+  };
+
+  const renderIcon = (index: number, icons: number[]) => {
+    if (shuffledIcons.length === 0 || !shuffledIcons[icons[index]]) return null;
+    const IconComponent = shuffledIcons[icons[index]] as React.FC<IconProps>;
     return IconComponent ? (
       <IconComponent className={`home-icon ${iconAnimationClass}`} />
     ) : null;
@@ -449,7 +475,7 @@ const Home: React.FC = () => {
               </div>
               <div className='home-intro-content'>
                 <div className='home-intro-icon right'>
-                  {renderIcon(iconIndices[0])}
+                  {renderStaticIcon(0, introIcons)}
                 </div>
                 <div className='home-intro-text-container'>
                   <p className='home-intro-header-text'>{introText}</p>
@@ -465,7 +491,7 @@ const Home: React.FC = () => {
                   </Link>
                 </div>
                 <div className='home-intro-icon left'>
-                  {renderIcon(iconIndices[1])}
+                  {renderStaticIcon(1, introIcons)}
                 </div>
               </div>
             </div>
@@ -500,7 +526,7 @@ const Home: React.FC = () => {
                   <div className='home-reviews-content-wrapper'>
                     <div className='home-reviews-content-container'>
                       <div className='home-reviews-icon top'>
-                        {renderIcon(currentIcons[2])}
+                        {renderIcon(2, currentIcons)}
                       </div>
                       {reviews.length > 0 && (
                         <div className={`home-reviews-review ${animateClass}`}>
@@ -516,7 +542,7 @@ const Home: React.FC = () => {
                         </div>
                       )}
                       <div className='home-reviews-icon bottom'>
-                        {renderIcon(currentIcons[3])}
+                        {renderIcon(3, currentIcons)}
                       </div>
                     </div>
                   </div>
