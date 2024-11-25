@@ -199,7 +199,7 @@
 
 .blur-load img,
 .loading img {
-  opacity: 0;
+  opacity: 0 !important;
   transition: opacity 0.5s ease-in-out;
 }
 
@@ -210,7 +210,7 @@
 
 .blur-load.loaded img,
 .loading.loaded img {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .animal-icon {

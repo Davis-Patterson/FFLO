@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import TitleFlair from 'Svgs/TitleFlair';
 import libraryShelfImg from 'FFLO/library_shelf.webp';
 import libraryShelfSmall from 'FFLO/library_shelf_small.webp';
+import libraryImg from 'FFLO/book_spread.webp';
+import libraryImgSmall from 'FFLO/book_spread_small.webp';
 import introImg from 'FFLO/book_pile.webp';
 import introImgSmall from 'FFLO/book_pile_small.webp';
 import ChevronRight from 'Svgs/ChevronRight';
@@ -41,7 +43,7 @@ const Home: React.FC = () => {
   );
   const [shuffledIcons, setShuffledIcons] = useState<React.FC[]>([]);
   const [iconIndices, setIconIndices] = useState([0, 1, 2, 3]);
-  const [introIcons, setIntroIcons] = useState<number[]>([0, 1]);
+  const [staticIcons, setStaticIcons] = useState<number[]>([0, 1, 2, 3]);
 
   const [reviewIndex, setReviewIndex] = useState(0);
   const [animateClass, setAnimateClass] = useState('');
@@ -73,6 +75,12 @@ const Home: React.FC = () => {
   const categoriesText = language === 'EN' ? 'Categories' : 'Catégories';
   const categoryButtonText =
     language === 'EN' ? 'View Books' : 'Voir les Livres';
+  const libraryIntroText =
+    language === 'EN' ? 'Story Space' : 'Espace histoire';
+  const libraryParagraph =
+    language === 'EN'
+      ? "FFLO Story Space is a library dedicated to nurturing a love for French literature in children and fostering a vibrant community of French readers. With a curated collection of classic children's books, the library offers families convenient access to quality French-language stories. Founded by Sonia Gautier, inspired by her own childhood, FFLO aims to enrich the community by cultivating a deeper connection to learning and growth through stories."
+      : "FFLO Story Space est une bibliothèque dédiée à nourrir l'amour de la littérature française chez les enfants et à favoriser une communauté dynamique de lecteurs français. Avec une collection organisée de livres classiques pour enfants, la bibliothèque offre aux familles un accès pratique à des histoires en français de qualité. Fondée par Sonia Gautier, inspirée par sa propre enfance, FFLO vise à enrichir la communauté en cultivant un lien plus profond avec l'apprentissage et la croissance à travers des histoires.";
   const introText = language === 'EN' ? 'Our Approach' : 'Notre approche';
   const introParagraph =
     language === 'EN'
@@ -97,14 +105,14 @@ const Home: React.FC = () => {
   }, [natureIcons]);
 
   useEffect(() => {
-    if (shuffledStaticIcons.length >= 2) {
+    if (shuffledStaticIcons.length >= 4) {
       const uniqueIndices = new Set<number>();
-      while (uniqueIndices.size < 2) {
+      while (uniqueIndices.size < 4) {
         uniqueIndices.add(
           Math.floor(Math.random() * shuffledStaticIcons.length)
         );
       }
-      setIntroIcons(Array.from(uniqueIndices));
+      setStaticIcons(Array.from(uniqueIndices));
     }
   }, [shuffledStaticIcons]);
 
@@ -355,17 +363,6 @@ const Home: React.FC = () => {
                         </div>
                       )}
                     </div>
-
-                    <div className='home-category-all-books-button-container'>
-                      <Link
-                        to='/library'
-                        className='home-category-all-books-button-link'
-                      >
-                        <button className='home-category-all-books-button'>
-                          {viewAllBooksText}
-                        </button>
-                      </Link>
-                    </div>
                   </>
                 )}
 
@@ -445,22 +442,58 @@ const Home: React.FC = () => {
                         />
                       </div>
                     </div>
+                  </>
+                )}
 
-                    <div
-                      className='home-category-all-books-button-container'
-                      style={{ padding: '25px 0px 0px 0px' }}
-                    >
+                <div className='home-library-row-container'>
+                  <div className='home-library-image'>
+                    <div className='home-library-image-container'>
+                      <div
+                        className='home-library-image-wrapper blur-load'
+                        style={{
+                          backgroundImage: `url(${libraryImgSmall})`,
+                        }}
+                      >
+                        <img
+                          src={libraryImg}
+                          alt='library shelf image'
+                          className='home-library-image'
+                          onLoad={(e) => {
+                            const imgElement = e.target as HTMLImageElement;
+                            imgElement.parentElement?.classList.add('loaded');
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className='home-library-content'>
+                    <div className='home-library-icon right'>
+                      {renderStaticIcon(0, staticIcons)}
+                    </div>
+                    <div className='home-library-text-container'>
+                      <p className='home-library-header-text'>
+                        {libraryIntroText}
+                      </p>
+                      <div className='home-library-paragraph'>
+                        <p className='home-library-paragraph-text'>
+                          {libraryParagraph}
+                        </p>
+                      </div>
                       <Link
                         to='/library'
-                        className='home-category-all-books-button-link'
+                        className='home-submit-button-link'
+                        onClick={() => setCategoryFilter(null)}
                       >
-                        <button className='home-category-all-books-button'>
+                        <button className='home-library-submit-button'>
                           {viewAllBooksText}
                         </button>
                       </Link>
                     </div>
-                  </>
-                )}
+                    <div className='home-library-icon left'>
+                      {renderStaticIcon(1, staticIcons)}
+                    </div>
+                  </div>
+                </div>
               </section>
 
               <svg className='home-line-divider'>
@@ -480,6 +513,27 @@ const Home: React.FC = () => {
             </header>
 
             <div className='home-introduction-row-container'>
+              <div className='home-intro-content'>
+                <div className='home-intro-icon right'>
+                  {renderStaticIcon(2, staticIcons)}
+                </div>
+                <div className='home-intro-text-container'>
+                  <p className='home-intro-header-text'>{introText}</p>
+                  <div className='home-intro-paragraph'>
+                    <p className='home-intro-paragraph-text'>
+                      {introParagraph}
+                    </p>
+                  </div>
+                  <Link to='/about' className='home-submit-button-link'>
+                    <button className='home-submit-button'>
+                      {viewMoreText}
+                    </button>
+                  </Link>
+                </div>
+                <div className='home-intro-icon left'>
+                  {renderStaticIcon(3, staticIcons)}
+                </div>
+              </div>
               <div className='home-introduction-image'>
                 <div className='home-intro-image-container'>
                   <div
@@ -498,27 +552,6 @@ const Home: React.FC = () => {
                       }}
                     />
                   </div>
-                </div>
-              </div>
-              <div className='home-intro-content'>
-                <div className='home-intro-icon right'>
-                  {renderStaticIcon(0, introIcons)}
-                </div>
-                <div className='home-intro-text-container'>
-                  <p className='home-intro-header-text'>{introText}</p>
-                  <div className='home-intro-paragraph'>
-                    <p className='home-intro-paragraph-text'>
-                      {introParagraph}
-                    </p>
-                  </div>
-                  <Link to='/about' className='home-submit-button-link'>
-                    <button className='home-submit-button'>
-                      {viewMoreText}
-                    </button>
-                  </Link>
-                </div>
-                <div className='home-intro-icon left'>
-                  {renderStaticIcon(1, introIcons)}
                 </div>
               </div>
             </div>

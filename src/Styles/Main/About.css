@@ -451,11 +451,16 @@
   }
   .about-introduction-container,
   .about-membership-container {
-    flex-direction: column;
     width: unset;
-    padding: 20px;
     justify-content: unset;
     gap: 5px;
+    padding: 0px 20px 0px 20px;
+  }
+  .about-introduction-container {
+    flex-direction: column;
+  }
+  .about-membership-container {
+    flex-direction: column-reverse;
   }
   .about-intro-image-container,
   .about-member-image-container {
