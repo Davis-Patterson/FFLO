@@ -79,6 +79,8 @@ const Home: React.FC = () => {
       ? 'At FFLO, we believe that the joy of reading is a gift meant to be shared. Our Story Space library is designed to make French literature accessible and enjoyable for young readers, fostering a love for the French language through engaging and age-appropriate books. Story Space provides families with an inviting environment to explore a wide variety of stories and reflects our commitment to making French literature readily available to nurture a lifelong love of reading.'
       : "Chez FFLO, nous croyons que la joie de la lecture est un cadeau à partager. Notre bibliothèque, Story Space, est conçue pour rendre la littérature française accessible et agréable aux jeunes lecteurs, en favorisant un amour de la langue française à travers des livres engageants et adaptés à leur âge. Story Space offre aux familles un environnement accueillant pour explorer une grande variété d'histoires et reflète notre engagement à rendre la littérature française facilement accessible pour nourrir un amour de la lecture qui durera toute la vie.";
   const viewMoreText = language === 'EN' ? 'View More' : 'Voir plus';
+  const viewAllBooksText =
+    language === 'EN' ? 'View All Books' : 'Afficher tous les livres';
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -353,6 +355,17 @@ const Home: React.FC = () => {
                         </div>
                       )}
                     </div>
+
+                    <div className='home-category-all-books-button-container'>
+                      <Link
+                        to='/library'
+                        className='home-category-all-books-button-link'
+                      >
+                        <button className='home-category-all-books-button'>
+                          {viewAllBooksText}
+                        </button>
+                      </Link>
+                    </div>
                   </>
                 )}
 
@@ -431,6 +444,20 @@ const Home: React.FC = () => {
                           }`}
                         />
                       </div>
+                    </div>
+
+                    <div
+                      className='home-category-all-books-button-container'
+                      style={{ padding: '25px 0px 0px 0px' }}
+                    >
+                      <Link
+                        to='/library'
+                        className='home-category-all-books-button-link'
+                      >
+                        <button className='home-category-all-books-button'>
+                          {viewAllBooksText}
+                        </button>
+                      </Link>
                     </div>
                   </>
                 )}
