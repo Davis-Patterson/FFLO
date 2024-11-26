@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { AppContext } from 'Contexts/AppContext';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import XIcon from 'Svgs/XIcon';
 import AnnouncementIcon from 'Svgs/AnnouncementIcon';
 import 'Styles/Utils/AnnouncementBanner.css';
@@ -33,7 +33,6 @@ const AnnouncementBanner: React.FC = () => {
   const [autoDismissTimeout, setAutoDismissTimeout] =
     useState<NodeJS.Timeout | null>(null);
   const location = useLocation();
-  const navigate = useNavigate();
 
   // Translations
   const currentBannerText =
@@ -42,13 +41,12 @@ const AnnouncementBanner: React.FC = () => {
       : "Devenez membre pour réserver des livres de la bibliothèque de l'espace d'histoires FFLO dès aujourd'hui !";
 
   const handleShowLogin = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     if (event.button !== 0) return;
     event.preventDefault();
     event.stopPropagation();
 
-    navigate('/membership');
     setShowAuth(true);
   };
 
@@ -60,13 +58,12 @@ const AnnouncementBanner: React.FC = () => {
           {currentBannerText}
         </Link>
       ) : (
-        <Link
-          to='/membership'
+        <div
           onMouseDown={(e) => handleShowLogin(e)}
           className='announcement-banner-text'
         >
           {currentBannerText}
-        </Link>
+        </div>
       ),
       shouldShow: () =>
         (authUser === null ||
