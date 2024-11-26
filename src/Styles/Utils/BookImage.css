@@ -106,7 +106,7 @@
   line-height: 1;
   font-style: italic;
   transform: scaleY(90%);
-  color: var(--clr-dark);
+  color: var(--clr-text-grey);
   font-weight: bold;
   text-transform: uppercase;
   z-index: 1;
