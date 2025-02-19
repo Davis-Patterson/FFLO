@@ -1,11 +1,11 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
+import Email from 'Components/Main/Email';
 import TitleFlair from 'Svgs/TitleFlair';
 import IgIcon from 'Svgs/IgIcon';
 import FbIcon from 'Svgs/FbIcon';
 import PaperPlaneIcon from 'Svgs/PaperPlaneIcon';
 import LetterIcon from 'Svgs/LetterIcon';
-import LinearProgress from '@mui/material/LinearProgress';
 import 'Styles/Main/Contact.css';
 
 const Contact: React.FC = () => {
@@ -13,16 +13,7 @@ const Contact: React.FC = () => {
   if (!context) {
     throw new Error('No Context');
   }
-  const { authUser, language } = context;
-
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [messageButtonActive, setMessageButtonActive] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const { language } = context;
 
   // translations
   const headerText = language === 'EN' ? 'Bonjour' : 'Bonjour';
@@ -31,35 +22,10 @@ const Contact: React.FC = () => {
   const onlineText = language === 'EN' ? 'Online' : 'En ligne';
   const locationText = language === 'EN' ? 'In Person' : 'En personne';
   const reachOutText = language === 'EN' ? 'Reach Out' : 'Contactez-nous';
-  const firstNamePlaceholder = language === 'EN' ? 'First Name*' : 'Prénom*';
-  const lastNamePlaceholder =
-    language === 'EN' ? 'Last Name' : 'Nom de Famille';
-  const emailPlaceholder = language === 'EN' ? 'Email' : 'Courriel';
-  const messagePlaceholder = language === 'EN' ? 'Message*' : 'Message*';
-  const requiredText = language === 'EN' ? '*required' : '*obligatoire';
-  const messageButtonText =
-    language === 'EN' ? 'Send Message' : 'Envoyer un message';
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  useEffect(() => {
-    if (authUser) {
-      setFirstName(authUser.first_name);
-      setEmail(authUser.email);
-      if (authUser.last_name) {
-        setLastName(authUser.last_name);
-      }
-    }
-  }, [authUser]);
-
-  useEffect(() => {
-    const isMessageFormEmpty =
-      !firstName.trim() || !email.trim() || !message.trim();
-
-    setMessageButtonActive(!isMessageFormEmpty);
-  }, [firstName, email, message]);
 
   const handleLinkClick = (
     e: React.MouseEvent<SVGSVGElement, MouseEvent>,
@@ -75,31 +41,6 @@ const Contact: React.FC = () => {
     if (link === 'FB') {
       window.open('https://www.facebook.com/frenchforlittleones/', '_blank');
     }
-  };
-
-  const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    setTimeout(() => {
-      console.log('handle message');
-      setIsLoading(false);
-
-      if (authUser) {
-        setFirstName(authUser.first_name);
-        setEmail(authUser.email);
-        if (authUser.last_name) {
-          setLastName(authUser.last_name);
-        }
-      } else {
-        setFirstName('');
-        setLastName('');
-      }
-      setMessage('');
-    }, 1000);
-    setTimeout(() => {
-      setErrorMessage('');
-    }, 3000);
   };
 
   return (
@@ -156,71 +97,7 @@ const Contact: React.FC = () => {
               <div className='contact-plane-container'>
                 <PaperPlaneIcon className='contact-plane-icon' />
               </div>
-              <form onSubmit={handleSendMessage}>
-                <div className='auth-name-inputs'>
-                  <div>
-                    <input
-                      type='text'
-                      name='fname'
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      required
-                      placeholder={firstNamePlaceholder}
-                      className='contact-name-input'
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type='text'
-                      name='lname'
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      placeholder={lastNamePlaceholder}
-                      className='contact-name-input'
-                    />
-                  </div>
-                </div>
-                <div>
-                  <input
-                    type='text'
-                    name='email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    placeholder={emailPlaceholder + '*'}
-                    className='contact-input'
-                  />
-                </div>
-                <div>
-                  <textarea
-                    name='message'
-                    value={message}
-                    maxLength={1200}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder={messagePlaceholder}
-                    className='contact-message-input'
-                  />
-                </div>
-                {!messageButtonActive && (
-                  <p className='contact-required'>{requiredText}</p>
-                )}
-                {errorMessage && (
-                  <p className='error-message'>{errorMessage}</p>
-                )}
-                <button
-                  type='submit'
-                  className={`${
-                    messageButtonActive ? 'submit-button' : 'inactive-button'
-                  }`}
-                  disabled={!messageButtonActive}
-                >
-                  {isLoading ? (
-                    <LinearProgress color='inherit' />
-                  ) : (
-                    messageButtonText
-                  )}
-                </button>
-              </form>
+              <Email />
             </div>
           </div>
         </section>
