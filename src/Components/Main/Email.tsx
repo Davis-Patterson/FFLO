@@ -25,10 +25,6 @@ function Email() {
   const [messageButtonActive, setMessageButtonActive] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  console.log('Service ID:', import.meta.env.VITE_EMAILJS_SERVICE_ID);
-  console.log('Template ID:', import.meta.env.VITE_EMAILJS_TEMPLATE_ID);
-  console.log('User ID:', import.meta.env.VITE_EMAILJS_USER_ID);
-
   // translations
   const firstNamePlaceholder = language === 'EN' ? 'First Name*' : 'Prénom*';
   const lastNamePlaceholder =
