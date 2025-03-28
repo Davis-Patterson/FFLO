@@ -487,6 +487,7 @@
 .home-introduction-row-container,
 .home-library-row-container {
   width: 90%;
+  max-width: 1485px;
   display: flex;
   flex-direction: row;
   padding: 20px;
@@ -513,6 +514,7 @@
   height: 500px;
   min-width: 350px;
   width: 100%;
+  max-width: 770px;
   overflow: hidden;
   display: flex;
   align-items: center;
