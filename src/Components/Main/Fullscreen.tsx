@@ -142,7 +142,7 @@ const Fullscreen: React.FC = () => {
   return (
     <>
       {renderContainer && (
-        <main
+        <div
           className={`fullscreen-overlay ${
             showFullscreen ? 'fade-in' : 'fade-out'
           }`}
@@ -167,7 +167,7 @@ const Fullscreen: React.FC = () => {
               <p>{fullscreenData.author}</p>
             </header>
           </section>
-        </main>
+        </div>
       )}
     </>
   );

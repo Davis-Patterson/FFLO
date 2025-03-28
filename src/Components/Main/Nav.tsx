@@ -50,7 +50,7 @@ const Nav: React.FC = () => {
 
   return (
     <>
-      <section className='nav-container'>
+      <nav className='nav-container'>
         <header className='nav-header'>
           <div className='nav-language'>
             <div className='language-toggle'>
@@ -182,7 +182,7 @@ const Nav: React.FC = () => {
             </a>
           </div>
         )}
-      </section>
+      </nav>
     </>
   );
 };

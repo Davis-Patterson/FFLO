@@ -29,8 +29,9 @@
 }
 
 .about-header-image-container {
-  max-width: 950px;
-  max-height: 500px;
+  max-height: 550px;
+  width: 100%;
+  padding: 0px 30px;
   overflow: hidden;
   height: auto;
   display: flex;
@@ -181,7 +182,7 @@
 .about-introduction-container {
   display: flex;
   flex-direction: row;
-  width: 950px;
+  width: 100%;
   padding: 20px;
   justify-content: center;
   align-items: center;
@@ -196,7 +197,8 @@
 
 .about-intro-image-container {
   height: 500px;
-  width: 350px;
+  width: 100%;
+  max-width: 720px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -227,6 +229,7 @@
   padding: 20px 20px 20px 20px;
   background-color: var(--clr-section-orange);
   height: 500px;
+  max-width: 535px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -294,7 +297,6 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  width: 950px;
   padding: 20px;
   justify-content: center;
   align-items: center;
@@ -309,7 +311,8 @@
 
 .about-member-image-container {
   height: 500px;
-  width: 350px;
+  width: 100%;
+  max-width: 720px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -340,6 +343,7 @@
   padding: 20px 20px 20px 20px;
   background-color: var(--clr-section-blue);
   height: 500px;
+  max-width: 535px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -399,6 +403,56 @@
 
 .about-books-container {
   width: 100%;
+}
+
+@media screen and (max-width: 1040px) {
+  .about-header-image-container {
+    max-width: 950px;
+    max-height: 500px;
+    overflow: hidden;
+    height: auto;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0px 20px;
+  }
+  .about-introduction-container {
+    display: flex;
+    flex-direction: row;
+    width: 950px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  .about-intro-image-container {
+    height: 500px;
+    width: 350px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+  }
+  .about-membership-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    width: 950px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  .about-member-image-container {
+    height: 500px;
+    width: 350px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+  }
 }
 
 @media screen and (max-width: 970px) {

@@ -164,7 +164,7 @@ const Menu: React.FC = () => {
   return (
     <>
       {renderContainer && (
-        <main className={`menu-overlay ${showMenu ? 'fade-in' : 'fade-out'}`}>
+        <div className={`menu-overlay ${showMenu ? 'fade-in' : 'fade-out'}`}>
           <section
             ref={authContainerRef}
             className={`menu-container ${showMenu ? 'fade-in' : 'fade-out'}`}
@@ -593,7 +593,7 @@ const Menu: React.FC = () => {
               </div>
             </div>
           </section>
-        </main>
+        </div>
       )}
     </>
   );

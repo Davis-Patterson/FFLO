@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <div className='footer-wrapper'>
+    <footer className='footer-wrapper'>
       <section className='footer-container'>
         <header className='footer-header'>
           <div className='footer-flowers-left'>
@@ -88,7 +88,7 @@ const Footer: React.FC = () => {
           </div>
         </section>
       </section>
-    </div>
+    </footer>
   );
 };
 

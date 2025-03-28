@@ -511,7 +511,6 @@
 .home-intro-image-container,
 .home-library-image-container {
   height: 500px;
-  max-width: 450px;
   min-width: 350px;
   width: 100%;
   overflow: hidden;
@@ -789,6 +788,26 @@
   text-underline-offset: 3px;
   color: var(--clr-text-grey);
   text-align: left;
+}
+
+@media screen and (max-width: 1300px) {
+  .home-intro-image-container,
+  .home-library-image-container {
+    height: 500px;
+    max-width: 450px;
+    min-width: 350px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .home-intro-image-container {
+    margin: 0px 0px 0px 20px;
+  }
+  .home-library-image-container {
+    margin: 0px 20px 0px 0px;
+  }
 }
 
 @media screen and (max-width: 1000px) {
