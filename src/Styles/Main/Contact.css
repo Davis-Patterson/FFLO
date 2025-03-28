@@ -209,6 +209,14 @@
   flex-direction: column;
 }
 
+.email-name-inputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
 .contact-input {
   font-family: 'Lato', sans-serif;
   font-size: 0.85em;

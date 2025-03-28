@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { AppContext } from 'Contexts/AppContext';
 import emailjs from '@emailjs/browser';
 import LinearProgress from '@mui/material/LinearProgress';
-import 'Styles/Main/Contact.css';
+import 'Styles/Main/Email.css';
 
 function Email() {
   const context = useContext(AppContext);
@@ -114,7 +114,7 @@ function Email() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className='auth-name-inputs'>
+      <div className='email-name-inputs'>
         <div>
           <input
             type='text'
@@ -123,7 +123,7 @@ function Email() {
             onChange={handleChange}
             required
             placeholder={firstNamePlaceholder}
-            className='contact-name-input'
+            className='email-name-input'
           />
         </div>
         <div>
@@ -133,7 +133,7 @@ function Email() {
             value={form.lastName}
             onChange={handleChange}
             placeholder={lastNamePlaceholder}
-            className='contact-name-input'
+            className='email-name-input'
           />
         </div>
       </div>
@@ -145,7 +145,7 @@ function Email() {
           onChange={handleChange}
           required
           placeholder={emailPlaceholder + '*'}
-          className='contact-input'
+          className='email-input'
         />
       </div>
       <div>
@@ -155,19 +155,17 @@ function Email() {
           maxLength={1200}
           onChange={handleChange}
           placeholder={messagePlaceholder}
-          className='contact-message-input'
+          className='email-message-input'
         />
       </div>
-      {!messageButtonActive && (
-        <p className='contact-required'>{requiredText}</p>
-      )}
+      {!messageButtonActive && <p className='email-required'>{requiredText}</p>}
       {error && !sending && <p className='error-message'>{errorMessage}</p>}
       {sending && <p className='email-text'>Sending your email...</p>}
       {!sending && success && <div className='success'>Success!</div>}
       <button
         type='submit'
         className={`${
-          messageButtonActive ? 'submit-button' : 'inactive-button'
+          messageButtonActive ? 'email-button' : 'inactive-email-button'
         }`}
         disabled={!messageButtonActive}
       >

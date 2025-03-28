@@ -1,0 +1,192 @@
+.email-name-inputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.email-name-input {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85em;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--clr-dark);
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--clr-outline);
+  border-radius: 4px;
+  background-color: var(--clr-light);
+  color: var(--clr-dark);
+}
+
+.email-input {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85em;
+  line-height: 1;
+  font-weight: 300;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--clr-outline);
+  border-radius: 4px;
+  background-color: var(--clr-light);
+  color: var(--clr-dark);
+}
+
+.email-message-input {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85em;
+  line-height: 1;
+  font-weight: 300;
+  width: 100%;
+  height: 80px;
+  padding: 0.75rem;
+  border: 1px solid var(--clr-outline);
+  border-radius: 4px;
+  background-color: var(--clr-light);
+  color: var(--clr-dark);
+  min-height: 50px;
+  max-height: 300px;
+  resize: vertical;
+}
+.email-message-input::-webkit-scrollbar {
+  width: 6px;
+  margin: 0px 0px 0px 5px;
+}
+.email-message-input::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+.email-message-input::-webkit-scrollbar-thumb {
+  background-color: var(--clr-icon);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+.email-message-input::-webkit-scrollbar-thumb:hover {
+  background-color: var(--clr-dark);
+}
+
+.email-required {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8em;
+  line-height: 1;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--clr-dark);
+  cursor: pointer;
+  width: 100%;
+  text-align: right;
+  margin: -6px 0px 3px 0px;
+}
+
+.error-message {
+  color: var(--clr-error);
+  margin: -5px 0px 5px 0px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8em;
+  line-height: 1;
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
+  max-width: 330px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.email-text {
+  display: flex;
+  flex-direction: row;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8em;
+  font-weight: 300;
+  line-height: 1;
+  width: 100%;
+  color: var(--clr-dark);
+  transition: color 0.001s;
+  margin: -5px 0px 5px 0px;
+  text-align: center;
+  max-width: 330px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.error {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8em;
+  line-height: 1;
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
+  color: var(--clr-error);
+  margin: -5px 0px 5px 0px;
+  max-width: 330px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.success {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8em;
+  line-height: 1;
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
+  color: var(--clr-success);
+  margin: -5px 0px 5px 0px;
+  max-width: 330px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.email-button {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  line-height: 1;
+  font-weight: 400;
+  height: 40px;
+  padding: 0.75rem;
+  background-color: var(--clr-text-blue);
+  color: var(--clr-light);
+  border: none;
+  cursor: pointer;
+  max-width: 360px;
+  transition: all 0.15s ease-in-out;
+  width: 100%;
+}
+.email-button:hover {
+  background-color: var(--clr-text-blue-hover);
+}
+
+.inactive-email-button {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  line-height: 1;
+  font-weight: 400;
+  height: 40px;
+  padding: 0.75rem;
+  background-color: var(--clr-break);
+  opacity: 0.6;
+  color: var(--clr-light);
+  border: none;
+  cursor: default;
+  max-width: 360px;
+  width: 100%;
+}
